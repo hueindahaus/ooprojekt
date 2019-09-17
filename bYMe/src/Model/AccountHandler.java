@@ -87,17 +87,17 @@ public class AccountHandler {
     private boolean isAlreadyRegistered(String username){   //metod som kollar om ett username redan är registrerat eller ej
         for(Account account: accounts){
             if(account.getUsername().equals(username)){
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public void registerAccount(String username, String password){
         if(!isAlreadyRegistered(username)) {
             accounts.add(new Account(username, password));
         } else {
-            System.out.println("User already exist");
+            System.out.println("User already exist: " + username);
         }
     }
 

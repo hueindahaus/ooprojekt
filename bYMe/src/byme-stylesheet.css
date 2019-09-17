@@ -3,14 +3,18 @@
   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
-.background {
-  -fx-background-color: #2980b9;
+.loginpanel {
+  -fx-background-color: #ecf0f1;
 }
 
 .cardholder {
   -fx-background-color: #3498db;
   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
   -fx-background-radius: 10;
+}
+
+.background{
+  -fx-background-color: #3498db;
 }
 
 .cards {
@@ -41,6 +45,28 @@
 
 .primaryButton:hover {
   -fx-background-color: #f39c12;
+  -fx-cursor: hand;
+}
+
+.loginButton {
+  -fx-background-color: #3949ab;
+  -fx-background-radius: 10;
+  -fx-text-fill: FFFFFF;
+}
+
+.loginButton:hover {
+  -fx-background-color: #0a00b6;
+  -fx-cursor: hand;
+}
+
+.createAccountButton{
+  -fx-background-color: #424242;
+  -fx-background-radius: 10;
+  -fx-text-fill: FFFFFF;
+}
+
+.createAccountButton:hover{
+  -fx-background-color: #1b1b1b;
   -fx-cursor: hand;
 }
 
