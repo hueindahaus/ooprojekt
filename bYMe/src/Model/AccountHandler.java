@@ -33,7 +33,8 @@ public class AccountHandler {
     }
 
     private String getLoginFilePath(){
-        return DATAFOLDER + File.separatorChar + "logins.txt";
+        //return "bYMe/data/logins.txt";    //mac(hue)
+        return "data/logins.txt";
     }
 
 

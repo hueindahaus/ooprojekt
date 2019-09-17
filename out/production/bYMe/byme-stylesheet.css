@@ -1,0 +1,49 @@
+.appbar {
+  -fx-background-color: #ecf0f1;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.background {
+  -fx-background-color: #2980b9;
+}
+
+.cardholder {
+  -fx-background-color: #3498db;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+  -fx-background-radius: 10;
+}
+
+.cards {
+  -fx-border-color: #ecf0f1;
+  -fx-border-radius: 10 10 0 0;
+  -fx-border-width: 5px;
+}
+
+.cardtitle {
+  -fx-background-color: #ecf0f1;
+}
+
+.cardPLACEHOLDER {
+  -fx-border-color: #ecf0f1;
+  -fx-border-radius: 0;
+  -fx-border-width: 5px;
+}
+
+.picPLACEHOLDER {
+  -fx-background-color: #ecf0f1;
+}
+
+.primaryButton {
+  -fx-background-color: #f1c40f;
+  -fx-background-radius: 10;
+  -fx-text-fill: FFFFFF;
+}
+
+.primaryButton:hover {
+  -fx-background-color: #f39c12;
+  -fx-cursor: hand;
+}
+
+.greyZone {
+  -fx-background-color: rgba(0, 0, 0, 0.5);
+}
