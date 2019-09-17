@@ -6,18 +6,18 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class DataHandler {
-    private static DataHandler singleton = null;
-    private final String DATAFOLDER = ".data";
+public class AccountHandler {
+    private static AccountHandler singleton = null;
+    private final String DATAFOLDER = "data";
     private ArrayList<Account> accounts;
 
 
-    protected DataHandler(){
+    protected AccountHandler(){
     }
 
-    public static DataHandler getInstance(){
+    public static AccountHandler getInstance(){
         if(singleton == null){
-            singleton = new DataHandler();
+            singleton = new AccountHandler();
             singleton.init();
         }
         return singleton;
@@ -61,7 +61,7 @@ public class DataHandler {
             Account account = new Account(tokens[0], tokens[1]);
             accounts.add(account);
         } else if(!line.isEmpty()){
-            System.out.println("DataHandlers logins.txt, invalid line: " + line);
+            System.out.println("AccountHandlers logins.txt, invalid line: " + line);
         }
     }
 
