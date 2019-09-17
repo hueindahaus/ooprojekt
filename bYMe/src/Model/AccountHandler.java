@@ -1,18 +1,16 @@
 package Model;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class AccountHandler {
     private static AccountHandler singleton = null;
-    private final String DATAFOLDER = "data";
     private ArrayList<Account> accounts;
 
 
-    protected AccountHandler(){
+    private AccountHandler(){
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> shutDown(), "Shutdown-thread"));
     }
 
     public static AccountHandler getInstance(){
@@ -28,14 +26,13 @@ public class AccountHandler {
         loadAccounts();
     }
 
-    public void shutDown(){
+    private void shutDown(){
         this.saveAccounts();
     }
 
     private String getLoginFilePath(){
-        //return "bYMe/data/logins.txt";    //mac(hue)
-        return "data/logins.txt";
-    }
+        return "data" + File.separatorChar + "logins.txt";
+    }   //För att denna path:en ska fungera måste man importa projektet som mappen "bYMe"
 
 
     private void loadAccounts(){
@@ -87,8 +84,21 @@ public class AccountHandler {
         }
     }
 
-    public void registerAccount(String username, String password){   //test för att se om det skriver till textfilen
-        accounts.add(new Account(username,password));
+    private boolean isAlreadyRegistered(String username){   //metod som kollar om ett username redan är registrerat eller ej
+        for(Account account: accounts){
+            if(account.getUsername().equals(username)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void registerAccount(String username, String password){
+        if(!isAlreadyRegistered(username)) {
+            accounts.add(new Account(username, password));
+        } else {
+            System.out.println("User already exist");
+        }
     }
 
 

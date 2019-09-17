@@ -4,16 +4,16 @@ class Account {
     private final String username;
     private String password;
 
-    protected Account(String username, String password){
+    Account(String username, String password){
         this.username = username;
         this.password = password;
     }
 
-    protected String getUsername(){
+    String getUsername(){
         return this.username;
     }
 
-    protected String getPassword(){
+    String getPassword(){
         return this.password;
     }
 }
