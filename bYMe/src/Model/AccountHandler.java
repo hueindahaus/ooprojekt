@@ -84,7 +84,7 @@ public class AccountHandler {
         }
     }
 
-    private boolean isAlreadyRegistered(String username){   //metod som kollar om ett username redan är registrerat eller ej
+    public boolean isAlreadyRegistered(String username){   //metod som kollar om ett användarnamn redan är registrerat eller ej
         for(Account account: accounts){
             if(account.getUsername().equals(username)){
                 return true;
