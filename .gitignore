@@ -24,3 +24,4 @@ hs_err_pid*
 .idea/
 /bYMe/.idea/
 bYMe/.idea/workspace.xml
+bYMe/data/logins.txt
