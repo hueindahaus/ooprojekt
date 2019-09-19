@@ -197,4 +197,9 @@ public class LoginController extends AnchorPane{
         }
     }
 
+    @FXML void loginUser(){
+        accountHandler.loginUser(logInUsername.getText(), logInPassword.getText());
+        toggleLogInPanel();
+    }
+
 }

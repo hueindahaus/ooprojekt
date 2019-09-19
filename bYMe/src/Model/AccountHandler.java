@@ -2,11 +2,16 @@ package Model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class AccountHandler {
     private static AccountHandler singleton = null;
-    private ArrayList<Account> accounts;
+
+    private HashMap<String, Account> accounts;
+
+    private Account currentUser;
 
 
     private AccountHandler(){
@@ -22,7 +27,7 @@ public class AccountHandler {
     }
 
     private void init(){ //initiera alla instansvariabler
-        accounts = new ArrayList<>();
+        accounts = new HashMap<>();
         loadAccounts();
     }
 
@@ -57,7 +62,7 @@ public class AccountHandler {
         String[] tokens = line.split(";");
         if(tokens.length == 2) {
             Account account = new Account(tokens[0], tokens[1]);
-            accounts.add(account);
+            accounts.put(account.getUsername(), account);
         } else if(!line.isEmpty()){
             System.out.println("AccountHandlers logins.txt, invalid line: " + line);
         }
@@ -69,11 +74,12 @@ public class AccountHandler {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "ISO-8859-1");
             System.out.println("saving accounts");
             String line = "";
-            Iterator iterator = accounts.iterator();
+            Iterator iterator = accounts.entrySet().iterator();
 
             while(iterator.hasNext()){
-                Account account = (Account)iterator.next();
-                line = "" + account.getUsername() + ";" + account.getPassword() + "\n";
+                Map.Entry account = (Map.Entry) iterator.next();
+                Account ac = (Account) account.getValue();
+                line = "" + account.getKey() + ";" + ac.getPassword() + "\n";
                 outputStreamWriter.write(line);
             }
             outputStreamWriter.flush();
@@ -85,8 +91,8 @@ public class AccountHandler {
     }
 
     public boolean isAlreadyRegistered(String username){   //metod som kollar om ett användarnamn redan är registrerat eller ej
-        for(Account account: accounts){
-            if(account.getUsername().equals(username)){
+        for(Map.Entry account: accounts.entrySet()){
+            if(account.getKey().equals(username)){
                 return true;
             }
         }
@@ -95,10 +101,28 @@ public class AccountHandler {
 
     public void registerAccount(String username, String password){
         if(!isAlreadyRegistered(username)) {
-            accounts.add(new Account(username, password));
+            accounts.put(username, new Account(username, password));
         } else {
             System.out.println("User already exist: " + username);
         }
+    }
+
+    public Account getCurrentUser() {
+        return currentUser;
+    }
+
+    public HashMap<String, Account> getAccounts() {
+        return accounts;
+    }
+
+    public void loginUser(String username, String password){
+        if(accounts.containsKey(username)){
+            Account user = accounts.get(username);
+            if(user.getPassword().equals(password)){
+                currentUser = user;
+            }
+        }
+        System.out.println(currentUser.getUsername());
     }
 
 
