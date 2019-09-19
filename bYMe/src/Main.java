@@ -14,7 +14,6 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 1440, 900));
         primaryStage.show();
 
-        AccountHandler.getInstance().registerAccount("alex98huang","password"); //test för att se om detta skrivs till logins.txt i mappen .data
 
     }
 
