@@ -13,7 +13,7 @@
          <children>
             <TextField fx:id="logInUsername" layoutX="20.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" promptText="Användarnamn" />
             <TextField fx:id="logInPassword" layoutX="20.0" layoutY="106.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" promptText="Lösenord" />
-            <Button layoutX="20.0" layoutY="150.0" mnemonicParsing="false" onMouseClicked="#loginUser" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Logga In">
+            <Button layoutX="20.0" layoutY="150.0" mnemonicParsing="false" onMouseClicked="#toggleLogInPanel" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Logga In">
                <font>
                   <Font size="14.0" />
                </font>
