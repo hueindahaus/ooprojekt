@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.Byme;
+import Services.AccountHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -20,6 +22,8 @@ public class MenuController extends AnchorPane {
 
     @FXML
     ImageView categoryImage;
+
+    private Byme byme = Byme.getInstance(AccountHandler.getInstance());
 
     public MenuController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../signedIn.fxml"));
@@ -71,5 +75,10 @@ public class MenuController extends AnchorPane {
     Timeline hideMenuPanel;
     Timeline hideGreyZone;
     Timeline showGreyZone;
+
+    @FXML void signout(){
+        byme.signoutUser();
+        toggleMenuPanel();
+    }
 
 }

@@ -199,7 +199,9 @@ public class LoginController extends AnchorPane{
 
     @FXML void loginUser(){
         bYMe.loginUser(logInUsername.getText(), logInPassword.getText());
-        toggleLogInPanel();
+        if(bYMe.getCurrentUser() != null) {
+            toggleLogInPanel();
+        }
     }
 
 }

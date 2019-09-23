@@ -57,9 +57,13 @@ public class Byme {
             Account user = accounts.get(username);
             if(user.getPassword().equals(password)){
                 currentUser = user;
+                System.out.println(currentUser.getUsername());
             }
         }
-        System.out.println(currentUser.getUsername());
+    }
+
+    public void signoutUser(){
+        currentUser = null;
     }
 
 

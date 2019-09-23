@@ -21,7 +21,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button layoutX="20.0" layoutY="538.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="180.0" styleClass="createAccountButton" text="Logga ut">
+            <Button layoutX="20.0" layoutY="538.0" mnemonicParsing="false" onMouseReleased="#signout" prefHeight="24.0" prefWidth="180.0" styleClass="createAccountButton" text="Logga ut">
                <font>
                   <Font size="14.0" />
                </font>
