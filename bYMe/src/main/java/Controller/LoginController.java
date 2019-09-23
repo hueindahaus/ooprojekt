@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -73,10 +74,10 @@ public class LoginController extends AnchorPane{
     TextField signUpUsername;
 
     @FXML
-    TextField signUpPassword;
+    PasswordField signUpPassword;
 
     @FXML
-    TextField signUpPassword2;
+    PasswordField signUpPassword2;
 
     @FXML
     Label errorLabel;
@@ -164,7 +165,7 @@ public class LoginController extends AnchorPane{
     private TextField logInUsername;
 
     @FXML
-    private TextField logInPassword;
+    private PasswordField logInPassword;
 
     @FXML
     private AnchorPane logInPanel;
