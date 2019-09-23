@@ -5,7 +5,9 @@ import Model.IAccountHandler;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class AccountHandler implements IAccountHandler {
     private static AccountHandler singleton = null;
@@ -30,7 +32,7 @@ public class AccountHandler implements IAccountHandler {
     }   //För att denna path:en ska fungera måste man importa projektet som mappen "bYMe"
 
 
-    public void loadAccounts(ArrayList<Account> accounts){
+    public void loadAccounts(HashMap<String, Account> accounts){
         try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(this.getLoginFilePath()), "ISO-8859-1"));
             System.out.println("loadAccounts, starting...");
@@ -48,27 +50,28 @@ public class AccountHandler implements IAccountHandler {
         }
     }
 
-    private void parseAccount(String line, ArrayList<Account> accounts){
+    private void parseAccount(String line, HashMap<String, Account> accounts){
         String[] tokens = line.split(";");
         if(tokens.length == 2) {
             Account account = new Account(tokens[0], tokens[1]);
-            accounts.add(account);
+            accounts.put(account.getUsername(), account);
         } else if(!line.isEmpty()){
             System.out.println("AccountHandlers logins.txt, invalid line: " + line);
         }
     }
 
-    public void saveAccounts(ArrayList<Account> accounts){
+    public void saveAccounts(HashMap<String, Account> accounts){
         try{
             FileOutputStream fileOutputStream = new FileOutputStream(this.getLoginFilePath());
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "ISO-8859-1");
             System.out.println("saving accounts");
             String line = "";
-            Iterator iterator = accounts.iterator();
+            Iterator iterator = accounts.entrySet().iterator();
 
             while(iterator.hasNext()){
-                Account account = (Account)iterator.next();
-                line = "" + account.getUsername() + ";" + account.getPassword() + "\n";
+                Map.Entry account = (Map.Entry) iterator.next();
+                Account ac = (Account) account.getValue();
+                line = "" + account.getKey() + ";" + ac.getPassword() + "\n";
                 outputStreamWriter.write(line);
             }
             outputStreamWriter.flush();
