@@ -83,21 +83,6 @@ public class AccountHandler implements IAccountHandler {
     }
 
 
-<<<<<<< HEAD:bYMe/src/Model/AccountHandler.java
-    public void registerAccount(String username, String password){
-        if(!isAlreadyRegistered(username)) {
-            accounts.add(new Account(username, password));
-
-        } else {
-            System.out.println("User already exist: " + username);
-        }
-    }
-=======
-
-
->>>>>>> Dev:bYMe/src/main/java/Services/AccountHandler.java
-
-
 
 
 
