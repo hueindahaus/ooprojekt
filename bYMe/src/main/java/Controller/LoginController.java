@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginController extends AnchorPane{
+public class LoginController extends SidePanelController{
 
 
     @FXML AnchorPane registerBox;
@@ -28,23 +28,15 @@ public class LoginController extends AnchorPane{
 
 
     public LoginController(){
+        super("../login.fxml");
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../login.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        try{
-            fxmlLoader.load();
-        } catch(IOException exception){
-            throw new RuntimeException(exception);
-        }
-
-        hideLogInPanel = new Timeline(                                                                                      //animation för att gömma login-panelen
+        hidePanel = new Timeline(                                                                                      //animation för att gömma login-panelen
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(logInPanel.layoutXProperty(), 1440))
 
         );
 
-        showLogInPanel = new Timeline(                                                                                      //animation för att visa login-panelen
+        showPanel = new Timeline(                                                                                      //animation för att visa login-panelen
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(logInPanel.layoutXProperty(), 1220))
 
         );
@@ -168,24 +160,11 @@ public class LoginController extends AnchorPane{
     @FXML
     private AnchorPane logInPanel;
 
-    private Timeline showLogInPanel;
-    private Timeline hideLogInPanel;
-    private Timeline showGreyZone;
-    private Timeline hideGreyZone;
-    private boolean logInPanelIsToggled = false;
 
-    @FXML void toggleLogInPanel(){
-        if (logInPanelIsToggled) {
-            hideLogInPanel.play();
-            hideGreyZone.play();
-            greyZone.setDisable(true);
-            logInPanelIsToggled = false;
-        } else {
-            showLogInPanel.play();
-            showGreyZone.play();
-            greyZone.setDisable(false);
-            logInPanelIsToggled = true;
-        }
+
+
+    void setGreyZoneDisable(boolean value){
+        greyZone.setDisable(value);
     }
 
 
@@ -199,7 +178,7 @@ public class LoginController extends AnchorPane{
 
     @FXML void loginUser(){
         bYMe.loginUser(logInUsername.getText(), logInPassword.getText());
-        toggleLogInPanel();
+        togglePanel();
     }
 
 }

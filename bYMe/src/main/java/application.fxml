@@ -82,7 +82,7 @@
       </AnchorPane>
       <AnchorPane prefHeight="100.0" prefWidth="1440.0" styleClass="appbar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button layoutX="1300.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#toggleLogInPanel" prefHeight="40.0" prefWidth="60.0" styleClass="primaryButton" textFill="WHITE">
+            <Button layoutX="1300.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#togglePanel" prefHeight="40.0" prefWidth="60.0" styleClass="primaryButton" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>

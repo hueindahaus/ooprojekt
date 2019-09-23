@@ -36,12 +36,12 @@ public class MainController implements Initializable {
 
 
     @FXML
-    void toggleLogInPanel() {
+    void togglePanel() {
         if (byme.getCurrentUser() == null) {
-            loginController.toggleLogInPanel();
+            loginController.togglePanel();
         }
         else{
-            menuController.toggleMenuPanel();
+            menuController.togglePanel();
         }
     }
 }
