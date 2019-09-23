@@ -1,19 +1,19 @@
 package Model;
 
-class Account {
+public class Account {
     private final String username;
     private String password;
 
-    Account(String username, String password){
+    public Account(String username, String password){
         this.username = username;
         this.password = password;
     }
 
-    String getUsername(){
+    public String getUsername(){
         return this.username;
     }
 
-    String getPassword(){
+    public String getPassword(){
         return this.password;
     }
 }

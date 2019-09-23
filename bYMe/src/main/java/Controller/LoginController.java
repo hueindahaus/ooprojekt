@@ -1,17 +1,22 @@
 package Controller;
 
-import Model.AccountHandler;
+import Model.bYMe;
+import Services.AccountHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginController extends AnchorPane{
 
@@ -63,16 +68,19 @@ public class LoginController extends AnchorPane{
 
 
 
-    private AccountHandler accountHandler = AccountHandler.getInstance();
+    private bYMe bYMe = new bYMe(AccountHandler.getInstance());
 
     @FXML
     TextField signUpUsername;
 
     @FXML
-    TextField signUpPassword;
+    PasswordField signUpPassword;
 
     @FXML
-    TextField signUpPassword2;
+    PasswordField signUpPassword2;
+
+    @FXML
+    Label errorLabel;
 
     @FXML
     AnchorPane greyZone;
@@ -82,18 +90,71 @@ public class LoginController extends AnchorPane{
         String password = signUpPassword.getText();
         String verifyPassword = signUpPassword2.getText();
 
-         if (!verifyPassword.equals(password)){
-            signUpPassword.setStyle("-fx-border-color: red;");
-            signUpPassword2.setStyle("-fx-border-color: red;");
-        } else if(accountHandler.isAlreadyRegistered(username)){
-            signUpUsername.setStyle("-fx-border-color: red");
-            System.out.println("User already exist: " + username);
-        } else if(username.isEmpty() && password.isEmpty() && verifyPassword.isEmpty()){
-            System.out.println("Fill all textfields");
+        highlightUserAlreadyExistError();
+        highlightUnmatchedPasswordError();
+        highlightTextFieldEmpty();
+
+        if (!isAllTextFieldsFilled()){       //om alla textrutor är ej fyllda
+            highlightTextFieldEmpty();
+        } else if (bYMe.isAlreadyRegistered(signUpUsername.getText())){   //om användare redan finns
+            highlightUserAlreadyExistError();
+        } else if(!verifyPassword.equals(password)){
+            highlightUnmatchedPasswordError();
         } else {
-             accountHandler.registerAccount(username, password);
-             toggleRegisterBox();
-         }
+            bYMe.registerAccount(username, password);
+            toggleRegisterBox();
+        }
+
+
+    }
+
+    private boolean isAllTextFieldsFilled(){
+        return !signUpUsername.getText().isEmpty() && !signUpPassword.getText().isEmpty() && !signUpPassword2.getText().isEmpty();
+    }
+
+    private void highlightTextFieldEmpty(){
+
+        List<TextField> textfields = new ArrayList<>();
+        textfields.add(signUpUsername);
+        textfields.add(signUpPassword);
+        textfields.add(signUpPassword2);
+
+        for(TextField textfield : textfields){
+            if(textfield.getText().isEmpty()){
+                textfield.setStyle("-fx-border-color: red;");
+            } else {
+               textfield.setStyle("-fx-border-color: inherit");
+            }
+        }
+
+        if(!isAllTextFieldsFilled()){
+            errorLabel.setText("Fyll alla fält!");
+        } else {
+            errorLabel.setText("");
+        }
+
+    }
+
+    private void highlightUserAlreadyExistError(){
+        if (bYMe.isAlreadyRegistered(signUpUsername.getText())){
+            signUpUsername.setStyle("-fx-border-color: red;");
+            System.out.println("User already exist: " + signUpUsername.getText());
+            errorLabel.setText("Användare: " + signUpUsername.getText() + "finns redan!");
+        } else {
+            signUpUsername.setStyle("-fx-border-color: inherit;");
+            errorLabel.setText("");
+        }
+    }
+
+    private void highlightUnmatchedPasswordError(){
+        if(!signUpPassword.getText().equals(signUpPassword2.getText())){
+            signUpPassword2.setStyle("-fx-border-color: red;");
+            System.out.println("Password doesn't match");
+            errorLabel.setText("Lösenorden matchar ej!");
+        } else {
+            signUpPassword2.setStyle("-fx-border-color: inherit;");
+            errorLabel.setText("");
+        }
     }
 
 
@@ -104,7 +165,7 @@ public class LoginController extends AnchorPane{
     private TextField logInUsername;
 
     @FXML
-    private TextField logInPassword;
+    private PasswordField logInPassword;
 
     @FXML
     private AnchorPane logInPanel;
@@ -136,6 +197,11 @@ public class LoginController extends AnchorPane{
         } else {
             registerBox.setVisible(true);
         }
+    }
+
+    @FXML void loginUser(){
+        bYMe.loginUser(logInUsername.getText(), logInPassword.getText());
+        toggleLogInPanel();
     }
 
 }
