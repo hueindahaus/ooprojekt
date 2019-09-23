@@ -1,6 +1,7 @@
 package Controller;
 
-import Model.AccountHandler;
+import Model.bYMe;
+import Services.AccountHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -66,7 +67,7 @@ public class LoginController extends AnchorPane{
 
 
 
-    private AccountHandler accountHandler = AccountHandler.getInstance();
+    private bYMe bYMe = new bYMe(AccountHandler.getInstance());
 
     @FXML
     TextField signUpUsername;
@@ -94,12 +95,12 @@ public class LoginController extends AnchorPane{
 
         if (!isAllTextFieldsFilled()){       //om alla textrutor är ej fyllda
             highlightTextFieldEmpty();
-        } else if (accountHandler.isAlreadyRegistered(signUpUsername.getText())){   //om användare redan finns
+        } else if (bYMe.isAlreadyRegistered(signUpUsername.getText())){   //om användare redan finns
             highlightUserAlreadyExistError();
         } else if(!verifyPassword.equals(password)){
             highlightUnmatchedPasswordError();
         } else {
-            accountHandler.registerAccount(username, password);
+            bYMe.registerAccount(username, password);
             toggleRegisterBox();
         }
 
@@ -134,7 +135,7 @@ public class LoginController extends AnchorPane{
     }
 
     private void highlightUserAlreadyExistError(){
-        if (accountHandler.isAlreadyRegistered(signUpUsername.getText())){
+        if (bYMe.isAlreadyRegistered(signUpUsername.getText())){
             signUpUsername.setStyle("-fx-border-color: red;");
             System.out.println("User already exist: " + signUpUsername.getText());
             errorLabel.setText("Användare: " + signUpUsername.getText() + "finns redan!");
