@@ -1,11 +1,18 @@
 package Model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class bYMe {
+public class Byme {
+
+    private static Byme singleton = null;
+
+    public static Byme getInstance(IAccountHandler accountHandler){
+        if(singleton == null){
+            singleton = new Byme(accountHandler);
+        }
+        return singleton;
+    }
 
     private HashMap<String, Account> accounts;
 
@@ -13,7 +20,7 @@ public class bYMe {
 
     IAccountHandler accountHandler;
 
-    public bYMe(IAccountHandler accountHandler){
+    public Byme(IAccountHandler accountHandler){
         accounts = new HashMap<>();
         this.accountHandler = accountHandler;
         accountHandler.loadAccounts(accounts);
@@ -50,9 +57,13 @@ public class bYMe {
             Account user = accounts.get(username);
             if(user.getPassword().equals(password)){
                 currentUser = user;
+                System.out.println(currentUser.getUsername());
             }
         }
-        System.out.println(currentUser.getUsername());
+    }
+
+    public void signoutUser(){
+        currentUser = null;
     }
 
 

@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.bYMe;
+import Model.Byme;
 import Services.AccountHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -66,9 +66,7 @@ public class LoginController extends AnchorPane{
 
     }
 
-
-
-    private bYMe bYMe = new bYMe(AccountHandler.getInstance());
+    private Byme bYMe = Byme.getInstance(AccountHandler.getInstance());
 
     @FXML
     TextField signUpUsername;
@@ -201,7 +199,9 @@ public class LoginController extends AnchorPane{
 
     @FXML void loginUser(){
         bYMe.loginUser(logInUsername.getText(), logInPassword.getText());
-        toggleLogInPanel();
+        if(bYMe.getCurrentUser() != null) {
+            toggleLogInPanel();
+        }
     }
 
 }
