@@ -54,7 +54,7 @@ public class MenuController extends SidePanelController {
 
     @FXML void signout(){
         byme.signoutUser();
-        toggleMenuPanel();
+        togglePanel();
     }
 
 }

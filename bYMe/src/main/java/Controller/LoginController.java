@@ -179,7 +179,7 @@ public class LoginController extends SidePanelController{
     @FXML void loginUser(){
         bYMe.loginUser(logInUsername.getText(), logInPassword.getText());
         if(bYMe.getCurrentUser() != null) {
-            toggleLogInPanel();
+            togglePanel();
         }
     }
 
