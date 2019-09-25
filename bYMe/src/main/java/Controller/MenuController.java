@@ -13,7 +13,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.GaussianBlur;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
