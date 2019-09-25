@@ -1,6 +1,5 @@
 package Model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface IAccountHandler {      //utnyttjar dependency-injection pattern för att kunna read:a/write:a lagring
