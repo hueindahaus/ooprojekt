@@ -7,14 +7,12 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,7 +127,7 @@ public class LoginController extends SidePanelController{
         if (bYMe.isAlreadyRegistered(signUpUsername.getText())){
             signUpUsername.setStyle("-fx-border-color: red;");
             System.out.println("User already exist: " + signUpUsername.getText());
-            errorLabel.setText("Användare: " + signUpUsername.getText() + "finns redan!");
+            errorLabel.setText("Användare: " + signUpUsername.getText() + " finns redan!");
         } else {
             signUpUsername.setStyle("-fx-border-color: inherit;");
             errorLabel.setText("");
