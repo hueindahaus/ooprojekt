@@ -5,15 +5,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class bYMe {
+public class Byme {
+
+    private static Byme singleton = null;
+
+    public static Byme getInstance(IAccountHandler accountHandler){
+        if(singleton == null){
+            singleton = new Byme(accountHandler);
+        }
+        return singleton;
+    }
+
+    private List<IObserver> observers = new ArrayList<>();
 
     private HashMap<String, Account> accounts;
 
     private Account currentUser;
 
-    IAccountHandler accountHandler;
+    private IAccountHandler accountHandler;
 
-    public bYMe(IAccountHandler accountHandler){
+    private Byme(IAccountHandler accountHandler){
         accounts = new HashMap<>();
         this.accountHandler = accountHandler;
         accountHandler.loadAccounts(accounts);
@@ -50,10 +61,29 @@ public class bYMe {
             Account user = accounts.get(username);
             if(user.getPassword().equals(password)){
                 currentUser = user;
+                notifyObservers();
+                System.out.println(currentUser.getUsername() + " logged in");
             }
         }
-        System.out.println(currentUser.getUsername());
     }
+
+    public void signoutUser(){
+        currentUser = null;
+        notifyObservers();
+    }
+
+
+    public void addObserver(IObserver observer){
+        observers.add(observer);
+    }
+
+    private void notifyObservers(){         //används för att uppdatera allt som är beroende av modellen när något i modellen ändras
+        for(IObserver observer: observers){
+            observer.update();
+        }
+    }
+
+
 
 
 

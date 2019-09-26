@@ -9,10 +9,11 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane fx:id="greyZone" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#toggleLogInPanel" opacity="0.0" pickOnBounds="false" prefHeight="900.0" prefWidth="1220.0" styleClass="greyZone" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+      <AnchorPane fx:id="greyZone" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#togglePanel" opacity="0.0" pickOnBounds="false" prefHeight="900.0" prefWidth="1220.0" styleClass="greyZone" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
       <AnchorPane fx:id="logInPanel" layoutX="1440.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="220.0" styleClass="loginpanel">
          <children>
             <TextField fx:id="logInUsername" layoutX="20.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" promptText="Användarnamn" />
+            <PasswordField fx:id="logInPassword" layoutX="20.0" layoutY="106.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" promptText="Lösenord" />
             <Button layoutX="20.0" layoutY="150.0" mnemonicParsing="false" onMouseClicked="#loginUser" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Logga In">
                <font>
                   <Font size="14.0" />
@@ -28,7 +29,6 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <PasswordField fx:id="logInPassword" layoutX="20.0" layoutY="106.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" promptText="Lösenord" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="registerBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#toggleRegisterBox" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" stylesheets="@byme-stylesheet.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -45,6 +45,11 @@
                         <Font size="18.0" />
                      </font>
                   </PasswordField>
+                  <PasswordField fx:id="signUpPassword2" layoutY="225.0" prefHeight="50.0" prefWidth="440.0" promptText="Lösenord:" styleClass="cardtitle" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </PasswordField>
                   <Button alignment="CENTER" layoutX="394.0" layoutY="376.0" mnemonicParsing="false" onMouseClicked="#registerUser" styleClass="primaryButton" text="Skapa konto" textAlignment="CENTER" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="360.0">
                      <font>
                         <Font name="System Bold" size="27.0" />
@@ -55,11 +60,6 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="signUpPassword2" layoutY="225.0" prefHeight="50.0" prefWidth="440.0" promptText="Lösenord:" styleClass="cardtitle" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </PasswordField>
                </children>
             </AnchorPane>
          </children></AnchorPane>
