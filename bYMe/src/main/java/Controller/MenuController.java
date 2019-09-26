@@ -44,7 +44,7 @@ public class MenuController extends SidePanelController implements IObserver {
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance());
 
-    public MenuController() {
+    MenuController() {
         super("../signedIn.fxml");
         byme.addObserver(this);
 
@@ -101,10 +101,11 @@ public class MenuController extends SidePanelController implements IObserver {
 
     @FXML void signout(){
         byme.signoutUser();
+        toggleOffPanel();
     }
 
     @FXML
-    void displayAccountName(){
+    private void displayAccountName(){
         if(byme.getCurrentUser() != null) {
             currentUser.setText(byme.getCurrentUser().getUsername());
         }
@@ -134,19 +135,22 @@ public class MenuController extends SidePanelController implements IObserver {
             if(image != null) {
                 profilePicImageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(image,null)));
             } else {    //default profilbild
-                try {
-                    profilePicImageView.setImage(SwingFXUtils.toFXImage(ImageIO.read(new File("src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "images" + File.separatorChar + "defaultProfilePic.png")),null));
-                } catch(IOException exception){
-                    System.out.println("Can't find default profile picture");
-                }
+                setDefaultprofilePic();
             }
         }
     }
 
 
+    private void setDefaultprofilePic(){
+        try {
+            profilePicImageView.setImage(SwingFXUtils.toFXImage(ImageIO.read(new File("src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "images" + File.separatorChar + "defaultProfilePic.png")),null));
+        } catch(IOException exception){
+            System.out.println("Can't find default profile picture");
+        }
+    }
+
     public void update(){
         updateProfilePicImageView();
         displayAccountName();
-        togglePanel(); //Kan hända att den togglar när man lägger upp annonser. Ska vi skicka med ett event, så att programmet kan läsa vad den ska uppdatera då?
     }
 }

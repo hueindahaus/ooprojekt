@@ -21,11 +21,21 @@ public class LoginController extends SidePanelController{
 
     @FXML AnchorPane registerBox;
     @FXML AnchorPane registerBoxFrame;
+    @FXML TextField signUpUsername;
+    @FXML PasswordField signUpPassword;
+    @FXML PasswordField signUpPassword2;
+    @FXML Label errorLabel;
+    @FXML AnchorPane greyZone;
+    @FXML private TextField logInUsername;
+    @FXML private PasswordField logInPassword;
+    @FXML private AnchorPane logInPanel;
+
+    PanelToggler panelToggler;
 
 
 
 
-    public LoginController(){
+    LoginController(PanelToggler panelToggler){
         super("../login.fxml");
 
 
@@ -54,24 +64,12 @@ public class LoginController extends SidePanelController{
             }
         });
 
+
+        this.panelToggler = panelToggler;
     }
 
     private Byme bYMe = Byme.getInstance(AccountHandler.getInstance());
 
-    @FXML
-    TextField signUpUsername;
-
-    @FXML
-    PasswordField signUpPassword;
-
-    @FXML
-    PasswordField signUpPassword2;
-
-    @FXML
-    Label errorLabel;
-
-    @FXML
-    AnchorPane greyZone;
 
     @FXML void registerUser(){
         String username = signUpUsername.getText();
@@ -92,7 +90,7 @@ public class LoginController extends SidePanelController{
             bYMe.registerAccount(username, password);
             bYMe.loginUser(username, password);
             toggleRegisterBox();
-            togglePanel();
+            panelToggler.togglePanel(true);
         }
 
 
@@ -151,14 +149,7 @@ public class LoginController extends SidePanelController{
 
 
 
-    @FXML
-    private TextField logInUsername;
 
-    @FXML
-    private PasswordField logInPassword;
-
-    @FXML
-    private AnchorPane logInPanel;
 
 
 
@@ -179,7 +170,7 @@ public class LoginController extends SidePanelController{
     @FXML void loginUser(){
         bYMe.loginUser(logInUsername.getText(), logInPassword.getText());
         if(bYMe.getCurrentUser() != null) {
-            togglePanel();
+            panelToggler.togglePanel(true);
         }
     }
 
