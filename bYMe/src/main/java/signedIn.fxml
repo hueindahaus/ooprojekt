@@ -42,6 +42,11 @@
                   <Font size="18.0" />
                </font>
             </Label>
+            <Label fx:id="pictureChangeLabel" layoutX="41.0" layoutY="84.0" mouseTransparent="true" text="Ändra profilbild" textFill="WHITE" visible="false">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
 
          </children>
       </AnchorPane>

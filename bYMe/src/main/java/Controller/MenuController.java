@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
 
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
@@ -35,6 +36,9 @@ public class MenuController extends SidePanelController implements IObserver {
 
     @FXML
     ImageView profilePicImageView;
+
+    @FXML
+    Label pictureChangeLabel;
 
     PictureHandler pictureHandler = new PictureHandler();
 
@@ -65,15 +69,19 @@ public class MenuController extends SidePanelController implements IObserver {
         Circle clip = new Circle(profilePicImageView.getFitWidth()/2,profilePicImageView.getFitHeight()/2,80);
         profilePicImageView.setClip(clip);
 
-
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-0.5);
+        colorAdjust.setInput(new BoxBlur());
 
         profilePicImageView.hoverProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(newValue){
-                    profilePicImageView.setEffect(new BoxBlur());
+                    profilePicImageView.setEffect(colorAdjust);
+                    pictureChangeLabel.setVisible(true);
                 } else {
                     profilePicImageView.setEffect(null);
+                    pictureChangeLabel.setVisible(false);
                 }
             }
         });
@@ -93,12 +101,13 @@ public class MenuController extends SidePanelController implements IObserver {
 
     @FXML void signout(){
         byme.signoutUser();
-        togglePanel();
     }
 
     @FXML
     void displayAccountName(){
+        if(byme.getCurrentUser() != null) {
             currentUser.setText(byme.getCurrentUser().getUsername());
+        }
     }
 
     @FXML
@@ -138,5 +147,6 @@ public class MenuController extends SidePanelController implements IObserver {
     public void update(){
         updateProfilePicImageView();
         displayAccountName();
+        togglePanel(); //Kan hända att den togglar när man lägger upp annonser. Ska vi skicka med ett event, så att programmet kan läsa vad den ska uppdatera då?
     }
 }

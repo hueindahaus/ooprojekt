@@ -90,7 +90,9 @@ public class LoginController extends SidePanelController{
             highlightUnmatchedPasswordError();
         } else {
             bYMe.registerAccount(username, password);
+            bYMe.loginUser(username, password);
             toggleRegisterBox();
+            togglePanel();
         }
 
 
@@ -109,7 +111,7 @@ public class LoginController extends SidePanelController{
 
         for(TextField textfield : textfields){
             if(textfield.getText().isEmpty()){
-                textfield.setStyle("-fx-border-color: red;");
+                textfield.setStyle("-fx-border-color: #e74c3c;");
             } else {
                textfield.setStyle("-fx-border-color: inherit");
             }
@@ -125,7 +127,7 @@ public class LoginController extends SidePanelController{
 
     private void highlightUserAlreadyExistError(){
         if (bYMe.isAlreadyRegistered(signUpUsername.getText())){
-            signUpUsername.setStyle("-fx-border-color: red;");
+            signUpUsername.setStyle("-fx-border-color: #e74c3c;");
             System.out.println("User already exist: " + signUpUsername.getText());
             errorLabel.setText("Användare: " + signUpUsername.getText() + " finns redan!");
         } else {
@@ -136,7 +138,7 @@ public class LoginController extends SidePanelController{
 
     private void highlightUnmatchedPasswordError(){
         if(!signUpPassword.getText().equals(signUpPassword2.getText())){
-            signUpPassword2.setStyle("-fx-border-color: red;");
+            signUpPassword2.setStyle("-fx-border-color: #e74c3c;");
             System.out.println("Password doesn't match");
             errorLabel.setText("Lösenorden matchar ej!");
         } else {

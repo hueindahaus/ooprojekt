@@ -20,10 +20,6 @@ public class MainController implements Initializable {
     private LoginController loginController;
     private MenuController menuController;
 
-    public MainController() {
-
-    }
-
     private Byme byme = Byme.getInstance(AccountHandler.getInstance());
 
     @Override
