@@ -127,7 +127,7 @@ public class LoginController extends SidePanelController{
         if (bYMe.isAlreadyRegistered(signUpUsername.getText())){
             signUpUsername.setStyle("-fx-border-color: red;");
             System.out.println("User already exist: " + signUpUsername.getText());
-            errorLabel.setText("Användare: " + signUpUsername.getText() + "finns redan!");
+            errorLabel.setText("Användare: " + signUpUsername.getText() + " finns redan!");
         } else {
             signUpUsername.setStyle("-fx-border-color: inherit;");
             errorLabel.setText("");
