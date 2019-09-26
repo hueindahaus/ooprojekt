@@ -12,13 +12,13 @@
       <AnchorPane fx:id="greyZone" disable="true" layoutX="7.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#togglePanel" opacity="0.0" pickOnBounds="false" prefHeight="900.0" prefWidth="1220.0" styleClass="greyZone" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="100.0" />
       <AnchorPane fx:id="menuPanel" layoutX="1440.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="220.0" styleClass="loginpanel">
          <children>
+
+             <Button layoutX="20.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#changeProfilePic" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Ändra profilbild" />
             <Button layoutX="20.0" layoutY="350.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Mina annonser">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-
-             <Button layoutX="20.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#changeProfilePic" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Ändra profilbild"></Button>
              <Button layoutX="20.0" layoutY="406.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Köphistorik">
                <font>
                   <Font size="14.0" />
@@ -29,11 +29,14 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <ImageView fx:id="profilePicImageView" fitHeight="160.0" fitWidth="160.0" layoutX="10.0" layoutY="25.0" nodeOrientation="INHERIT" onMouseClicked="#changeProfilePic" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="625.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="25.0">
+            <ImageView fx:id="profilePicImageView" accessibleRole="TOOLTIP" accessibleRoleDescription="Ändra profilbild" accessibleText="Ändra profilbild" fitHeight="160.0" fitWidth="160.0" layoutX="10.0" layoutY="25.0" nodeOrientation="INHERIT" onMouseClicked="#changeProfilePic" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="625.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="25.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></ImageView>
-             <Label fx:id="currentUser" layoutX="25.0" layoutY="180.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="165.0" text="Label" wrapText="true" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="200.0"></Label>
+             <Label fx:id="currentUser" alignment="CENTER" layoutX="25.0" layoutY="180.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="165.0" text="Label" wrapText="true" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="200.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
             <Label alignment="CENTER" layoutX="20.0" layoutY="508.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" text="Välkommen åter!">
                <font>
                   <Font size="18.0" />

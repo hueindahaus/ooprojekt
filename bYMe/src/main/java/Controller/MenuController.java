@@ -12,6 +12,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
 
 import javafx.scene.image.ImageView;
@@ -21,6 +22,7 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -80,6 +82,9 @@ public class MenuController extends SidePanelController implements IObserver {
     @FXML AnchorPane menuPanel;
     @FXML AnchorPane greyZone;
 
+    @FXML
+    Label currentUser;
+
 
 
     void setGreyZoneDisable(boolean value){
@@ -91,6 +96,10 @@ public class MenuController extends SidePanelController implements IObserver {
         togglePanel();
     }
 
+    @FXML
+    void displayAccountName(){
+            currentUser.setText(byme.getCurrentUser().getUsername());
+    }
 
     @FXML
     void changeProfilePic(){
@@ -128,5 +137,6 @@ public class MenuController extends SidePanelController implements IObserver {
 
     public void update(){
         updateProfilePicImageView();
+        displayAccountName();
     }
 }
