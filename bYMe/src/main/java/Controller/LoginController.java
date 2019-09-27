@@ -21,11 +21,21 @@ public class LoginController extends SidePanelController{
 
     @FXML AnchorPane registerBox;
     @FXML AnchorPane registerBoxFrame;
+    @FXML TextField signUpUsername;
+    @FXML PasswordField signUpPassword;
+    @FXML PasswordField signUpPassword2;
+    @FXML Label errorLabel;
+    @FXML AnchorPane greyZone;
+    @FXML private TextField logInUsername;
+    @FXML private PasswordField logInPassword;
+    @FXML private AnchorPane logInPanel;
+
+    PanelToggler panelToggler;
 
 
 
 
-    public LoginController(){
+    LoginController(PanelToggler panelToggler){
         super("../login.fxml");
 
 
@@ -54,24 +64,12 @@ public class LoginController extends SidePanelController{
             }
         });
 
+
+        this.panelToggler = panelToggler;
     }
 
     private Byme bYMe = Byme.getInstance(AccountHandler.getInstance());
 
-    @FXML
-    TextField signUpUsername;
-
-    @FXML
-    PasswordField signUpPassword;
-
-    @FXML
-    PasswordField signUpPassword2;
-
-    @FXML
-    Label errorLabel;
-
-    @FXML
-    AnchorPane greyZone;
 
     @FXML void registerUser(){
         String username = signUpUsername.getText();
@@ -90,7 +88,9 @@ public class LoginController extends SidePanelController{
             highlightUnmatchedPasswordError();
         } else {
             bYMe.registerAccount(username, password);
+            bYMe.loginUser(username, password);
             toggleRegisterBox();
+            panelToggler.togglePanel(true);
         }
 
 
@@ -109,7 +109,7 @@ public class LoginController extends SidePanelController{
 
         for(TextField textfield : textfields){
             if(textfield.getText().isEmpty()){
-                textfield.setStyle("-fx-border-color: red;");
+                textfield.setStyle("-fx-border-color: #e74c3c;");
             } else {
                textfield.setStyle("-fx-border-color: inherit");
             }
@@ -125,9 +125,9 @@ public class LoginController extends SidePanelController{
 
     private void highlightUserAlreadyExistError(){
         if (bYMe.isAlreadyRegistered(signUpUsername.getText())){
-            signUpUsername.setStyle("-fx-border-color: red;");
+            signUpUsername.setStyle("-fx-border-color: #e74c3c;");
             System.out.println("User already exist: " + signUpUsername.getText());
-            errorLabel.setText("Användare: " + signUpUsername.getText() + "finns redan!");
+            errorLabel.setText("Användare: " + signUpUsername.getText() + " finns redan!");
         } else {
             signUpUsername.setStyle("-fx-border-color: inherit;");
             errorLabel.setText("");
@@ -136,7 +136,7 @@ public class LoginController extends SidePanelController{
 
     private void highlightUnmatchedPasswordError(){
         if(!signUpPassword.getText().equals(signUpPassword2.getText())){
-            signUpPassword2.setStyle("-fx-border-color: red;");
+            signUpPassword2.setStyle("-fx-border-color: #e74c3c;");
             System.out.println("Password doesn't match");
             errorLabel.setText("Lösenorden matchar ej!");
         } else {
@@ -149,14 +149,7 @@ public class LoginController extends SidePanelController{
 
 
 
-    @FXML
-    private TextField logInUsername;
 
-    @FXML
-    private PasswordField logInPassword;
-
-    @FXML
-    private AnchorPane logInPanel;
 
 
 
@@ -177,7 +170,7 @@ public class LoginController extends SidePanelController{
     @FXML void loginUser(){
         bYMe.loginUser(logInUsername.getText(), logInPassword.getText());
         if(bYMe.getCurrentUser() != null) {
-            togglePanel();
+            panelToggler.togglePanel(true);
         }
     }
 
