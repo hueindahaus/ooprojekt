@@ -7,7 +7,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public abstract class SidePanelController extends AnchorPane {
+abstract class SidePanelController extends AnchorPane {
 
 
     Timeline showPanel;
@@ -17,7 +17,7 @@ public abstract class SidePanelController extends AnchorPane {
 
     private boolean panelIsToggled= false;
 
-    public SidePanelController(String fxmlPath){
+    SidePanelController(String fxmlPath){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -30,16 +30,24 @@ public abstract class SidePanelController extends AnchorPane {
 
     @FXML void togglePanel(){
         if (panelIsToggled) {
-            hidePanel.play();
-            hideGreyZone.play();
-            setGreyZoneDisable(true);
-            panelIsToggled = false;
+            toggleOffPanel();
         } else {
-            showPanel.play();
-            showGreyZone.play();
-            setGreyZoneDisable(false);
-            panelIsToggled = true;
+            toggleOnPanel();
         }
+    }
+
+    void toggleOnPanel(){
+        showPanel.play();
+        showGreyZone.play();
+        setGreyZoneDisable(false);
+        panelIsToggled = true;
+    }
+
+    void toggleOffPanel(){
+        hidePanel.play();
+        hideGreyZone.play();
+        setGreyZoneDisable(true);
+        panelIsToggled = false;
     }
 
 

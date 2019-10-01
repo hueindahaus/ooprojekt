@@ -24,6 +24,16 @@ public class Byme {
 
     private IAccountHandler accountHandler;
 
+    private Ad ad;
+
+    public List<Ad> adsList = new ArrayList<>();
+
+    public Ad getAds(){
+        return ad;
+    }
+
+
+
     private Byme(IAccountHandler accountHandler){
         accounts = new HashMap<>();
         this.accountHandler = accountHandler;
