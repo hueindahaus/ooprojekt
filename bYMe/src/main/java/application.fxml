@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" styleClass="background" stylesheets="@byme-stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" styleClass="background" stylesheets="@byme-stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
    <children>
       <AnchorPane layoutX="568.0" layoutY="271.0" prefHeight="279.0" prefWidth="252.0" styleClass="cardholder" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="130.0">
          <children>
@@ -82,7 +82,7 @@
       </AnchorPane>
       <AnchorPane prefHeight="100.0" prefWidth="1440.0" styleClass="appbar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button layoutX="1300.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#togglePanel" prefHeight="40.0" prefWidth="60.0" styleClass="primaryButton" textFill="WHITE">
+            <Button layoutX="1340.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#togglePanel" prefHeight="60.0" prefWidth="60.0" styleClass="primaryButton" textFill="WHITE" AnchorPane.rightAnchor="30.0">
                <font>
                   <Font size="18.0" />
                </font>

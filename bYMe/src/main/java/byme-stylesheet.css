@@ -45,7 +45,7 @@
 
 .primaryButton {
   -fx-background-color: #f1c40f;
-  -fx-background-radius: 10;
+  -fx-background-radius: 50%;
   -fx-text-fill: FFFFFF;
 }
 
