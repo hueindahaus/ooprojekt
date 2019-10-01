@@ -7,6 +7,10 @@ import java.util.Map;
 
 public class Byme {
 
+    /**
+     *
+     */
+
     private static Byme singleton = null;
 
     public static Byme getInstance(IAccountHandler accountHandler){
@@ -24,12 +28,26 @@ public class Byme {
 
     private IAccountHandler accountHandler;
 
+    /**
+     *
+     * @param accountHandler
+     */
+
     private Byme(IAccountHandler accountHandler){
         accounts = new HashMap<>();
         this.accountHandler = accountHandler;
         accountHandler.loadAccounts(accounts);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> accountHandler.saveAccounts(accounts), "Shutdown-thread"));
     }
+
+    /**
+     * This method enables the user to create an account.
+     * The method adds the account into a hashmap.
+     * If the account is already registered the user
+     * gets a message telling them about it.
+     * @param username
+     * @param password
+     */
 
     public void registerAccount(String username, String password){
         if(!isAlreadyRegistered(username)) {
@@ -38,6 +56,13 @@ public class Byme {
             System.out.println("User already exist: " + username);
         }
     }
+
+    /**
+     * This method checks if an account
+     * has already been registered.
+     * @param username
+     * @return
+     */
 
     public boolean isAlreadyRegistered(String username){   //metod som kollar om ett användarnamn redan är registrerat eller ej
         for(Map.Entry account: accounts.entrySet()){
@@ -48,6 +73,13 @@ public class Byme {
         return false;
     }
 
+
+    /**
+     * Returns the account that is currently
+     * logged in.
+     * @return
+     */
+
     public Account getCurrentUser() {
         return currentUser;
     }
@@ -55,6 +87,16 @@ public class Byme {
     public HashMap<String, Account> getAccounts() {
         return accounts;
     }
+
+    /**
+     * Method used for logging in.
+     * Changes the currentUser.
+     * In order to login the password
+     * must match the given password at registration.
+     * @param username
+     * @param password
+     */
+
 
     public void loginUser(String username, String password){
         if(accounts.containsKey(username)){
