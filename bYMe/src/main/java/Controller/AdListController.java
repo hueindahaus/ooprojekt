@@ -47,10 +47,4 @@ public class AdListController extends AnchorPane {
 
     }
 
-    private void setExampleAd(){
-        adTitle.setText(bYMe.getAd().getTitle());
-        adLocation.setText(bYMe.getAd().getLocation());
-        adDescription.setText(bYMe.getAd().getDescription());
-        adPrice.setText(bYMe.getAd().getPrice());
-    }
 }
