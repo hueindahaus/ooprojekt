@@ -1,50 +1,43 @@
-package Model;
+package Services;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-
+import Model.Account;
+import Model.IAccountHandler;
 import java.io.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
-public class DataHandler {
-    private static DataHandler singleton = null;
-    private final String DATAFOLDER = ".data";
-    private ArrayList<Account> accounts;
+public class AccountHandler implements IAccountHandler {
+    private static AccountHandler singleton = null;
 
 
-    protected DataHandler(){
+
+    private AccountHandler(){
     }
 
-    public static DataHandler getInstance(){
+    public static AccountHandler getInstance(){
         if(singleton == null){
-            singleton = new DataHandler();
-            singleton.init();
+            singleton = new AccountHandler();
+
         }
         return singleton;
     }
 
-    private void init(){ //initiera alla instansvariabler
-        accounts = new ArrayList<>();
-        loadAccounts();
-    }
 
-    public void shutDown(){
-        this.saveAccounts();
-    }
 
     private String getLoginFilePath(){
-        return DATAFOLDER + File.separatorChar + "logins.txt";
-    }
+        return "data" + File.separatorChar + "logins.txt";
+    }   //För att denna path:en ska fungera måste man importa projektet som mappen "Byme"
 
 
-    private void loadAccounts(){
+    public void loadAccounts(HashMap<String, Account> accounts){
         try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(this.getLoginFilePath()), "ISO-8859-1"));
             System.out.println("loadAccounts, starting...");
 
             String line;
             while((line=reader.readLine()) != null){
-                parseAccount(line);
+                parseAccount(line,accounts);
             }
             reader.close();
 
@@ -55,27 +48,28 @@ public class DataHandler {
         }
     }
 
-    private void parseAccount(String line){
+    private void parseAccount(String line, HashMap<String, Account> accounts){
         String[] tokens = line.split(";");
         if(tokens.length == 2) {
             Account account = new Account(tokens[0], tokens[1]);
-            accounts.add(account);
+            accounts.put(account.getUsername(), account);
         } else if(!line.isEmpty()){
-            System.out.println("DataHandlers logins.txt, invalid line: " + line);
+            System.out.println("AccountHandlers logins.txt, invalid line: " + line);
         }
     }
 
-    private void saveAccounts(){
+    public void saveAccounts(HashMap<String, Account> accounts){
         try{
             FileOutputStream fileOutputStream = new FileOutputStream(this.getLoginFilePath());
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "ISO-8859-1");
             System.out.println("saving accounts");
             String line = "";
-            Iterator iterator = accounts.iterator();
+            Iterator iterator = accounts.entrySet().iterator();
 
             while(iterator.hasNext()){
-                Account account = (Account)iterator.next();
-                line = "" + account.getUsername() + ";" + account.getPassword() + "\n";
+                Map.Entry account = (Map.Entry) iterator.next();
+                Account ac = (Account) account.getValue();
+                line = "" + account.getKey() + ";" + ac.getPassword() + "\n";
                 outputStreamWriter.write(line);
             }
             outputStreamWriter.flush();
@@ -84,10 +78,6 @@ public class DataHandler {
         } catch(IOException exception){
             exception.printStackTrace();
         }
-    }
-
-    public void registerAccount(String username, String password){   //test för att se om det skriver till textfilen
-        accounts.add(new Account(username,password));
     }
 
 
