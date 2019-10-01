@@ -1,16 +1,21 @@
-
-
-
-
-
+* {
+  main: #ecf0f1;
+  main-hover: #bdc3c7;
+  primary: #3498db;
+  primary-hover: #2980b9;
+  secondary: #f1c40f;
+  secondary-hover: #f39c12;
+  tertiary: #34495e;
+  tertiary-hover: #2c3e50;
+}
 
 .appbar {
-  -fx-background-color: #ecf0f1;
+  -fx-background-color: main;
   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
 .loginpanel {
-  -fx-background-color: #ecf0f1;
+  -fx-background-color: main;
 }
 
 .cardholder {
@@ -24,58 +29,65 @@
 }
 
 .cards {
-  -fx-border-color: #ecf0f1;
+  -fx-border-color: main;
   -fx-border-radius: 10 10 0 0;
   -fx-border-width: 5px;
 }
 
 .cardtitle {
-  -fx-background-color: #ecf0f1;
+  -fx-background-color: main;
 }
 
 .cardPLACEHOLDER {
-  -fx-border-color: #ecf0f1;
+  -fx-border-color: main;
   -fx-border-radius: 0;
   -fx-border-width: 5px;
 }
 
 .picPLACEHOLDER {
-  -fx-background-color: #ecf0f1;
+  -fx-background-color: main;
 }
 
 .primaryButton {
-  -fx-background-color: #f1c40f;
+  -fx-background-color: secondary;
   -fx-background-radius: 10;
   -fx-text-fill: FFFFFF;
 }
 
 .primaryButton:hover {
-  -fx-background-color: #f39c12;
+  -fx-background-color: secondary-hover;
   -fx-cursor: hand;
 }
 
 .loginButton {
-  -fx-background-color: #3498db;
+  -fx-background-color: primary;
   -fx-background-radius: 10;
   -fx-text-fill: FFFFFF;
 }
 
 .loginButton:hover {
-  -fx-background-color: #2980b9;
+  -fx-background-color: primary-hover;
   -fx-cursor: hand;
 }
 
 .createAccountButton{
-  -fx-background-color: #34495e;
+  -fx-background-color: tertiary;
   -fx-background-radius: 10;
   -fx-text-fill: FFFFFF;
 }
 
 .createAccountButton:hover{
-  -fx-background-color: #2c3e50;
+  -fx-background-color: tertiary-hover;
   -fx-cursor: hand;
 }
 
 .greyZone {
   -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+.RegTextfield {
+  -fx-background-color: white;
+  -fx-border-width: 1px;
+  -fx-border-color: #bdc3c7;
+  -fx-border-radius: 5px;
 }
