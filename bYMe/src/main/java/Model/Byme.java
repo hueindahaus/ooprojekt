@@ -1,6 +1,8 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Byme {
@@ -14,13 +16,21 @@ public class Byme {
         return singleton;
     }
 
+    private List<IObserver> observers = new ArrayList<>();
+
     private HashMap<String, Account> accounts;
 
     private Account currentUser;
 
-    IAccountHandler accountHandler;
+    //Inte färdig implementation av ads
+    private Ad ad;
+    public Ad getAd() { return ad; }
+    private List<Ad> ads = new ArrayList<>();
 
-    public Byme(IAccountHandler accountHandler){
+
+    private IAccountHandler accountHandler;
+
+    private Byme(IAccountHandler accountHandler){
         accounts = new HashMap<>();
         this.accountHandler = accountHandler;
         accountHandler.loadAccounts(accounts);
@@ -57,14 +67,33 @@ public class Byme {
             Account user = accounts.get(username);
             if(user.getPassword().equals(password)){
                 currentUser = user;
-                System.out.println(currentUser.getUsername());
+                notifyObservers();
+                System.out.println(currentUser.getUsername() + " logged in");
             }
         }
     }
 
     public void signoutUser(){
         currentUser = null;
+        notifyObservers();
     }
+
+
+    public void addObserver(IObserver observer){
+        observers.add(observer);
+    }
+
+    private void notifyObservers(){         //används för att uppdatera allt som är beroende av modellen när något i modellen ändras
+        for(IObserver observer: observers){
+            observer.update();
+        }
+    }
+
+    public void createAd(){
+
+    };
+
+
 
 
 
