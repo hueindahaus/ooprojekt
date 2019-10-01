@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="200.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Ads">
+   <children>
+      <ImageView fx:id="adImage" fitHeight="150.0" fitWidth="200.0" layoutX="20.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../../Desktop/services.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="adTitle" layoutX="190.0" layoutY="28.0" prefHeight="25.0" prefWidth="425.0" text="Tjänstnamn">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="adLocation" layoutX="190.0" layoutY="51.0" prefHeight="25.0" prefWidth="425.0" text="Plats">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="adDescription" layoutX="190.0" layoutY="71.0" prefHeight="123.0" prefWidth="542.0" text="Tjänstinformation" wrapText="true" />
+      <Label fx:id="adPrice" layoutX="620.0" layoutY="16.0" prefHeight="49.0" prefWidth="114.0" text="1000 kr" underline="true">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
