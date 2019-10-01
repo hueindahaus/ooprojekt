@@ -30,7 +30,7 @@ public class MainController implements Initializable, PanelToggler{
         menuController = new MenuController();
         root.getChildren().add(menuController);
 
-        setTheme(new Theme("#2c3e50","#34495e","#7f8c8d","#95a5a6","#f1c40f","#f39c12","#f1c40f","#f39c12"));
+        //setTheme(new Theme("#2c3e50","#34495e","#7f8c8d","#95a5a6","#f1c40f","#f39c12","#f1c40f","#f39c12"));
         //kommentera bort ifall ni ej vill ha detta teamat
     }
 

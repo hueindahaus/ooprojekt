@@ -1,3 +1,15 @@
+* {
+  main: #ecf0f1;
+  main-dark: #bdc3c7;
+  primary: #3498db;
+  primary-dark: #2980b9;
+  secondary: #f1c40f;
+  secondary-dark: #f39c12;
+  tertiary: #34495e;
+  tertiary-dark: #2c3e50;
+}
+
+
 .root{
   main: #ecf0f1;
   main-dark: #bdc3c7;

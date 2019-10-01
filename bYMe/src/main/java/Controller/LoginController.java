@@ -34,7 +34,6 @@ public class LoginController extends SidePanelController{
 
 
 
-
     LoginController(PanelToggler panelToggler){
         super("../login.fxml");
 
