@@ -5,13 +5,13 @@ package Model;
         private int price;
         private String description;
         private String location;
-        private int adId;
+        private final String adId;
 
         public String getTitle(){
             return title;
         }
 
-        public Ad(String title, int price, String description, String location, int adId) {
+        public Ad(String title, int price, String description, String location, String adId) {
             this.title = title;
             this.price = price;
             this.description = description;
@@ -31,7 +31,7 @@ package Model;
             return location;
         }
 
-        public int getAdId(){
+        public String getAdId(){
             return adId;
         }
 
@@ -42,7 +42,5 @@ package Model;
         public void setDescription(String description) { this.description = description; }
 
         public void setLocation(String location) { this.location = location; }
-
-        public void setAdId(int adId){this.adId = adId;}
     }
 

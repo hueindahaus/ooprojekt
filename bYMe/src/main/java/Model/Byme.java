@@ -1,9 +1,6 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Byme {
 
@@ -24,12 +21,11 @@ public class Byme {
 
     private IAccountHandler accountHandler;
 
-    private Ad ad;
 
-    public List<Ad> adsList = new ArrayList<>();
+    public HashMap<String,Ad> ads= new HashMap<>();
 
-    public Ad getAds(){
-        return ad;
+    public HashMap<String,Ad> getAds(){
+        return ads;
     }
 
 
@@ -94,7 +90,24 @@ public class Byme {
     }
 
 
+    private String generateRandomAdId(){
+        StringBuilder stringBuilder = new StringBuilder();
+        Random randomizer = new Random();
 
+        do {
+            for (int i = 0; i < 4; i++) {
+                stringBuilder.append(randomizer.nextInt(10));
+            }
+        } while (ads.containsKey(stringBuilder.toString()));
+
+        return stringBuilder.toString();
+    }
+
+
+    public void createAd(String title, String description, int price, String location){
+        String adId = generateRandomAdId();
+        ads.put(adId,new Ad(title,price,description,location,adId));
+    }
 
 
 }
