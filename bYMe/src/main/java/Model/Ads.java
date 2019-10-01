@@ -1,11 +1,13 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Ads {
     private String title;
     private int price;
     private String description;
     private String location;
-    private String imagePath;
     private final int adId;
 
     public Ads(String title, int price, String description, String location, String imagePath, int adId) {
@@ -13,7 +15,6 @@ public class Ads {
         this.price = price;
         this.description = description;
         this.location = location;
-        this.imagePath = imagePath;
         this.adId = adId;
     }
 
@@ -31,10 +32,6 @@ public class Ads {
 
     public String getLocation() {
         return location;
-    }
-
-    public String getImagePath() {
-        return imagePath;
     }
 
     public int getAdId(){
