@@ -24,12 +24,12 @@ public class Byme {
 
     private IAccountHandler accountHandler;
 
-    private Ads ads;
+    private Ad ad;
 
-    public List<Ads> adsList = new ArrayList<>();
+    public List<Ad> adsList = new ArrayList<>();
 
-    public Ads getAds(){
-        return ads;
+    public Ad getAds(){
+        return ad;
     }
 
 
