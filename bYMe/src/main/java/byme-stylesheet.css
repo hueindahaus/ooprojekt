@@ -107,3 +107,11 @@
   -fx-border-color: #bdc3c7;
   -fx-border-radius: 5px;
 }
+
+.logo {
+  -fx-image: url("/images/loggaByMe.png");
+}
+
+.logo:hover {
+  -fx-image: url("/images/loggaByMeHover.png");
+}
