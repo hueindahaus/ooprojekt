@@ -2,10 +2,14 @@ package Controller;
 
 import Model.Byme;
 import Services.AccountHandler;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -17,6 +21,13 @@ public class MainController implements Initializable, PanelToggler{
     AnchorPane root;
     @FXML
     Button primaryButton;
+    @FXML
+    ImageView exitButtonImage;
+
+    @FXML
+    private AnchorPane detailPane;
+    @FXML
+    private AnchorPane adsPane;
 
     private LoginController loginController;
     private MenuController menuController;
@@ -62,6 +73,40 @@ public class MainController implements Initializable, PanelToggler{
                 "secondary-dark:"+theme.secondary_dark+";"+"\n"+
                 "tertiary:"+theme.tertiary+";"+"\n"+
                 "tertiary-dark:"+theme.tertiary_dark+";");
+    }
+
+    @FXML
+    private void openDetailView(){
+        detailPane.toFront();
+        adsPane.toBack();
+    }
+    @FXML
+    private void closeDetailView(){
+        detailPane.toBack();
+        adsPane.toFront();
+    }
+
+    @FXML
+    public void closeButtonMouseEntered(){
+        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
+                "main/images/icon_close_hover.png")));
+    }
+
+    @FXML
+    public void closeButtonMousePressed(){
+        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
+                "main/images/icon_close_pressed.png")));
+    }
+
+    @FXML
+    public void closeButtonMouseExited(){
+        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
+                "main/images/icon_close.png")));
+    }
+
+    @FXML
+    public void mouseTrap(Event event){
+        event.consume();
     }
 
 
