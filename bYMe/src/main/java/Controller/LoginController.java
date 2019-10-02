@@ -35,7 +35,6 @@ public class LoginController extends SidePanelController{
 
 
 
-
     LoginController(PanelToggler panelToggler, ThemeSetter themeSetter){
         super("../login.fxml");
 
@@ -146,15 +145,6 @@ public class LoginController extends SidePanelController{
             errorLabel.setText("");
         }
     }
-
-
-
-
-
-
-
-
-
 
     void setGreyZoneDisable(boolean value){
         greyZone.setDisable(value);

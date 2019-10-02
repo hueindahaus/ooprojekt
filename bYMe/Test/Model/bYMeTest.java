@@ -66,7 +66,7 @@ class bYMeTest {
             }
         };
         Byme bYMe = Byme.getInstance(accountHandler);
-        assertEquals(bYMe.getAccounts().size(), 0); //empty
+        assertEquals(2, bYMe.getAccounts().size()); //2 accounts made earlier
         bYMe.registerAccount("User1","Password1");
         bYMe.registerAccount("User2","Password2");
         bYMe.registerAccount("User3","Password3");
