@@ -18,6 +18,7 @@ import java.util.List;
 
 public class LoginController extends SidePanelController{
 
+    private ThemeSetter themeSetter;
 
     @FXML AnchorPane registerBox;
     @FXML AnchorPane registerBoxFrame;
@@ -35,9 +36,10 @@ public class LoginController extends SidePanelController{
 
 
 
-    LoginController(PanelToggler panelToggler){
+    LoginController(PanelToggler panelToggler, ThemeSetter themeSetter){
         super("../login.fxml");
 
+        this.themeSetter = themeSetter;
 
         hidePanel = new Timeline(                                                                                      //animation för att gömma login-panelen
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(logInPanel.layoutXProperty(), 1440))
@@ -172,6 +174,10 @@ public class LoginController extends SidePanelController{
         if(bYMe.getCurrentUser() != null) {
             panelToggler.togglePanel(true);
         }
+    }
+
+    @FXML void changeTheme(){
+        themeSetter.changeTheme();
     }
 
 }

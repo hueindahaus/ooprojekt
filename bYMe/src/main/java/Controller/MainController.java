@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, PanelToggler{
+public class MainController implements Initializable, PanelToggler, ThemeSetter {
 
     //FX grejer, borde kanske flyttas
 
@@ -18,6 +18,11 @@ public class MainController implements Initializable, PanelToggler{
     @FXML
     Button primaryButton;
 
+    private boolean dark_theme = false;
+
+    private Theme default_theme = new Theme("#ecf0f1", "#bdc3c7", "#3498db", "#2980b9", "#f1c40f", "#f39c12", "#34495e", " #2c3e50");
+    private Theme alternative_theme = new Theme("#2C3A47", "#2f3640", "#273c75", "#192a56", "#fbc531", "#e1b12c", "#f5f6fa", "#dcdde1");
+
     private LoginController loginController;
     private MenuController menuController;
 
@@ -25,13 +30,10 @@ public class MainController implements Initializable, PanelToggler{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loginController = new LoginController(this);
+        loginController = new LoginController(this, this);
         root.getChildren().add(loginController);
-        menuController = new MenuController();
+        menuController = new MenuController(this);
         root.getChildren().add(menuController);
-
-        setTheme(new Theme("#2c3e50","#34495e","#7f8c8d","#95a5a6","#f1c40f","#f39c12","#f1c40f","#f39c12"));
-        //kommentera bort ifall ni ej vill ha detta teamat
     }
 
 
@@ -64,7 +66,15 @@ public class MainController implements Initializable, PanelToggler{
                 "tertiary-dark:"+theme.tertiary_dark+";");
     }
 
-
+    public void changeTheme(){
+        if(!dark_theme) {
+            setTheme(alternative_theme);
+            dark_theme = true;
+        } else {
+            setTheme(default_theme);
+            dark_theme = false;
+        }
+    }
 
 }
 

@@ -10,7 +10,8 @@ public class Theme {
     String secondary_dark;
     String tertiary;
     String tertiary_dark;
-
+    String text;
+    String button_text;
 
     Theme(String main, String main_dark , String primary, String primary_dark, String secondary, String secondary_dark, String tertiary, String tertiary_dark){
 
@@ -22,6 +23,5 @@ public class Theme {
         this.secondary_dark = secondary_dark;
         this.tertiary = tertiary;
         this.tertiary_dark = tertiary_dark;
-
     }
 }

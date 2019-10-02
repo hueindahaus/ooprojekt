@@ -1,12 +1,12 @@
-* {
+.root{
   main: #ecf0f1;
-  main-hover: #bdc3c7;
+  main-dark: #bdc3c7;
   primary: #3498db;
-  primary-hover: #2980b9;
+  primary-dark: #2980b9;
   secondary: #f1c40f;
-  secondary-hover: #f39c12;
+  secondary-dark: #f39c12;
   tertiary: #34495e;
-  tertiary-hover: #2c3e50;
+  tertiary-dark: #2c3e50;
 }
 
 .appbar {
@@ -19,13 +19,13 @@
 }
 
 .cardholder {
-  -fx-background-color: #3498db;
+  -fx-background-color: primary;
   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
   -fx-background-radius: 10;
 }
 
 .background{
-  -fx-background-color: #3498db;
+  -fx-background-color: primary;
 }
 
 .cards {
@@ -48,14 +48,30 @@
   -fx-background-color: main;
 }
 
+.textareaPLACEHOLDER .content{
+  -fx-background-color:primary-dark;
+}
+
 .primaryButton {
   -fx-background-color: secondary;
-  -fx-background-radius: 10;
+  -fx-border-radius: 10px;
   -fx-text-fill: FFFFFF;
 }
 
+.accountButton {
+  -fx-background-color: secondary;
+  -fx-background-radius: 50%;
+  -fx-text-fill: FFFFFF;
+}
+
+
 .primaryButton:hover {
-  -fx-background-color: secondary-hover;
+   -fx-background-color: secondary-dark;
+   -fx-cursor: hand;
+ }
+
+.accountButton:hover {
+  -fx-background-color: secondary-dark;
   -fx-cursor: hand;
 }
 
@@ -66,7 +82,7 @@
 }
 
 .loginButton:hover {
-  -fx-background-color: primary-hover;
+  -fx-background-color: primary-dark;
   -fx-cursor: hand;
 }
 
@@ -77,7 +93,7 @@
 }
 
 .createAccountButton:hover{
-  -fx-background-color: tertiary-hover;
+  -fx-background-color: tertiary-dark;
   -fx-cursor: hand;
 }
 
