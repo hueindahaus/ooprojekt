@@ -31,7 +31,7 @@ public class AdListController extends AnchorPane {
     public AdListController() {
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ad.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ads.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
