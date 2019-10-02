@@ -9,25 +9,25 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <AnchorPane fx:id="greyZone" disable="true" layoutX="-20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#togglePanel" opacity="0.0" pickOnBounds="false" prefHeight="800.0" prefWidth="1460.0" styleClass="greyZone" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
-        <AnchorPane fx:id="registerBoxFrame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="828.0" styleClass="loginpanel" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="200.0">
+        <AnchorPane fx:id="greyZone" disable="true" layoutX="-20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#toggleCreateAdWindow" opacity="0.0" pickOnBounds="false" prefHeight="800.0" prefWidth="1460.0" styleClass="greyZone" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+        <AnchorPane fx:id="createAdBoxFrame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="828.0" styleClass="loginpanel" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="200.0">
             <children>
-                <TextField fx:id="signUpUsername" layoutX="200.0" layoutY="31.0" prefHeight="50.0" prefWidth="440.0" promptText="Annonstitel:" styleClass="RegTextfield" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="25.0">
+                <TextField fx:id="adTitle" layoutX="200.0" layoutY="31.0" prefHeight="50.0" prefWidth="440.0" promptText="Annonstitel:" styleClass="RegTextfield" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="25.0">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </TextField>
-                <Button alignment="CENTER" layoutX="394.0" layoutY="376.0" mnemonicParsing="false" onMouseClicked="#registerUser" styleClass="primaryButton" text="Skapa annons" textAlignment="CENTER" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="420.0">
+                <Button alignment="CENTER" layoutX="394.0" layoutY="376.0" mnemonicParsing="false" onMouseReleased="#createAd" styleClass="primaryButton" text="Skapa annons" textAlignment="CENTER" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="420.0">
                     <font>
                         <Font name="System Bold" size="27.0" />
                     </font>
                 </Button>
-                <TextField fx:id="signUpUsername1" alignment="TOP_LEFT" layoutX="231.0" layoutY="251.0" prefHeight="58.0" prefWidth="500.0" promptText="Beskivning" styleClass="RegTextfield" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="250.0">
+                <TextField fx:id="adDescription" alignment="TOP_LEFT" layoutX="231.0" layoutY="251.0" prefHeight="58.0" prefWidth="500.0" promptText="Beskivning" styleClass="RegTextfield" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="250.0">
                     <font>
                         <Font size="17.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="signUpUsername2" layoutX="243.0" layoutY="99.0" prefHeight="50.0" prefWidth="440.0" promptText="Pris:" styleClass="RegTextfield" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="100.0">
+                <TextField fx:id="adPrice" layoutX="243.0" layoutY="99.0" prefHeight="50.0" prefWidth="440.0" promptText="Pris:" styleClass="RegTextfield" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="100.0">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -37,6 +37,6 @@
                 <Button layoutX="92.0" layoutY="191.0" mnemonicParsing="false" text="Lägg till bild" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="registerBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#toggleRegisterBox" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" stylesheets="@byme-stylesheet.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <AnchorPane fx:id="registerBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" stylesheets="@byme-stylesheet.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 </fx:root>

@@ -1,14 +1,19 @@
 package Controller;
 
+import Model.Ad;
+import Model.AdList;
 import Model.Byme;
 import Services.AccountHandler;
 import Services.AdHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable, PanelToggler, ThemeSetter {
@@ -20,6 +25,9 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter 
     @FXML
     Button primaryButton;
 
+    @FXML
+    private FlowPane adsListFlowPane;
+
     private boolean dark_theme = false;
 
     private Theme default_theme = new Theme("#ecf0f1", "#bdc3c7", "#3498db", "#2980b9", "#f1c40f", "#f39c12", "#34495e", " #2c3e50");
@@ -27,6 +35,7 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter 
 
     private LoginController loginController;
     private MenuController menuController;
+    private AdController adController;
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
@@ -36,6 +45,9 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter 
         root.getChildren().add(loginController);
         menuController = new MenuController(this);
         root.getChildren().add(menuController);
+        adController = new AdController(this);
+        root.getChildren().add(adController);
+        populateAds();
     }
 
 
@@ -75,6 +87,26 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter 
         } else {
             setTheme(default_theme);
             dark_theme = false;
+        }
+    }
+
+    //Fattade inte riktigt hur det var tänkt med AdList, så la detta här istället.
+
+    public void populateAds(){
+        adsListFlowPane.getChildren().clear();
+        HashMap<String, Ad> ads = byme.getAds();
+        for(Map.Entry ad: ads.entrySet()){
+            Ad currentAd = (Ad) ad.getValue();
+            adsListFlowPane.getChildren().add(new AdList(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription()));
+        }
+    }
+
+    @FXML
+    void openCreateAd(){
+        if(byme.getCurrentUser() != null){
+            adController.toggleCreateAdWindow();
+        } else {
+            loginController.togglePanel();
         }
     }
 

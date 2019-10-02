@@ -43,7 +43,7 @@
             <Image url="@images/loggaByMe.png" />
          </image>
       </ImageView>
-      <Button layoutX="1257.0" layoutY="720.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="addAdButton" text="+" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="70.0">
+      <Button layoutX="1257.0" layoutY="720.0" mnemonicParsing="false" onMouseReleased="#openCreateAd" prefHeight="80.0" prefWidth="80.0" styleClass="addAdButton" text="+" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="70.0">
          <font>
             <Font size="36.0" />
          </font>
