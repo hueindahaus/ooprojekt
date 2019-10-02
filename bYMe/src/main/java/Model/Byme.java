@@ -6,9 +6,9 @@ public class Byme {
 
     private static Byme singleton = null;
 
-    public static Byme getInstance(IAccountHandler accountHandler){
+    public static Byme getInstance(IAccountHandler accountHandler, IAdHandler adHandler){
         if(singleton == null){
-            singleton = new Byme(accountHandler);
+            singleton = new Byme(accountHandler, adHandler);
         }
         return singleton;
     }
@@ -21,6 +21,8 @@ public class Byme {
 
     private IAccountHandler accountHandler;
 
+    private IAdHandler adHandler;
+
 
     public HashMap<String,Ad> ads= new HashMap<>();
 
@@ -30,11 +32,19 @@ public class Byme {
 
 
 
-    private Byme(IAccountHandler accountHandler){
+    private Byme(IAccountHandler accountHandler, IAdHandler adHandler){
         accounts = new HashMap<>();
         this.accountHandler = accountHandler;
+        this.adHandler = adHandler;
         accountHandler.loadAccounts(accounts);
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> accountHandler.saveAccounts(accounts), "Shutdown-thread"));
+        adHandler.loadAds(ads);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> saveObjects(), "Shutdown-thread"));
+    }
+
+
+    private void saveObjects(){
+        accountHandler.saveAccounts(accounts);
+        adHandler.saveAds(ads);
     }
 
     public void registerAccount(String username, String password){

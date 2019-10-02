@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Byme;
 import Services.AccountHandler;
+import Services.AdHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -21,7 +22,7 @@ public class MainController implements Initializable, PanelToggler{
     private LoginController loginController;
     private MenuController menuController;
 
-    private Byme byme = Byme.getInstance(AccountHandler.getInstance());
+    private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

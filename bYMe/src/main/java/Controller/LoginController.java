@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Byme;
 import Services.AccountHandler;
+import Services.AdHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -68,7 +69,7 @@ public class LoginController extends SidePanelController{
         this.panelToggler = panelToggler;
     }
 
-    private Byme bYMe = Byme.getInstance(AccountHandler.getInstance());
+    private Byme bYMe = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
 
     @FXML void registerUser(){

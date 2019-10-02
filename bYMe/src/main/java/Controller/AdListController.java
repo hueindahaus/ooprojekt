@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Byme;
 import Services.AccountHandler;
+import Services.AdHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -26,7 +27,7 @@ public class AdListController extends AnchorPane {
     @FXML
     private FlowPane adsListFlowPane;
 
-    private Byme bYMe = Byme.getInstance(AccountHandler.getInstance());
+    private Byme bYMe = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
     public AdListController() {
 

@@ -3,6 +3,7 @@ package Controller;
 import Model.Byme;
 import Model.IObserver;
 import Services.AccountHandler;
+import Services.AdHandler;
 import Services.PictureHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -42,7 +43,7 @@ public class MenuController extends SidePanelController implements IObserver {
 
     PictureHandler pictureHandler = new PictureHandler();
 
-    private Byme byme = Byme.getInstance(AccountHandler.getInstance());
+    private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
     MenuController() {
         super("../signedIn.fxml");
