@@ -11,7 +11,7 @@
 
 .appbar {
   -fx-background-color: main;
-  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 2);
 }
 
 .loginpanel {
@@ -20,7 +20,7 @@
 
 .cardholder {
   -fx-background-color: primary;
-  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 2);
   -fx-background-radius: 10;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .accountButton {
-  -fx-background-color: secondary;
+  -fx-background-color: primary;
   -fx-background-radius: 50%;
   -fx-text-fill: FFFFFF;
 }
@@ -71,7 +71,7 @@
  }
 
 .accountButton:hover {
-  -fx-background-color: secondary-dark;
+  -fx-background-color: primary-dark;
   -fx-cursor: hand;
 }
 
@@ -114,4 +114,17 @@
 
 .logo:hover {
   -fx-image: url("/images/loggaByMeHover.png");
+  -fx-cursor: hand;
+}
+
+.addAdButton {
+  -fx-background-radius: 100%;
+  -fx-background-color: secondary;
+  -fx-text-fill: FFFFFF;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 2);
+}
+
+.addAdButton:hover {
+  -fx-background-color: secondary-dark;
+  -fx-cursor: hand;
 }
