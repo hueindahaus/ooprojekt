@@ -91,8 +91,8 @@ public class Byme {
     /**
      * Method used for logging in.
      * Changes the currentUser.
-     * In order to login the password
-     * must match the given password at registration.
+     * In order to login the password must
+     * match the given password at registration.
      * @param username
      * @param password
      */
@@ -119,7 +119,12 @@ public class Byme {
         observers.add(observer);
     }
 
-    private void notifyObservers(){         //används för att uppdatera allt som är beroende av modellen när något i modellen ändras
+    /**
+     * Used for notifying everything that is dependent
+     * on the model that something has changed in the model.
+     */
+
+    private void notifyObservers(){
         for(IObserver observer: observers){
             observer.update();
         }
