@@ -18,7 +18,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="adLocation" layoutX="190.0" layoutY="51.0" prefHeight="25.0" prefWidth="425.0" text="Plats">
+      <Label fx:id="adLocation" layoutX="190.0" layoutY="51.0" prefHeight="25.0" prefWidth="425.0" text="Plats" textFill="#000000c1">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
