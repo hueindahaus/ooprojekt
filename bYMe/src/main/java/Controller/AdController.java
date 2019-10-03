@@ -5,6 +5,8 @@ import Services.AccountHandler;
 import Services.AdHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -26,6 +28,9 @@ public class AdController extends AnchorPane {
     @FXML
     TextField adDescription;
 
+    @FXML
+    ComboBox adLocation;
+
     private AdCreator adCreator;
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
@@ -39,8 +44,11 @@ public class AdController extends AnchorPane {
         } catch(IOException exception){
             throw new RuntimeException(exception);
         }
+        adLocation.getItems().addAll("Västra Götaland", "Stockholm", "Skåne", "Jönköping", "Bergsjön");
         createAdBoxFrame.setVisible(false);
         this.adCreator = adCreator;
+
+
     }
 
     @FXML
@@ -58,7 +66,7 @@ public class AdController extends AnchorPane {
 
     @FXML
     void createAd(){
-        adCreator.createAd(adTitle.getText(), adDescription.getText(), Integer.valueOf(adPrice.getText()), "");
+        adCreator.createAd(adTitle.getText(), adDescription.getText(), Integer.valueOf(adPrice.getText()), adLocation.getEditor().getText());
         adCreator.populateAds();
         toggleCreateAdWindow();
     }
