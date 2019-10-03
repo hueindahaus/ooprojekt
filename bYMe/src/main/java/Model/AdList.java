@@ -1,7 +1,9 @@
 package Model;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +23,7 @@ public class AdList extends AnchorPane {
     @FXML
     private Label adDescription;
 
+
     //private Byme bYMe = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
     public AdList(String title, String location, int price, String description)  {
@@ -39,4 +42,6 @@ public class AdList extends AnchorPane {
         adPrice.setText(Integer.toString(price));
 
     }
+
+
 }
