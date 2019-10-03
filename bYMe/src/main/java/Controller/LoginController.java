@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Byme;
 import Services.AccountHandler;
+import Services.AdHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -18,16 +19,27 @@ import java.util.List;
 
 public class LoginController extends SidePanelController{
 
+    private ThemeSetter themeSetter;
 
     @FXML AnchorPane registerBox;
     @FXML AnchorPane registerBoxFrame;
+    @FXML TextField signUpUsername;
+    @FXML PasswordField signUpPassword;
+    @FXML PasswordField signUpPassword2;
+    @FXML Label errorLabel;
+    @FXML AnchorPane greyZone;
+    @FXML private TextField logInUsername;
+    @FXML private PasswordField logInPassword;
+    @FXML private AnchorPane logInPanel;
+
+    PanelToggler panelToggler;
 
 
 
-
-    public LoginController(){
+    LoginController(PanelToggler panelToggler, ThemeSetter themeSetter){
         super("../login.fxml");
 
+        this.themeSetter = themeSetter;
 
         hidePanel = new Timeline(                                                                                      //animation för att gömma login-panelen
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(logInPanel.layoutXProperty(), 1440))
@@ -54,24 +66,12 @@ public class LoginController extends SidePanelController{
             }
         });
 
+
+        this.panelToggler = panelToggler;
     }
 
-    private Byme bYMe = Byme.getInstance(AccountHandler.getInstance());
+    private Byme bYMe = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
-    @FXML
-    TextField signUpUsername;
-
-    @FXML
-    PasswordField signUpPassword;
-
-    @FXML
-    PasswordField signUpPassword2;
-
-    @FXML
-    Label errorLabel;
-
-    @FXML
-    AnchorPane greyZone;
 
     @FXML void registerUser(){
         String username = signUpUsername.getText();
@@ -90,7 +90,9 @@ public class LoginController extends SidePanelController{
             highlightUnmatchedPasswordError();
         } else {
             bYMe.registerAccount(username, password);
+            bYMe.loginUser(username, password);
             toggleRegisterBox();
+            panelToggler.togglePanel(true);
         }
 
 
@@ -109,7 +111,7 @@ public class LoginController extends SidePanelController{
 
         for(TextField textfield : textfields){
             if(textfield.getText().isEmpty()){
-                textfield.setStyle("-fx-border-color: red;");
+                textfield.setStyle("-fx-border-color: #e74c3c;");
             } else {
                textfield.setStyle("-fx-border-color: inherit");
             }
@@ -125,7 +127,7 @@ public class LoginController extends SidePanelController{
 
     private void highlightUserAlreadyExistError(){
         if (bYMe.isAlreadyRegistered(signUpUsername.getText())){
-            signUpUsername.setStyle("-fx-border-color: red;");
+            signUpUsername.setStyle("-fx-border-color: #e74c3c;");
             System.out.println("User already exist: " + signUpUsername.getText());
             errorLabel.setText("Användare: " + signUpUsername.getText() + " finns redan!");
         } else {
@@ -136,7 +138,7 @@ public class LoginController extends SidePanelController{
 
     private void highlightUnmatchedPasswordError(){
         if(!signUpPassword.getText().equals(signUpPassword2.getText())){
-            signUpPassword2.setStyle("-fx-border-color: red;");
+            signUpPassword2.setStyle("-fx-border-color: #e74c3c;");
             System.out.println("Password doesn't match");
             errorLabel.setText("Lösenorden matchar ej!");
         } else {
@@ -144,22 +146,6 @@ public class LoginController extends SidePanelController{
             errorLabel.setText("");
         }
     }
-
-
-
-
-
-    @FXML
-    private TextField logInUsername;
-
-    @FXML
-    private PasswordField logInPassword;
-
-    @FXML
-    private AnchorPane logInPanel;
-
-
-
 
     void setGreyZoneDisable(boolean value){
         greyZone.setDisable(value);
@@ -177,8 +163,12 @@ public class LoginController extends SidePanelController{
     @FXML void loginUser(){
         bYMe.loginUser(logInUsername.getText(), logInPassword.getText());
         if(bYMe.getCurrentUser() != null) {
-            togglePanel();
+            panelToggler.togglePanel(true);
         }
+    }
+
+    @FXML void changeTheme(){
+        themeSetter.changeTheme();
     }
 
 }
