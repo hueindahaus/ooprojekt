@@ -5,9 +5,12 @@ import Model.AdList;
 import Model.Byme;
 import Services.AccountHandler;
 import Services.AdHandler;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
@@ -24,9 +27,19 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
     AnchorPane root;
     @FXML
     Button primaryButton;
+    @FXML
+    Button addAdButton;
+
+    @FXML
+    ImageView exitButtonImage;
 
     @FXML
     private FlowPane adsListFlowPane;
+    @FXML
+    private AnchorPane adsPane;
+    @FXML
+    private AnchorPane detailPane;
+
 
     private boolean dark_theme = false;
 
@@ -38,6 +51,8 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
     private AdController adController;
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
+
+    AdList adList;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -114,6 +129,36 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
             loginController.togglePanel();
         }
     }
+
+    @FXML
+    public void closeDetailView(){
+        detailPane.toBack();
+        adsPane.toFront();
+    }
+
+
+    @FXML
+    public void closeButtonMouseEntered(){
+        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
+                "bYMe/images/icon_close_hover.png")));
+    }
+
+    @FXML
+    public void closeButtonMousePressed(){
+        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
+                "bYMe/images/icon_close_pressed.png")));
+    }
+
+    @FXML
+    public void closeButtonMouseExited(){
+        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
+                "bYMe/images/icon.png")));
+    }
+    @FXML
+    public void mouseTrap(Event event){
+        event.consume();
+    }
+
 
 }
 
