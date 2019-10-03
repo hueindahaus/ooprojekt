@@ -87,12 +87,13 @@ public class AdHandler implements IAdHandler {
         object.put("description",ad.getDescription());
         object.put("location", ad.getLocation());
         object.put("price", ad.getPrice());
+        object.put("account", ad.getAccount());
 
         return object;
     }
 
     private Ad parseJSONObject(JSONObject obj){
-        return new Ad((String)obj.get("title"),Integer.valueOf(String.valueOf(obj.get("price"))),(String)obj.get("description"),(String)obj.get("location"),(String)obj.get("adId"));
+        return new Ad((String)obj.get("title"),Integer.valueOf(String.valueOf(obj.get("price"))),(String)obj.get("description"),(String)obj.get("location"),(String)obj.get("adId"), (String)obj.get("account"));
     }
 
 

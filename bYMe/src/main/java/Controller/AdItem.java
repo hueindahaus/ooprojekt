@@ -1,4 +1,4 @@
-package Model;
+package Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class AdList extends AnchorPane {
+public class AdItem extends AnchorPane {
 
     @FXML
     private ImageView adImage;
@@ -20,10 +20,10 @@ public class AdList extends AnchorPane {
     private Label adPrice;
     @FXML
     private Label adDescription;
+    @FXML
+    private Label adAccount;
 
-    //private Byme bYMe = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
-
-    public AdList(String title, String location, int price, String description)  {
+    public AdItem(String title, String location, int price, String description, String account)  {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ads.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -37,6 +37,6 @@ public class AdList extends AnchorPane {
         adDescription.setText(description);
         adLocation.setText(location);
         adPrice.setText(Integer.toString(price));
-
+        adAccount.setText(account);
     }
 }

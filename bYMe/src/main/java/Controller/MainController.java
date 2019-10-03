@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.Ad;
-import Model.AdList;
 import Model.Byme;
 import Services.AccountHandler;
 import Services.AdHandler;
@@ -17,8 +16,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable, PanelToggler, ThemeSetter, AdCreator {
-
-    //FX grejer, borde kanske flyttas
 
     @FXML
     AnchorPane root;
@@ -90,7 +87,7 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
         }
     }
 
-    //Fattade inte riktigt hur det var tänkt med AdList, så la detta här istället.
+    //Fattade inte riktigt hur det var tänkt med AdItem, så la detta här istället.
 
 
     public void populateAds(){
@@ -98,12 +95,12 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
         HashMap<String, Ad> ads = byme.getAds();
         for(Map.Entry ad: ads.entrySet()){
             Ad currentAd = (Ad) ad.getValue();
-            adsListFlowPane.getChildren().add(new AdList(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription()));
+            adsListFlowPane.getChildren().add(new AdItem(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription(), currentAd.getAccount()));
         }
     }
 
     public void createAd(String title, String description, int price, String location){
-        byme.createAd(title, description, price, location);
+        byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
     }
 
     @FXML
