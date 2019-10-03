@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" styleClass="background" stylesheets="@byme-stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" styleClass="background" stylesheets="@byme-stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
    <children>
       <StackPane prefHeight="900.0" prefWidth="1440.0">
          <children>
-            <AnchorPane fx:id="adsPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #030101;">
+            <AnchorPane fx:id="adsPane" prefHeight="200.0" prefWidth="200.0" styleClass="background">
                <children>
                   <AnchorPane layoutX="370.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="740.0" styleClass="cardholder">
                      <children>
@@ -32,9 +32,9 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="detailPane" onMouseClicked="#closeDetailView" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: rgba(0, 0, 0, 0.75);">
+            <AnchorPane fx:id="detailPane" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: rgba(0, 0, 0, 0.75);">
                <children>
-                  <AnchorPane layoutX="128.0" layoutY="206.0" onMouseClicked="#mouseTrap" prefHeight="586.0" prefWidth="1182.0" style="-fx-background-color: #88aaff;">
+                  <AnchorPane layoutX="128.0" layoutY="206.0" onMouseClicked="#mouseTrap" prefHeight="586.0" prefWidth="1182.0" styleClass="background">
                      <children>
                         <Button layoutX="1129.0" layoutY="9.0" mnemonicParsing="false" onAction="#closeDetailView">
                            <graphic>

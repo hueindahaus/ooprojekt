@@ -8,7 +8,7 @@ import Services.AccountHandler;
 import javafx.event.Event;
 =======
 import Services.AdHandler;
->>>>>>> Dev
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, PanelToggler, ThemeSetter {
+public class MainController implements Initializable, PanelToggler, ThemeSetter, AdCreator {
 
     //FX grejer, borde kanske flyttas
 
@@ -34,15 +34,18 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter 
     @FXML
     Button primaryButton;
     @FXML
+    Button addAdButton;
+
+    @FXML
     ImageView exitButtonImage;
 
     @FXML
-    private AnchorPane detailPane;
+    private FlowPane adsListFlowPane;
     @FXML
     private AnchorPane adsPane;
-
     @FXML
-    private FlowPane adsListFlowPane;
+    private AnchorPane detailPane;
+
 
     private boolean dark_theme = false;
 
@@ -54,6 +57,8 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter 
     private AdController adController;
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
+
+    AdList adList;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -144,6 +149,7 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter 
 
     //Fattade inte riktigt hur det var tänkt med AdList, så la detta här istället.
 
+
     public void populateAds(){
         adsListFlowPane.getChildren().clear();
         HashMap<String, Ad> ads = byme.getAds();
@@ -154,6 +160,10 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter 
     }
 >>>>>>> Dev
 
+    public void createAd(String title, String description, int price, String location){
+        byme.createAd(title, description, price, location);
+    }
+
     @FXML
     void openCreateAd(){
         if(byme.getCurrentUser() != null){
@@ -162,6 +172,36 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter 
             loginController.togglePanel();
         }
     }
+
+    @FXML
+    public void closeDetailView(){
+        detailPane.toBack();
+        adsPane.toFront();
+    }
+
+
+    @FXML
+    public void closeButtonMouseEntered(){
+        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
+                "bYMe/images/icon_close_hover.png")));
+    }
+
+    @FXML
+    public void closeButtonMousePressed(){
+        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
+                "bYMe/images/icon_close_pressed.png")));
+    }
+
+    @FXML
+    public void closeButtonMouseExited(){
+        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
+                "bYMe/images/icon.png")));
+    }
+    @FXML
+    public void mouseTrap(Event event){
+        event.consume();
+    }
+
 
 }
 

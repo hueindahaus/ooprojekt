@@ -26,12 +26,11 @@ public class AdController extends AnchorPane {
     @FXML
     TextField adDescription;
 
-    //SKA EJ BERO PÅ MAINCONTROLLER. GÖR EN INTERFACE?
-    private MainController mainController;
+    private AdCreator adCreator;
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
-    AdController(MainController mainController){
+    AdController(AdCreator adCreator){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../createAdWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -41,8 +40,7 @@ public class AdController extends AnchorPane {
             throw new RuntimeException(exception);
         }
         createAdBoxFrame.setVisible(false);
-        //FULT!!!
-        this.mainController = mainController;
+        this.adCreator = adCreator;
     }
 
     @FXML
@@ -60,8 +58,8 @@ public class AdController extends AnchorPane {
 
     @FXML
     void createAd(){
-        byme.createAd(adTitle.getText(), adDescription.getText(), Integer.valueOf(adPrice.getText()), "");
-        mainController.populateAds();
+        adCreator.createAd(adTitle.getText(), adDescription.getText(), Integer.valueOf(adPrice.getText()), "");
+        adCreator.populateAds();
         toggleCreateAdWindow();
     }
 }
