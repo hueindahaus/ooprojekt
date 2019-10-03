@@ -7,4 +7,5 @@
 .ad:hover{
     -fx-border-color: #2980b9;
     -fx-border-width: 2px;
+    -fx-cursor: hand;
 }
