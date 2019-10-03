@@ -21,13 +21,22 @@ public class Byme {
 
     private IAccountHandler accountHandler;
 
+<<<<<<< HEAD
+    private Ads ad;
+=======
     private IAdHandler adHandler;
+>>>>>>> Dev
 
 
+<<<<<<< HEAD
+    public Ads getAd(){
+        return ad;
+=======
     public HashMap<String,Ad> ads= new HashMap<>();
 
     public HashMap<String,Ad> getAds(){
         return ads;
+>>>>>>> Dev
     }
 
 
