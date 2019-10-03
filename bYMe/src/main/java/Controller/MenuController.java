@@ -3,6 +3,7 @@ package Controller;
 import Model.Byme;
 import Model.IObserver;
 import Services.AccountHandler;
+import Services.AdHandler;
 import Services.PictureHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -31,6 +32,8 @@ import java.io.IOException;
 
 public class MenuController extends SidePanelController implements IObserver {
 
+    private ThemeSetter themeSetter;
+
     @FXML
     Button categoryButton;
 
@@ -42,11 +45,12 @@ public class MenuController extends SidePanelController implements IObserver {
 
     PictureHandler pictureHandler = new PictureHandler();
 
-    private Byme byme = Byme.getInstance(AccountHandler.getInstance());
+    private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
-    MenuController() {
+    MenuController(ThemeSetter themeSetter) {
         super("../signedIn.fxml");
         byme.addObserver(this);
+        this.themeSetter = themeSetter;
 
         hidePanel = new Timeline(                                                                                      //animation för att gömma login-panelen
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(menuPanel.layoutXProperty(), 1440))
@@ -152,5 +156,9 @@ public class MenuController extends SidePanelController implements IObserver {
     public void update(){
         updateProfilePicImageView();
         displayAccountName();
+    }
+
+    @FXML void changeTheme(){
+        themeSetter.changeTheme();
     }
 }

@@ -1,15 +1,22 @@
 package Controller;
 
+import Model.Ad;
+import Model.AdList;
 import Model.Byme;
 import Services.AccountHandler;
+import Services.AdHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, PanelToggler{
+public class MainController implements Initializable, PanelToggler, ThemeSetter {
 
     //FX grejer, borde kanske flyttas
 
@@ -18,20 +25,29 @@ public class MainController implements Initializable, PanelToggler{
     @FXML
     Button primaryButton;
 
+    @FXML
+    private FlowPane adsListFlowPane;
+
+    private boolean dark_theme = false;
+
+    private Theme default_theme = new Theme("#ecf0f1", "#bdc3c7", "#3498db", "#2980b9", "#f1c40f", "#f39c12", "#34495e", " #2c3e50");
+    private Theme alternative_theme = new Theme("#2C3A47", "#2f3640", "#273c75", "#192a56", "#fbc531", "#e1b12c", "#f5f6fa", "#dcdde1");
+
     private LoginController loginController;
     private MenuController menuController;
+    private AdController adController;
 
-    private Byme byme = Byme.getInstance(AccountHandler.getInstance());
+    private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loginController = new LoginController(this);
+        loginController = new LoginController(this, this);
         root.getChildren().add(loginController);
-        menuController = new MenuController();
+        menuController = new MenuController(this);
         root.getChildren().add(menuController);
-
-        setTheme(new Theme("#2c3e50","#34495e","#7f8c8d","#95a5a6","#f1c40f","#f39c12","#f1c40f","#f39c12"));
-        //kommentera bort ifall ni ej vill ha detta teamat
+        adController = new AdController(this);
+        root.getChildren().add(adController);
+        populateAds();
     }
 
 
@@ -64,7 +80,35 @@ public class MainController implements Initializable, PanelToggler{
                 "tertiary-dark:"+theme.tertiary_dark+";");
     }
 
+    public void changeTheme(){
+        if(!dark_theme) {
+            setTheme(alternative_theme);
+            dark_theme = true;
+        } else {
+            setTheme(default_theme);
+            dark_theme = false;
+        }
+    }
 
+    //Fattade inte riktigt hur det var tänkt med AdList, så la detta här istället.
+
+    public void populateAds(){
+        adsListFlowPane.getChildren().clear();
+        HashMap<String, Ad> ads = byme.getAds();
+        for(Map.Entry ad: ads.entrySet()){
+            Ad currentAd = (Ad) ad.getValue();
+            adsListFlowPane.getChildren().add(new AdList(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription()));
+        }
+    }
+
+    @FXML
+    void openCreateAd(){
+        if(byme.getCurrentUser() != null){
+            adController.toggleCreateAdWindow();
+        } else {
+            loginController.togglePanel();
+        }
+    }
 
 }
 

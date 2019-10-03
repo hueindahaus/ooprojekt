@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Byme;
 import Services.AccountHandler;
+import Services.AdHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -18,6 +19,7 @@ import java.util.List;
 
 public class LoginController extends SidePanelController{
 
+    private ThemeSetter themeSetter;
 
     @FXML AnchorPane registerBox;
     @FXML AnchorPane registerBoxFrame;
@@ -34,10 +36,10 @@ public class LoginController extends SidePanelController{
 
 
 
-
-    LoginController(PanelToggler panelToggler){
+    LoginController(PanelToggler panelToggler, ThemeSetter themeSetter){
         super("../login.fxml");
 
+        this.themeSetter = themeSetter;
 
         hidePanel = new Timeline(                                                                                      //animation för att gömma login-panelen
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(logInPanel.layoutXProperty(), 1440))
@@ -68,7 +70,7 @@ public class LoginController extends SidePanelController{
         this.panelToggler = panelToggler;
     }
 
-    private Byme bYMe = Byme.getInstance(AccountHandler.getInstance());
+    private Byme bYMe = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
 
     @FXML void registerUser(){
@@ -145,15 +147,6 @@ public class LoginController extends SidePanelController{
         }
     }
 
-
-
-
-
-
-
-
-
-
     void setGreyZoneDisable(boolean value){
         greyZone.setDisable(value);
     }
@@ -172,6 +165,10 @@ public class LoginController extends SidePanelController{
         if(bYMe.getCurrentUser() != null) {
             panelToggler.togglePanel(true);
         }
+    }
+
+    @FXML void changeTheme(){
+        themeSetter.changeTheme();
     }
 
 }
