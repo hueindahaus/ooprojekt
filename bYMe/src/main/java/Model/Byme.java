@@ -1,17 +1,14 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Byme {
 
     private static Byme singleton = null;
 
-    public static Byme getInstance(IAccountHandler accountHandler){
+    public static Byme getInstance(IAccountHandler accountHandler, IAdHandler adHandler){
         if(singleton == null){
-            singleton = new Byme(accountHandler);
+            singleton = new Byme(accountHandler, adHandler);
         }
         return singleton;
     }
@@ -24,21 +21,39 @@ public class Byme {
 
     private IAccountHandler accountHandler;
 
+<<<<<<< HEAD
     private Ads ad;
+=======
+    private IAdHandler adHandler;
+>>>>>>> Dev
 
-    public List<Ads> adsList = new ArrayList<>();
 
+<<<<<<< HEAD
     public Ads getAd(){
         return ad;
+=======
+    public HashMap<String,Ad> ads= new HashMap<>();
+
+    public HashMap<String,Ad> getAds(){
+        return ads;
+>>>>>>> Dev
     }
 
 
 
-    private Byme(IAccountHandler accountHandler){
+    private Byme(IAccountHandler accountHandler, IAdHandler adHandler){
         accounts = new HashMap<>();
         this.accountHandler = accountHandler;
+        this.adHandler = adHandler;
         accountHandler.loadAccounts(accounts);
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> accountHandler.saveAccounts(accounts), "Shutdown-thread"));
+        adHandler.loadAds(ads);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> saveObjects(), "Shutdown-thread"));
+    }
+
+
+    private void saveObjects(){
+        accountHandler.saveAccounts(accounts);
+        adHandler.saveAds(ads);
     }
 
     public void registerAccount(String username, String password){
@@ -94,7 +109,24 @@ public class Byme {
     }
 
 
+    private String generateRandomAdId(){
+        StringBuilder stringBuilder = new StringBuilder();
+        Random randomizer = new Random();
 
+        do {
+            for (int i = 0; i < 4; i++) {
+                stringBuilder.append(randomizer.nextInt(10));
+            }
+        } while (ads.containsKey(stringBuilder.toString()));
+
+        return stringBuilder.toString();
+    }
+
+
+    public void createAd(String title, String description, int price, String location){
+        String adId = generateRandomAdId();
+        ads.put(adId,new Ad(title,price,description,location,adId));
+    }
 
 
 }
