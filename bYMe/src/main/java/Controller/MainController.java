@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, PanelToggler, ThemeSetter {
+public class MainController implements Initializable, PanelToggler, ThemeSetter, AdCreator {
 
     //FX grejer, borde kanske flyttas
 
@@ -92,6 +92,7 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter 
 
     //Fattade inte riktigt hur det var tänkt med AdList, så la detta här istället.
 
+
     public void populateAds(){
         adsListFlowPane.getChildren().clear();
         HashMap<String, Ad> ads = byme.getAds();
@@ -99,6 +100,10 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter 
             Ad currentAd = (Ad) ad.getValue();
             adsListFlowPane.getChildren().add(new AdList(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription()));
         }
+    }
+
+    public void createAd(String title, String description, int price, String location){
+        byme.createAd(title, description, price, location);
     }
 
     @FXML
