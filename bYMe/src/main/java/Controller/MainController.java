@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, PanelToggler, ThemeSetter, AdCreator {
+public class MainController implements Initializable, SIdePanelToggler, ThemeSetter, AdCreator, DetailViewToggler {
 
     @FXML
     AnchorPane root;
@@ -33,6 +33,7 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
     private LoginController loginController;
     private MenuController menuController;
     private AdController adController;
+    private DetailViewController detailViewController;
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
@@ -40,10 +41,12 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
     public void initialize(URL url, ResourceBundle rb) {
         loginController = new LoginController(this, this);
         root.getChildren().add(loginController);
-        menuController = new MenuController(this);
+        menuController = new MenuController(this,this);
         root.getChildren().add(menuController);
         adController = new AdController(this);
         root.getChildren().add(adController);
+        detailViewController = new DetailViewController(this);
+        root.getChildren().add(detailViewController);
         populateAds();
     }
 
@@ -95,7 +98,7 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
         HashMap<String, Ad> ads = byme.getAds();
         for(Map.Entry ad: ads.entrySet()){
             Ad currentAd = (Ad) ad.getValue();
-            adsListFlowPane.getChildren().add(new AdItem(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription(), currentAd.getAccount()));
+            adsListFlowPane.getChildren().add(new AdItem(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription(), currentAd.getAccount(), this));
         }
     }
 
@@ -109,6 +112,14 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
             adController.toggleCreateAdWindow();
         } else {
             loginController.togglePanel();
+        }
+    }
+
+    public void  toggleDetailView(boolean value){
+        if (value){
+            detailViewController.setVisible(true);
+        }else {
+            detailViewController.setVisible(false);
         }
     }
 

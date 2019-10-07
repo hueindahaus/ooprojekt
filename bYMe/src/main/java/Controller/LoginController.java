@@ -32,11 +32,11 @@ public class LoginController extends SidePanelController{
     @FXML private PasswordField logInPassword;
     @FXML private AnchorPane logInPanel;
 
-    PanelToggler panelToggler;
+    SIdePanelToggler panelToggler;
 
 
 
-    LoginController(PanelToggler panelToggler, ThemeSetter themeSetter){
+    LoginController(SIdePanelToggler panelToggler, ThemeSetter themeSetter){
         super("../login.fxml");
 
         this.themeSetter = themeSetter;

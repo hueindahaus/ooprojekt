@@ -112,3 +112,7 @@
   -fx-cursor: hand;
   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 2, 0, 0, 2);
 }
+
+.detailViewBox {
+  -fx-background-color: main;
+}
