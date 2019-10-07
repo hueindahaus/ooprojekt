@@ -45,6 +45,7 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
         adController = new AdController(this);
         root.getChildren().add(adController);
         populateAds();
+        removeAd("1404");
     }
 
 
@@ -99,9 +100,17 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
         }
     }
 
-    public void removeAd(String adID){
-        adsListFlowPane.getChildren().remove(Integer.valueOf(adID));
+    @FXML
+    void removeAd(String adID){
+        byme.removeAd(adID);
+        populateAds();
     }
+    @FXML
+    void editAd(String adID){
+
+    }
+
+
     public void createAd(String title, String description, int price, String location){
         byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
     }

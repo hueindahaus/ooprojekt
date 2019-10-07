@@ -15,11 +15,6 @@ public class Main extends Application {
         primaryStage.setTitle("Byme");
         primaryStage.setScene(new Scene(root, 1440, 900));
         primaryStage.show();
-
-        //Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance()).createAd("hej","detta e ett test", 10, "Sverige");
-        //Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance()).createAd("hej","dettquiwehiquwehqwuiehuiqwuihewqhuieuiwqhuieqwuihhuiewqiuheqwhuiuhiweqhuiqwehuiqweuhiuieqwuhieqwhuiuhiqwehiuewqiuhewhuiqihueqwiuheqwuihuiheqwiuheqwiuheqwhuihuiqewiuhqweuihuiqweha e ett test", 10, "Sverige");
-
-
     }
 
 
