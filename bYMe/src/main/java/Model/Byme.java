@@ -24,21 +24,9 @@ public class Byme {
 
     private IAccountHandler accountHandler;
 
-<<<<<<< Updated upstream
     private IAdHandler adHandler;
 
 
-=======
-    private Ad ad;
-    private IAdHandler adHandler;
-
-
-
-
-    public Ad getAd() {
-        return ad;
-    }
->>>>>>> Stashed changes
     public HashMap<String,Ad> ads= new HashMap<>();
 
     public HashMap<String,Ad> getAds(){
