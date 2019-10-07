@@ -19,37 +19,20 @@
 }
 
 .cardholder {
-  -fx-background-color: primary;
-  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 2);
   -fx-background-radius: 10;
 }
 
+.scroll-pane > .viewport {
+  -fx-background-color: transparent;
+}
+
+.scroll-pane {
+  -fx-background-color: transparent;
+}
+
+
 .background{
   -fx-background-color: primary;
-}
-
-.cards {
-  -fx-border-color: main;
-  -fx-border-radius: 10 10 0 0;
-  -fx-border-width: 5px;
-}
-
-.cardtitle {
-  -fx-background-color: main;
-}
-
-.cardPLACEHOLDER {
-  -fx-border-color: main;
-  -fx-border-radius: 0;
-  -fx-border-width: 5px;
-}
-
-.picPLACEHOLDER {
-  -fx-background-color: main;
-}
-
-.textareaPLACEHOLDER .content{
-  -fx-background-color:primary-dark;
 }
 
 .primaryButton {
@@ -127,4 +110,5 @@
 .addAdButton:hover {
   -fx-background-color: secondary-dark;
   -fx-cursor: hand;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 2, 0, 0, 2);
 }

@@ -6,17 +6,19 @@ package Model;
         private String description;
         private String location;
         private final String adId;
+        private final String account;
 
         public String getTitle(){
             return title;
         }
 
-        public Ad(String title, int price, String description, String location, String adId) {
+        public Ad(String title, int price, String description, String location, String adId, String account) {
             this.title = title;
             this.price = price;
             this.description = description;
             this.location = location;
             this.adId = adId;
+            this.account = account;
         }
 
         public int getPrice(){
@@ -33,6 +35,10 @@ package Model;
 
         public String getAdId(){
             return adId;
+        }
+
+        public String getAccount(){
+            return account;
         }
 
         public void setPrice(int price) { this.price = price; }

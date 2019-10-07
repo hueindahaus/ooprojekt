@@ -1,18 +1,15 @@
 package Controller;
 
 import Model.Ad;
-import Model.AdList;
 import Model.Byme;
 import Services.AccountHandler;
-import javafx.event.Event;
 import Services.AdHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,25 +17,13 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable, PanelToggler, ThemeSetter, AdCreator {
 
-    //FX grejer, borde kanske flyttas
-
     @FXML
     AnchorPane root;
     @FXML
     Button primaryButton;
-    @FXML
-    Button addAdButton;
-
-    @FXML
-    ImageView exitButtonImage;
 
     @FXML
     private FlowPane adsListFlowPane;
-    @FXML
-    private AnchorPane adsPane;
-    @FXML
-    private AnchorPane detailPane;
-
 
     private boolean dark_theme = false;
 
@@ -50,8 +35,6 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
     private AdController adController;
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
-
-    AdList adList;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -94,40 +77,6 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
                 "tertiary-dark:"+theme.tertiary_dark+";");
     }
 
-    @FXML
-    private void openDetailView(){
-        detailPane.toFront();
-        adsPane.toBack();
-    }
-    @FXML
-    private void closeDetailView(){
-        detailPane.toBack();
-        adsPane.toFront();
-    }
-
-    @FXML
-    public void closeButtonMouseEntered(){
-        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
-                "main/images/icon_close_hover.png")));
-    }
-
-    @FXML
-    public void closeButtonMousePressed(){
-        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
-                "main/images/icon_close_pressed.png")));
-    }
-
-    @FXML
-    public void closeButtonMouseExited(){
-        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
-                "main/images/icon_close.png")));
-    }
-
-    @FXML
-    public void mouseTrap(Event event){
-        event.consume();
-    }
-
     public void changeTheme(){
         if(!dark_theme) {
             setTheme(alternative_theme);
@@ -138,7 +87,7 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
         }
     }
 
-    //Fattade inte riktigt hur det var tänkt med AdList, så la detta här istället.
+    //Fattade inte riktigt hur det var tänkt med AdItem, så la detta här istället.
 
 
     public void populateAds(){
@@ -146,12 +95,12 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
         HashMap<String, Ad> ads = byme.getAds();
         for(Map.Entry ad: ads.entrySet()){
             Ad currentAd = (Ad) ad.getValue();
-            adsListFlowPane.getChildren().add(new AdList(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription()));
+            adsListFlowPane.getChildren().add(new AdItem(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription(), currentAd.getAccount()));
         }
     }
 
     public void createAd(String title, String description, int price, String location){
-        byme.createAd(title, description, price, location);
+        byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
     }
 
     @FXML

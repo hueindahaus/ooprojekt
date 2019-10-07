@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Ad;
 import Model.Byme;
 import Model.IObserver;
 import Services.AccountHandler;
@@ -19,6 +20,7 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
@@ -28,6 +30,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MenuController extends SidePanelController implements IObserver {
@@ -43,7 +47,20 @@ public class MenuController extends SidePanelController implements IObserver {
     @FXML
     Label pictureChangeLabel;
 
+    @FXML
+    AnchorPane myAdsPanel;
+
+    @FXML
+    FlowPane myAdsFlowPane;
+
+    @FXML
+    Button myAdsButton;
+
     PictureHandler pictureHandler = new PictureHandler();
+
+    Timeline showMyAdsPanel = new Timeline();
+
+    Timeline hideMyAdsPanel = new Timeline();
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
@@ -53,7 +70,8 @@ public class MenuController extends SidePanelController implements IObserver {
         this.themeSetter = themeSetter;
 
         hidePanel = new Timeline(                                                                                      //animation för att gömma login-panelen
-                new KeyFrame(Duration.seconds(0.2), new KeyValue(menuPanel.layoutXProperty(), 1440))
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(menuPanel.layoutXProperty(), 1440)),
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(myAdsPanel.layoutXProperty(), 1660))
 
         );
 
@@ -68,6 +86,14 @@ public class MenuController extends SidePanelController implements IObserver {
 
         showGreyZone = new Timeline(                                                                                        //animation för att visa gråzonen
                 new KeyFrame(Duration.seconds(0.6), new KeyValue(greyZone.opacityProperty(), 1))
+        );
+
+        showMyAdsPanel = new Timeline(
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(myAdsPanel.layoutXProperty(), 520))
+        );
+
+        hideMyAdsPanel = new Timeline(
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(myAdsPanel.layoutXProperty(), 1660))
         );
 
         Circle clip = new Circle(profilePicImageView.getFitWidth()/2,profilePicImageView.getFitHeight()/2,80);
@@ -101,6 +127,7 @@ public class MenuController extends SidePanelController implements IObserver {
 
     void setGreyZoneDisable(boolean value){
         greyZone.setDisable(value);
+        myAdsButton.setStyle("-fx-background-color: primary");
     }
 
     @FXML void signout(){
@@ -160,5 +187,29 @@ public class MenuController extends SidePanelController implements IObserver {
 
     @FXML void changeTheme(){
         themeSetter.changeTheme();
+    }
+
+    public void populateMyAds(){
+        HashMap<String, Ad> ads = byme.getAds();
+        if(byme.getCurrentUser() != null) {
+            myAdsFlowPane.getChildren().clear();
+            for (Map.Entry ad : ads.entrySet()) {
+                Ad currentAd = (Ad) ad.getValue();
+                if (currentAd.getAccount().equals(byme.getCurrentUser().getUsername())) {
+                    myAdsFlowPane.getChildren().add(new AdItem(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription(), currentAd.getAccount()));
+                }
+            }
+        }
+    }
+
+    @FXML void toggleMyAdsPanel(){
+        if(myAdsPanel.getLayoutX() != 520) {
+            showMyAdsPanel.play();
+            populateMyAds();
+            myAdsButton.setStyle("-fx-background-color: primary-dark");
+        } else {
+            hideMyAdsPanel.play();
+            myAdsButton.setStyle("-fx-background-color: primary");
+        }
     }
 }

@@ -23,6 +23,7 @@ public class Byme {
 
     private IAdHandler adHandler;
 
+
     public HashMap<String,Ad> ads= new HashMap<>();
 
     public HashMap<String,Ad> getAds(){
@@ -113,9 +114,9 @@ public class Byme {
     }
 
 
-    public void createAd(String title, String description, int price, String location){
+    public void createAd(String title, String description, int price, String location, String account){
         String adId = generateRandomAdId();
-        ads.put(adId,new Ad(title,price,description,location,adId));
+        ads.put(adId,new Ad(title,price,description,location,adId, account));
     }
 
 
