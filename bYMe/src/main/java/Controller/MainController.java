@@ -4,22 +4,15 @@ import Model.Ad;
 import Model.AdList;
 import Model.Byme;
 import Services.AccountHandler;
-<<<<<<< HEAD
 import javafx.event.Event;
-=======
 import Services.AdHandler;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-<<<<<<< HEAD
-=======
 import javafx.scene.layout.FlowPane;
->>>>>>> Dev
-
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -101,7 +94,6 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
                 "tertiary-dark:"+theme.tertiary_dark+";");
     }
 
-<<<<<<< HEAD
     @FXML
     private void openDetailView(){
         detailPane.toFront();
@@ -136,7 +128,6 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
         event.consume();
     }
 
-=======
     public void changeTheme(){
         if(!dark_theme) {
             setTheme(alternative_theme);
@@ -158,7 +149,6 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
             adsListFlowPane.getChildren().add(new AdList(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription()));
         }
     }
->>>>>>> Dev
 
     public void createAd(String title, String description, int price, String location){
         byme.createAd(title, description, price, location);
@@ -172,36 +162,6 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
             loginController.togglePanel();
         }
     }
-
-    @FXML
-    public void closeDetailView(){
-        detailPane.toBack();
-        adsPane.toFront();
-    }
-
-
-    @FXML
-    public void closeButtonMouseEntered(){
-        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
-                "bYMe/images/icon_close_hover.png")));
-    }
-
-    @FXML
-    public void closeButtonMousePressed(){
-        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
-                "bYMe/images/icon_close_pressed.png")));
-    }
-
-    @FXML
-    public void closeButtonMouseExited(){
-        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
-                "bYMe/images/icon.png")));
-    }
-    @FXML
-    public void mouseTrap(Event event){
-        event.consume();
-    }
-
 
 }
 
