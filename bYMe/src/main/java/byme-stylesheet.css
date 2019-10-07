@@ -1,0 +1,130 @@
+.root{
+  main: #ecf0f1;
+  main-dark: #bdc3c7;
+  primary: #3498db;
+  primary-dark: #2980b9;
+  secondary: #f1c40f;
+  secondary-dark: #f39c12;
+  tertiary: #34495e;
+  tertiary-dark: #2c3e50;
+}
+
+.appbar {
+  -fx-background-color: main;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 2);
+}
+
+.loginpanel {
+  -fx-background-color: main;
+}
+
+.cardholder {
+  -fx-background-color: primary;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 2);
+  -fx-background-radius: 10;
+}
+
+.background{
+  -fx-background-color: primary;
+}
+
+.cards {
+  -fx-border-color: main;
+  -fx-border-radius: 10 10 0 0;
+  -fx-border-width: 5px;
+}
+
+.cardtitle {
+  -fx-background-color: main;
+}
+
+.cardPLACEHOLDER {
+  -fx-border-color: main;
+  -fx-border-radius: 0;
+  -fx-border-width: 5px;
+}
+
+.picPLACEHOLDER {
+  -fx-background-color: main;
+}
+
+.textareaPLACEHOLDER .content{
+  -fx-background-color:primary-dark;
+}
+
+.primaryButton {
+  -fx-background-color: secondary;
+  -fx-border-radius: 10px;
+  -fx-text-fill: FFFFFF;
+}
+
+.accountButton {
+  -fx-background-color: primary;
+  -fx-background-radius: 50%;
+  -fx-text-fill: FFFFFF;
+}
+
+
+.primaryButton:hover {
+   -fx-background-color: secondary-dark;
+   -fx-cursor: hand;
+ }
+
+.accountButton:hover {
+  -fx-background-color: primary-dark;
+  -fx-cursor: hand;
+}
+
+.loginButton {
+  -fx-background-color: primary;
+  -fx-background-radius: 10;
+  -fx-text-fill: FFFFFF;
+}
+
+.loginButton:hover {
+  -fx-background-color: primary-dark;
+  -fx-cursor: hand;
+}
+
+.createAccountButton{
+  -fx-background-color: tertiary;
+  -fx-background-radius: 10;
+  -fx-text-fill: FFFFFF;
+}
+
+.createAccountButton:hover{
+  -fx-background-color: tertiary-dark;
+  -fx-cursor: hand;
+}
+
+.greyZone {
+  -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+.RegTextfield {
+  -fx-background-color: white;
+  -fx-border-width: 1px;
+  -fx-border-color: #bdc3c7;
+  -fx-border-radius: 5px;
+}
+
+.logo {
+  -fx-image: url("/images/loggaByMe.png");
+}
+
+.logo:hover {
+  -fx-image: url("/images/loggaByMeHover.png");
+  -fx-cursor: hand;
+}
+
+.addAdButton {
+  -fx-background-radius: 100%;
+  -fx-background-color: secondary;
+  -fx-text-fill: FFFFFF;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 2);
+}
+
+.addAdButton:hover {
+  -fx-background-color: secondary-dark;
+  -fx-cursor: hand;
+}

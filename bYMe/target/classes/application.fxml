@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" styleClass="background" stylesheets="@byme-stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+   <children>
+      <StackPane prefHeight="900.0" prefWidth="1440.0">
+         <children>
+            <AnchorPane fx:id="adsPane" prefHeight="200.0" prefWidth="200.0" styleClass="background">
+               <children>
+                  <AnchorPane layoutX="370.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="740.0" styleClass="cardholder">
+                     <children>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="780.0" prefWidth="740.0">
+                           <content>
+                              <FlowPane fx:id="adsListFlowPane" prefHeight="780.0" prefWidth="740.0" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="detailPane" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: rgba(0, 0, 0, 0.75);">
+               <children>
+                  <AnchorPane layoutX="128.0" layoutY="206.0" onMouseClicked="#mouseTrap" prefHeight="586.0" prefWidth="1182.0" styleClass="background">
+                     <children>
+                        <ImageView fx:id="adImageDetail" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/defaultProfilePic.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="adTitleDetail" layoutX="198.0" layoutY="59.0" prefHeight="25.0" prefWidth="425.0" text="Tjänstnamn">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="adLocationDetail" layoutX="200.0" layoutY="111.0" prefHeight="25.0" prefWidth="425.0" text="Plats">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="adPriceDetail" layoutX="864.0" layoutY="49.0" prefHeight="49.0" prefWidth="114.0" text="1000 kr" underline="true">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="adDescriptionDetail" editable="false" layoutX="200.0" layoutY="178.0" prefHeight="384.0" prefWidth="874.0" style="-fx-background-color: #88aaff;" />
+                        <ImageView fx:id="exitButtonImage" fitHeight="28.0" fitWidth="28.0" layoutX="1140.0" layoutY="14.0" onMouseClicked="#closeDetailView" onMouseEntered="#closeButtonMouseEntered" onMouseExited="#closeButtonMouseExited" onMousePressed="#closeButtonMousePressed" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icon_close.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children></AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+      <AnchorPane prefHeight="100.0" prefWidth="1440.0" styleClass="appbar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button fx:id="primaryButton" layoutX="1300.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#togglePanel" prefHeight="50.0" prefWidth="50.0" styleClass="accountButton" textFill="WHITE" AnchorPane.rightAnchor="80.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/round_person_white_36dp.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children></AnchorPane>
+      <ImageView fitHeight="61.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" AnchorPane.bottomAnchor="820.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="1224.0" AnchorPane.topAnchor="20.0">
+         <image>
+            <Image url="@images/loggaByMe.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="1257.0" layoutY="720.0" mnemonicParsing="false" onMouseReleased="#openCreateAd" prefHeight="80.0" prefWidth="80.0" styleClass="addAdButton" text="+" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="70.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
