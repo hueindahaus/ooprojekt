@@ -136,23 +136,28 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
         adsPane.toFront();
     }
 
+    public void openDetailView(){
+        detailPane.toFront();
+        adsPane.toBack();
+    }
+
 
     @FXML
     public void closeButtonMouseEntered(){
         exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
-                "bYMe/images/icon_close_hover.png")));
+                "images/icon_close_hover.png")));
     }
 
     @FXML
     public void closeButtonMousePressed(){
         exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
-                "bYMe/images/icon_close_pressed.png")));
+                "images/icon_close_pressed.png")));
     }
 
     @FXML
     public void closeButtonMouseExited(){
         exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
-                "bYMe/images/icon.png")));
+                "images/icon_close.png")));
     }
     @FXML
     public void mouseTrap(Event event){

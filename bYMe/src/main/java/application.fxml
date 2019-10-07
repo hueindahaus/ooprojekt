@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -36,14 +37,6 @@
                <children>
                   <AnchorPane layoutX="128.0" layoutY="206.0" onMouseClicked="#mouseTrap" prefHeight="586.0" prefWidth="1182.0" styleClass="background">
                      <children>
-                        <Button layoutX="1129.0" layoutY="9.0" mnemonicParsing="false" onAction="#closeDetailView">
-                           <graphic>
-                              <ImageView fx:id="exitButtonImage" fitHeight="28.0" fitWidth="28.0" onMouseEntered="#closeButtonMouseEntered" onMouseExited="#closeButtonMouseExited" onMousePressed="#closeButtonMousePressed" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/icon_close.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic></Button>
                         <ImageView fx:id="adImageDetail" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/defaultProfilePic.png" />
@@ -65,6 +58,14 @@
                            </font>
                         </Label>
                         <TextArea fx:id="adDescriptionDetail" editable="false" layoutX="200.0" layoutY="178.0" prefHeight="384.0" prefWidth="874.0" style="-fx-background-color: #88aaff;" />
+                        <ImageView fx:id="exitButtonImage" fitHeight="28.0" fitWidth="28.0" layoutX="1140.0" layoutY="14.0" onMouseClicked="#closeDetailView" onMouseEntered="#closeButtonMouseEntered" onMouseExited="#closeButtonMouseExited" onMousePressed="#closeButtonMousePressed" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icon_close.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
                      </children></AnchorPane>
                </children>
             </AnchorPane>
