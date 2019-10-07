@@ -5,10 +5,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class AdItem extends AnchorPane {
@@ -22,9 +24,13 @@ public class AdItem extends AnchorPane {
     @FXML
     private Label adPrice;
     @FXML
+<<<<<<< Updated upstream:bYMe/src/main/java/Controller/AdItem.java
     private Label adDescription;
     @FXML
     private Label adAccount;
+=======
+    private TextArea adDescription;
+>>>>>>> Stashed changes:bYMe/src/main/java/Model/AdList.java
 
     DetailViewToggler detailViewToggler;
 
@@ -50,6 +56,7 @@ public class AdItem extends AnchorPane {
 
         this.detailViewToggler = detailViewToggler;
 
+<<<<<<< Updated upstream:bYMe/src/main/java/Controller/AdItem.java
 
 
         this.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -60,4 +67,6 @@ public class AdItem extends AnchorPane {
         });
 
     }
+=======
+>>>>>>> Stashed changes:bYMe/src/main/java/Model/AdList.java
 }

@@ -3,12 +3,28 @@ package Controller;
 import Model.Ad;
 import Model.Byme;
 import Services.AccountHandler;
+<<<<<<< Updated upstream
+=======
+import javafx.event.Event;
+
+>>>>>>> Stashed changes
 import Services.AdHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+<<<<<<< Updated upstream
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+=======
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+
+
+import javafx.scene.layout.FlowPane;
+
+>>>>>>> Stashed changes
 
 import java.net.URL;
 import java.util.HashMap;
@@ -21,6 +37,13 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
     AnchorPane root;
     @FXML
     Button primaryButton;
+<<<<<<< Updated upstream
+=======
+
+
+    @FXML
+    ImageView exitButtonImage;
+>>>>>>> Stashed changes
 
     @FXML
     private FlowPane adsListFlowPane;
@@ -80,6 +103,46 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
                 "tertiary-dark:"+theme.tertiary_dark+";");
     }
 
+<<<<<<< Updated upstream
+=======
+    @FXML
+     public void openDetailView(MouseEvent event){
+        detailPane.toFront();
+        adsPane.toBack();
+    }
+
+
+    @FXML
+    private void closeDetailView(){
+        detailPane.toBack();
+        adsPane.toFront();
+    }
+
+    @FXML
+    public void closeButtonMouseEntered(){
+        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
+                "main/images/icon_close_hover.png")));
+    }
+
+    @FXML
+    public void closeButtonMousePressed(){
+        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
+                "main/images/icon_close_pressed.png")));
+    }
+
+    @FXML
+    public void closeButtonMouseExited(){
+        exitButtonImage.setImage(new Image(getClass().getClassLoader().getResourceAsStream(
+                "main/images/icon_close.png")));
+    }
+
+    @FXML
+    public void mouseTrap(Event event){
+        event.consume();
+    }
+
+
+>>>>>>> Stashed changes
     public void changeTheme(){
         if(!dark_theme) {
             setTheme(alternative_theme);
@@ -115,6 +178,7 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         }
     }
 
+<<<<<<< Updated upstream
     public void  toggleDetailView(boolean value, Ad ad){
         if (value){
             detailViewController.setVisible(true);
@@ -128,6 +192,9 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
             detailViewController.setVisible(false);
         }
     }
+=======
+
+>>>>>>> Stashed changes
 
 }
 
