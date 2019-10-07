@@ -35,7 +35,7 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
     private AdController adController;
     private DetailViewController detailViewController;
 
-    private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
+    private Byme byme = Byme.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -98,7 +98,7 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         HashMap<String, Ad> ads = byme.getAds();
         for(Map.Entry ad: ads.entrySet()){
             Ad currentAd = (Ad) ad.getValue();
-            adsListFlowPane.getChildren().add(new AdItem(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription(), currentAd.getAccount(), this));
+            adsListFlowPane.getChildren().add(new AdItem(currentAd, this));
         }
     }
 
@@ -115,9 +115,15 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         }
     }
 
-    public void  toggleDetailView(boolean value){
+    public void  toggleDetailView(boolean value, Ad ad){
         if (value){
             detailViewController.setVisible(true);
+            detailViewController.setAd(ad);
+            if(byme.getCurrentUser() != null){
+                if(byme.getCurrentUser().getUsername().equals(ad.getAccount())){
+                    detailViewController.deleteButton.setVisible(true);
+                }
+            }
         }else {
             detailViewController.setVisible(false);
         }

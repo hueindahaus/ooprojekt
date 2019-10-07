@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Ad;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +28,9 @@ public class AdItem extends AnchorPane {
 
     DetailViewToggler detailViewToggler;
 
-    public AdItem(String title, String location, int price, String description, String account, DetailViewToggler detailViewToggler)  {
+    private Ad ad;
+
+    public AdItem(Ad ad, DetailViewToggler detailViewToggler)  {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ads.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -37,11 +40,13 @@ public class AdItem extends AnchorPane {
             throw new RuntimeException(exception);
         }
 
-        adTitle.setText(title);
-        adDescription.setText(description);
-        adLocation.setText(location);
-        adPrice.setText(Integer.toString(price));
-        adAccount.setText(account);
+        this.ad = ad;
+
+        adTitle.setText(ad.getTitle());
+        adDescription.setText(ad.getDescription());
+        adLocation.setText(ad.getLocation());
+        adPrice.setText(Integer.toString(ad.getPrice()));
+        adAccount.setText(ad.getAccount());
 
         this.detailViewToggler = detailViewToggler;
 
@@ -50,7 +55,7 @@ public class AdItem extends AnchorPane {
         this.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                detailViewToggler.toggleDetailView(true);
+                detailViewToggler.toggleDetailView(true, ad);
             }
         });
 

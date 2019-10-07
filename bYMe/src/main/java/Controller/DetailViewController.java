@@ -1,11 +1,12 @@
 package Controller;
 
+import Model.Ad;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class DetailViewController extends AnchorPane {
@@ -15,6 +16,18 @@ public class DetailViewController extends AnchorPane {
 
     @FXML
     Button deleteButton;
+    @FXML
+    Label adTitle;
+    @FXML
+    Label adLocation;
+    @FXML
+    Label adDescription;
+    @FXML
+    Label adUser;
+    @FXML
+    Label adPrice;
+
+    Ad ad;
 
     public DetailViewController(DetailViewToggler detailViewToggler){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../detailView.fxml"));
@@ -32,13 +45,19 @@ public class DetailViewController extends AnchorPane {
 
 
 
-    @FXML
-    void openDetailView(){
-        detailViewToggler.toggleDetailView(true);
+    void setAd(Ad ad){
+        if (ad != null) {
+            this.ad = ad;
+            adTitle.setText(ad.getTitle());
+            adDescription.setText(ad.getDescription());
+            adLocation.setText(ad.getLocation());
+            adUser.setText(ad.getAccount());
+            adPrice.setText(String.valueOf(ad.getPrice()));
+        }
     }
 
     @FXML
     void closeDetailView(){
-        detailViewToggler.toggleDetailView(false);
+        detailViewToggler.toggleDetailView(false, ad);
     }
 }

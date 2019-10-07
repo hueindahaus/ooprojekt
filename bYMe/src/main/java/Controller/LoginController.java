@@ -70,7 +70,7 @@ public class LoginController extends SidePanelController{
         this.panelToggler = panelToggler;
     }
 
-    private Byme bYMe = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
+    private Byme bYMe = Byme.getInstance();
 
 
     @FXML void registerUser(){

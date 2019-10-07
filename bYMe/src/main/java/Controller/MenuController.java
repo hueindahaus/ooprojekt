@@ -62,7 +62,7 @@ public class MenuController extends SidePanelController implements IObserver {
 
     Timeline hideMyAdsPanel = new Timeline();
 
-    private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
+    private Byme byme = Byme.getInstance();
 
     private DetailViewToggler detailViewToggler;
 
@@ -199,7 +199,7 @@ public class MenuController extends SidePanelController implements IObserver {
             for (Map.Entry ad : ads.entrySet()) {
                 Ad currentAd = (Ad) ad.getValue();
                 if (currentAd.getAccount().equals(byme.getCurrentUser().getUsername())) {
-                    myAdsFlowPane.getChildren().add(new AdItem(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription(), currentAd.getAccount(), detailViewToggler));
+                    myAdsFlowPane.getChildren().add(new AdItem(currentAd, detailViewToggler));
                 }
             }
         }
