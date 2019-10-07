@@ -99,6 +99,9 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
         }
     }
 
+    public void removeAd(String adID){
+        adsListFlowPane.getChildren().remove(Integer.valueOf(adID));
+    }
     public void createAd(String title, String description, int price, String location){
         byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
     }
