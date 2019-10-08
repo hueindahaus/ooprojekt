@@ -48,7 +48,6 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         detailViewController = new DetailViewController(this);
         root.getChildren().add(detailViewController);
         populateAds();
-        removeAd("1404");
     }
 
 
