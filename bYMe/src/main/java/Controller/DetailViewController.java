@@ -72,4 +72,21 @@ public class DetailViewController extends AnchorPane {
         byme.removeAd(ad.getAdId());
         closeDetailView();
     }
+
+
+    void showUserButtons(){
+        if(userIsLoggedIn()){
+            if(byme.getCurrentUser().getUsername().equals(ad.getAccount())) {
+                deleteButton.setVisible(true);
+            }
+        } else {
+                deleteButton.setVisible(false);
+        }
+    }
+
+
+    private boolean userIsLoggedIn(){
+        return byme.getCurrentUser() != null;
+    }
+
 }

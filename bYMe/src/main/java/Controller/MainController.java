@@ -49,8 +49,6 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         detailViewController = new DetailViewController(this);
         root.getChildren().add(detailViewController);
         populateAds();
-
-        removeAd("1404");
         byme.addObserver(this);
 
     }
@@ -107,11 +105,7 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         }
     }
 
-    @FXML
-    void removeAd(String adID){
-        byme.removeAd(adID);
-        populateAds();
-    }
+
     @FXML
     void editAd(String adID){
 
@@ -135,11 +129,7 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         if (value){
             detailViewController.setVisible(true);
             detailViewController.setAd(ad);
-            if(byme.getCurrentUser() != null){
-                if(byme.getCurrentUser().getUsername().equals(ad.getAccount())){
-                    detailViewController.deleteButton.setVisible(true);
-                }
-            }
+            detailViewController.showUserButtons();
         }else {
             detailViewController.setVisible(false);
         }
