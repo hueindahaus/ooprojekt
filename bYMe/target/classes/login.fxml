@@ -20,7 +20,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label alignment="CENTER" layoutX="20.0" layoutY="240.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" text="Bli medlem">
+            <Label alignment="CENTER" layoutX="20.0" layoutY="240.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" styleClass="darkThemeText" text="Bli medlem">
                <font>
                   <Font size="18.0" />
                </font>
