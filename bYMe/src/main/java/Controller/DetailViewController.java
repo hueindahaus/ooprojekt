@@ -67,11 +67,13 @@ public class DetailViewController extends AnchorPane {
         detailViewToggler.toggleDetailView(false, ad);
     }
 
+
     @FXML
     void removeAd(){
         byme.removeAd(ad.getAdId());
         closeDetailView();
     }
+
 
 
     void showUserButtons(){
