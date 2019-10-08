@@ -50,6 +50,7 @@ public class Byme {
     public void removeAd(String adID){
         try {
             ads.remove(adID);
+            notifyObservers();
         }
         catch(NullPointerException none){
             none.getMessage();

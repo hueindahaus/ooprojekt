@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Ad;
 import Model.Byme;
+import Model.IObserver;
 import Services.AccountHandler;
 import Services.AdHandler;
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, SIdePanelToggler, ThemeSetter, AdCreator, DetailViewToggler {
+public class MainController implements Initializable, SIdePanelToggler, ThemeSetter, AdCreator, DetailViewToggler, IObserver {
 
     @FXML
     AnchorPane root;
@@ -49,6 +50,8 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         root.getChildren().add(detailViewController);
         populateAds();
         removeAd("1404");
+
+        byme.addObserver(this);
     }
 
 
@@ -139,6 +142,12 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         }else {
             detailViewController.setVisible(false);
         }
+    }
+
+
+
+    public void update(){
+        populateAds();
     }
 
 }
