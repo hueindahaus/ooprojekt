@@ -13,7 +13,7 @@
       <AnchorPane prefHeight="900.0" prefWidth="1440.0" />
       <AnchorPane layoutX="220.0" layoutY="150.0" prefHeight="600.0" prefWidth="1000.0" styleClass="detailViewBox">
          <children>
-            <Button fx:id="deleteButton" layoutX="680.0" layoutY="486.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="228.0" text="Delete" visible="false">
+            <Button fx:id="deleteButton" layoutX="680.0" layoutY="486.0" mnemonicParsing="false" onMouseReleased="#removeAd" prefHeight="78.0" prefWidth="228.0" text="Delete" visible="false">
                <font>
                   <Font size="30.0" />
                </font>
