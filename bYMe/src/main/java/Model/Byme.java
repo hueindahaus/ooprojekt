@@ -22,8 +22,7 @@ public class Byme {
 
     private IAdHandler adHandler;
 
-
-    public HashMap<String,Ad> ads= new HashMap<>();
+    private HashMap<String,Ad> ads= new HashMap<>();
 
     public HashMap<String,Ad> getAds(){
         return ads;
@@ -85,7 +84,7 @@ public class Byme {
         return currentUser;
     }
 
-    public HashMap<String, Account> getAccounts() {
+    protected HashMap<String, Account> getAccounts() {
         return accounts;
     }
 
