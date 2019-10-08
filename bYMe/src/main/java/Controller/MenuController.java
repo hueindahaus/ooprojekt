@@ -3,8 +3,6 @@ package Controller;
 import Model.Ad;
 import Model.Byme;
 import Model.IObserver;
-import Services.AccountHandler;
-import Services.AdHandler;
 import Services.PictureHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
