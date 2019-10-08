@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Ad;
+import Model.IObserver;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class AdItem extends AnchorPane {
+public class AdItem extends AnchorPane implements IObserver{
 
     @FXML
     private ImageView adImage;
@@ -27,8 +28,9 @@ public class AdItem extends AnchorPane {
     private Label adAccount;
 
     DetailViewToggler detailViewToggler;
-
     private Ad ad;
+
+
 
     public AdItem(Ad ad, DetailViewToggler detailViewToggler)  {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ads.fxml"));
@@ -59,5 +61,17 @@ public class AdItem extends AnchorPane {
             }
         });
 
+        ad.observers.add(this);
+
     }
+
+    public void update(){
+
+        adTitle.setText(this.ad.getTitle());
+        adDescription.setText(this.ad.getDescription());
+        adLocation.setText(this.ad.getLocation());
+        adPrice.setText(Integer.toString(this.ad.getPrice()));
+    }
+
+
 }

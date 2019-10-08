@@ -1,6 +1,9 @@
 package Model;
 
-    public class Ad {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Ad implements IObservable{
         private String title;
         private int price;
         private String description;
@@ -8,7 +11,10 @@ package Model;
         private final String adId;
         private final String account;
 
-        public String getTitle(){
+        public List<IObserver> observers = new ArrayList<>();
+
+
+    public String getTitle(){
             return title;
         }
 
@@ -48,5 +54,28 @@ package Model;
         public void setDescription(String description) { this.description = description; }
 
         public void setLocation(String location) { this.location = location; }
+
+
+
+    public void add(IObserver o){
+
+        this.observers.add(o);
+
     }
+
+    public void remove(IObserver o){
+
+        this.observers.remove(o);
+
+    }
+
+    public void notifyMethod(){
+
+        for(IObserver o : observers){
+            o.update();
+        }
+
+    }
+
+}
 
