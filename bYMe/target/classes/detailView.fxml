@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root fx:id="greyZone" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" stylesheets="@byme-stylesheet.css" type="AnchorPane" visible="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="greyZone" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" stylesheets="@byme-stylesheet.css" type="AnchorPane" visible="false" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="900.0" prefWidth="1440.0" />
       <AnchorPane layoutX="220.0" layoutY="150.0" prefHeight="600.0" prefWidth="1000.0" styleClass="detailViewBox">
          <children>
             <TextField fx:id="adTitleTextField" layoutX="42.0" layoutY="33.0" />
-            <Button fx:id="deleteButton" layoutX="680.0" layoutY="486.0" mnemonicParsing="false" onMouseReleased="#removeAd" prefHeight="78.0" prefWidth="228.0" text="Delete" visible="false">
+            <Button fx:id="deleteButton" layoutX="680.0" layoutY="486.0" mnemonicParsing="false" onMouseReleased="#removeAdPrompt" prefHeight="78.0" prefWidth="228.0" text="Delete" visible="false">
                <font>
                   <Font size="30.0" />
                </font>
@@ -45,7 +45,7 @@
                   <Font size="26.0" />
                </font>
             </Label>
-            <Button fx:id="manipulateButton" layoutX="440.0" layoutY="486.0" mnemonicParsing="false" onMouseReleased="#editAd" prefHeight="78.0" prefWidth="228.0" text="Ändra annons" visible="false">
+            <Button fx:id="editButton" layoutX="440.0" layoutY="486.0" mnemonicParsing="false" onMouseReleased="#editAd" prefHeight="78.0" prefWidth="228.0" text="Ändra annons" visible="false">
                <font>
                   <Font size="30.0" />
                </font>
@@ -58,6 +58,18 @@
             <TextField fx:id="adLocationTextField" layoutX="42.0" layoutY="95.0" />
             <TextField fx:id="adDescriptionTextField" layoutX="62.0" layoutY="383.0" />
             <TextField fx:id="adPriceTextField" layoutX="908.0" layoutY="248.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="greyZone2" prefHeight="902.0" prefWidth="1443.0" styleClass="greyZone" visible="false" />
+      <AnchorPane fx:id="confirmPane" layoutY="-200.0" prefHeight="200.0" prefWidth="200.0" styleClass="detailViewBox" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0">
+         <children>
+            <Label layoutX="-4.0" layoutY="56.0" text="ÄR DU SÄKER??????" textAlignment="CENTER">
+               <font>
+                  <Font size="54.0" />
+               </font>
+            </Label>
+            <Button layoutX="68.0" layoutY="146.0" mnemonicParsing="false" onMouseReleased="#removeAd" text="JA DELETE!!!!" />
+            <Button layoutX="246.0" layoutY="143.0" mnemonicParsing="false" onMouseReleased="#removeAdClosePrompt" text="NEJ JAG ÅNGRADE MIG!!!" />
          </children>
       </AnchorPane>
    </children>
