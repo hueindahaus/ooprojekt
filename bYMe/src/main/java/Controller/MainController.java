@@ -105,12 +105,12 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         }
     }
 
-
+/*
     @FXML
     void editAd(String adID){
 
     }
-
+*/
 
     public void createAd(String title, String description, int price, String location){
         byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
@@ -130,8 +130,10 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
             detailViewController.setVisible(true);
             detailViewController.setAd(ad);
             detailViewController.showUserButtons();
+            detailViewController.showLabels();
         }else {
             detailViewController.setVisible(false);
+            //detailViewController.editAd(ad);
         }
     }
 

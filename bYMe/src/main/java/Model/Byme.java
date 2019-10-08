@@ -50,14 +50,6 @@ public class Byme {
         }
     }
 
-    public void editAd(String adID, int price, String description, String title, String location){
-        Ad currentAd = ads.get(adID);
-        currentAd.setDescription(description);
-        currentAd.setLocation(location);
-        currentAd.setPrice(price);
-        currentAd.setTitle(title);
-    }
-
     private void saveObjects(){
         accountHandler.saveAccounts(accounts);
         adHandler.saveAds(ads);
@@ -134,6 +126,5 @@ public class Byme {
         String adId = generateRandomAdId();
         ads.put(adId,new Ad(title,price,description,location,adId, account));
     }
-
 
 }
