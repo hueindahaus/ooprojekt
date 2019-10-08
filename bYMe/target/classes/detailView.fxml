@@ -45,7 +45,7 @@
                   <Font size="26.0" />
                </font>
             </Label>
-            <Button fx:id="manipulateButton" layoutX="440.0" layoutY="486.0" mnemonicParsing="false" onMouseReleased="#editAd" prefHeight="78.0" prefWidth="228.0" text="Ändra annons" visible="false">
+            <Button fx:id="editButton" layoutX="440.0" layoutY="486.0" mnemonicParsing="false" onMouseReleased="#editAd" prefHeight="78.0" prefWidth="228.0" text="Ändra annons" visible="false">
                <font>
                   <Font size="30.0" />
                </font>
