@@ -36,7 +36,7 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
     private AdController adController;
     private DetailViewController detailViewController;
 
-    private Byme byme = Byme.getInstance();
+    private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

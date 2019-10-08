@@ -15,7 +15,7 @@ public class DetailViewController extends AnchorPane {
 
     DetailViewToggler detailViewToggler;
 
-    Byme byme = Byme.getInstance();
+    Byme byme = Byme.getInstance(null,null);
 
     @FXML
     Button deleteButton;

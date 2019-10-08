@@ -1,16 +1,13 @@
 package Model;
-import Services.AccountHandler;
-import Services.AdHandler;
-
 import java.util.*;
 
 public class Byme {
 
     private static Byme singleton = null;
 
-    public static Byme getInstance(){
+    public static Byme getInstance(IAccountHandler accountHandler, IAdHandler adHandler){   //argumenten måste vi ha för att Modellen inte ska vara beroende av "services"
         if(singleton == null){
-            singleton = new Byme(AccountHandler.getInstance(), AdHandler.getInstance());
+            singleton = new Byme(accountHandler, adHandler);
         }
         return singleton;
     }
