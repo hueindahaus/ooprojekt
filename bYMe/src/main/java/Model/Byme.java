@@ -1,5 +1,4 @@
 package Model;
-
 import Services.AccountHandler;
 import Services.AdHandler;
 
@@ -44,6 +43,24 @@ public class Byme {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> saveObjects(), "Shutdown-thread"));
     }
 
+
+    public void removeAd(String adID){
+        try {
+            ads.remove(adID);
+            notifyObservers();
+        }
+        catch(NullPointerException none){
+            none.getMessage();
+        }
+    }
+
+    public void editAd(String adID, int price, String description, String title, String location){
+        Ad currentAd = ads.get(adID);
+        currentAd.setDescription(description);
+        currentAd.setLocation(location);
+        currentAd.setPrice(price);
+        currentAd.setTitle(title);
+    }
 
     private void saveObjects(){
         accountHandler.saveAccounts(accounts);

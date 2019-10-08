@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Ad;
+import Model.Byme;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -14,6 +15,8 @@ public class DetailViewController extends AnchorPane {
 
     DetailViewToggler detailViewToggler;
 
+    Byme byme = Byme.getInstance();
+
     @FXML
     Button deleteButton;
     @FXML
@@ -26,6 +29,9 @@ public class DetailViewController extends AnchorPane {
     Label adUser;
     @FXML
     Label adPrice;
+    @FXML
+    AnchorPane greyZone;
+
 
     Ad ad;
 
@@ -60,4 +66,32 @@ public class DetailViewController extends AnchorPane {
     void closeDetailView(){
         detailViewToggler.toggleDetailView(false, ad);
     }
+
+
+    @FXML
+    void removeAd(){
+        byme.removeAd(ad.getAdId());
+        closeDetailView();
+    }
+
+
+
+    void showUserButtons(){
+        if(isUsersAd()){
+            deleteButton.setVisible(true);
+        } else {
+            deleteButton.setVisible(false);
+        }
+    }
+
+
+    private boolean isUsersAd(){
+        if (byme.getCurrentUser() != null){
+            if (byme.getCurrentUser().getUsername().equals(ad.getAccount())){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

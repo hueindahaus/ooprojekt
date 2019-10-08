@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Ad;
 import Model.Byme;
+import Model.IObserver;
 import Services.AccountHandler;
 import Services.AdHandler;
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, SIdePanelToggler, ThemeSetter, AdCreator, DetailViewToggler {
+public class MainController implements Initializable, SIdePanelToggler, ThemeSetter, AdCreator, DetailViewToggler, IObserver {
 
     @FXML
     AnchorPane root;
@@ -48,6 +49,8 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         detailViewController = new DetailViewController(this);
         root.getChildren().add(detailViewController);
         populateAds();
+        byme.addObserver(this);
+
     }
 
 
@@ -102,6 +105,13 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         }
     }
 
+
+    @FXML
+    void editAd(String adID){
+
+    }
+
+
     public void createAd(String title, String description, int price, String location){
         byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
     }
@@ -119,14 +129,16 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         if (value){
             detailViewController.setVisible(true);
             detailViewController.setAd(ad);
-            if(byme.getCurrentUser() != null){
-                if(byme.getCurrentUser().getUsername().equals(ad.getAccount())){
-                    detailViewController.deleteButton.setVisible(true);
-                }
-            }
+            detailViewController.showUserButtons();
         }else {
             detailViewController.setVisible(false);
         }
+    }
+
+
+
+    public void update(){
+        populateAds();
     }
 
 }
