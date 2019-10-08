@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, PanelToggler, ThemeSetter, AdCreator {
+public class MainController implements Initializable, SIdePanelToggler, ThemeSetter, AdCreator, DetailViewToggler {
 
     @FXML
     AnchorPane root;
@@ -33,17 +33,20 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
     private LoginController loginController;
     private MenuController menuController;
     private AdController adController;
+    private DetailViewController detailViewController;
 
-    private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
+    private Byme byme = Byme.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loginController = new LoginController(this, this);
         root.getChildren().add(loginController);
-        menuController = new MenuController(this);
+        menuController = new MenuController(this,this);
         root.getChildren().add(menuController);
         adController = new AdController(this);
         root.getChildren().add(adController);
+        detailViewController = new DetailViewController(this);
+        root.getChildren().add(detailViewController);
         populateAds();
         removeAd("1404");
     }
@@ -96,7 +99,7 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
         HashMap<String, Ad> ads = byme.getAds();
         for(Map.Entry ad: ads.entrySet()){
             Ad currentAd = (Ad) ad.getValue();
-            adsListFlowPane.getChildren().add(new AdItem(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription(), currentAd.getAccount()));
+            adsListFlowPane.getChildren().add(new AdItem(currentAd, this));
         }
     }
 
@@ -121,6 +124,20 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
             adController.toggleCreateAdWindow();
         } else {
             loginController.togglePanel();
+        }
+    }
+
+    public void  toggleDetailView(boolean value, Ad ad){
+        if (value){
+            detailViewController.setVisible(true);
+            detailViewController.setAd(ad);
+            if(byme.getCurrentUser() != null){
+                if(byme.getCurrentUser().getUsername().equals(ad.getAccount())){
+                    detailViewController.deleteButton.setVisible(true);
+                }
+            }
+        }else {
+            detailViewController.setVisible(false);
         }
     }
 

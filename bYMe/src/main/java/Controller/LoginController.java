@@ -32,11 +32,11 @@ public class LoginController extends SidePanelController{
     @FXML private PasswordField logInPassword;
     @FXML private AnchorPane logInPanel;
 
-    PanelToggler panelToggler;
+    SIdePanelToggler panelToggler;
 
 
 
-    LoginController(PanelToggler panelToggler, ThemeSetter themeSetter){
+    LoginController(SIdePanelToggler panelToggler, ThemeSetter themeSetter){
         super("../login.fxml");
 
         this.themeSetter = themeSetter;
@@ -70,7 +70,7 @@ public class LoginController extends SidePanelController{
         this.panelToggler = panelToggler;
     }
 
-    private Byme bYMe = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
+    private Byme bYMe = Byme.getInstance();
 
 
     @FXML void registerUser(){
