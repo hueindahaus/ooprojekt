@@ -1,5 +1,5 @@
 package Controller;
 
-interface SIdePanelToggler {
+interface SidePanelToggler {
     void togglePanel(boolean login);
 }

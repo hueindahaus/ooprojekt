@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, SIdePanelToggler, ThemeSetter, AdCreator, DetailViewToggler, IObserver {
+public class MainController implements Initializable, SidePanelToggler, ThemeSetter, AdCreator, DetailViewToggler, IObserver {
 
     @FXML
     AnchorPane root;
