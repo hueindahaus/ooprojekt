@@ -163,25 +163,19 @@ public class DetailViewController extends AnchorPane{
     @FXML
     void saveChanges(){
 
-        ad.setTitle(adTitleTextField.getText());
-        ad.setDescription(adDescriptionTextField.getText());
-        ad.setLocation(adLocationTextField.getText());
-        ad.setPrice(Integer.valueOf(adPriceTextField.getText()));
+        byme.editAd(ad.getAdId(), adTitleTextField.getText(),Integer.valueOf(adPriceTextField.getText()),
+                adDescriptionTextField.getText(), adLocation.getText() );
 
         adTitle.setText(ad.getTitle());
         adLocation.setText(ad.getLocation());
         adDescription.setText(ad.getDescription());
         adPrice.setText(String.valueOf(ad.getPrice()));
 
-
-
         showLabels();
-
 
         editButton.setVisible(true);
         saveButton.setVisible(false);
 
-        ad.notifyMethod();
 
     }
 

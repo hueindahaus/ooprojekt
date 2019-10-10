@@ -141,6 +141,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     public void update(){
         populateAds();
+        menuController.populateMyAds();
     }
 
 }
