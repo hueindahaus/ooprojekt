@@ -77,13 +77,11 @@ public class DetailViewController extends AnchorPane{
         }
 
         showPrompt = new Timeline(
-                new KeyFrame(Duration.seconds(0.3), new KeyValue(confirmPane.layoutYProperty(), 500)),
-                new KeyFrame(Duration.seconds(0.3), new KeyValue(confirmPane.rotateProperty(), 720))
+                new KeyFrame(Duration.seconds(0.05), new KeyValue(confirmPane.layoutYProperty(), 350))
         );
 
         closePrompt = new Timeline(
-                new KeyFrame(Duration.seconds(0.3), new KeyValue(confirmPane.layoutYProperty(), -200)),
-                new KeyFrame(Duration.seconds(0.3), new KeyValue(confirmPane.rotateProperty(), 0))
+                new KeyFrame(Duration.seconds(0.05), new KeyValue(confirmPane.layoutYProperty(), -200))
         );
 
         this.detailViewToggler = detailViewToggler;
