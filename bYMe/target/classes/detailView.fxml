@@ -69,7 +69,7 @@
                </font>
             </Label>
             <Button layoutX="68.0" layoutY="146.0" mnemonicParsing="false" onMouseReleased="#removeAd" text="JA" />
-            <Button layoutX="246.0" layoutY="143.0" mnemonicParsing="false" onAction="#removeAdClosePrompt" onMouseReleased="#removeAdClosePrompt" text="NEJ" />
+            <Button layoutX="246.0" layoutY="143.0" mnemonicParsing="false" onMouseReleased="#removeAdClosePrompt" text="NEJ" />
          </children>
       </AnchorPane>
    </children>

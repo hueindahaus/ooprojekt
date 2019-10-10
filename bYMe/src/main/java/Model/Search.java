@@ -7,9 +7,11 @@ import java.util.Map;
 
 public class Search {
 
+    private String activeTag = "";
+
     public ArrayList<Ad> findAds(String input, HashMap<String, Ad> ads) {
-        String input_lowercase = input.toLowerCase();
         ArrayList<Ad> result = new ArrayList();
+        String inputArray[] = input.toLowerCase().split(" ");
         Iterator iterator = ads.entrySet().iterator();
 
         while(iterator.hasNext()) {
@@ -18,16 +20,22 @@ public class Search {
             String adName = ad.getTitle().toLowerCase();
             String adDesc = ad.getDescription().toLowerCase();
             String adUser = ad.getAccount().toLowerCase();
-            if (adName.indexOf(input_lowercase) > -1) {
-                result.add(ad);
-            } else if (adDesc.indexOf(input_lowercase) > -1) {
-                result.add(ad);
+            int match = 0;
+            for(int i=0; i < inputArray.length; i++) {
+                if (adName.contains(activeTag) || adDesc.contains(activeTag) || adUser.contains(activeTag)){
+                    if (adName.contains(inputArray[i]) || adDesc.contains(inputArray[i]) || adUser.contains(inputArray[i])) {
+                        match++;
+                    }
+                }
             }
-            else if (adUser.indexOf(input_lowercase) > -1) {
+            if(match == inputArray.length){
                 result.add(ad);
             }
         }
         return result;
     }
 
+    public void setActiveTag(String activeTag){
+        this.activeTag = activeTag;
+    }
 }

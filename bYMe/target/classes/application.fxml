@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" styleClass="background" stylesheets="@byme-stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" styleClass="background" stylesheets="@byme-stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
    <children>
       <AnchorPane layoutX="348.0" layoutY="114.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="279.0" prefWidth="700.0" styleClass="cardholder" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="69.0">
          <children>
@@ -51,5 +51,14 @@
             <Font size="36.0" />
          </font>
       </Button>
+      <AnchorPane layoutX="77.0" layoutY="255.0" prefHeight="500.0" prefWidth="200.0" styleClass="tagPanel" AnchorPane.bottomAnchor="230.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="300.0">
+         <children>
+            <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <FlowPane fx:id="tagsFlowPane" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

@@ -9,15 +9,14 @@ import Services.AdHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MainController implements Initializable, SidePanelToggler, ThemeSetter, AdCreator, DetailViewToggler, IObserver {
 
@@ -29,6 +28,8 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     private FlowPane adsListFlowPane;
     @FXML
     private TextField searchInput;
+    @FXML
+    private FlowPane tagsFlowPane;
 
     private boolean dark_theme = false;
 
@@ -43,6 +44,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
     private Search search = new Search();
     private ArrayList<Ad> searchAds;
+    private HashMap<String, Integer> tags = new HashMap<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -56,6 +58,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         root.getChildren().add(detailViewController);
         populateAds();
         byme.addObserver(this);
+        populateTags();
     }
 
     @FXML
@@ -112,19 +115,21 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     public void populateAds() {
         adsListFlowPane.getChildren().clear();
+        tags.clear();
         HashMap<String, Ad> ads = byme.getAds();
         for (Map.Entry ad : ads.entrySet()) {
             Ad currentAd = (Ad) ad.getValue();
+            if(tags.get(currentAd.getTitle()) == null){
+                tags.put(currentAd.getTitle(), 1);
+            } else {
+                Integer oldValue = tags.get(currentAd.getTitle());
+                Integer newValue = oldValue + 1;
+                tags.replace(currentAd.getTitle(), oldValue, newValue);
+            }
             adsListFlowPane.getChildren().add(new AdItem(currentAd, this));
         }
+        populateTags(); //Won't update when in update() (When you create a new ad, works when you sign-in/out)
     }
-
-/*
-    @FXML
-    void editAd(String adID){
-
-    }
-*/
 
     public void createAd(String title, String description, int price, String location) {
         byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
@@ -155,6 +160,17 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     public void update() {
         populateAds();
         menuController.populateMyAds();
+    }
+
+    public void populateTags(){
+        tagsFlowPane.getChildren().clear();
+        if(tags.size() > 0) {
+            for (Map.Entry tag : tags.entrySet()) {
+                String name = (String) tag.getKey();
+                Integer noInstances = (Integer) tag.getValue();
+                tagsFlowPane.getChildren().add(new tagItem(name, noInstances));
+            }
+        }
     }
 
 }

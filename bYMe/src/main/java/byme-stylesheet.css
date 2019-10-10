@@ -120,3 +120,8 @@
 .exitButton:hover {
 -fx-opacity: 50%;
 }
+
+.tagPanel {
+  -fx-background-color: main;
+  -fx-background-radius: 10;
+}
