@@ -3,6 +3,7 @@ package Controller;
 import Model.Ad;
 import Model.Byme;
 import Model.IObserver;
+import Model.Search;
 import Services.AccountHandler;
 import Services.AdHandler;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -50,6 +52,13 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         root.getChildren().add(detailViewController);
         populateAds();
         byme.addObserver(this);
+
+       //Temporal tests for search engine
+        Search search = new Search();
+        ArrayList<Ad> searchAds = search.findAds("hej", byme.getAds());
+        for (Ad ad : searchAds){
+            System.out.println(ad.getTitle());
+        }
 
     }
 
