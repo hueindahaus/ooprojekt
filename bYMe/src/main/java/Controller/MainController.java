@@ -28,8 +28,8 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
 
     private boolean dark_theme = false;
 
-    private Theme default_theme = new Theme("#ecf0f1", "#bdc3c7", "#3498db", "#2980b9", "#f1c40f", "#f39c12", "#34495e", " #2c3e50", "#000000", "FFFFFF");
-    private Theme alternative_theme = new Theme("#2C3A47", "#2f3640", "#273c75", "#192a56", "#fbc531", "#e1b12c", "#f5f6fa", "#dcdde1", "#FFFFFF","#2980b9");
+    private Theme default_theme = new Theme("#ecf0f1", "#bdc3c7", "#3498db", "#2980b9", "#f1c40f", "#f39c12", "#34495e", " #2c3e50");
+    private Theme alternative_theme = new Theme("#2C3A47", "#2f3640", "#273c75", "#192a56", "#fbc531", "#e1b12c", "#f5f6fa", "#dcdde1");
 
     private LoginController loginController;
     private MenuController menuController;
@@ -80,9 +80,7 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
                 "secondary:"+theme.secondary+";"+"\n"+
                 "secondary-dark:"+theme.secondary_dark+";"+"\n"+
                 "tertiary:"+theme.tertiary+";"+"\n"+
-                "tertiary-dark:"+theme.tertiary_dark+";"+"\n"+
-                "text:"+theme.text+";"+"\n"+
-                "button_text:"+theme.button_text+";");
+                "tertiary-dark:"+theme.tertiary_dark+";"+";");
     }
 
     public void changeTheme(){
