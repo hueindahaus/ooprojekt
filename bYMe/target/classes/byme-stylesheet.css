@@ -114,3 +114,7 @@
 .detailViewBox {
   -fx-background-color: main;
 }
+
+.exitButton:hover {
+-fx-opacity: 50%;
+}

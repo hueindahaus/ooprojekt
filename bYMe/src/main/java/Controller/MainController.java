@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, SIdePanelToggler, ThemeSetter, AdCreator, DetailViewToggler, IObserver {
+public class MainController implements Initializable, SidePanelToggler, ThemeSetter, AdCreator, DetailViewToggler, IObserver {
 
     @FXML
     AnchorPane root;
@@ -36,7 +36,7 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
     private AdController adController;
     private DetailViewController detailViewController;
 
-    private Byme byme = Byme.getInstance();
+    private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -105,12 +105,12 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
         }
     }
 
-
+/*
     @FXML
     void editAd(String adID){
 
     }
-
+*/
 
     public void createAd(String title, String description, int price, String location){
         byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
@@ -130,8 +130,10 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
             detailViewController.setVisible(true);
             detailViewController.setAd(ad);
             detailViewController.showUserButtons();
+            detailViewController.showLabels();
         }else {
             detailViewController.setVisible(false);
+            //detailViewController.editAd(ad);
         }
     }
 

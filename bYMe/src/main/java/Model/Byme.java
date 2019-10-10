@@ -1,16 +1,13 @@
 package Model;
-import Services.AccountHandler;
-import Services.AdHandler;
-
 import java.util.*;
 
 public class Byme {
 
     private static Byme singleton = null;
 
-    public static Byme getInstance(){
+    public static Byme getInstance(IAccountHandler accountHandler, IAdHandler adHandler){   //argumenten måste vi ha för att Modellen inte ska vara beroende av "services"
         if(singleton == null){
-            singleton = new Byme(AccountHandler.getInstance(), AdHandler.getInstance());
+            singleton = new Byme(accountHandler, adHandler);
         }
         return singleton;
     }
@@ -25,8 +22,7 @@ public class Byme {
 
     private IAdHandler adHandler;
 
-
-    public HashMap<String,Ad> ads= new HashMap<>();
+    private HashMap<String,Ad> ads= new HashMap<>();
 
     public HashMap<String,Ad> getAds(){
         return ads;
@@ -52,14 +48,6 @@ public class Byme {
         catch(NullPointerException none){
             none.getMessage();
         }
-    }
-
-    public void editAd(String adID, int price, String description, String title, String location){
-        Ad currentAd = ads.get(adID);
-        currentAd.setDescription(description);
-        currentAd.setLocation(location);
-        currentAd.setPrice(price);
-        currentAd.setTitle(title);
     }
 
     private void saveObjects(){
@@ -88,7 +76,7 @@ public class Byme {
         return currentUser;
     }
 
-    public HashMap<String, Account> getAccounts() {
+    protected HashMap<String, Account> getAccounts() {
         return accounts;
     }
 
@@ -138,6 +126,5 @@ public class Byme {
         String adId = generateRandomAdId();
         ads.put(adId,new Ad(title,price,description,location,adId, account));
     }
-
 
 }
