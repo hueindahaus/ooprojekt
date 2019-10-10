@@ -9,14 +9,12 @@ import Services.AdHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class MainController implements Initializable, SidePanelToggler, ThemeSetter, AdCreator, DetailViewToggler, IObserver {
 
@@ -44,7 +42,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
     private Search search = new Search();
     private ArrayList<Ad> searchAds;
-    private HashMap<String, Integer> tags = new HashMap<>();
+    private ArrayList<String> tags = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -58,7 +56,6 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         root.getChildren().add(detailViewController);
         populateAds();
         byme.addObserver(this);
-        populateTags();
     }
 
     @FXML
@@ -110,21 +107,20 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
-    //Fattade inte riktigt hur det var tänkt med AdItem, så la detta här istället.
-
-
     public void populateAds() {
         adsListFlowPane.getChildren().clear();
         tags.clear();
         HashMap<String, Ad> ads = byme.getAds();
         for (Map.Entry ad : ads.entrySet()) {
-            Ad currentAd = (Ad) ad.getValue();
-            if(tags.get(currentAd.getTitle()) == null){
-                tags.put(currentAd.getTitle(), 1);
+        Ad currentAd = (Ad) ad.getValue();
+            if (!tags.contains(currentAd.getTitle())) {
+                tags.add(currentAd.getTitle());
+                tags.add("1");
             } else {
-                Integer oldValue = tags.get(currentAd.getTitle());
-                Integer newValue = oldValue + 1;
-                tags.replace(currentAd.getTitle(), oldValue, newValue);
+                int valueIndex = tags.indexOf(currentAd.getTitle())+1;
+                String oldValue = tags.get(valueIndex);
+                String newValue = String.valueOf(Integer.valueOf(oldValue)+1);
+                tags.set(valueIndex, newValue);
             }
             adsListFlowPane.getChildren().add(new AdItem(currentAd, this));
         }
@@ -164,13 +160,42 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     public void populateTags(){
         tagsFlowPane.getChildren().clear();
-        if(tags.size() > 0) {
-            for (Map.Entry tag : tags.entrySet()) {
-                String name = (String) tag.getKey();
-                Integer noInstances = (Integer) tag.getValue();
-                tagsFlowPane.getChildren().add(new tagItem(name, noInstances));
+        ArrayList<String> sortedTags = sortTags();
+        for (int i = 0; i < sortedTags.size(); i += 2) {
+            tagsFlowPane.getChildren().add(new tagItem(sortedTags.get(i), Integer.valueOf(sortedTags.get(i+1))));
+        }
+    }
+
+    private ArrayList<String> sortTags(){
+        ArrayList<String> values = new ArrayList<>();
+        ArrayList<String> keys = new ArrayList<>();
+        for(int i = 0; i < tags.size(); i++) {
+            if(i%2 == 0){
+                keys.add(tags.get(i));
+            } else {
+                values.add(tags.get(i));
             }
         }
+        String tempValue;
+        String tempKey;
+        for(int i = 0; i < values.size(); i++){ //Bubblesort
+            for(int j=1; j < values.size()-i; j++){
+                if(Integer.valueOf(values.get(j-1)) < Integer.valueOf(values.get(j))){
+                   tempValue = values.get(j-1);
+                   tempKey = keys.get(j-1);
+                   values.set(j-1, values.get(j));
+                   keys.set(j-1, keys.get(j));
+                   values.set(j, tempValue);
+                   keys.set(j, tempKey);
+                }
+            }
+        }
+        ArrayList<String> sortedTags = new ArrayList<>();
+        for(int i = 0; i < values.size(); i++) {
+            sortedTags.add(keys.get(i));
+            sortedTags.add(values.get(i));
+        }
+        return sortedTags;
     }
 
 }
