@@ -3,15 +3,13 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ad implements IObservable{
+public class Ad{
         private String title;
         private int price;
         private String description;
         private String location;
         private final String adId;
         private final String account;
-
-        public List<IObserver> observers = new ArrayList<>();
 
 
     public String getTitle(){
@@ -55,27 +53,6 @@ public class Ad implements IObservable{
 
         public void setLocation(String location) { this.location = location; }
 
-
-
-    public void add(IObserver o){
-
-        this.observers.add(o);
-
-    }
-
-    public void remove(IObserver o){
-
-        this.observers.remove(o);
-
-    }
-
-    public void notifyMethod(){
-
-        for(IObserver o : observers){
-            o.update();
-        }
-
-    }
 
 }
 

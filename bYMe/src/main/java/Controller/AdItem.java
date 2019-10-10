@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Ad;
+import Model.Byme;
 import Model.IObserver;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -29,8 +30,6 @@ public class AdItem extends AnchorPane implements IObserver{
 
     DetailViewToggler detailViewToggler;
     private Ad ad;
-
-
 
     public AdItem(Ad ad, DetailViewToggler detailViewToggler)  {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ads.fxml"));
@@ -61,7 +60,7 @@ public class AdItem extends AnchorPane implements IObserver{
             }
         });
 
-        ad.observers.add(this);
+
 
     }
 

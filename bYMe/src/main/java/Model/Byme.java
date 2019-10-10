@@ -6,6 +6,8 @@ import java.util.*;
 
 public class Byme {
 
+    private Ad ad;
+
     private static Byme singleton = null;
 
     public static Byme getInstance(){
@@ -52,6 +54,18 @@ public class Byme {
         catch(NullPointerException none){
             none.getMessage();
         }
+    }
+
+    public void editAd(String adID, String title, int price, String description, String location){
+
+        Ad ad = ads.get(adID);
+
+        ad.setTitle(title);
+        ad.setPrice(price);
+        ad.setDescription(description);
+        ad.setLocation(location);
+
+        notifyObservers();
     }
 
     private void saveObjects(){
