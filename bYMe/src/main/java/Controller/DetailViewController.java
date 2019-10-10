@@ -3,24 +3,36 @@ package Controller;
 import Model.Ad;
 import Model.Byme;
 import Model.IObserver;
+import Services.PictureHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class DetailViewController extends AnchorPane{
 
 
     DetailViewToggler detailViewToggler;
+
+    PictureHandler pictureHandler = new PictureHandler();
 
     Byme byme = Byme.getInstance(null,null);
 
@@ -59,12 +71,20 @@ public class DetailViewController extends AnchorPane{
     @FXML
     AnchorPane greyZone2;
 
+    @FXML
+    ImageView image1;
+
+    @FXML
+    ImageView image2;
+
     Timeline showPrompt;
 
     Timeline closePrompt;
 
 
     Ad ad;
+
+    ArrayList<BufferedImage> images = new ArrayList<>();
 
     public DetailViewController(DetailViewToggler detailViewToggler){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../detailView.fxml"));
@@ -87,6 +107,8 @@ public class DetailViewController extends AnchorPane{
         );
 
         this.detailViewToggler = detailViewToggler;
+
+
 
 
     }
@@ -140,6 +162,52 @@ public class DetailViewController extends AnchorPane{
         closeDetailView();
     }
 
+    void updateAdImageViews(){
+        if(images.size() > 0){
+            image1.setImage(SwingFXUtils.toFXImage(images.get(0), null));
+        }
+        else if(images.size() > 1) {
+            image2.setImage(SwingFXUtils.toFXImage(images.get(0), null));
+        }
+    }
+
+    void changeAdPic(int key){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("jpg", "*.jpg"), new FileChooser.ExtensionFilter("png", "*.png"), new FileChooser.ExtensionFilter("jpeg", "*.jpg"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+
+
+        if(selectedFile != null){
+            try {
+                BufferedImage image = ImageIO.read(selectedFile);
+                images.add(image);
+                updateAdImageViews();
+            } catch(IOException exception){
+                System.out.println("Can't read image: " + selectedFile.getPath());
+            }
+        }
+    }
+
+
+    @FXML
+    void changeAdPic1(){
+        changeAdPic(1);
+    }
+
+
+    void savePictures(){
+        if(ad!=null) {
+            pictureHandler.saveAdPictures(ad.getAdId(), images);
+        }
+    }
+
+    void loadPictures(){
+        if(ad != null) {
+            images = pictureHandler.getAdPictures(ad.getAdId());
+            updateAdImageViews();
+        }
+    }
 
     /**
      * Used for the button which upon a press enables the "edit mode".

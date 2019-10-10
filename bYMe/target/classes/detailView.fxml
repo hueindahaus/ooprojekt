@@ -58,6 +58,7 @@
             <TextField fx:id="adLocationTextField" layoutX="42.0" layoutY="95.0" />
             <TextField fx:id="adDescriptionTextField" layoutX="62.0" layoutY="383.0" />
             <TextField fx:id="adPriceTextField" layoutX="908.0" layoutY="248.0" />
+            <ImageView fx:id="image2" fitHeight="150.0" fitWidth="200.0" layoutX="285.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="greyZone2" prefHeight="902.0" prefWidth="1443.0" styleClass="greyZone" visible="false" />
@@ -72,5 +73,6 @@
             <Button layoutX="246.0" layoutY="143.0" mnemonicParsing="false" onMouseReleased="#removeAdClosePrompt" text="NEJ JAG ÅNGRADE MIG!!!" />
          </children>
       </AnchorPane>
+      <ImageView fx:id="image1" fitHeight="150.0" fitWidth="200.0" layoutX="273.0" layoutY="331.0" onMouseClicked="#changeAdPic1" pickOnBounds="true" preserveRatio="true" />
    </children>
 </fx:root>
