@@ -9,6 +9,7 @@ import Services.AdHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
@@ -24,9 +25,10 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     AnchorPane root;
     @FXML
     Button primaryButton;
-
     @FXML
     private FlowPane adsListFlowPane;
+    @FXML
+    private TextField searchInput;
 
     private boolean dark_theme = false;
 
@@ -39,12 +41,14 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     private DetailViewController detailViewController;
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
+    private Search search = new Search();
+    private ArrayList<Ad> searchAds;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loginController = new LoginController(this, this);
         root.getChildren().add(loginController);
-        menuController = new MenuController(this,this);
+        menuController = new MenuController(this, this);
         root.getChildren().add(menuController);
         adController = new AdController(this);
         root.getChildren().add(adController);
@@ -52,14 +56,16 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         root.getChildren().add(detailViewController);
         populateAds();
         byme.addObserver(this);
+    }
 
-       //Temporal tests for search engine
-        Search search = new Search();
-        ArrayList<Ad> searchAds = search.findAds("hej", byme.getAds());
-        for (Ad ad : searchAds){
-            System.out.println(ad.getTitle());
+    @FXML
+    void searchAds() {
+        adsListFlowPane.getChildren().clear();
+        searchAds = search.findAds(searchInput.getText(), byme.getAds());
+        for (Ad ad : searchAds) {
+            adsListFlowPane.getChildren().add(new AdItem(ad, this));
+
         }
-
     }
 
 
@@ -67,33 +73,32 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     public void togglePanel() {
         if (byme.getCurrentUser() == null) {
             loginController.togglePanel();
-        }
-        else{
+        } else {
             menuController.togglePanel();
         }
     }
 
-    public void togglePanel(boolean login){
-        if(login) {
+    public void togglePanel(boolean login) {
+        if (login) {
             loginController.toggleOffPanel();
             menuController.toggleOnPanel();
         }
     }
 
-    private void setTheme(Theme theme){
+    private void setTheme(Theme theme) {
         root.setStyle(
-                "main:"+ theme.main+";"+"\n"+
-                "main-dark:" + theme.main_dark+";"+"\n"+
-                "primary:"+theme.primary+";" + "\n"+
-                "primary-dark:"+theme.primary_dark+";"+"\n"+
-                "secondary:"+theme.secondary+";"+"\n"+
-                "secondary-dark:"+theme.secondary_dark+";"+"\n"+
-                "tertiary:"+theme.tertiary+";"+"\n"+
-                "tertiary-dark:"+theme.tertiary_dark+";");
+                "main:" + theme.main + ";" + "\n" +
+                        "main-dark:" + theme.main_dark + ";" + "\n" +
+                        "primary:" + theme.primary + ";" + "\n" +
+                        "primary-dark:" + theme.primary_dark + ";" + "\n" +
+                        "secondary:" + theme.secondary + ";" + "\n" +
+                        "secondary-dark:" + theme.secondary_dark + ";" + "\n" +
+                        "tertiary:" + theme.tertiary + ";" + "\n" +
+                        "tertiary-dark:" + theme.tertiary_dark + ";");
     }
 
-    public void changeTheme(){
-        if(!dark_theme) {
+    public void changeTheme() {
+        if (!dark_theme) {
             setTheme(alternative_theme);
             dark_theme = true;
         } else {
@@ -105,10 +110,10 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     //Fattade inte riktigt hur det var tänkt med AdItem, så la detta här istället.
 
 
-    public void populateAds(){
+    public void populateAds() {
         adsListFlowPane.getChildren().clear();
         HashMap<String, Ad> ads = byme.getAds();
-        for(Map.Entry ad: ads.entrySet()){
+        for (Map.Entry ad : ads.entrySet()) {
             Ad currentAd = (Ad) ad.getValue();
             adsListFlowPane.getChildren().add(new AdItem(currentAd, this));
         }
@@ -121,34 +126,33 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     }
 */
 
-    public void createAd(String title, String description, int price, String location){
+    public void createAd(String title, String description, int price, String location) {
         byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
     }
 
     @FXML
-    void openCreateAd(){
-        if(byme.getCurrentUser() != null){
+    void openCreateAd() {
+        if (byme.getCurrentUser() != null) {
             adController.toggleCreateAdWindow();
         } else {
             loginController.togglePanel();
         }
     }
 
-    public void  toggleDetailView(boolean value, Ad ad){
-        if (value){
+    public void toggleDetailView(boolean value, Ad ad) {
+        if (value) {
             detailViewController.setVisible(true);
             detailViewController.setAd(ad);
             detailViewController.showUserButtons();
             detailViewController.showLabels();
-        }else {
+        } else {
             detailViewController.setVisible(false);
             //detailViewController.editAd(ad);
         }
     }
 
 
-
-    public void update(){
+    public void update() {
         populateAds();
         menuController.populateMyAds();
     }
