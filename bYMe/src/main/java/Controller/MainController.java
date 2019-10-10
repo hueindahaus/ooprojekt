@@ -104,13 +104,7 @@ public class MainController implements Initializable, SIdePanelToggler, ThemeSet
             adsListFlowPane.getChildren().add(new AdItem(currentAd, this));
         }
     }
-
-/*
-    @FXML
-    void editAd(String adID){
-
-    }
-*/
+    
 
     public void createAd(String title, String description, int price, String location){
         byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
