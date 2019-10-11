@@ -322,7 +322,9 @@ public class DetailViewController extends AnchorPane{
 
         showTextFields();
         setEnablePictureChange(true);
+        greyZone.setDisable(true);
         editButton.setVisible(false);
+        greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
         saveButton.setVisible(true);
 
     }
@@ -346,7 +348,8 @@ public class DetailViewController extends AnchorPane{
 
         showLabels();
         setEnablePictureChange(false);
-
+        greyZone.setDisable(false);
+        greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
         editButton.setVisible(true);
         saveButton.setVisible(false);
 

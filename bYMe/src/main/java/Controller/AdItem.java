@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.Ad;
-import Model.Byme;
 import Model.IObserver;
 import Services.PictureHandler;
 import javafx.embed.swing.SwingFXUtils;
@@ -54,9 +53,8 @@ public class AdItem extends AnchorPane implements IObserver{
         adPrice.setText(Integer.toString(ad.getPrice()));
         adAccount.setText(ad.getAccount());
 
+
         this.detailViewToggler = detailViewToggler;
-
-
 
         this.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -65,16 +63,18 @@ public class AdItem extends AnchorPane implements IObserver{
             }
         });
 
-
-
+        updatePicture();
     }
 
     public void update(){
-
         adTitle.setText(this.ad.getTitle());
         adDescription.setText(this.ad.getDescription());
         adLocation.setText(this.ad.getLocation());
         adPrice.setText(Integer.toString(this.ad.getPrice()) + " kr");
+        updatePicture();
+    }
+
+    private void updatePicture(){
         if(pictureHandler.getAdPictures(ad.getAdId()).size() > 0) {
             Image image = pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(pictureHandler.getAdPictures(ad.getAdId()).get(0), null));
             adImage.setImage(image);

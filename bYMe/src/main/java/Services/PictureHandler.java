@@ -48,8 +48,6 @@ public class PictureHandler {
                     System.out.println("Could not associate ad: " + adId + " with a picture with path: " + file.getName());
                 }
             }
-        } else {
-            System.out.println("picturefolder is empty: " + adId);
         }
         return images;
     }

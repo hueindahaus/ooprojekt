@@ -43,6 +43,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     private Search search = new Search();
     private ArrayList<Ad> searchAds;
     private ArrayList<String> tags = new ArrayList<>();
+    private HashMap<String,AdItem> adItems = new HashMap<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,6 +55,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         root.getChildren().add(adController);
         detailViewController = new DetailViewController(this);
         root.getChildren().add(detailViewController);
+        updateAdItems();
         populateAds();
         byme.addObserver(this);
     }
@@ -63,7 +65,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         adsListFlowPane.getChildren().clear();
         searchAds = search.findAds(searchInput.getText(), byme.getAds());
         for (Ad ad : searchAds) {
-            adsListFlowPane.getChildren().add(new AdItem(ad, this));
+            adsListFlowPane.getChildren().add(adItems.get(ad.getAdId()));
 
         }
     }
@@ -108,7 +110,17 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
-    public void populateAds() {
+    public void updateAdItems(){
+        for(Object obj: byme.getAds().values()){
+            Ad ad = (Ad) obj;
+            if(!adItems.containsKey(ad.getAdId())) {
+                adItems.put(ad.getAdId(), new AdItem(ad, this));
+            }
+        }
+        populateAds();
+    }
+
+    private void populateAds() {
         adsListFlowPane.getChildren().clear();
         tags.clear();
         HashMap<String, Ad> ads = byme.getAds();
@@ -123,7 +135,9 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
                 String newValue = String.valueOf(Integer.valueOf(oldValue)+1);
                 tags.set(valueIndex, newValue);
             }
-            adsListFlowPane.getChildren().add(new AdItem(currentAd, this));
+            AdItem currentAdItem = adItems.get(currentAd.getAdId());
+            currentAdItem.update();
+            adsListFlowPane.getChildren().add(currentAdItem);
         }
         populateTags(); //Won't update when in update() (When you create a new ad, works when you sign-in/out)
     }
@@ -145,7 +159,6 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     public void  toggleDetailView(boolean openDetailView, Ad ad){
         if (openDetailView){
-
             detailViewController.setVisible(true);
             detailViewController.setAd(ad);
             detailViewController.showUserButtons();
@@ -155,13 +168,13 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
             detailViewController.updateAdImageViews();
         }else {
             detailViewController.setVisible(false);
-            detailViewController.closePictureChangePanel();
         }
     }
 
 
     public void update() {
-        populateAds();
+
+        updateAdItems();
         menuController.populateMyAds();
     }
 
