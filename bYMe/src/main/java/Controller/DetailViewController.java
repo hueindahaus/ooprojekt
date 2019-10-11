@@ -102,13 +102,11 @@ public class DetailViewController extends AnchorPane{
         }
 
         showPrompt = new Timeline(
-                new KeyFrame(Duration.seconds(0.3), new KeyValue(confirmPane.layoutYProperty(), 500)),
-                new KeyFrame(Duration.seconds(0.3), new KeyValue(confirmPane.rotateProperty(), 720))
+                new KeyFrame(Duration.seconds(0.05), new KeyValue(confirmPane.layoutYProperty(), 350))
         );
 
         closePrompt = new Timeline(
-                new KeyFrame(Duration.seconds(0.3), new KeyValue(confirmPane.layoutYProperty(), -200)),
-                new KeyFrame(Duration.seconds(0.3), new KeyValue(confirmPane.rotateProperty(), 0))
+                new KeyFrame(Duration.seconds(0.05), new KeyValue(confirmPane.layoutYProperty(), -200))
         );
 
         this.detailViewToggler = detailViewToggler;
@@ -338,17 +336,13 @@ public class DetailViewController extends AnchorPane{
     @FXML
     void saveChanges(){
 
-        ad.setTitle(adTitleTextField.getText());
-        ad.setDescription(adDescriptionTextField.getText());
-        ad.setLocation(adLocationTextField.getText());
-        ad.setPrice(Integer.valueOf(adPriceTextField.getText()));
+        byme.editAd(ad.getAdId(), adTitleTextField.getText(),Integer.valueOf(adPriceTextField.getText()),
+                adDescriptionTextField.getText(), adLocation.getText() );
 
         adTitle.setText(ad.getTitle());
         adLocation.setText(ad.getLocation());
         adDescription.setText(ad.getDescription());
         adPrice.setText(String.valueOf(ad.getPrice()));
-
-
 
         showLabels();
         setEnablePictureChange(false);
@@ -356,7 +350,6 @@ public class DetailViewController extends AnchorPane{
         editButton.setVisible(true);
         saveButton.setVisible(false);
 
-        ad.notifyMethod();
 
     }
 

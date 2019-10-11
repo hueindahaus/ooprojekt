@@ -3,18 +3,18 @@ package Controller;
 import Model.Ad;
 import Model.Byme;
 import Model.IObserver;
+import Model.Search;
 import Services.AccountHandler;
 import Services.AdHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MainController implements Initializable, SidePanelToggler, ThemeSetter, AdCreator, DetailViewToggler, IObserver {
 
@@ -22,9 +22,12 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     AnchorPane root;
     @FXML
     Button primaryButton;
-
     @FXML
     private FlowPane adsListFlowPane;
+    @FXML
+    private TextField searchInput;
+    @FXML
+    private FlowPane tagsFlowPane;
 
     private boolean dark_theme = false;
 
@@ -37,12 +40,15 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     private DetailViewController detailViewController;
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
+    private Search search = new Search();
+    private ArrayList<Ad> searchAds;
+    private ArrayList<String> tags = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loginController = new LoginController(this, this);
         root.getChildren().add(loginController);
-        menuController = new MenuController(this,this);
+        menuController = new MenuController(this, this);
         root.getChildren().add(menuController);
         adController = new AdController(this);
         root.getChildren().add(adController);
@@ -50,7 +56,16 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         root.getChildren().add(detailViewController);
         populateAds();
         byme.addObserver(this);
+    }
 
+    @FXML
+    void searchAds() {
+        adsListFlowPane.getChildren().clear();
+        searchAds = search.findAds(searchInput.getText(), byme.getAds());
+        for (Ad ad : searchAds) {
+            adsListFlowPane.getChildren().add(new AdItem(ad, this));
+
+        }
     }
 
 
@@ -58,20 +73,19 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     public void togglePanel() {
         if (byme.getCurrentUser() == null) {
             loginController.togglePanel();
-        }
-        else{
+        } else {
             menuController.togglePanel();
         }
     }
 
-    public void togglePanel(boolean login){
-        if(login) {
+    public void togglePanel(boolean login) {
+        if (login) {
             loginController.toggleOffPanel();
             menuController.toggleOnPanel();
         }
     }
 
-    private void setTheme(Theme theme){
+    private void setTheme(Theme theme) {
         root.setStyle(
                 "main:"+ theme.main+";"+"\n"+
                 "main-dark:" + theme.main_dark+";"+"\n"+
@@ -80,11 +94,12 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
                 "secondary:"+theme.secondary+";"+"\n"+
                 "secondary-dark:"+theme.secondary_dark+";"+"\n"+
                 "tertiary:"+theme.tertiary+";"+"\n"+
-                "tertiary-dark:"+theme.tertiary_dark+";"+";");
+                "tertiary-dark:"+theme.tertiary_dark+";");
+
     }
 
-    public void changeTheme(){
-        if(!dark_theme) {
+    public void changeTheme() {
+        if (!dark_theme) {
             setTheme(alternative_theme);
             dark_theme = true;
         } else {
@@ -93,26 +108,34 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
-    //Fattade inte riktigt hur det var tänkt med AdItem, så la detta här istället.
-
-
-    public void populateAds(){
+    public void populateAds() {
         adsListFlowPane.getChildren().clear();
+        tags.clear();
         HashMap<String, Ad> ads = byme.getAds();
-        for(Map.Entry ad: ads.entrySet()){
-            Ad currentAd = (Ad) ad.getValue();
+        for (Map.Entry ad : ads.entrySet()) {
+        Ad currentAd = (Ad) ad.getValue();
+            if (!tags.contains(currentAd.getTitle())) {
+                tags.add(currentAd.getTitle());
+                tags.add("1");
+            } else {
+                int valueIndex = tags.indexOf(currentAd.getTitle())+1;
+                String oldValue = tags.get(valueIndex);
+                String newValue = String.valueOf(Integer.valueOf(oldValue)+1);
+                tags.set(valueIndex, newValue);
+            }
             adsListFlowPane.getChildren().add(new AdItem(currentAd, this));
         }
+        populateTags(); //Won't update when in update() (When you create a new ad, works when you sign-in/out)
     }
 
 
-    public void createAd(String title, String description, int price, String location){
+    public void createAd(String title, String description, int price, String location) {
         byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
     }
 
     @FXML
-    void openCreateAd(){
-        if(byme.getCurrentUser() != null){
+    void openCreateAd() {
+        if (byme.getCurrentUser() != null) {
             adController.toggleCreateAdWindow();
         } else {
             loginController.togglePanel();
@@ -122,10 +145,12 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     public void  toggleDetailView(boolean openDetailView, Ad ad){
         if (openDetailView){
+
             detailViewController.setVisible(true);
             detailViewController.setAd(ad);
             detailViewController.showUserButtons();
             detailViewController.showLabels();
+
             detailViewController.loadPictures();
             detailViewController.updateAdImageViews();
         }else {
@@ -135,9 +160,49 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     }
 
 
-
-    public void update(){
+    public void update() {
         populateAds();
+        menuController.populateMyAds();
+    }
+
+    public void populateTags(){
+        tagsFlowPane.getChildren().clear();
+        ArrayList<String> sortedTags = sortTags();
+        for (int i = 0; i < sortedTags.size(); i += 2) {
+            tagsFlowPane.getChildren().add(new tagItem(sortedTags.get(i), Integer.valueOf(sortedTags.get(i+1))));
+        }
+    }
+
+    private ArrayList<String> sortTags(){
+        ArrayList<String> values = new ArrayList<>();
+        ArrayList<String> keys = new ArrayList<>();
+        for(int i = 0; i < tags.size(); i++) {
+            if(i%2 == 0){
+                keys.add(tags.get(i));
+            } else {
+                values.add(tags.get(i));
+            }
+        }
+        String tempValue;
+        String tempKey;
+        for(int i = 0; i < values.size(); i++){ //Bubblesort
+            for(int j=1; j < values.size()-i; j++){
+                if(Integer.valueOf(values.get(j-1)) < Integer.valueOf(values.get(j))){
+                   tempValue = values.get(j-1);
+                   tempKey = keys.get(j-1);
+                   values.set(j-1, values.get(j));
+                   keys.set(j-1, keys.get(j));
+                   values.set(j, tempValue);
+                   keys.set(j, tempKey);
+                }
+            }
+        }
+        ArrayList<String> sortedTags = new ArrayList<>();
+        for(int i = 0; i < values.size(); i++) {
+            sortedTags.add(keys.get(i));
+            sortedTags.add(values.get(i));
+        }
+        return sortedTags;
     }
 
 }
