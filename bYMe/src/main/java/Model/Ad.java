@@ -11,6 +11,16 @@ public class Ad{
         private final String adId;
         private final String account;
 
+    public ArrayList<String> getTagsList() {
+        return tagsList;
+    }
+
+    public void setTagsList(ArrayList<String> tagsList) {
+        this.tagsList = tagsList;
+    }
+
+    private ArrayList<String> tagsList = new ArrayList<>(5);
+
 
     public String getTitle(){
             return title;
@@ -52,6 +62,8 @@ public class Ad{
         public void setDescription(String description) { this.description = description; }
 
         public void setLocation(String location) { this.location = location; }
+
+
 
 
 }

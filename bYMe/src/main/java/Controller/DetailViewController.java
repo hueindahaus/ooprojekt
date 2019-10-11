@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DetailViewController extends AnchorPane{
@@ -38,6 +39,8 @@ public class DetailViewController extends AnchorPane{
     @FXML
     Label adPrice;
     @FXML
+    Label tag;
+    @FXML
     TextField adTitleTextField;
     @FXML
     TextField adLocationTextField;
@@ -50,7 +53,6 @@ public class DetailViewController extends AnchorPane{
 
     @FXML
     AnchorPane greyZone;
-
 
     Ad ad;
 
@@ -116,9 +118,19 @@ public class DetailViewController extends AnchorPane{
 
         editButton.setVisible(false);
         saveButton.setVisible(true);
+        setTags();
 
     }
 
+
+    void setTags(){
+
+        ArrayList<String> tags = byme.addTags(ad.getAdId());
+
+
+        tag.setText(tags.get(0));
+
+    }
 
     /**
      * Saves the changes when a user has edited an ad.

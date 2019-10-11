@@ -58,6 +58,7 @@
             <TextField fx:id="adLocationTextField" layoutX="42.0" layoutY="95.0" />
             <TextField fx:id="adDescriptionTextField" layoutX="62.0" layoutY="383.0" />
             <TextField fx:id="adPriceTextField" layoutX="908.0" layoutY="248.0" />
+            <Label fx:id="tag" layoutX="10.0" layoutY="400.0" text="Tag" />
          </children>
       </AnchorPane>
    </children>

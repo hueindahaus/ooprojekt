@@ -68,6 +68,19 @@ public class Byme {
         notifyObservers();
     }
 
+    public ArrayList<String> addTags(String adID){
+
+        Ad ad = ads.get(adID);
+
+        ad.getTagsList().add("Frisör");
+        ad.getTagsList().add("Hair dresser");
+        ad.getTagsList().add("Damklipp");
+        ad.getTagsList().add("Herrklipp");
+        ad.getTagsList().add("Hundklipp");
+
+        return ad.getTagsList();
+    }
+
     private void saveObjects(){
         accountHandler.saveAccounts(accounts);
         adHandler.saveAds(ads);
