@@ -3,8 +3,6 @@ package Controller;
 import Model.Ad;
 import Model.Byme;
 import Model.IObserver;
-import Services.AccountHandler;
-import Services.AdHandler;
 import Services.PictureHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -62,12 +60,15 @@ public class MenuController extends SidePanelController implements IObserver {
 
     Timeline hideMyAdsPanel = new Timeline();
 
-    private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
+    private Byme byme = Byme.getInstance(null,null);
 
-    MenuController(ThemeSetter themeSetter) {
+    private DetailViewToggler detailViewToggler;
+
+    MenuController(ThemeSetter themeSetter, DetailViewToggler detailViewToggler) {
         super("../signedIn.fxml");
         byme.addObserver(this);
         this.themeSetter = themeSetter;
+        this.detailViewToggler = detailViewToggler;
 
         hidePanel = new Timeline(                                                                                      //animation för att gömma login-panelen
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(menuPanel.layoutXProperty(), 1440)),
@@ -196,7 +197,7 @@ public class MenuController extends SidePanelController implements IObserver {
             for (Map.Entry ad : ads.entrySet()) {
                 Ad currentAd = (Ad) ad.getValue();
                 if (currentAd.getAccount().equals(byme.getCurrentUser().getUsername())) {
-                    myAdsFlowPane.getChildren().add(new AdItem(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription(), currentAd.getAccount()));
+                    myAdsFlowPane.getChildren().add(new AdItem(currentAd, detailViewToggler));
                 }
             }
         }

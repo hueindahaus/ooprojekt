@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Ad;
 import Model.Byme;
+import Model.IObserver;
 import Services.AccountHandler;
 import Services.AdHandler;
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, PanelToggler, ThemeSetter, AdCreator {
+public class MainController implements Initializable, SidePanelToggler, ThemeSetter, AdCreator, DetailViewToggler, IObserver {
 
     @FXML
     AnchorPane root;
@@ -33,6 +34,7 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
     private LoginController loginController;
     private MenuController menuController;
     private AdController adController;
+    private DetailViewController detailViewController;
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
@@ -40,11 +42,15 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
     public void initialize(URL url, ResourceBundle rb) {
         loginController = new LoginController(this, this);
         root.getChildren().add(loginController);
-        menuController = new MenuController(this);
+        menuController = new MenuController(this,this);
         root.getChildren().add(menuController);
         adController = new AdController(this);
         root.getChildren().add(adController);
+        detailViewController = new DetailViewController(this);
+        root.getChildren().add(detailViewController);
         populateAds();
+        byme.addObserver(this);
+
     }
 
 
@@ -74,7 +80,7 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
                 "secondary:"+theme.secondary+";"+"\n"+
                 "secondary-dark:"+theme.secondary_dark+";"+"\n"+
                 "tertiary:"+theme.tertiary+";"+"\n"+
-                "tertiary-dark:"+theme.tertiary_dark+";");
+                "tertiary-dark:"+theme.tertiary_dark+";"+";");
     }
 
     public void changeTheme(){
@@ -95,9 +101,10 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
         HashMap<String, Ad> ads = byme.getAds();
         for(Map.Entry ad: ads.entrySet()){
             Ad currentAd = (Ad) ad.getValue();
-            adsListFlowPane.getChildren().add(new AdItem(currentAd.getTitle(), currentAd.getLocation(), currentAd.getPrice(), currentAd.getDescription(), currentAd.getAccount()));
+            adsListFlowPane.getChildren().add(new AdItem(currentAd, this));
         }
     }
+
 
     public void createAd(String title, String description, int price, String location){
         byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
@@ -110,6 +117,27 @@ public class MainController implements Initializable, PanelToggler, ThemeSetter,
         } else {
             loginController.togglePanel();
         }
+    }
+
+
+    public void  toggleDetailView(boolean openDetailView, Ad ad){
+        if (openDetailView){
+            detailViewController.setVisible(true);
+            detailViewController.setAd(ad);
+            detailViewController.showUserButtons();
+            detailViewController.showLabels();
+            detailViewController.loadPictures();
+            detailViewController.updateAdImageViews();
+        }else {
+            detailViewController.setVisible(false);
+            detailViewController.closePictureChangePanel();
+        }
+    }
+
+
+
+    public void update(){
+        populateAds();
     }
 
 }

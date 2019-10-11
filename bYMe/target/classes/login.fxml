@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -14,13 +13,13 @@
       <AnchorPane fx:id="logInPanel" layoutX="1440.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="220.0" styleClass="loginpanel" AnchorPane.topAnchor="70.0">
          <children>
             <TextField fx:id="logInUsername" layoutX="20.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" promptText="Användarnamn" styleClass="RegTextfield" />
-            <PasswordField fx:id="logInPassword" layoutX="20.0" layoutY="106.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" promptText="Lösenord" styleClass="RegTextfield" />
-            <Button layoutX="20.0" layoutY="150.0" mnemonicParsing="false" onMouseClicked="#loginUser" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Logga In">
+            <PasswordField fx:id="logInPassword" layoutX="20.0" layoutY="106.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#loginUser" prefHeight="28.0" prefWidth="180.0" promptText="Lösenord" styleClass="RegTextfield" />
+            <Button defaultButton="true" layoutX="20.0" layoutY="150.0" mnemonicParsing="false" onMouseClicked="#loginUser" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Logga In">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label alignment="CENTER" layoutX="20.0" layoutY="240.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" text="Bli medlem">
+            <Label alignment="CENTER" layoutX="20.0" layoutY="240.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" styleClass="darkThemeText" text="Bli medlem">
                <font>
                   <Font size="18.0" />
                </font>
@@ -30,7 +29,11 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <ToggleButton layoutX="71.0" layoutY="684.0" mnemonicParsing="false" onMouseReleased="#changeTheme" text="Mörkt tema" AnchorPane.bottomAnchor="90.0" />
+            <Button layoutX="20.0" layoutY="716.0" mnemonicParsing="false" onMouseReleased="#changeTheme" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Byt tema" AnchorPane.bottomAnchor="50.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="registerBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#toggleRegisterBox" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" stylesheets="@byme-stylesheet.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

@@ -10,8 +10,6 @@ public class Theme {
     String secondary_dark;
     String tertiary;
     String tertiary_dark;
-    String text;
-    String button_text;
 
     Theme(String main, String main_dark , String primary, String primary_dark, String secondary, String secondary_dark, String tertiary, String tertiary_dark){
 
