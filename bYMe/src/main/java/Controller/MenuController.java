@@ -60,7 +60,7 @@ public class MenuController extends SidePanelController implements IObserver {
 
     Timeline hideMyAdsPanel = new Timeline();
 
-    private Byme byme = Byme.getInstance();
+    private Byme byme = Byme.getInstance(null,null);
 
     private DetailViewToggler detailViewToggler;
 

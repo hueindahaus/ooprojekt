@@ -3,12 +3,16 @@ package Controller;
 import Model.Ad;
 import Model.Byme;
 import Model.IObserver;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +23,7 @@ public class DetailViewController extends AnchorPane{
 
     DetailViewToggler detailViewToggler;
 
-    Byme byme = Byme.getInstance();
+    Byme byme = Byme.getInstance(null,null);
 
 
     @FXML
@@ -53,6 +57,14 @@ public class DetailViewController extends AnchorPane{
 
     @FXML
     AnchorPane greyZone;
+    @FXML
+    AnchorPane confirmPane;
+    @FXML
+    AnchorPane greyZone2;
+
+    Timeline showPrompt;
+
+    Timeline closePrompt;
 
     Ad ad;
 
@@ -66,6 +78,13 @@ public class DetailViewController extends AnchorPane{
             throw new RuntimeException(exception);
         }
 
+        showPrompt = new Timeline(
+                new KeyFrame(Duration.seconds(0.05), new KeyValue(confirmPane.layoutYProperty(), 350))
+        );
+
+        closePrompt = new Timeline(
+                new KeyFrame(Duration.seconds(0.05), new KeyValue(confirmPane.layoutYProperty(), -200))
+        );
 
         this.detailViewToggler = detailViewToggler;
 
@@ -101,9 +120,23 @@ public class DetailViewController extends AnchorPane{
     /**
      * Gives the user the ability to remove a specific ad.
      */
+
+    @FXML
+    void removeAdPrompt(){
+        showPrompt.play();
+        greyZone2.setVisible(true);
+    }
+
+    @FXML
+    void removeAdClosePrompt(){
+        closePrompt.play();
+        greyZone2.setVisible(false);
+    }
+
     @FXML
     void removeAd(){
         byme.removeAd(ad.getAdId());
+        removeAdClosePrompt();
         closeDetailView();
     }
 

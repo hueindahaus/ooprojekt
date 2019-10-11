@@ -1,8 +1,6 @@
 package Controller;
 
 import Model.Byme;
-import Services.AccountHandler;
-import Services.AdHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -32,11 +30,11 @@ public class LoginController extends SidePanelController{
     @FXML private PasswordField logInPassword;
     @FXML private AnchorPane logInPanel;
 
-    SIdePanelToggler panelToggler;
+    SidePanelToggler panelToggler;
 
 
 
-    LoginController(SIdePanelToggler panelToggler, ThemeSetter themeSetter){
+    LoginController(SidePanelToggler panelToggler, ThemeSetter themeSetter){
         super("../login.fxml");
 
         this.themeSetter = themeSetter;
@@ -70,7 +68,7 @@ public class LoginController extends SidePanelController{
         this.panelToggler = panelToggler;
     }
 
-    private Byme bYMe = Byme.getInstance();
+    private Byme bYMe = Byme.getInstance(null,null);
 
 
     @FXML void registerUser(){

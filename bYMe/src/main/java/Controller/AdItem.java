@@ -69,7 +69,7 @@ public class AdItem extends AnchorPane implements IObserver{
         adTitle.setText(this.ad.getTitle());
         adDescription.setText(this.ad.getDescription());
         adLocation.setText(this.ad.getLocation());
-        adPrice.setText(Integer.toString(this.ad.getPrice()));
+        adPrice.setText(Integer.toString(this.ad.getPrice()) + " kr");
     }
 
 
