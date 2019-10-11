@@ -105,12 +105,6 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
-/*
-    @FXML
-    void editAd(String adID){
-
-    }
-*/
 
     public void createAd(String title, String description, int price, String location){
         byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
@@ -125,20 +119,17 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
-    public void  toggleDetailView(boolean value, Ad ad){
-        if (value){
+    public void  toggleDetailView(boolean openDetailView, Ad ad){
+        if (openDetailView){
             detailViewController.setVisible(true);
             detailViewController.setAd(ad);
             detailViewController.showUserButtons();
             detailViewController.showLabels();
-
             detailViewController.loadPictures();
-
+            detailViewController.updateAdImageViews();
         }else {
             detailViewController.setVisible(false);
-
-            detailViewController.savePictures();
-            //detailViewController.editAd(ad);
+            detailViewController.closePictureChangePanel();
         }
     }
 

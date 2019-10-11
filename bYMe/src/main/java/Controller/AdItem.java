@@ -2,10 +2,13 @@ package Controller;
 
 import Model.Ad;
 import Model.IObserver;
+import Services.PictureHandler;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +29,8 @@ public class AdItem extends AnchorPane implements IObserver{
     private Label adDescription;
     @FXML
     private Label adAccount;
+
+    PictureHandler pictureHandler = new PictureHandler();
 
     DetailViewToggler detailViewToggler;
     private Ad ad;
@@ -71,6 +76,10 @@ public class AdItem extends AnchorPane implements IObserver{
         adDescription.setText(this.ad.getDescription());
         adLocation.setText(this.ad.getLocation());
         adPrice.setText(Integer.toString(this.ad.getPrice()) + " kr");
+        if(pictureHandler.getAdPictures(ad.getAdId()).size() > 0) {
+            Image image = pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(pictureHandler.getAdPictures(ad.getAdId()).get(0), null));
+            adImage.setImage(image);
+        }
     }
 
 

@@ -118,3 +118,8 @@
 .exitButton:hover {
 -fx-opacity: 50%;
 }
+
+.pictureChangePanel{
+  -fx-background-color: main;
+
+}

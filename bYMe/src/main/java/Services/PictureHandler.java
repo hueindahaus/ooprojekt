@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class PictureHandler {
     private String getAdPictureDirPath(String id){
         return "adPictures" + File.separatorChar + id;
     }
+
     private String getProfilePictureFilePath(String username){
         return "profile_pics" + File.separatorChar + username + ".jpg";
     }
@@ -34,23 +36,22 @@ public class PictureHandler {
         return null;
     }
 
-    public ArrayList<BufferedImage> getAdPictures(String id){
-        ArrayList<BufferedImage> images =new ArrayList<>();
-        File folder = new File(getAdPictureDirPath(id));
+    public ArrayList<BufferedImage> getAdPictures(String adId){
+        File folder = new File(getAdPictureDirPath(adId));
+        ArrayList<BufferedImage> images = new ArrayList<>();
         if(folder.isDirectory() && folder.listFiles().length > 0) {
             for (File file : folder.listFiles()) {
                 try {
                     BufferedImage image = ImageIO.read(file);
                     images.add(image);
                 } catch (IOException expection) {
-                    System.out.println("Could not associate ad: " + id + " with a picture with path: " + file.getName());
+                    System.out.println("Could not associate ad: " + adId + " with a picture with path: " + file.getName());
                 }
             }
-            return images;
         } else {
-            System.out.println("folder doesn't exist");
-            return null;
+            System.out.println("picturefolder is empty: " + adId);
         }
+        return images;
     }
 
 
@@ -73,6 +74,7 @@ public class PictureHandler {
                 System.out.println("DIR created");
             }
         }
+
         int index = 1;
         for (BufferedImage image : images) {
 
@@ -91,6 +93,20 @@ public class PictureHandler {
             ImageIO.write(file, "jpg", new File(getProfilePictureFilePath(username )));
         } catch(IOException exception){
             System.out.println("Could not write: " + getProfilePictureFilePath(username));
+        }
+    }
+
+    public void removePictureFolder(String adId){
+
+
+        File directory = new File(getAdPictureDirPath(adId));
+
+        if (directory.exists()) {
+            System.out.println("Removing picture directory for " + adId);
+            for (File file : directory.listFiles()) {
+                file.delete();
+            }
+            System.out.println("Directory for " + adId + "deleted: " + directory.delete());
         }
     }
 

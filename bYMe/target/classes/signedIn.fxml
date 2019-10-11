@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane fx:id="greyZone" disable="true" layoutX="7.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#togglePanel" opacity="0.0" pickOnBounds="false" prefHeight="900.0" prefWidth="1220.0" styleClass="greyZone" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0" />
       <AnchorPane fx:id="myAdsPanel" layoutX="1660.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="700.0" styleClass="loginpanel" AnchorPane.bottomAnchor="0.0">
@@ -24,7 +24,10 @@
       <AnchorPane fx:id="menuPanel" layoutX="1440.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="220.0" styleClass="loginpanel" AnchorPane.topAnchor="70.0">
          <children>
 
-             <Button layoutX="20.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#changeProfilePic" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Ändra profilbild" />
+             <Button layoutX="20.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#changeProfilePic" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Ändra profilbild">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
             <Button fx:id="myAdsButton" layoutX="20.0" layoutY="350.0" mnemonicParsing="false" onMouseReleased="#toggleMyAdsPanel" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Mina annonser">
                <font>
                   <Font size="14.0" />
