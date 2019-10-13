@@ -60,6 +60,7 @@
 .loginButton {
   -fx-background-color: primary;
   -fx-background-radius: 10;
+  -fx-text-fill: white;
 }
 
 .loginButton:hover {
