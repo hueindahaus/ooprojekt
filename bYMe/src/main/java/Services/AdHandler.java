@@ -43,11 +43,11 @@ public class AdHandler implements IAdHandler {
 
             if(file.length() > 0) {
                 Object obj = parser.parse(fileaReader);
-                JSONArray adList = (JSONArray) obj;
+                JSONArray objects = (JSONArray) obj;
 
-                for (Object object : adList) {
-                    Ad ad = parseJSONObject((JSONObject) object);
-                    ads.put(ad.getAdId(), ad);
+                for (Object object : objects) {
+                        Ad ad = parseJSONObject((JSONObject) object);
+                        ads.put(ad.getAdId(), (Ad) ad);
                 }
             }
 
@@ -58,7 +58,7 @@ public class AdHandler implements IAdHandler {
         }
     }
 
-    public void saveAds(HashMap<String,Ad> ads){
+    public void saveAds(HashMap<String, Ad> ads){
         JSONArray jsonList = new JSONArray();
 
 
