@@ -3,8 +3,6 @@ import java.util.*;
 
 public class Byme {
 
-    private Ad ad;
-
     private static Byme singleton = null;
 
     public static Byme getInstance(IAccountHandler accountHandler, IAdHandler adHandler){   //argumenten måste vi ha för att Modellen inte ska vara beroende av "services"
@@ -139,6 +137,10 @@ public class Byme {
     public void createAd(String title, String description, int price, String location, String account){
         String adId = generateRandomAdId();
         ads.put(adId,new Ad(title,price,description,location,adId, account));
+    }
+
+    public boolean isLoggedIn(){
+        return currentUser != null;
     }
 
 }

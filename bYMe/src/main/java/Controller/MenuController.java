@@ -1,5 +1,6 @@
 package Controller;
 
+
 import Model.Ad;
 import Model.Byme;
 import Model.IObserver;
@@ -24,7 +25,6 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -162,7 +162,7 @@ public class MenuController extends SidePanelController implements IObserver {
 
     void updateProfilePicImageView(){
 
-        if(byme.getCurrentUser() != null) {
+        if(byme.isLoggedIn()) {
             BufferedImage image = pictureHandler.getProfilePic(byme.getCurrentUser().getUsername());
             if(image != null) {
                 profilePicImageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(image,null)));
@@ -192,7 +192,7 @@ public class MenuController extends SidePanelController implements IObserver {
 
     public void populateMyAds(){
         HashMap<String, Ad> ads = byme.getAds();
-        if(byme.getCurrentUser() != null) {
+        if(byme.isLoggedIn()) {
             myAdsFlowPane.getChildren().clear();
             for (Map.Entry ad : ads.entrySet()) {
                 Ad currentAd = (Ad) ad.getValue();

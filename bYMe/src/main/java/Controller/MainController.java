@@ -41,7 +41,6 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
     private Search search = new Search();
-    private ArrayList<Ad> searchAds;
     private ArrayList<String> tags = new ArrayList<>();
     private HashMap<String,AdItem> adItems = new HashMap<>();
 
@@ -63,10 +62,8 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     @FXML
     void searchAds() {
         adsListFlowPane.getChildren().clear();
-        searchAds = search.findAds(searchInput.getText(), byme.getAds());
-        for (Ad ad : searchAds) {
+        for (Ad ad : search.findAds(searchInput.getText(), byme.getAds())) {
             adsListFlowPane.getChildren().add(adItems.get(ad.getAdId()));
-
         }
     }
 

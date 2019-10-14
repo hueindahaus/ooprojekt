@@ -134,17 +134,6 @@ public class DetailViewController extends AnchorPane{
         });
     }
 
-
-    void loadOrSavePictures(boolean load){
-        if(load){
-            loadPictures();
-        } else {
-            savePictures();
-        }
-    }
-
-
-
     /**
      *
      * @param ad Sends in an ad as parameter so the detailView can show the data of an ad.
