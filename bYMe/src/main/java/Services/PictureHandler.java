@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class PictureHandler {
 
     private String getAdPictureDirPath(String id){
-        return "adPictures" + File.separatorChar + id;
+        return "ad_pictures" + File.separatorChar + id;
     }
 
     private String getProfilePictureFilePath(String username){
