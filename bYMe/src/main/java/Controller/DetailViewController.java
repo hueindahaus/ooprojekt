@@ -38,7 +38,7 @@ public class DetailViewController extends AnchorPane{
 
     PictureHandler pictureHandler = new PictureHandler();
 
-    Byme byme = Byme.getInstance(null,null);
+    Byme byme = Byme.getInstance(null,null, null);
 
 
     @FXML
@@ -73,11 +73,15 @@ public class DetailViewController extends AnchorPane{
     @FXML
     AnchorPane confirmPane;
     @FXML
+    AnchorPane requestPane;
+    @FXML
     AnchorPane greyZone2;
     @FXML
     AnchorPane pictureChangePanel;
     @FXML
     ImageView image1;
+    @FXML
+    TextField messageContent;
 
     ColorAdjust pictureEffect = new ColorAdjust();
 
@@ -85,6 +89,10 @@ public class DetailViewController extends AnchorPane{
     Timeline showPrompt;
 
     Timeline closePrompt;
+
+    Timeline showRequestPrompt;
+
+    Timeline closeRequestPrompt;
 
 
     Ad ad;
@@ -107,6 +115,14 @@ public class DetailViewController extends AnchorPane{
 
         closePrompt = new Timeline(
                 new KeyFrame(Duration.seconds(0.05), new KeyValue(confirmPane.layoutYProperty(), -200))
+        );
+
+        showRequestPrompt = new Timeline(
+                new KeyFrame(Duration.seconds(0.05), new KeyValue(requestPane.layoutYProperty(), 350))
+        );
+
+        closeRequestPrompt = new Timeline(
+                new KeyFrame(Duration.seconds(0.05), new KeyValue(requestPane.layoutYProperty(), 900))
         );
 
         this.detailViewToggler = detailViewToggler;
@@ -181,6 +197,27 @@ public class DetailViewController extends AnchorPane{
         byme.removeAd(ad.getAdId());
         removeAdClosePrompt();
         closeDetailView();
+    }
+
+    @FXML
+    void sendRequestPrompt(){
+        if(byme.isLoggedIn()) {
+            messageContent.setText("");
+            showRequestPrompt.play();
+            greyZone2.setVisible(true);
+        }
+    }
+
+    @FXML
+    void sendRequestClosePrompt(){
+        closeRequestPrompt.play();
+        greyZone2.setVisible(false);
+    }
+
+    @FXML
+    void sendRequest(){
+        byme.sendRequest(byme.getCurrentUser().getUsername(), ad.getAccount(), ad.getAdId(), messageContent.getText());
+        sendRequestClosePrompt();
     }
 
     void updateAdImageViews(){

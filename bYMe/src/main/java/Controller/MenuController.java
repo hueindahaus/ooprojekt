@@ -4,6 +4,7 @@ package Controller;
 import Model.Ad;
 import Model.Byme;
 import Model.IObserver;
+import Model.Request;
 import Services.PictureHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -54,13 +55,16 @@ public class MenuController extends SidePanelController implements IObserver {
     @FXML
     Button myAdsButton;
 
+    @FXML
+    Button myRequestsButton;
+
     PictureHandler pictureHandler = new PictureHandler();
 
     Timeline showMyAdsPanel = new Timeline();
 
     Timeline hideMyAdsPanel = new Timeline();
 
-    private Byme byme = Byme.getInstance(null,null);
+    private Byme byme = Byme.getInstance(null,null, null);
 
     private DetailViewToggler detailViewToggler;
 
@@ -213,4 +217,29 @@ public class MenuController extends SidePanelController implements IObserver {
             myAdsButton.setStyle("-fx-background-color: primary");
         }
     }
+
+    public void populateMyRequests(){
+        HashMap<Integer, Request> requests = byme.getRequests();
+        if(byme.isLoggedIn()) {
+            myAdsFlowPane.getChildren().clear();
+            for (Map.Entry request : requests.entrySet()) {
+                Request currentRequest = (Request) request.getValue();
+                if (currentRequest.getReceiver().equals(byme.getCurrentUser().getUsername())) {
+                    myAdsFlowPane.getChildren().add(new RequestItem(currentRequest, detailViewToggler));
+                }
+            }
+        }
+    }
+
+    @FXML void toggleMyRequestsPanel(){
+        if(myAdsPanel.getLayoutX() != 520) {
+            showMyAdsPanel.play();
+            populateMyRequests();
+            myRequestsButton.setStyle("-fx-background-color: primary-dark");
+        } else {
+            hideMyAdsPanel.play();
+            myRequestsButton.setStyle("-fx-background-color: primary");
+        }
+    }
+
 }

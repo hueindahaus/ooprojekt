@@ -6,6 +6,7 @@ import Model.IObserver;
 import Model.Search;
 import Services.AccountHandler;
 import Services.AdHandler;
+import Services.RequestHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -39,7 +40,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     private AdController adController;
     private DetailViewController detailViewController;
 
-    private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
+    private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance(), RequestHandler.getInstance());
     private Search search = new Search();
     private ArrayList<String> tags = new ArrayList<>();
     private HashMap<String,AdItem> adItems = new HashMap<>();

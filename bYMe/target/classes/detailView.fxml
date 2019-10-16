@@ -104,6 +104,7 @@
                   </Button>
                </children>
             </AnchorPane>
+            <Button layoutX="461.0" layoutY="552.0" mnemonicParsing="false" onAction="#sendRequestPrompt" text="Skicka förfrågan" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="greyZone2" prefHeight="902.0" prefWidth="1443.0" styleClass="greyZone" visible="false" />
@@ -116,6 +117,13 @@
             </Label>
             <Button layoutX="68.0" layoutY="146.0" mnemonicParsing="false" onMouseReleased="#removeAd" text="JA" />
             <Button layoutX="246.0" layoutY="143.0" mnemonicParsing="false" onMouseReleased="#removeAdClosePrompt" text="NEJ" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="requestPane" layoutX="-22.0" layoutY="900.0" prefHeight="200.0" prefWidth="200.0" styleClass="detailViewBox" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0">
+         <children>
+            <Button layoutX="46.0" layoutY="146.0" mnemonicParsing="false" onAction="#sendRequest" onMouseReleased="#removeAd" text="Skicka medddelande" />
+            <Button layoutX="188.0" layoutY="146.0" mnemonicParsing="false" onAction="#sendRequestClosePrompt" onMouseReleased="#removeAdClosePrompt" text="Jag ångrade mig, dålig tjänst tbh" />
+            <TextField fx:id="messageContent" layoutX="32.0" layoutY="20.0" prefHeight="114.0" prefWidth="371.0" promptText="Skriv gärna kontakt info, t.ex. email eller snapchat" />
          </children>
       </AnchorPane>
    </children>
