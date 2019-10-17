@@ -81,6 +81,29 @@ class bYMeTest {
     }
 
     @Test
+    void removeAd(){
+        IAccountHandler accountHandler = new IAccountHandler() {
+            @Override
+            public void loadAccounts(HashMap<String, Account> accounts) {
+
+            }
+
+            @Override
+            public void saveAccounts(HashMap<String, Account> accounts) {
+
+            }
+        };
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler,RequestHandler.getInstance());
+        Ad ad = new Ad("add",4,"ad","GBG","1234","123");
+        bYMe.getAds().put(ad.getAdId(),ad);
+        int before = bYMe.getAds().size();
+        bYMe.removeAd(ad.getAdId());
+        int after = bYMe.getAds().size();
+        assertTrue(before>after);
+    }
+
+    @Test
     void loginUser() {
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
