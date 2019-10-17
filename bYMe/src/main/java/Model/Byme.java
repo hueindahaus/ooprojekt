@@ -138,6 +138,10 @@ public class Byme {
         }
     }
 
+    public boolean userExist(String username, String password){
+        return accounts.containsKey(username) && accounts.get(username).getPassword().equals(password);
+    }
+
     public void signoutUser(){
         currentUser = null;
         notifyObservers();
