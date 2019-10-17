@@ -28,5 +28,5 @@ bYMe/out/production/
 bYMe/profile_pics/*.jpg
 bYMe/data/ads.json
 bYMe/data/logins.json
-bYMe/ad_pictures/*.jpg
+bYMe/ad_pictures/*/*.jpg
 bYMe/data/requests.json
