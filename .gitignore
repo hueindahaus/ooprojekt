@@ -24,8 +24,9 @@ hs_err_pid*
 .idea/
 /bYMe/.idea/
 bYMe/.idea/workspace.xml
-bYMe/data/logins.txt
 bYMe/out/production/
 bYMe/profile_pics/*.jpg
 bYMe/data/ads.json
 bYMe/data/logins.json
+bYMe/ad_pictures/*.jpg
+bYMe/data/requests.json
