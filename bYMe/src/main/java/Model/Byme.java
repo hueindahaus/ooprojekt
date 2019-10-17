@@ -68,6 +68,16 @@ public class Byme {
         adHandler.saveAds(ads);
     }
 
+
+    /**
+     * This method enables the user to create an account.
+     * The method adds the account into a hashmap.
+     * If the account is already registered the user
+     * gets a message telling them about it.
+     * @param username
+     * @param password
+     */
+
     public void registerAccount(String username, String password){
         if(!isAlreadyRegistered(username)) {
             accounts.put(username, new Account(username, password));
@@ -75,6 +85,14 @@ public class Byme {
             System.out.println("User already exist: " + username);
         }
     }
+
+
+    /**
+     * This method checks if an account
+     * has already been registered.
+     * @param username
+     * @return
+     */
 
     public boolean isAlreadyRegistered(String username){   //metod som kollar om ett användarnamn redan är registrerat eller ej
         for(Map.Entry account: accounts.entrySet()){
@@ -85,6 +103,12 @@ public class Byme {
         return false;
     }
 
+    /**
+     * Returns the account that is currently
+     * logged in.
+     * @return
+     */
+
     public Account getCurrentUser() {
         return currentUser;
     }
@@ -92,6 +116,16 @@ public class Byme {
     protected HashMap<String, Account> getAccounts() {
         return accounts;
     }
+
+
+    /**
+     * Method used for logging in.
+     * Changes the currentUser.
+     * In order to login the password must
+     * match the given password at registration.
+     * @param username
+     * @param password
+     */
 
     public void loginUser(String username, String password){
         if(accounts.containsKey(username)){
@@ -113,6 +147,12 @@ public class Byme {
     public void addObserver(IObserver observer){
         observers.add(observer);
     }
+
+    /**
+     * Used for notifying everything that is dependent
+     * on the model that something has changed in the model.
+     */
+
 
     private void notifyObservers(){         //används för att uppdatera allt som är beroende av modellen när något i modellen ändras
         for(IObserver observer: observers){
