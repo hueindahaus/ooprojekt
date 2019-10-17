@@ -28,6 +28,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 
@@ -38,7 +39,7 @@ public class DetailViewController extends AnchorPane{
 
     PictureHandler pictureHandler = new PictureHandler();
 
-    Byme byme = Byme.getInstance(null,null, null);
+    Byme byme = Byme.getInstance(null,null);
 
 
     @FXML
@@ -82,6 +83,12 @@ public class DetailViewController extends AnchorPane{
     ImageView image1;
     @FXML
     TextField messageContent;
+    @FXML
+    TextField requestDay;
+    @FXML
+    TextField requestMonth;
+    @FXML
+    TextField requestYear;
 
     ColorAdjust pictureEffect = new ColorAdjust();
 
@@ -215,8 +222,9 @@ public class DetailViewController extends AnchorPane{
     }
 
     @FXML
-    void sendRequest(){
-        byme.sendRequest(byme.getCurrentUser().getUsername(), ad.getAccount(), ad.getAdId(), messageContent.getText());
+    void sendRequest() throws ParseException {
+        String date = requestDay.getText() + "/" + requestMonth.getText() + "/" + requestYear.getText();
+        byme.sendRequest(byme.getCurrentUser().getUsername(), ad.getAccount(), ad, messageContent.getText(), date);
         sendRequestClosePrompt();
     }
 

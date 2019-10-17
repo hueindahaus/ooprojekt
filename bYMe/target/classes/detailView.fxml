@@ -121,9 +121,12 @@
       </AnchorPane>
       <AnchorPane fx:id="requestPane" layoutX="-22.0" layoutY="900.0" prefHeight="200.0" prefWidth="200.0" styleClass="detailViewBox" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0">
          <children>
-            <Button layoutX="46.0" layoutY="146.0" mnemonicParsing="false" onAction="#sendRequest" onMouseReleased="#removeAd" text="Skicka medddelande" />
-            <Button layoutX="188.0" layoutY="146.0" mnemonicParsing="false" onAction="#sendRequestClosePrompt" onMouseReleased="#removeAdClosePrompt" text="Jag ångrade mig, dålig tjänst tbh" />
-            <TextField fx:id="messageContent" layoutX="32.0" layoutY="20.0" prefHeight="114.0" prefWidth="371.0" promptText="Skriv gärna kontakt info, t.ex. email eller snapchat" />
+            <Button layoutX="46.0" layoutY="146.0" mnemonicParsing="false" onAction="#sendRequest" text="Skicka medddelande" />
+            <Button layoutX="188.0" layoutY="146.0" mnemonicParsing="false" onAction="#sendRequestClosePrompt" text="Jag ångrade mig, dålig tjänst tbh" />
+            <TextField fx:id="messageContent" alignment="TOP_LEFT" layoutX="32.0" layoutY="20.0" prefHeight="78.0" prefWidth="371.0" promptText="Skriv gärna kontakt info, t.ex. email eller snapchat" />
+            <TextField fx:id="requestDay" layoutX="155.0" layoutY="112.0" prefHeight="25.0" prefWidth="35.0" promptText="DD" />
+            <TextField fx:id="requestMonth" layoutX="200.0" layoutY="112.0" prefHeight="25.0" prefWidth="35.0" promptText="MM" />
+            <TextField fx:id="requestYear" layoutX="248.0" layoutY="112.0" prefHeight="25.0" prefWidth="35.0" promptText="YY" />
          </children>
       </AnchorPane>
    </children>

@@ -24,6 +24,10 @@ public class RequestItem extends AnchorPane{
     private Label requestMessage;
     @FXML
     private Label requestSender;
+    @FXML
+    private Label requestReceiver;
+    @FXML
+    private Label requestDate;
 
     PictureHandler pictureHandler = new PictureHandler();
 
@@ -44,8 +48,9 @@ public class RequestItem extends AnchorPane{
 
         requestAd.setText(request.getAd());
         requestMessage.setText(request.getMessage());
-        requestSender.setText(request.getSender());
-
+        requestSender.setText("From: " + request.getSender());
+        requestDate.setText(request.getDateString());
+        requestReceiver.setText("To: " + request.getReceiver());
 
         this.detailViewToggler = detailViewToggler;
     }

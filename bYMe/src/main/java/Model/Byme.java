@@ -1,13 +1,14 @@
 package Model;
+import java.text.ParseException;
 import java.util.*;
 
 public class Byme {
 
     private static Byme singleton = null;
 
-    public static Byme getInstance(IAccountHandler accountHandler, IAdHandler adHandler, IRequestHandler requestHandler){   //argumenten måste vi ha för att Modellen inte ska vara beroende av "services"
+    public static Byme getInstance(IAccountHandler accountHandler, IAdHandler adHandler){   //argumenten måste vi ha för att Modellen inte ska vara beroende av "services"
         if(singleton == null){
-            singleton = new Byme(accountHandler, adHandler, requestHandler);
+            singleton = new Byme(accountHandler, adHandler);
         }
         return singleton;
     }
@@ -22,26 +23,20 @@ public class Byme {
 
     private IAdHandler adHandler;
 
-    private IRequestHandler requestHandler;
-
     private HashMap<String,Ad> ads= new HashMap<>();
 
     public HashMap<String,Ad> getAds(){
         return ads;
     }
 
-    private HashMap<Integer, Request> requests = new HashMap<>();
 
 
-
-    private Byme(IAccountHandler accountHandler, IAdHandler adHandler, IRequestHandler requestHandler){
+    private Byme(IAccountHandler accountHandler, IAdHandler adHandler){
         accounts = new HashMap<>();
         this.accountHandler = accountHandler;
         this.adHandler = adHandler;
-        this.requestHandler = requestHandler;
         accountHandler.loadAccounts(accounts);
         adHandler.loadAds(ads);
-        requestHandler.loadRequests(requests);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> saveObjects(), "Shutdown-thread"));
     }
 
@@ -71,7 +66,6 @@ public class Byme {
     private void saveObjects(){
         accountHandler.saveAccounts(accounts);
         adHandler.saveAds(ads);
-        requestHandler.saveRequests(requests);
     }
 
     public void registerAccount(String username, String password){
@@ -150,12 +144,8 @@ public class Byme {
         return currentUser != null;
     }
 
-    public void sendRequest(String sender, String receiver, String ad, String content){
-        int index = requests.size();
-        requests.put(index, new Request(sender, receiver, ad, content));
-    }
-
-    public HashMap<Integer, Request> getRequests() {
-        return requests;
+    public void sendRequest(String sender, String receiver, Ad ad, String content, String date) throws ParseException {
+        ad.addRequest(new Request(sender, receiver, ad.getAdId(), content, date));
+        notifyObservers();
     }
 }

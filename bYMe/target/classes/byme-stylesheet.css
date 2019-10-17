@@ -29,6 +29,14 @@
   -fx-background-color: transparent;
 }
 
+.split-pane > .viewport {
+  -fx-background-color: transparent;
+}
+
+.split-pane {
+  -fx-background-color: transparent;
+}
+
 
 .background{
   -fx-background-color: primary;
