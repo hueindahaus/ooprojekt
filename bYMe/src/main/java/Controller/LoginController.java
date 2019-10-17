@@ -76,17 +76,9 @@ public class LoginController extends SidePanelController{
         String password = signUpPassword.getText();
         String verifyPassword = signUpPassword2.getText();
 
-        highlightUserAlreadyExistError();
-        highlightUnmatchedPasswordError();
-        highlightTextFieldEmpty();
+        ErrorController.handleRegisterErrors(signUpUsername,signUpPassword,signUpPassword2,errorLabel, bYMe.isAlreadyRegistered(signUpUsername.getText()));
 
-        if (!isAllTextFieldsFilled()){       //om alla textrutor är ej fyllda
-            highlightTextFieldEmpty();
-        } else if (bYMe.isAlreadyRegistered(signUpUsername.getText())){   //om användare redan finns
-            highlightUserAlreadyExistError();
-        } else if(!verifyPassword.equals(password)){
-            highlightUnmatchedPasswordError();
-        } else {
+        if(!bYMe.isAlreadyRegistered(signUpUsername.getText()) && isAllTextFieldsFilled() && signUpPassword.getText().equals(signUpPassword2.getText())) {
             bYMe.registerAccount(username, password);
             bYMe.loginUser(username, password);
             toggleRegisterBox();
@@ -160,7 +152,7 @@ public class LoginController extends SidePanelController{
 
     @FXML void loginUser(){
         bYMe.loginUser(logInUsername.getText(), logInPassword.getText());
-        if(bYMe.getCurrentUser() != null) {
+        if(bYMe.isLoggedIn()) {
             panelToggler.togglePanel(true);
         }
     }
