@@ -81,6 +81,56 @@ class bYMeTest {
     }
 
     @Test
+    void isLoggedIn(){
+        IAccountHandler accountHandler = new IAccountHandler() {
+            @Override
+            public void loadAccounts(HashMap<String, Account> accounts) {
+
+            }
+
+            @Override
+            public void saveAccounts(HashMap<String, Account> accounts) {
+
+            }
+        };
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler,RequestHandler.getInstance());
+        bYMe.registerAccount("User1", "Password1");
+        bYMe.loginUser("User1", "Password1");
+        assertTrue(bYMe.isLoggedIn());
+    }
+    @Test
+    void editAd(){
+        IAccountHandler accountHandler = new IAccountHandler() {
+            @Override
+            public void loadAccounts(HashMap<String, Account> accounts) {
+
+            }
+
+            @Override
+            public void saveAccounts(HashMap<String, Account> accounts) {
+
+            }
+        };
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler,RequestHandler.getInstance());
+        Ad ad = new Ad("add",4,"ad","GBG","1234","123");
+        bYMe.getAds().put(ad.getAdId(),ad);
+        int priceBefore = ad.getPrice();
+        String titleBefore = ad.getTitle();
+        String descBefore = ad.getDescription();
+        String locBefore = ad.getLocation();
+        bYMe.editAd("1234","Changed",1,"Changed","Changed");
+        int priceAfter = ad.getPrice();
+        String titleAfter = ad.getTitle();
+        String descAfter = ad.getDescription();
+        String locAfter = ad.getLocation();
+        assertTrue(priceBefore != priceAfter);
+        assertNotEquals(descBefore,descAfter);
+        assertNotEquals(titleBefore,titleAfter);
+        assertNotEquals(locBefore,locAfter);
+}
+    @Test
     void removeAd(){
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
