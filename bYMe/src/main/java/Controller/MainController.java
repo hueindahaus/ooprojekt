@@ -112,98 +112,94 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         tags.clear();
         HashMap<String, Ad> ads = byme.getAds();
         for (Map.Entry ad : ads.entrySet()) {
-        Ad currentAd = (Ad) ad.getValue();
+            Ad currentAd = (Ad) ad.getValue();
             if (!tags.contains(currentAd.getTitle())) {
                 tags.add(currentAd.getTitle());
                 tags.add("1");
             } else {
-                int valueIndex = tags.indexOf(currentAd.getTitle())+1;
+                int valueIndex = tags.indexOf(currentAd.getTitle()) + 1;
                 String oldValue = tags.get(valueIndex);
-                String newValue = String.valueOf(Integer.valueOf(oldValue)+1);
+                String newValue = String.valueOf(Integer.valueOf(oldValue) + 1);
                 tags.set(valueIndex, newValue);
             }
             adsListFlowPane.getChildren().add(new AdItem(currentAd, this));
         }
         populateTags(); //Won't update when in update() (When you create a new ad, works when you sign-in/out)
     }
-<<<<<<< HEAD
-    
 
-    public void createAd(String title, String description, int price, String location){
-=======
-
-    public void createAd(String title, String description, int price, String location) {
->>>>>>> Dev
-        byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername());
-    }
-
-    @FXML
-    void openCreateAd() {
-        if (byme.getCurrentUser() != null) {
-            adController.toggleCreateAdWindow();
-        } else {
-            loginController.togglePanel();
+        public void createAd (String title, String description,int price, String location, ArrayList<String> tags){
+            byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername(), tags);
         }
-    }
-
-    public void toggleDetailView(boolean value, Ad ad) {
-        if (value) {
-            detailViewController.setVisible(true);
-            detailViewController.setAd(ad);
-            detailViewController.showUserButtons();
-            detailViewController.showLabels();
-        } else {
-            detailViewController.setVisible(false);
-            //detailViewController.editAd(ad);
-        }
-    }
 
 
-    public void update() {
-        populateAds();
-        menuController.populateMyAds();
-    }
 
-    public void populateTags(){
-        tagsFlowPane.getChildren().clear();
-        ArrayList<String> sortedTags = sortTags();
-        for (int i = 0; i < sortedTags.size(); i += 2) {
-            tagsFlowPane.getChildren().add(new tagItem(sortedTags.get(i), Integer.valueOf(sortedTags.get(i+1))));
-        }
-    }
-
-    private ArrayList<String> sortTags(){
-        ArrayList<String> values = new ArrayList<>();
-        ArrayList<String> keys = new ArrayList<>();
-        for(int i = 0; i < tags.size(); i++) {
-            if(i%2 == 0){
-                keys.add(tags.get(i));
+        @FXML
+        void openCreateAd () {
+            if (byme.getCurrentUser() != null) {
+                adController.toggleCreateAdWindow();
             } else {
-                values.add(tags.get(i));
+                loginController.togglePanel();
             }
         }
-        String tempValue;
-        String tempKey;
-        for(int i = 0; i < values.size(); i++){ //Bubblesort
-            for(int j=1; j < values.size()-i; j++){
-                if(Integer.valueOf(values.get(j-1)) < Integer.valueOf(values.get(j))){
-                   tempValue = values.get(j-1);
-                   tempKey = keys.get(j-1);
-                   values.set(j-1, values.get(j));
-                   keys.set(j-1, keys.get(j));
-                   values.set(j, tempValue);
-                   keys.set(j, tempKey);
+
+        public void toggleDetailView ( boolean value, Ad ad){
+            if (value) {
+                detailViewController.setVisible(true);
+                detailViewController.setAd(ad);
+                detailViewController.showUserButtons();
+                detailViewController.showLabels();
+            } else {
+                detailViewController.setVisible(false);
+                //detailViewController.editAd(ad);
+            }
+        }
+
+
+        public void update () {
+            populateAds();
+            menuController.populateMyAds();
+        }
+
+        public void populateTags () {
+            tagsFlowPane.getChildren().clear();
+            ArrayList<String> sortedTags = sortTags();
+            for (int i = 0; i < sortedTags.size(); i += 2) {
+                tagsFlowPane.getChildren().add(new tagItem(sortedTags.get(i), Integer.valueOf(sortedTags.get(i + 1))));
+            }
+        }
+
+        private ArrayList<String> sortTags () {
+            ArrayList<String> values = new ArrayList<>();
+            ArrayList<String> keys = new ArrayList<>();
+            for (int i = 0; i < tags.size(); i++) {
+                if (i % 2 == 0) {
+                    keys.add(tags.get(i));
+                } else {
+                    values.add(tags.get(i));
                 }
             }
+            String tempValue;
+            String tempKey;
+            for (int i = 0; i < values.size(); i++) { //Bubblesort
+                for (int j = 1; j < values.size() - i; j++) {
+                    if (Integer.valueOf(values.get(j - 1)) < Integer.valueOf(values.get(j))) {
+                        tempValue = values.get(j - 1);
+                        tempKey = keys.get(j - 1);
+                        values.set(j - 1, values.get(j));
+                        keys.set(j - 1, keys.get(j));
+                        values.set(j, tempValue);
+                        keys.set(j, tempKey);
+                    }
+                }
+            }
+            ArrayList<String> sortedTags = new ArrayList<>();
+            for (int i = 0; i < values.size(); i++) {
+                sortedTags.add(keys.get(i));
+                sortedTags.add(values.get(i));
+            }
+            return sortedTags;
         }
-        ArrayList<String> sortedTags = new ArrayList<>();
-        for(int i = 0; i < values.size(); i++) {
-            sortedTags.add(keys.get(i));
-            sortedTags.add(values.get(i));
-        }
-        return sortedTags;
-    }
 
-}
+    }
 
 

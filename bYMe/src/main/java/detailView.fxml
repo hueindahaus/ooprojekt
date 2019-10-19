@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root fx:id="greyZone" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" visible="false" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="greyZone" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" visible="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane onMouseReleased="#closeDetailView" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" />
       <AnchorPane layoutX="220.0" layoutY="150.0" prefHeight="600.0" prefWidth="1000.0" styleClass="detailViewBox">
@@ -58,7 +58,11 @@
             <TextField fx:id="adLocationTextField" layoutX="42.0" layoutY="95.0" />
             <TextField fx:id="adDescriptionTextField" layoutX="62.0" layoutY="383.0" />
             <TextField fx:id="adPriceTextField" layoutX="908.0" layoutY="248.0" />
-            <Label fx:id="tag" layoutX="10.0" layoutY="400.0" text="Tag" />
+            <Label fx:id="tag1Label" layoutX="10.0" layoutY="400.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+            <Label fx:id="tag2Label" layoutX="20.0" layoutY="420.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+            <Label fx:id="tag3Label" layoutX="20.0" layoutY="430.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+            <Label fx:id="tag4Label" layoutX="20.0" layoutY="440.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+            <Label fx:id="tag5Label" layoutX="20.0" layoutY="450.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="greyZone2" prefHeight="902.0" prefWidth="1443.0" styleClass="greyZone" visible="false" />

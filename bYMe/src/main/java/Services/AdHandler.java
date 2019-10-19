@@ -9,9 +9,7 @@ import org.json.simple.parser.ParseException;
 
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 
 public class AdHandler implements IAdHandler {
@@ -88,12 +86,15 @@ public class AdHandler implements IAdHandler {
         object.put("location", ad.getLocation());
         object.put("price", ad.getPrice());
         object.put("account", ad.getAccount());
+        object.put("tagsList", ad.getTagsList());
 
         return object;
     }
 
     private Ad parseJSONObject(JSONObject obj){
-        return new Ad((String)obj.get("title"),Integer.valueOf(String.valueOf(obj.get("price"))),(String)obj.get("description"),(String)obj.get("location"),(String)obj.get("adId"), (String)obj.get("account"));
+        Ad ad = new Ad((String)obj.get("title"),Integer.valueOf(String.valueOf(obj.get("price"))),(String)obj.get("description"),(String)obj.get("location"),(String)obj.get("adId"), (String)obj.get("account"));
+        ad.setTagsList((ArrayList<String>)obj.get("tagsList"));
+        return ad;
     }
 
 

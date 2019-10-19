@@ -42,8 +42,8 @@ public class DetailViewController extends AnchorPane{
     Label adUser;
     @FXML
     Label adPrice;
-    @FXML
-    Label tag;
+
+
     @FXML
     TextField adTitleTextField;
     @FXML
@@ -54,6 +54,29 @@ public class DetailViewController extends AnchorPane{
     TextField adUserTextField;
     @FXML
     TextField adPriceTextField;
+
+    @FXML
+    Label tag1Label;
+    @FXML
+    Label tag2Label;
+    @FXML
+    Label tag3Label;
+    @FXML
+    Label tag4Label;
+    @FXML
+    Label tag5Label;
+
+    @FXML
+    TextField tag1TextField;
+    @FXML
+    TextField tag2TextField;
+    @FXML
+    TextField tag3TextField;
+    @FXML
+    TextField tag4TextField;
+    @FXML
+    TextField tag5TextField;
+
 
     @FXML
     AnchorPane greyZone;
@@ -97,13 +120,24 @@ public class DetailViewController extends AnchorPane{
      * @param ad Sends in an ad as parameter so the detailView can show the data of an ad.
      */
     void setAd(Ad ad){
+        this.ad = ad;
         if (ad != null) {
-            this.ad = ad;
             adTitle.setText(ad.getTitle());
             adDescription.setText(ad.getDescription());
             adLocation.setText(ad.getLocation());
             adUser.setText(ad.getAccount());
             adPrice.setText(String.valueOf(ad.getPrice()));
+
+
+            if (!(ad.getTagsList().size() == 0)){
+                ArrayList<String> tags = ad.getTagsList();
+                tag1Label.setText(tags.get(0));
+                tag2Label.setText(tags.get(1));
+                tag3Label.setText(tags.get(2));
+                tag4Label.setText(tags.get(3));
+                tag5Label.setText(tags.get(4));
+            }
+
         }
     }
 
@@ -141,6 +175,8 @@ public class DetailViewController extends AnchorPane{
     }
 
 
+
+
     /**
      * Used for the button which upon a press enables the "edit mode".
      */
@@ -151,18 +187,6 @@ public class DetailViewController extends AnchorPane{
 
         editButton.setVisible(false);
         saveButton.setVisible(true);
-        setTags();
-
-    }
-
-
-    void setTags(){
-
-        ArrayList<String> tags = byme.addTags(ad.getAdId());
-
-
-        tag.setText(tags.get(0));
-
     }
 
     /**
@@ -174,15 +198,24 @@ public class DetailViewController extends AnchorPane{
     void saveChanges(){
 
         byme.editAd(ad.getAdId(), adTitleTextField.getText(),Integer.valueOf(adPriceTextField.getText()),
-                adDescriptionTextField.getText(), adLocation.getText() );
+                adDescriptionTextField.getText(), adLocation.getText());  //getTagsText()
 
         adTitle.setText(ad.getTitle());
         adLocation.setText(ad.getLocation());
         adDescription.setText(ad.getDescription());
         adPrice.setText(String.valueOf(ad.getPrice()));
 
-        showLabels();
+        /*
+        //flytta funktionalitet till egen method och kalla på här..
+        tag1Label.setText(ad.getTagsList().get(0));
+        tag1Label.setText(ad.getTagsList().get(1));
+        tag1Label.setText(ad.getTagsList().get(2));
+        tag1Label.setText(ad.getTagsList().get(3));
+        tag1Label.setText(ad.getTagsList().get(4));
 
+*/
+
+        showLabels();
         editButton.setVisible(true);
         saveButton.setVisible(false);
 
@@ -237,6 +270,8 @@ public class DetailViewController extends AnchorPane{
         adDescriptionTextField.setText(adDescription.getText());
         adPriceTextField.setText(adPrice.getText());
 
+
+
     }
 
     /**
@@ -250,6 +285,7 @@ public class DetailViewController extends AnchorPane{
         adLocation.setVisible(true);
         adDescription.setVisible(true);
         adPrice.setVisible(true);
+        tag1Label.setVisible(true);
 
         adTitleTextField.setVisible(false);
         adLocationTextField.setVisible(false);
@@ -258,6 +294,19 @@ public class DetailViewController extends AnchorPane{
 
     }
 
+    /*
+    ArrayList<String> getTagsText(){
+        ArrayList<String> tags = new ArrayList<>();
+        tags.add(tag1TextField.getText());
+        tags.add(tag2TextField.getText());
+        tags.add(tag3TextField.getText());
+        tags.add(tag4TextField.getText());
+        tags.add(tag5TextField.getText());
 
+        return tags;
+    }
+
+
+*/
 
 }
