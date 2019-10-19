@@ -290,9 +290,9 @@ public class MenuController extends SidePanelController implements IObserver {
     private void updateRequests(){
         if(byme.isLoggedIn()) {
             HashMap<String, Ad> ads = byme.getAds();
+            requests.clear();
             for (Map.Entry ad : ads.entrySet()) {
                 Ad currentAd = (Ad) ad.getValue();
-                requests.clear();
                 requests.addAll(currentAd.getRequests());
             }
         }

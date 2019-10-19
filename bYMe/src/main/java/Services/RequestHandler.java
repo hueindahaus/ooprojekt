@@ -95,9 +95,7 @@ public class RequestHandler {
     }
 
     private Request parseJSONObject(JSONObject obj) throws java.text.ParseException {
-        long stateLong = (long)obj.get("state");
-        int state = (int)(stateLong);
-        return new Request((String)obj.get("sender"), (String)obj.get("receiver"), (String)obj.get("ad"), (String)obj.get("message"), (String)obj.get("date"), state);
+        return new Request((String)obj.get("sender"), (String)obj.get("receiver"), (String)obj.get("ad"), (String)obj.get("message"), (String)obj.get("date"), ((Long)obj.get("state")).intValue());
     }
 
 
