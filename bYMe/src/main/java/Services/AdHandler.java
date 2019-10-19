@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 
 
 import java.io.*;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -95,6 +96,7 @@ public class AdHandler implements IAdHandler {
         object.put("location", ad.getLocation());
         object.put("price", ad.getPrice());
         object.put("account", ad.getAccount());
+        object.put("tagsList", ad.getTagsList());
 
         return object;
     }
@@ -103,6 +105,7 @@ public class AdHandler implements IAdHandler {
         Ad ad = new Ad((String)obj.get("title"),Integer.valueOf(String.valueOf(obj.get("price"))),(String)obj.get("description"),(String)obj.get("location"),(String)obj.get("adId"), (String)obj.get("account"));
         ArrayList<Request> requests = requestHandler.loadRequests(ad.getAdId());
         ad.setRequests(requests);
+        ad.setTagsList((ArrayList<String>)obj.get("tagsList"));
         return ad;
     }
 

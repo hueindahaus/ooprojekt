@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AdItem extends AnchorPane implements IObserver{
 
@@ -29,6 +30,17 @@ public class AdItem extends AnchorPane implements IObserver{
     private Label adDescription;
     @FXML
     private Label adAccount;
+
+    @FXML
+    private Label tag1Label;
+    @FXML
+    private Label tag2Label;
+    @FXML
+    private Label tag3Label;
+    @FXML
+    private Label tag4Label;
+    @FXML
+    private Label tag5Label;
 
     PictureHandler pictureHandler = new PictureHandler();
 
@@ -71,8 +83,24 @@ public class AdItem extends AnchorPane implements IObserver{
         adDescription.setText(this.ad.getDescription());
         adLocation.setText(this.ad.getLocation());
         adPrice.setText(Integer.toString(this.ad.getPrice()) + " kr");
+       // setTagLabels();
         updatePicture();
     }
+
+    /*
+    void setTagLabels(){
+
+        if (!(ad.getTagsList().size() == 0)){
+            ArrayList<String> tags = ad.getTagsList();
+            tag1Label.setText(tags.get(0));
+            tag2Label.setText(tags.get(1));
+            tag3Label.setText(tags.get(2));
+            tag4Label.setText(tags.get(3));
+            tag5Label.setText(tags.get(4));
+        }
+
+    }
+*/
 
     private void updatePicture(){
         if(pictureHandler.getAdPictures(ad.getAdId()).size() > 0) {

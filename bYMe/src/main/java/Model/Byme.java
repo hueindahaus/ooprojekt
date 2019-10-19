@@ -51,7 +51,7 @@ public class Byme {
         }
     }
 
-    public void editAd(String adID, String title, int price, String description, String location){
+    public void editAd(String adID, String title, int price, String description, String location, ArrayList<String> tags){
 
         Ad ad = ads.get(adID);
 
@@ -59,9 +59,18 @@ public class Byme {
         ad.setPrice(price);
         ad.setDescription(description);
         ad.setLocation(location);
+        ad.setTagsList(tags);
 
         notifyObservers();
     }
+
+    private void addTagsToAd(String adID, ArrayList<String> tags){
+
+        Ad ad = ads.get(adID);
+
+        ad.setTagsList(tags);
+    }
+
 
     private void saveObjects(){
         accountHandler.saveAccounts(accounts);
@@ -179,9 +188,11 @@ public class Byme {
     }
 
 
-    public void createAd(String title, String description, int price, String location, String account){
+    public void createAd(String title, String description, int price, String location, String account, ArrayList<String> tags){
         String adId = generateRandomAdId();
         ads.put(adId,new Ad(title,price,description,location,adId, account));
+        addTagsToAd(adId,tags);
+
     }
 
     public boolean isLoggedIn(){

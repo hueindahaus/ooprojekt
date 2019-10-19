@@ -9,49 +9,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" visible="false" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" visible="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane fx:id="greyZone" onMouseClicked="#closeDetailView" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" />
       <AnchorPane layoutX="220.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="detailViewBox">
 
-         <children>
-            <TextField fx:id="adTitleTextField" layoutX="156.0" layoutY="53.0" prefHeight="37.0" prefWidth="150.0">
-               <font>
-                  <Font size="17.0" />
-               </font></TextField>
+               <children>
             <Button fx:id="deleteButton" layoutX="680.0" layoutY="486.0" mnemonicParsing="false" onMouseReleased="#removeAdPrompt" prefHeight="78.0" prefWidth="223.0" text="Ta bort" visible="false" AnchorPane.rightAnchor="200.0">
                <font>
                   <Font size="30.0" />
                </font>
             </Button>
-            <ImageView fitHeight="37.0" fitWidth="46.0" layoutX="931.0" layoutY="24.0" onMouseClicked="#closeDetailView" pickOnBounds="true" preserveRatio="true" smooth="false" styleClass="exitButton">
-               <image>
-                  <Image url="@images/close.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <Label fx:id="adTitle" layoutX="42.0" layoutY="33.0" text="Titel:">
-               <font>
-                  <Font size="48.0" />
-               </font>
-            </Label>
-            <Label fx:id="adLocation" layoutX="46.0" layoutY="218.0" text="Plats:">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Label>
-            <Label fx:id="adDescription" layoutX="45.0" layoutY="292.0" text="Beskrivning:">
-               <font>
-                  <Font size="19.0" />
-               </font></Label>
-            <Label fx:id="adUser" layoutX="927.0" layoutY="576.0" text="User" />
-            <Label fx:id="adPrice" layoutX="46.0" layoutY="151.0" text="Pris:">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Label>
             <Button fx:id="editButton" layoutX="440.0" layoutY="486.0" mnemonicParsing="false" onMouseReleased="#editAd" prefHeight="78.0" prefWidth="228.0" text="Ändra annons" visible="false" AnchorPane.leftAnchor="200.0">
                <font>
                   <Font size="30.0" />
@@ -62,14 +30,64 @@
                   <Font size="30.0" />
                </font>
             </Button>
-            <TextField fx:id="adLocationTextField" layoutX="159.0" layoutY="218.0" />
-            <TextField fx:id="adDescriptionTextField" layoutX="49.0" layoutY="324.0" prefHeight="150.0" prefWidth="270.0" />
-            <TextField fx:id="adPriceTextField" layoutX="157.0" layoutY="158.0" />
+            <Button layoutX="461.0" layoutY="552.0" mnemonicParsing="false" onAction="#sendRequestPrompt" text="Skicka förfrågan" />
+            <ImageView fitHeight="37.0" fitWidth="46.0" layoutX="931.0" layoutY="24.0" onMouseClicked="#closeDetailView" pickOnBounds="true" preserveRatio="true" smooth="false" styleClass="exitButton">
+               <image>
+                  <Image url="@images/close.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
             <ImageView fx:id="image1" fitHeight="150.0" fitWidth="200.0" layoutX="745.0" layoutY="130.0" pickOnBounds="true">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </ImageView>
+            <Label fx:id="adTitle" layoutX="40.0" layoutY="30.0" prefHeight="60.0" prefWidth="855.0" text="Titel:" wrapText="true">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+            <Label fx:id="adLocation" layoutX="40.0" layoutY="95.0" prefWidth="372.0" text="Plats:">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="adPrice" layoutX="40.0" layoutY="115.0" text="Pris:">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="adDescription" layoutX="45.0" layoutY="292.0" prefHeight="204.0" prefWidth="896.0" text="Beskrivning:" wrapText="true">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="adUser" layoutX="927.0" layoutY="576.0" text="User" />
+            <TextField fx:id="adTitleTextField" layoutX="156.0" layoutY="53.0" prefHeight="40.0" prefWidth="150.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="adLocationTextField" layoutX="157.0" layoutY="158.0" />
+            <TextField fx:id="adPriceTextField" layoutX="159.0" layoutY="218.0" />
+            <TextField fx:id="adDescriptionTextField" layoutX="49.0" layoutY="290.0" prefHeight="184.0" prefWidth="842.0" />
+            <Label layoutX="40.0" layoutY="135.0" prefHeight="17.0" prefWidth="81.0" text="Taggar">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="tag1Label" layoutX="40.0" layoutY="150.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+            <Label fx:id="tag2Label" layoutX="40.0" layoutY="165.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+            <Label fx:id="tag3Label" layoutX="40.0" layoutY="180.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+            <Label fx:id="tag4Label" layoutX="40.0" layoutY="195.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+            <Label fx:id="tag5Label" layoutX="40.0" layoutY="210.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+            <TextField fx:id="tag1TextField" layoutX="400.0" layoutY="50.0" />
+            <TextField fx:id="tag2TextField" layoutX="400.0" layoutY="80.0" />
+            <TextField fx:id="tag3TextField" layoutX="400.0" layoutY="110.0" />
+            <TextField fx:id="tag4TextField" layoutX="400.0" layoutY="140.0" />
+            <TextField fx:id="tag5TextField" layoutX="400.0" layoutY="170.0" />
             <AnchorPane fx:id="pictureChangePanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="pictureChangePanel" visible="false">
                <children>
                   <ImageView fx:id="imageChanger1" fitHeight="140.0" fitWidth="140.0" layoutX="50.0" layoutY="170.0" onMouseClicked="#changeAdPic1" pickOnBounds="true" preserveRatio="true">
@@ -104,7 +122,6 @@
                   </Button>
                </children>
             </AnchorPane>
-            <Button layoutX="461.0" layoutY="552.0" mnemonicParsing="false" onAction="#sendRequestPrompt" text="Skicka förfrågan" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="greyZone2" prefHeight="902.0" prefWidth="1443.0" styleClass="greyZone" visible="false" />
