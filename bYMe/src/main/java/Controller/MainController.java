@@ -43,7 +43,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
     private Search search = new Search();
     private ArrayList<String> tags = new ArrayList<>();
-    private HashMap<String,AdItem> adItems = new HashMap<>();
+    private HashMap<String, AdItem> adItems = new HashMap<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -87,14 +87,14 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     private void setTheme(Theme theme) {
         root.setStyle(
-                "main:"+ theme.main+";"+"\n"+
-                "main-dark:" + theme.main_dark+";"+"\n"+
-                "primary:"+theme.primary+";" + "\n"+
-                "primary-dark:"+theme.primary_dark+";"+"\n"+
-                "secondary:"+theme.secondary+";"+"\n"+
-                "secondary-dark:"+theme.secondary_dark+";"+"\n"+
-                "tertiary:"+theme.tertiary+";"+"\n"+
-                "tertiary-dark:"+theme.tertiary_dark+";");
+                "main:" + theme.main + ";" + "\n" +
+                        "main-dark:" + theme.main_dark + ";" + "\n" +
+                        "primary:" + theme.primary + ";" + "\n" +
+                        "primary-dark:" + theme.primary_dark + ";" + "\n" +
+                        "secondary:" + theme.secondary + ";" + "\n" +
+                        "secondary-dark:" + theme.secondary_dark + ";" + "\n" +
+                        "tertiary:" + theme.tertiary + ";" + "\n" +
+                        "tertiary-dark:" + theme.tertiary_dark + ";");
 
     }
 
@@ -108,17 +108,17 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
-    public void updateAdItems(){
-        for(Object obj: byme.getAds().values()){
+    public void updateAdItems() {
+        for (Object obj : byme.getAds().values()) {
             Ad ad = (Ad) obj;
-            if(!adItems.containsKey(ad.getAdId())) {
+            if (!adItems.containsKey(ad.getAdId())) {
                 adItems.put(ad.getAdId(), new AdItem(ad, this));
             }
         }
         populateAds();
     }
 
-    private void populateAds() {
+    public void populateAds() {
         adsListFlowPane.getChildren().clear();
         tags.clear();
         HashMap<String, Ad> ads = byme.getAds();
@@ -140,24 +140,23 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         populateTags(); //Won't update when in update() (When you create a new ad, works when you sign-in/out)
     }
 
-        public void createAd (String title, String description,int price, String location, ArrayList<String> tags){
-            byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername(), tags);
+    public void createAd(String title, String description, int price, String location, ArrayList<String> tags) {
+        byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername(), tags);
+    }
+
+
+    @FXML
+    void openCreateAd() {
+        if (byme.getCurrentUser() != null) {
+            adController.toggleCreateAdWindow();
+        } else {
+            loginController.togglePanel();
         }
+    }
 
 
-
-        @FXML
-        void openCreateAd () {
-            if (byme.getCurrentUser() != null) {
-                adController.toggleCreateAdWindow();
-            } else {
-                loginController.togglePanel();
-            }
-        }
-
-
-    public void  toggleDetailView(boolean openDetailView, Ad ad){
-        if (openDetailView){
+    public void toggleDetailView(boolean openDetailView, Ad ad) {
+        if (openDetailView) {
             detailViewController.setVisible(true);
             detailViewController.setAd(ad);
             detailViewController.showUserButtons();
@@ -165,25 +164,19 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
             detailViewController.loadPictures();
             detailViewController.updateAdImageViews();
-        }else {
+        } else {
             detailViewController.setVisible(false);
         }
-
-
-    public void update() {
-
-        updateAdItems();
-        menuController.populateMyAds();
     }
 
-    public void populateTags(){
-        tagsFlowPane.getChildren().clear();
-        ArrayList<String> sortedTags = sortTags();
-        for (int i = 0; i < sortedTags.size(); i += 2) {
-            tagsFlowPane.getChildren().add(new tagItem(sortedTags.get(i), Integer.valueOf(sortedTags.get(i+1))));
+
+        public void update(){
+
+            updateAdItems();
+            menuController.populateMyAds();
         }
 
-        public void populateTags () {
+        public void populateTags() {
             tagsFlowPane.getChildren().clear();
             ArrayList<String> sortedTags = sortTags();
             for (int i = 0; i < sortedTags.size(); i += 2) {
@@ -191,38 +184,40 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
             }
         }
 
-        private ArrayList<String> sortTags () {
-            ArrayList<String> values = new ArrayList<>();
-            ArrayList<String> keys = new ArrayList<>();
-            for (int i = 0; i < tags.size(); i++) {
-                if (i % 2 == 0) {
-                    keys.add(tags.get(i));
-                } else {
-                    values.add(tags.get(i));
-                }
-            }
-            String tempValue;
-            String tempKey;
-            for (int i = 0; i < values.size(); i++) { //Bubblesort
-                for (int j = 1; j < values.size() - i; j++) {
-                    if (Integer.valueOf(values.get(j - 1)) < Integer.valueOf(values.get(j))) {
-                        tempValue = values.get(j - 1);
-                        tempKey = keys.get(j - 1);
-                        values.set(j - 1, values.get(j));
-                        keys.set(j - 1, keys.get(j));
-                        values.set(j, tempValue);
-                        keys.set(j, tempKey);
+
+            private ArrayList<String> sortTags () {
+                ArrayList<String> values = new ArrayList<>();
+                ArrayList<String> keys = new ArrayList<>();
+                for (int i = 0; i < tags.size(); i++) {
+                    if (i % 2 == 0) {
+                        keys.add(tags.get(i));
+                    } else {
+                        values.add(tags.get(i));
                     }
                 }
+                String tempValue;
+                String tempKey;
+                for (int i = 0; i < values.size(); i++) { //Bubblesort
+                    for (int j = 1; j < values.size() - i; j++) {
+                        if (Integer.valueOf(values.get(j - 1)) < Integer.valueOf(values.get(j))) {
+                            tempValue = values.get(j - 1);
+                            tempKey = keys.get(j - 1);
+                            values.set(j - 1, values.get(j));
+                            keys.set(j - 1, keys.get(j));
+                            values.set(j, tempValue);
+                            keys.set(j, tempKey);
+                        }
+                    }
+                }
+                ArrayList<String> sortedTags = new ArrayList<>();
+                for (int i = 0; i < values.size(); i++) {
+                    sortedTags.add(keys.get(i));
+                    sortedTags.add(values.get(i));
+                }
+                return sortedTags;
             }
-            ArrayList<String> sortedTags = new ArrayList<>();
-            for (int i = 0; i < values.size(); i++) {
-                sortedTags.add(keys.get(i));
-                sortedTags.add(values.get(i));
-            }
-            return sortedTags;
+
         }
 
-    }
 
 

@@ -117,6 +117,31 @@ public class DetailViewController extends AnchorPane{
     @FXML
     TextField requestYear;
 
+    @FXML
+    void changeAdPic1(){
+        changeAdPic(0);
+    }
+
+    @FXML
+    void changeAdPic2(){
+        changeAdPic(1);
+    }
+
+    @FXML
+    void changeAdPic3(){
+        changeAdPic(2);
+    }
+
+    @FXML
+    void changeAdPic4(){
+        changeAdPic(3);
+    }
+
+    @FXML
+    void changeAdPic5(){
+        changeAdPic(4);
+    }
+
     ColorAdjust pictureEffect = new ColorAdjust();
 
 
@@ -303,30 +328,7 @@ public class DetailViewController extends AnchorPane{
     }
 
 
-    @FXML
-    void changeAdPic1(){
-        changeAdPic(0);
-    }
 
-    @FXML
-    void changeAdPic2(){
-        changeAdPic(1);
-    }
-
-    @FXML
-    void changeAdPic3(){
-        changeAdPic(2);
-    }
-
-    @FXML
-    void changeAdPic4(){
-        changeAdPic(3);
-    }
-
-    @FXML
-    void changeAdPic5(){
-        changeAdPic(4);
-    }
 
     void savePictures(){
         if(ad != null) {
@@ -519,6 +521,7 @@ public class DetailViewController extends AnchorPane{
 
         return tags;
     }
+    */
 
     void openPictureChangePanel(){
             updatePictureChangePanel();
@@ -573,6 +576,6 @@ public class DetailViewController extends AnchorPane{
         }
     }
 
-*/
+
 
 }

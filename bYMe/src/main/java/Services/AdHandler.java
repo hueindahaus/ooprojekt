@@ -102,9 +102,9 @@ public class AdHandler implements IAdHandler {
     }
 
     private Ad parseJSONObject(JSONObject obj){
+        Ad ad = new Ad((String)obj.get("title"),Integer.valueOf(String.valueOf(obj.get("price"))),(String)obj.get("description"),(String)obj.get("location"),(String)obj.get("adId"), (String)obj.get("account"));
         ArrayList<Request> requests = requestHandler.loadRequests(ad.getAdId());
         ad.setRequests(requests);
-        Ad ad = new Ad((String)obj.get("title"),Integer.valueOf(String.valueOf(obj.get("price"))),(String)obj.get("description"),(String)obj.get("location"),(String)obj.get("adId"), (String)obj.get("account"));
         ad.setTagsList((ArrayList<String>)obj.get("tagsList"));
         return ad;
     }
