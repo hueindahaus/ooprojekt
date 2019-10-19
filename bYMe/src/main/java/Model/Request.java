@@ -14,7 +14,7 @@ public class Request {
     private String ad;
     private String message;
     private Date date;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy-hh:mm");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy-HH:mm");
     private int state; // 0 = requested, 1 = accepted, 2 = declined, 3 = accepted and done
 
     public Request(String sender, String receiver, String ad, String message, String dateString, int state) throws ParseException {
