@@ -51,7 +51,7 @@ public class Byme {
         }
     }
 
-    public void editAd(String adID, String title, int price, String description, String location){ //ArrayList<String> tags
+    public void editAd(String adID, String title, int price, String description, String location, ArrayList<String> tags){
 
         Ad ad = ads.get(adID);
 
@@ -59,7 +59,7 @@ public class Byme {
         ad.setPrice(price);
         ad.setDescription(description);
         ad.setLocation(location);
-       // ad.setTagsList(tags);
+        ad.setTagsList(tags);
 
         notifyObservers();
     }

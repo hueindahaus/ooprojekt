@@ -411,22 +411,23 @@ public class DetailViewController extends AnchorPane{
     void saveChanges(){
 
         byme.editAd(ad.getAdId(), adTitleTextField.getText(),Integer.valueOf(adPriceTextField.getText()),
-                adDescriptionTextField.getText(), adLocation.getText());  //getTagsText()
+                adDescriptionTextField.getText(), adLocation.getText(), getTagsText());
 
         adTitle.setText(ad.getTitle());
         adLocation.setText(ad.getLocation());
         adDescription.setText(ad.getDescription());
         adPrice.setText(String.valueOf(ad.getPrice()));
 
-        /*
+
+
         //flytta funktionalitet till egen method och kalla på här..
         tag1Label.setText(ad.getTagsList().get(0));
-        tag1Label.setText(ad.getTagsList().get(1));
-        tag1Label.setText(ad.getTagsList().get(2));
-        tag1Label.setText(ad.getTagsList().get(3));
-        tag1Label.setText(ad.getTagsList().get(4));
+        tag2Label.setText(ad.getTagsList().get(1));
+        tag3Label.setText(ad.getTagsList().get(2));
+        tag4Label.setText(ad.getTagsList().get(3));
+        tag5Label.setText(ad.getTagsList().get(4));
 
-*/
+
 
         showLabels();
         setEnablePictureChange(false);
@@ -435,6 +436,19 @@ public class DetailViewController extends AnchorPane{
         editButton.setVisible(true);
         saveButton.setVisible(false);
 
+
+    }
+
+    private ArrayList<String> getTagsText(){
+
+        ArrayList<String> tempList = new ArrayList<>();
+        tempList.add(tag1TextField.getText());
+        tempList.add(tag2TextField.getText());
+        tempList.add(tag3TextField.getText());
+        tempList.add(tag4TextField.getText());
+        tempList.add(tag5TextField.getText());
+
+        return tempList;
 
     }
 
@@ -476,15 +490,35 @@ public class DetailViewController extends AnchorPane{
         adDescription.setVisible(false);
         adPrice.setVisible(false);
 
+        tag1Label.setVisible(false);
+        tag2Label.setVisible(false);
+        tag3Label.setVisible(false);
+        tag4Label.setVisible(false);
+        tag5Label.setVisible(false);
+
+
         adTitleTextField.setVisible(true);
         adLocationTextField.setVisible(true);
         adDescriptionTextField.setVisible(true);
         adPriceTextField.setVisible(true);
 
+        tag1TextField.setVisible(true);
+        tag2TextField.setVisible(true);
+        tag3TextField.setVisible(true);
+        tag4TextField.setVisible(true);
+        tag5TextField.setVisible(true);
+
         adTitleTextField.setText(adTitle.getText());
         adLocationTextField.setText(adLocation.getText());
         adDescriptionTextField.setText(adDescription.getText());
         adPriceTextField.setText(adPrice.getText());
+
+        tag1TextField.setText(tag1Label.getText());
+        tag2TextField.setText(tag2Label.getText());
+        tag3TextField.setText(tag3Label.getText());
+        tag4TextField.setText(tag4Label.getText());
+        tag5TextField.setText(tag5Label.getText());
+
 
 
 
@@ -503,25 +537,25 @@ public class DetailViewController extends AnchorPane{
         adPrice.setVisible(true);
         tag1Label.setVisible(true);
 
+        tag1Label.setVisible(true);
+        tag2Label.setVisible(true);
+        tag3Label.setVisible(true);
+        tag4Label.setVisible(true);
+        tag5Label.setVisible(true);
+
         adTitleTextField.setVisible(false);
         adLocationTextField.setVisible(false);
         adDescriptionTextField.setVisible(false);
         adPriceTextField.setVisible(false);
 
+        tag1TextField.setVisible(false);
+        tag2TextField.setVisible(false);
+        tag3TextField.setVisible(false);
+        tag4TextField.setVisible(false);
+        tag5TextField.setVisible(false);
+
     }
 
-    /*
-    ArrayList<String> getTagsText(){
-        ArrayList<String> tags = new ArrayList<>();
-        tags.add(tag1TextField.getText());
-        tags.add(tag2TextField.getText());
-        tags.add(tag3TextField.getText());
-        tags.add(tag4TextField.getText());
-        tags.add(tag5TextField.getText());
-
-        return tags;
-    }
-    */
 
     void openPictureChangePanel(){
             updatePictureChangePanel();

@@ -83,10 +83,11 @@ public class AdItem extends AnchorPane implements IObserver{
         adDescription.setText(this.ad.getDescription());
         adLocation.setText(this.ad.getLocation());
         adPrice.setText(Integer.toString(this.ad.getPrice()) + " kr");
-        //setTagLabels();
+       // setTagLabels();
         updatePicture();
     }
-/*
+
+    /*
     void setTagLabels(){
 
         if (!(ad.getTagsList().size() == 0)){
@@ -99,8 +100,8 @@ public class AdItem extends AnchorPane implements IObserver{
         }
 
     }
-
 */
+
     private void updatePicture(){
         if(pictureHandler.getAdPictures(ad.getAdId()).size() > 0) {
             Image image = pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(pictureHandler.getAdPictures(ad.getAdId()).get(0), null));
