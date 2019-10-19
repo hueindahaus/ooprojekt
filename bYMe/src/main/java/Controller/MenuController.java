@@ -30,6 +30,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -257,10 +258,15 @@ public class MenuController extends SidePanelController implements IObserver {
             myReceivedRequestsFlowPane.getChildren().clear();
             mySentRequestsFlowPane.getChildren().clear();
             for (Request request : requests) {
+                if(request.getState() == 1) { //Check if accepted requests have been completed (due-date)
+                    if (request.getDate().before(Calendar.getInstance().getTime())) {
+                        request.setState(3);
+                    }
+                }
                 if (request.getReceiver().equals(byme.getCurrentUser().getUsername())) {
-                    myReceivedRequestsFlowPane.getChildren().add(new RequestItem(request, detailViewToggler));
+                    myReceivedRequestsFlowPane.getChildren().add(new RequestItem(request, detailViewToggler, true));
                 } else if (request.getSender().equals(byme.getCurrentUser().getUsername())) {
-                    mySentRequestsFlowPane.getChildren().add(new RequestItem(request, detailViewToggler));
+                    mySentRequestsFlowPane.getChildren().add(new RequestItem(request, detailViewToggler, false));
                 }
             }
         }
@@ -291,5 +297,4 @@ public class MenuController extends SidePanelController implements IObserver {
             }
         }
     }
-
 }
