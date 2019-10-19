@@ -2,6 +2,7 @@ package Services;
 
 import Model.Ad;
 import Model.IAdHandler;
+import Model.Request;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,11 +11,17 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 
 public class AdHandler implements IAdHandler {
 
     private static AdHandler singleton;
+
+    private RequestHandler requestHandler = RequestHandler.getInstance();
 
     private AdHandler(){
 
@@ -41,11 +48,11 @@ public class AdHandler implements IAdHandler {
 
             if(file.length() > 0) {
                 Object obj = parser.parse(fileaReader);
-                JSONArray adList = (JSONArray) obj;
+                JSONArray objects = (JSONArray) obj;
 
-                for (Object object : adList) {
-                    Ad ad = parseJSONObject((JSONObject) object);
-                    ads.put(ad.getAdId(), ad);
+                for (Object object : objects) {
+                        Ad ad = parseJSONObject((JSONObject) object);
+                        ads.put(ad.getAdId(), (Ad) ad);
                 }
             }
 
@@ -56,16 +63,19 @@ public class AdHandler implements IAdHandler {
         }
     }
 
-    public void saveAds(HashMap<String,Ad> ads){
+    public void saveAds(HashMap<String, Ad> ads){
         JSONArray jsonList = new JSONArray();
-
+        ArrayList<Request> requests = new ArrayList<>();
 
         Iterator iterator = ads.entrySet().iterator();
         while(iterator.hasNext()){
             Map.Entry account = (Map.Entry) iterator.next();
             Ad ad = (Ad) account.getValue();
+            requests.addAll(ad.getRequests());
             jsonList.add(convertToJSONObject(ad));
         }
+
+        requestHandler.saveRequests(requests);
 
         try{
             FileWriter file = new FileWriter(getAdsFilePath());
@@ -92,12 +102,12 @@ public class AdHandler implements IAdHandler {
     }
 
     private Ad parseJSONObject(JSONObject obj){
+        ArrayList<Request> requests = requestHandler.loadRequests(ad.getAdId());
+        ad.setRequests(requests);
         Ad ad = new Ad((String)obj.get("title"),Integer.valueOf(String.valueOf(obj.get("price"))),(String)obj.get("description"),(String)obj.get("location"),(String)obj.get("adId"), (String)obj.get("account"));
         ad.setTagsList((ArrayList<String>)obj.get("tagsList"));
         return ad;
     }
-
-
 
 
 }

@@ -6,6 +6,7 @@ import Model.IObserver;
 import Model.Search;
 import Services.AccountHandler;
 import Services.AdHandler;
+import Services.RequestHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -41,8 +42,8 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
     private Search search = new Search();
-    private ArrayList<Ad> searchAds;
     private ArrayList<String> tags = new ArrayList<>();
+    private HashMap<String,AdItem> adItems = new HashMap<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,6 +55,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         root.getChildren().add(adController);
         detailViewController = new DetailViewController(this);
         root.getChildren().add(detailViewController);
+        updateAdItems();
         populateAds();
         byme.addObserver(this);
     }
@@ -61,10 +63,8 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     @FXML
     void searchAds() {
         adsListFlowPane.getChildren().clear();
-        searchAds = search.findAds(searchInput.getText(), byme.getAds());
-        for (Ad ad : searchAds) {
-            adsListFlowPane.getChildren().add(new AdItem(ad, this));
-
+        for (Ad ad : search.findAds(searchInput.getText(), byme.getAds())) {
+            adsListFlowPane.getChildren().add(adItems.get(ad.getAdId()));
         }
     }
 
@@ -87,14 +87,15 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     private void setTheme(Theme theme) {
         root.setStyle(
-                "main:" + theme.main + ";" + "\n" +
-                        "main-dark:" + theme.main_dark + ";" + "\n" +
-                        "primary:" + theme.primary + ";" + "\n" +
-                        "primary-dark:" + theme.primary_dark + ";" + "\n" +
-                        "secondary:" + theme.secondary + ";" + "\n" +
-                        "secondary-dark:" + theme.secondary_dark + ";" + "\n" +
-                        "tertiary:" + theme.tertiary + ";" + "\n" +
-                        "tertiary-dark:" + theme.tertiary_dark + ";");
+                "main:"+ theme.main+";"+"\n"+
+                "main-dark:" + theme.main_dark+";"+"\n"+
+                "primary:"+theme.primary+";" + "\n"+
+                "primary-dark:"+theme.primary_dark+";"+"\n"+
+                "secondary:"+theme.secondary+";"+"\n"+
+                "secondary-dark:"+theme.secondary_dark+";"+"\n"+
+                "tertiary:"+theme.tertiary+";"+"\n"+
+                "tertiary-dark:"+theme.tertiary_dark+";");
+
     }
 
     public void changeTheme() {
@@ -107,7 +108,17 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
-    public void populateAds() {
+    public void updateAdItems(){
+        for(Object obj: byme.getAds().values()){
+            Ad ad = (Ad) obj;
+            if(!adItems.containsKey(ad.getAdId())) {
+                adItems.put(ad.getAdId(), new AdItem(ad, this));
+            }
+        }
+        populateAds();
+    }
+
+    private void populateAds() {
         adsListFlowPane.getChildren().clear();
         tags.clear();
         HashMap<String, Ad> ads = byme.getAds();
@@ -122,7 +133,9 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
                 String newValue = String.valueOf(Integer.valueOf(oldValue) + 1);
                 tags.set(valueIndex, newValue);
             }
-            adsListFlowPane.getChildren().add(new AdItem(currentAd, this));
+            AdItem currentAdItem = adItems.get(currentAd.getAdId());
+            currentAdItem.update();
+            adsListFlowPane.getChildren().add(currentAdItem);
         }
         populateTags(); //Won't update when in update() (When you create a new ad, works when you sign-in/out)
     }
@@ -142,22 +155,32 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
             }
         }
 
-        public void toggleDetailView ( boolean value, Ad ad){
-            if (value) {
-                detailViewController.setVisible(true);
-                detailViewController.setAd(ad);
-                detailViewController.showUserButtons();
-                detailViewController.showLabels();
-            } else {
-                detailViewController.setVisible(false);
-                //detailViewController.editAd(ad);
-            }
+
+    public void  toggleDetailView(boolean openDetailView, Ad ad){
+        if (openDetailView){
+            detailViewController.setVisible(true);
+            detailViewController.setAd(ad);
+            detailViewController.showUserButtons();
+            detailViewController.showLabels();
+
+            detailViewController.loadPictures();
+            detailViewController.updateAdImageViews();
+        }else {
+            detailViewController.setVisible(false);
         }
 
 
-        public void update () {
-            populateAds();
-            menuController.populateMyAds();
+    public void update() {
+
+        updateAdItems();
+        menuController.populateMyAds();
+    }
+
+    public void populateTags(){
+        tagsFlowPane.getChildren().clear();
+        ArrayList<String> sortedTags = sortTags();
+        for (int i = 0; i < sortedTags.size(); i += 2) {
+            tagsFlowPane.getChildren().add(new tagItem(sortedTags.get(i), Integer.valueOf(sortedTags.get(i+1))));
         }
 
         public void populateTags () {

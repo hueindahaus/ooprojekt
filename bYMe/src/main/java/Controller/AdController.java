@@ -94,9 +94,14 @@ public class AdController extends AnchorPane {
 
     @FXML
     void createAd(){
+<<<<<<< HEAD
         adCreator.createAd(adTitle.getText(), adDescription.getText(), Integer.valueOf(adPrice.getText()),
                 adLocation.getSelectionModel().getSelectedItem().toString(), getTagsTextField());
         adCreator.populateAds();
+=======
+        adCreator.createAd(adTitle.getText(), adDescription.getText(), Integer.valueOf(adPrice.getText()), adLocation.getSelectionModel().getSelectedItem().toString());
+        adCreator.updateAdItems();
+>>>>>>> Dev
         toggleCreateAdWindow();
 
     }

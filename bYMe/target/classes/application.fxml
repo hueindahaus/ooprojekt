@@ -38,8 +38,8 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TextField fx:id="searchInput" layoutX="675.0" layoutY="22.0" onKeyTyped="#searchAds" promptText="Sök..." />
-            <Button layoutX="851.0" layoutY="22.0" mnemonicParsing="false" onMouseReleased="#searchAds" text="Sök" />
+            <TextField fx:id="searchInput" layoutX="675.0" layoutY="22.0" onKeyTyped="#searchAds" promptText="Sök..." AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="640.0" />
+            <Button layoutX="800.0" layoutY="22.0" mnemonicParsing="false" onMouseReleased="#searchAds" prefWidth="40.0" text="Sök" />
          </children></AnchorPane>
       <ImageView fitHeight="61.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" AnchorPane.bottomAnchor="900.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1224.0" AnchorPane.topAnchor="8.0">
          <image>

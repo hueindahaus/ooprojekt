@@ -1,8 +1,10 @@
 package Controller;
 
+
 import Model.Ad;
 import Model.Byme;
 import Model.IObserver;
+import Model.Request;
 import Services.PictureHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -24,10 +26,10 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,13 +56,33 @@ public class MenuController extends SidePanelController implements IObserver {
     @FXML
     Button myAdsButton;
 
+    @FXML
+    AnchorPane myRequestsPanel;
+
+    @FXML
+    FlowPane myReceivedRequestsFlowPane;
+
+    @FXML
+    FlowPane mySentRequestsFlowPane;
+
+    @FXML
+    Button myRequestsButton;
+
     PictureHandler pictureHandler = new PictureHandler();
 
     Timeline showMyAdsPanel = new Timeline();
 
     Timeline hideMyAdsPanel = new Timeline();
 
+    Timeline showMyRequestsPanel = new Timeline();
+
+    Timeline hideMyRequestsPanel = new Timeline();
+
+    private int panelState = 0;
+
     private Byme byme = Byme.getInstance(null,null);
+
+    ArrayList<Request> requests = new ArrayList<>();
 
     private DetailViewToggler detailViewToggler;
 
@@ -72,7 +94,8 @@ public class MenuController extends SidePanelController implements IObserver {
 
         hidePanel = new Timeline(                                                                                      //animation för att gömma login-panelen
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(menuPanel.layoutXProperty(), 1440)),
-                new KeyFrame(Duration.seconds(0.2), new KeyValue(myAdsPanel.layoutXProperty(), 1660))
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(myAdsPanel.layoutXProperty(), 1660)),
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(myRequestsPanel.layoutXProperty(), 1660))
 
         );
 
@@ -95,6 +118,14 @@ public class MenuController extends SidePanelController implements IObserver {
 
         hideMyAdsPanel = new Timeline(
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(myAdsPanel.layoutXProperty(), 1660))
+        );
+
+        showMyRequestsPanel = new Timeline(
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(myRequestsPanel.layoutXProperty(), 520))
+        );
+
+        hideMyRequestsPanel = new Timeline(
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(myRequestsPanel.layoutXProperty(), 1660))
         );
 
         Circle clip = new Circle(profilePicImageView.getFitWidth()/2,profilePicImageView.getFitHeight()/2,80);
@@ -129,6 +160,8 @@ public class MenuController extends SidePanelController implements IObserver {
     void setGreyZoneDisable(boolean value){
         greyZone.setDisable(value);
         myAdsButton.setStyle("-fx-background-color: primary");
+        myRequestsButton.setStyle("-fx-background-color: primary");
+        panelState = 0;
     }
 
     @FXML void signout(){
@@ -162,7 +195,7 @@ public class MenuController extends SidePanelController implements IObserver {
 
     void updateProfilePicImageView(){
 
-        if(byme.getCurrentUser() != null) {
+        if(byme.isLoggedIn()) {
             BufferedImage image = pictureHandler.getProfilePic(byme.getCurrentUser().getUsername());
             if(image != null) {
                 profilePicImageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(image,null)));
@@ -184,6 +217,7 @@ public class MenuController extends SidePanelController implements IObserver {
     public void update(){
         updateProfilePicImageView();
         displayAccountName();
+        updateRequests();
     }
 
     @FXML void changeTheme(){
@@ -192,7 +226,7 @@ public class MenuController extends SidePanelController implements IObserver {
 
     public void populateMyAds(){
         HashMap<String, Ad> ads = byme.getAds();
-        if(byme.getCurrentUser() != null) {
+        if(byme.isLoggedIn()) {
             myAdsFlowPane.getChildren().clear();
             for (Map.Entry ad : ads.entrySet()) {
                 Ad currentAd = (Ad) ad.getValue();
@@ -204,13 +238,58 @@ public class MenuController extends SidePanelController implements IObserver {
     }
 
     @FXML void toggleMyAdsPanel(){
-        if(myAdsPanel.getLayoutX() != 520) {
+        hideMyRequestsPanel.play();
+        myRequestsButton.setStyle("-fx-background-color: primary");
+        if(panelState != 1) {
+            panelState = 1;
             showMyAdsPanel.play();
             populateMyAds();
             myAdsButton.setStyle("-fx-background-color: primary-dark");
         } else {
+            panelState = 0;
             hideMyAdsPanel.play();
             myAdsButton.setStyle("-fx-background-color: primary");
         }
     }
+
+    public void populateMyRequests(){
+        if(byme.isLoggedIn()) {
+            myReceivedRequestsFlowPane.getChildren().clear();
+            mySentRequestsFlowPane.getChildren().clear();
+            for (Request request : requests) {
+                if (request.getReceiver().equals(byme.getCurrentUser().getUsername())) {
+                    myReceivedRequestsFlowPane.getChildren().add(new RequestItem(request, detailViewToggler));
+                } else if (request.getSender().equals(byme.getCurrentUser().getUsername())) {
+                    mySentRequestsFlowPane.getChildren().add(new RequestItem(request, detailViewToggler));
+                }
+            }
+        }
+    }
+
+    @FXML void toggleMyRequestsPanel(){
+        hideMyAdsPanel.play();
+        myAdsButton.setStyle("-fx-background-color: primary");
+        if(panelState != 2) {
+            panelState = 2;
+            showMyRequestsPanel.play();
+            populateMyRequests();
+            myRequestsButton.setStyle("-fx-background-color: primary-dark");
+        } else {
+            panelState = 0;
+            hideMyRequestsPanel.play();
+            myRequestsButton.setStyle("-fx-background-color: primary");
+        }
+    }
+
+    private void updateRequests(){
+        if(byme.isLoggedIn()) {
+            HashMap<String, Ad> ads = byme.getAds();
+            for (Map.Entry ad : ads.entrySet()) {
+                Ad currentAd = (Ad) ad.getValue();
+                requests.clear();
+                requests.addAll(currentAd.getRequests());
+            }
+        }
+    }
+
 }

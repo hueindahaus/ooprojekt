@@ -1,11 +1,9 @@
 package Controller;
 
-import Model.Byme;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import sun.applet.Main;
 
 import java.io.IOException;
 
