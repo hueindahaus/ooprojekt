@@ -94,7 +94,7 @@ class bYMeTest {
             }
         };
         IAdHandler adHandler = AdHandler.getInstance();
-        Byme bYMe = Byme.getInstance(accountHandler, adHandler,RequestHandler.getInstance());
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
         bYMe.registerAccount("User1", "Password1");
         bYMe.loginUser("User1", "Password1");
         assertTrue(bYMe.isLoggedIn());
@@ -113,14 +113,14 @@ class bYMeTest {
             }
         };
         IAdHandler adHandler = AdHandler.getInstance();
-        Byme bYMe = Byme.getInstance(accountHandler, adHandler,RequestHandler.getInstance());
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
         Ad ad = new Ad("add",4,"ad","GBG","1234","123");
         bYMe.getAds().put(ad.getAdId(),ad);
         int priceBefore = ad.getPrice();
         String titleBefore = ad.getTitle();
         String descBefore = ad.getDescription();
         String locBefore = ad.getLocation();
-        bYMe.editAd("1234","Changed",1,"Changed","Changed");
+        bYMe.editAd("1234","Changed",1,"Changed","Changed",null);
         int priceAfter = ad.getPrice();
         String titleAfter = ad.getTitle();
         String descAfter = ad.getDescription();
@@ -144,7 +144,7 @@ class bYMeTest {
             }
         };
         IAdHandler adHandler = AdHandler.getInstance();
-        Byme bYMe = Byme.getInstance(accountHandler, adHandler,RequestHandler.getInstance());
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
         Ad ad = new Ad("add",4,"ad","GBG","1234","123");
         bYMe.getAds().put(ad.getAdId(),ad);
         int before = bYMe.getAds().size();
