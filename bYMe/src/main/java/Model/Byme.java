@@ -1,13 +1,14 @@
 package Model;
+import java.text.ParseException;
 import java.util.*;
 
 public class Byme {
 
     private static Byme singleton = null;
 
-    public static Byme getInstance(IAccountHandler accountHandler, IAdHandler adHandler, IRequestHandler requestHandler){   //argumenten måste vi ha för att Modellen inte ska vara beroende av "services"
+    public static Byme getInstance(IAccountHandler accountHandler, IAdHandler adHandler){   //argumenten måste vi ha för att Modellen inte ska vara beroende av "services"
         if(singleton == null){
-            singleton = new Byme(accountHandler, adHandler, requestHandler);
+            singleton = new Byme(accountHandler, adHandler);
         }
         return singleton;
     }
@@ -22,26 +23,20 @@ public class Byme {
 
     private IAdHandler adHandler;
 
-    private IRequestHandler requestHandler;
-
     private HashMap<String,Ad> ads= new HashMap<>();
 
     public HashMap<String,Ad> getAds(){
         return ads;
     }
 
-    private HashMap<Integer, Request> requests = new HashMap<>();
 
 
-
-    private Byme(IAccountHandler accountHandler, IAdHandler adHandler, IRequestHandler requestHandler){
+    private Byme(IAccountHandler accountHandler, IAdHandler adHandler){
         accounts = new HashMap<>();
         this.accountHandler = accountHandler;
         this.adHandler = adHandler;
-        this.requestHandler = requestHandler;
         accountHandler.loadAccounts(accounts);
         adHandler.loadAds(ads);
-        requestHandler.loadRequests(requests);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> saveObjects(), "Shutdown-thread"));
     }
 
@@ -56,7 +51,7 @@ public class Byme {
         }
     }
 
-    public void editAd(String adID, String title, int price, String description, String location){
+    public void editAd(String adID, String title, int price, String description, String location, ArrayList<String> tags){
 
         Ad ad = ads.get(adID);
 
@@ -64,15 +59,33 @@ public class Byme {
         ad.setPrice(price);
         ad.setDescription(description);
         ad.setLocation(location);
+        ad.setTagsList(tags);
 
         notifyObservers();
     }
 
+    private void addTagsToAd(String adID, ArrayList<String> tags){
+
+        Ad ad = ads.get(adID);
+
+        ad.setTagsList(tags);
+    }
+
+
     private void saveObjects(){
         accountHandler.saveAccounts(accounts);
         adHandler.saveAds(ads);
-        requestHandler.saveRequests(requests);
     }
+
+
+    /**
+     * This method enables the user to create an account.
+     * The method adds the account into a hashmap.
+     * If the account is already registered the user
+     * gets a message telling them about it.
+     * @param username
+     * @param password
+     */
 
     public void registerAccount(String username, String password){
         if(!isAlreadyRegistered(username)) {
@@ -81,6 +94,14 @@ public class Byme {
             System.out.println("User already exist: " + username);
         }
     }
+
+
+    /**
+     * This method checks if an account
+     * has already been registered.
+     * @param username
+     * @return
+     */
 
     public boolean isAlreadyRegistered(String username){   //metod som kollar om ett användarnamn redan är registrerat eller ej
         for(Map.Entry account: accounts.entrySet()){
@@ -91,6 +112,12 @@ public class Byme {
         return false;
     }
 
+    /**
+     * Returns the account that is currently
+     * logged in.
+     * @return
+     */
+
     public Account getCurrentUser() {
         return currentUser;
     }
@@ -98,6 +125,16 @@ public class Byme {
     protected HashMap<String, Account> getAccounts() {
         return accounts;
     }
+
+
+    /**
+     * Method used for logging in.
+     * Changes the currentUser.
+     * In order to login the password must
+     * match the given password at registration.
+     * @param username
+     * @param password
+     */
 
     public void loginUser(String username, String password){
         if(accounts.containsKey(username)){
@@ -110,6 +147,10 @@ public class Byme {
         }
     }
 
+    public boolean userExist(String username, String password){
+        return accounts.containsKey(username) && accounts.get(username).getPassword().equals(password);
+    }
+
     public void signoutUser(){
         currentUser = null;
         notifyObservers();
@@ -119,6 +160,12 @@ public class Byme {
     public void addObserver(IObserver observer){
         observers.add(observer);
     }
+
+    /**
+     * Used for notifying everything that is dependent
+     * on the model that something has changed in the model.
+     */
+
 
     private void notifyObservers(){         //används för att uppdatera allt som är beroende av modellen när något i modellen ändras
         for(IObserver observer: observers){
@@ -141,21 +188,19 @@ public class Byme {
     }
 
 
-    public void createAd(String title, String description, int price, String location, String account){
+    public void createAd(String title, String description, int price, String location, String account, ArrayList<String> tags){
         String adId = generateRandomAdId();
         ads.put(adId,new Ad(title,price,description,location,adId, account));
+        addTagsToAd(adId,tags);
+
     }
 
     public boolean isLoggedIn(){
         return currentUser != null;
     }
 
-    public void sendRequest(String sender, String receiver, String ad, String content){
-        int index = requests.size();
-        requests.put(index, new Request(sender, receiver, ad, content));
-    }
-
-    public HashMap<Integer, Request> getRequests() {
-        return requests;
+    public void sendRequest(String sender, String receiver, Ad ad, String content, String date) throws ParseException {
+        ad.addRequest(new Request(sender, receiver, ad.getAdId(), content, date,0));
+        notifyObservers();
     }
 }

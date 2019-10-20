@@ -25,7 +25,7 @@ class bYMeTest {
         };
 
         IAdHandler adHandler = AdHandler.getInstance();
-        Byme bYMe = Byme.getInstance(accountHandler, adHandler, RequestHandler.getInstance());
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
         bYMe.registerAccount("User1", "Password1");
         assertEquals(bYMe.getAccounts().get("User1").getPassword(), ("Password1"));
         assertEquals(bYMe.getAccounts().get("User1").getUsername(), ("User1"));
@@ -46,7 +46,7 @@ class bYMeTest {
             }
         };
         IAdHandler adHandler = AdHandler.getInstance();
-        Byme bYMe = Byme.getInstance(accountHandler, adHandler, RequestHandler.getInstance());
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
 
         bYMe.registerAccount("User1", "Password1");
         bYMe.registerAccount("User1", "Password2"); // User already exist: User1
@@ -69,7 +69,7 @@ class bYMeTest {
             }
         };
         IAdHandler adHandler = AdHandler.getInstance();
-        Byme bYMe = Byme.getInstance(accountHandler, adHandler, RequestHandler.getInstance());
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
         assertEquals(bYMe.getAccounts().size(), 2); //User1 and User2 saved from previous tests (bYMe is singleton).
         bYMe.registerAccount("User1", "Password1");
         bYMe.registerAccount("User2", "Password2");
@@ -167,7 +167,7 @@ class bYMeTest {
             }
         };
         IAdHandler adHandler = AdHandler.getInstance();
-        Byme bYMe = Byme.getInstance(accountHandler, adHandler,RequestHandler.getInstance());
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
         bYMe.registerAccount("User1", "Password1");
         bYMe.registerAccount("User2", "Password1");
 
@@ -193,7 +193,7 @@ class bYMeTest {
             }
         };
         IAdHandler adHandler = AdHandler.getInstance();
-        Byme bYMe = Byme.getInstance(accountHandler, adHandler,RequestHandler.getInstance());
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
         bYMe.registerAccount("User1", "Password1");
         bYMe.loginUser("User1", "Password1"); // User1 logged in
         assertEquals("User1", bYMe.getCurrentUser().getUsername());
@@ -215,9 +215,9 @@ class bYMeTest {
             }
         };
         IAdHandler adHandler = AdHandler.getInstance();
-        Byme bYMe = Byme.getInstance(accountHandler, adHandler,RequestHandler.getInstance());
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
          int before =   bYMe.getAds().size();
-        bYMe.createAd("Title1", "Description", 10, "Chalmers",null);
+        bYMe.createAd("Title1", "Description", 10, "Chalmers",null,null);
         int after = bYMe.getAds().size();
         assertTrue(after>before);
     }

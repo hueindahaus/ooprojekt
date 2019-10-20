@@ -1,6 +1,5 @@
 package Services;
 
-import Model.IRequestHandler;
 import Model.Request;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -11,12 +10,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.ArrayList;
 
 
-public class RequestHandler implements IRequestHandler {
+
+public class RequestHandler {
 
     private static RequestHandler singleton;
 
@@ -36,9 +34,9 @@ public class RequestHandler implements IRequestHandler {
         return "data" + File.separatorChar + "requests.json";
     }
 
-    public void loadRequests(HashMap<Integer, Request> requests){
+    public ArrayList<Request> loadRequests(String adId){
+        ArrayList<Request> requests = new ArrayList<>();
         JSONParser parser = new JSONParser();
-        int index = 0;
 
         try{
             FileReader fileaReader = new FileReader(getRequestsFilePath());
@@ -50,8 +48,9 @@ public class RequestHandler implements IRequestHandler {
 
                 for (Object object : objects) {
                         Request request = parseJSONObject((JSONObject) object);
-                        requests.put(index, (Request) request);
-                        index++;
+                        if(request.getAd().equals(adId)) {
+                            requests.add((Request) request);
+                        }
                 }
             }
 
@@ -59,18 +58,17 @@ public class RequestHandler implements IRequestHandler {
             exception.printStackTrace();
         } catch (ParseException excpetion){
             excpetion.printStackTrace();
+        } catch (java.text.ParseException exception) {
+            exception.printStackTrace();
         }
+        return requests;
     }
 
-    public void saveRequests(HashMap<Integer, Request> requests){
+    public void saveRequests(ArrayList<Request> requests){
         JSONArray jsonList = new JSONArray();
 
-
-        Iterator iterator = requests.entrySet().iterator();
-        while(iterator.hasNext()){
-            Map.Entry request = (Map.Entry) iterator.next();
-            Request currentRequest= (Request) request.getValue();
-            jsonList.add(convertToJSONObject(currentRequest));
+        for(Request request : requests){
+            jsonList.add(convertToJSONObject(request));
         }
 
         try{
@@ -90,12 +88,14 @@ public class RequestHandler implements IRequestHandler {
         object.put("receiver", request.getReceiver());
         object.put("ad", request.getAd());
         object.put("message", request.getMessage());
+        object.put("date", request.getDateString());
+        object.put("state", request.getState());
 
         return object;
     }
 
-    private Request parseJSONObject(JSONObject obj){
-        return new Request((String)obj.get("sender"), (String)obj.get("receiver"), (String)obj.get("ad"), (String)obj.get("message"));
+    private Request parseJSONObject(JSONObject obj) throws java.text.ParseException {
+        return new Request((String)obj.get("sender"), (String)obj.get("receiver"), (String)obj.get("ad"), (String)obj.get("message"), (String)obj.get("date"), ((Long)obj.get("state")).intValue());
     }
 
 

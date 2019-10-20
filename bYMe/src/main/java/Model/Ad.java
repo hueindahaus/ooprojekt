@@ -1,6 +1,8 @@
 package Model;
 
 
+import java.util.ArrayList;
+
 public class Ad{
         private String title;
         private int price;
@@ -8,19 +10,22 @@ public class Ad{
         private String location;
         private final String adId;
         private final String account;
-
+        private ArrayList<String> tagsList = new ArrayList<>(5);
+        private ArrayList<Request> requests = new ArrayList<>();
 
     public String getTitle(){
             return title;
         }
 
-        public Ad(String title, int price, String description, String location, String adId, String account) {
+        public Ad(String title, int price, String description, String location, String adId, String account){
             this.title = title;
             this.price = price;
             this.description = description;
             this.location = location;
             this.adId = adId;
             this.account = account;
+            this.tagsList = tagsList;
+
         }
 
         public int getPrice(){
@@ -43,6 +48,10 @@ public class Ad{
             return account;
         }
 
+        public ArrayList<Request> getRequests() {
+        return requests;
+    }
+
         public void setPrice(int price) { this.price = price; }
 
         public void setTitle(String title) { this.title = title; }
@@ -51,6 +60,16 @@ public class Ad{
 
         public void setLocation(String location) { this.location = location; }
 
+        public ArrayList<String> getTagsList() { return tagsList; }
 
+        public void setRequests(ArrayList<Request> requests) {
+            this.requests = requests;
+        }
+
+        public void setTagsList(ArrayList<String> tagsList) { this.tagsList = tagsList; }
+
+        public void addRequest(Request request){
+            requests.add(request);
+        }
 }
 

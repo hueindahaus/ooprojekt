@@ -12,8 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LoginController extends SidePanelController{
 
@@ -24,11 +22,12 @@ public class LoginController extends SidePanelController{
     @FXML TextField signUpUsername;
     @FXML PasswordField signUpPassword;
     @FXML PasswordField signUpPassword2;
-    @FXML Label errorLabel;
+    @FXML Label errorLabelRegister;
     @FXML AnchorPane greyZone;
     @FXML private TextField logInUsername;
     @FXML private PasswordField logInPassword;
     @FXML private AnchorPane logInPanel;
+    @FXML private Label errorLabelLogin;
 
     SidePanelToggler panelToggler;
 
@@ -68,7 +67,7 @@ public class LoginController extends SidePanelController{
         this.panelToggler = panelToggler;
     }
 
-    private Byme bYMe = Byme.getInstance(null,null, null);
+    private Byme bYMe = Byme.getInstance(null,null);
 
 
     @FXML void registerUser(){
@@ -76,17 +75,9 @@ public class LoginController extends SidePanelController{
         String password = signUpPassword.getText();
         String verifyPassword = signUpPassword2.getText();
 
-        highlightUserAlreadyExistError();
-        highlightUnmatchedPasswordError();
-        highlightTextFieldEmpty();
+        ErrorMessageController.handleRegisterErrors(signUpUsername,signUpPassword,signUpPassword2,errorLabelRegister,bYMe.isAlreadyRegistered(signUpUsername.getText()));
 
-        if (!isAllTextFieldsFilled()){       //om alla textrutor är ej fyllda
-            highlightTextFieldEmpty();
-        } else if (bYMe.isAlreadyRegistered(signUpUsername.getText())){   //om användare redan finns
-            highlightUserAlreadyExistError();
-        } else if(!verifyPassword.equals(password)){
-            highlightUnmatchedPasswordError();
-        } else {
+        if(!bYMe.isAlreadyRegistered(signUpUsername.getText()) && isAllTextFieldsFilled() && signUpPassword.getText().equals(signUpPassword2.getText())) {
             bYMe.registerAccount(username, password);
             bYMe.loginUser(username, password);
             toggleRegisterBox();
@@ -100,50 +91,6 @@ public class LoginController extends SidePanelController{
         return !signUpUsername.getText().isEmpty() && !signUpPassword.getText().isEmpty() && !signUpPassword2.getText().isEmpty();
     }
 
-    private void highlightTextFieldEmpty(){
-
-        List<TextField> textfields = new ArrayList<>();
-        textfields.add(signUpUsername);
-        textfields.add(signUpPassword);
-        textfields.add(signUpPassword2);
-
-        for(TextField textfield : textfields){
-            if(textfield.getText().isEmpty()){
-                textfield.setStyle("-fx-border-color: #e74c3c;");
-            } else {
-               textfield.setStyle("-fx-border-color: inherit");
-            }
-        }
-
-        if(!isAllTextFieldsFilled()){
-            errorLabel.setText("Fyll alla fält!");
-        } else {
-            errorLabel.setText("");
-        }
-
-    }
-
-    private void highlightUserAlreadyExistError(){
-        if (bYMe.isAlreadyRegistered(signUpUsername.getText())){
-            signUpUsername.setStyle("-fx-border-color: #e74c3c;");
-            System.out.println("User already exist: " + signUpUsername.getText());
-            errorLabel.setText("Användare: " + signUpUsername.getText() + " finns redan!");
-        } else {
-            signUpUsername.setStyle("-fx-border-color: inherit;");
-            errorLabel.setText("");
-        }
-    }
-
-    private void highlightUnmatchedPasswordError(){
-        if(!signUpPassword.getText().equals(signUpPassword2.getText())){
-            signUpPassword2.setStyle("-fx-border-color: #e74c3c;");
-            System.out.println("Password doesn't match");
-            errorLabel.setText("Lösenorden matchar ej!");
-        } else {
-            signUpPassword2.setStyle("-fx-border-color: inherit;");
-            errorLabel.setText("");
-        }
-    }
 
     void setGreyZoneDisable(boolean value){
         greyZone.setDisable(value);
@@ -159,8 +106,12 @@ public class LoginController extends SidePanelController{
     }
 
     @FXML void loginUser(){
+
+        ErrorMessageController.handleLoginErrors(logInUsername,logInPassword,errorLabelLogin, bYMe.userExist(logInUsername.getText(),logInPassword.getText()));
+
         bYMe.loginUser(logInUsername.getText(), logInPassword.getText());
-        if(bYMe.getCurrentUser() != null) {
+        if(bYMe.isLoggedIn()) {
+            ErrorMessageController.resetTextFields(logInUsername,logInPassword,errorLabelLogin);
             panelToggler.togglePanel(true);
         }
     }

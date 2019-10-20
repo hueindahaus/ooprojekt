@@ -28,7 +28,10 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class DetailViewController extends AnchorPane{
@@ -38,7 +41,7 @@ public class DetailViewController extends AnchorPane{
 
     PictureHandler pictureHandler = new PictureHandler();
 
-    Byme byme = Byme.getInstance(null,null, null);
+    Byme byme = Byme.getInstance(null,null);
 
 
     @FXML
@@ -57,6 +60,8 @@ public class DetailViewController extends AnchorPane{
     Label adUser;
     @FXML
     Label adPrice;
+
+
     @FXML
     TextField adTitleTextField;
     @FXML
@@ -67,6 +72,29 @@ public class DetailViewController extends AnchorPane{
     TextField adUserTextField;
     @FXML
     TextField adPriceTextField;
+
+    @FXML
+    Label tag1Label;
+    @FXML
+    Label tag2Label;
+    @FXML
+    Label tag3Label;
+    @FXML
+    Label tag4Label;
+    @FXML
+    Label tag5Label;
+
+    @FXML
+    TextField tag1TextField;
+    @FXML
+    TextField tag2TextField;
+    @FXML
+    TextField tag3TextField;
+    @FXML
+    TextField tag4TextField;
+    @FXML
+    TextField tag5TextField;
+
 
     @FXML
     AnchorPane greyZone;
@@ -82,6 +110,41 @@ public class DetailViewController extends AnchorPane{
     ImageView image1;
     @FXML
     TextField messageContent;
+    @FXML
+    TextField requestDay;
+    @FXML
+    TextField requestMonth;
+    @FXML
+    TextField requestYear;
+    @FXML
+    TextField requestHour;
+    @FXML
+    TextField requestMinute;
+
+    @FXML
+    void changeAdPic1(){
+        changeAdPic(0);
+    }
+
+    @FXML
+    void changeAdPic2(){
+        changeAdPic(1);
+    }
+
+    @FXML
+    void changeAdPic3(){
+        changeAdPic(2);
+    }
+
+    @FXML
+    void changeAdPic4(){
+        changeAdPic(3);
+    }
+
+    @FXML
+    void changeAdPic5(){
+        changeAdPic(4);
+    }
 
     ColorAdjust pictureEffect = new ColorAdjust();
 
@@ -155,13 +218,24 @@ public class DetailViewController extends AnchorPane{
      * @param ad Sends in an ad as parameter so the detailView can show the data of an ad.
      */
     void setAd(Ad ad){
+        this.ad = ad;
         if (ad != null) {
-            this.ad = ad;
             adTitle.setText(ad.getTitle());
             adDescription.setText(ad.getDescription());
             adLocation.setText(ad.getLocation());
             adUser.setText(ad.getAccount());
             adPrice.setText(String.valueOf(ad.getPrice()));
+
+
+            if (!(ad.getTagsList().size() == 0)){
+                ArrayList<String> tags = ad.getTagsList();
+                tag1Label.setText(tags.get(0));
+                tag2Label.setText(tags.get(1));
+                tag3Label.setText(tags.get(2));
+                tag4Label.setText(tags.get(3));
+                tag5Label.setText(tags.get(4));
+            }
+
         }
     }
 
@@ -215,8 +289,9 @@ public class DetailViewController extends AnchorPane{
     }
 
     @FXML
-    void sendRequest(){
-        byme.sendRequest(byme.getCurrentUser().getUsername(), ad.getAccount(), ad.getAdId(), messageContent.getText());
+    void sendRequest() throws ParseException {
+        String date = requestDay.getText() + "/" + requestMonth.getText() + "/" + requestYear.getText() + "-" + requestHour.getText() + ":" + requestMinute.getText();
+        byme.sendRequest(byme.getCurrentUser().getUsername(), ad.getAccount(), ad, messageContent.getText(), date);
         sendRequestClosePrompt();
     }
 
@@ -257,30 +332,7 @@ public class DetailViewController extends AnchorPane{
     }
 
 
-    @FXML
-    void changeAdPic1(){
-        changeAdPic(0);
-    }
 
-    @FXML
-    void changeAdPic2(){
-        changeAdPic(1);
-    }
-
-    @FXML
-    void changeAdPic3(){
-        changeAdPic(2);
-    }
-
-    @FXML
-    void changeAdPic4(){
-        changeAdPic(3);
-    }
-
-    @FXML
-    void changeAdPic5(){
-        changeAdPic(4);
-    }
 
     void savePictures(){
         if(ad != null) {
@@ -352,9 +404,7 @@ public class DetailViewController extends AnchorPane{
         editButton.setVisible(false);
         greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
         saveButton.setVisible(true);
-
     }
-
 
     /**
      * Saves the changes when a user has edited an ad.
@@ -365,12 +415,23 @@ public class DetailViewController extends AnchorPane{
     void saveChanges(){
 
         byme.editAd(ad.getAdId(), adTitleTextField.getText(),Integer.valueOf(adPriceTextField.getText()),
-                adDescriptionTextField.getText(), adLocation.getText() );
+                adDescriptionTextField.getText(), adLocation.getText(), getTagsText());
 
         adTitle.setText(ad.getTitle());
         adLocation.setText(ad.getLocation());
         adDescription.setText(ad.getDescription());
         adPrice.setText(String.valueOf(ad.getPrice()));
+
+
+
+        //flytta funktionalitet till egen method och kalla på här..
+        tag1Label.setText(ad.getTagsList().get(0));
+        tag2Label.setText(ad.getTagsList().get(1));
+        tag3Label.setText(ad.getTagsList().get(2));
+        tag4Label.setText(ad.getTagsList().get(3));
+        tag5Label.setText(ad.getTagsList().get(4));
+
+
 
         showLabels();
         setEnablePictureChange(false);
@@ -379,6 +440,19 @@ public class DetailViewController extends AnchorPane{
         editButton.setVisible(true);
         saveButton.setVisible(false);
 
+
+    }
+
+    private ArrayList<String> getTagsText(){
+
+        ArrayList<String> tempList = new ArrayList<>();
+        tempList.add(tag1TextField.getText());
+        tempList.add(tag2TextField.getText());
+        tempList.add(tag3TextField.getText());
+        tempList.add(tag4TextField.getText());
+        tempList.add(tag5TextField.getText());
+
+        return tempList;
 
     }
 
@@ -420,15 +494,37 @@ public class DetailViewController extends AnchorPane{
         adDescription.setVisible(false);
         adPrice.setVisible(false);
 
+        tag1Label.setVisible(false);
+        tag2Label.setVisible(false);
+        tag3Label.setVisible(false);
+        tag4Label.setVisible(false);
+        tag5Label.setVisible(false);
+
+
         adTitleTextField.setVisible(true);
         adLocationTextField.setVisible(true);
         adDescriptionTextField.setVisible(true);
         adPriceTextField.setVisible(true);
 
+        tag1TextField.setVisible(true);
+        tag2TextField.setVisible(true);
+        tag3TextField.setVisible(true);
+        tag4TextField.setVisible(true);
+        tag5TextField.setVisible(true);
+
         adTitleTextField.setText(adTitle.getText());
         adLocationTextField.setText(adLocation.getText());
         adDescriptionTextField.setText(adDescription.getText());
         adPriceTextField.setText(adPrice.getText());
+
+        tag1TextField.setText(tag1Label.getText());
+        tag2TextField.setText(tag2Label.getText());
+        tag3TextField.setText(tag3Label.getText());
+        tag4TextField.setText(tag4Label.getText());
+        tag5TextField.setText(tag5Label.getText());
+
+
+
 
     }
 
@@ -443,14 +539,26 @@ public class DetailViewController extends AnchorPane{
         adLocation.setVisible(true);
         adDescription.setVisible(true);
         adPrice.setVisible(true);
+        tag1Label.setVisible(true);
+
+        tag1Label.setVisible(true);
+        tag2Label.setVisible(true);
+        tag3Label.setVisible(true);
+        tag4Label.setVisible(true);
+        tag5Label.setVisible(true);
 
         adTitleTextField.setVisible(false);
         adLocationTextField.setVisible(false);
         adDescriptionTextField.setVisible(false);
         adPriceTextField.setVisible(false);
 
-    }
+        tag1TextField.setVisible(false);
+        tag2TextField.setVisible(false);
+        tag3TextField.setVisible(false);
+        tag4TextField.setVisible(false);
+        tag5TextField.setVisible(false);
 
+    }
 
 
     void openPictureChangePanel(){
@@ -505,4 +613,7 @@ public class DetailViewController extends AnchorPane{
             imageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(list.get(num),null)));
         }
     }
+
+
+
 }
