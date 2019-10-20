@@ -20,6 +20,7 @@ public class Search {
             String adName = ad.getTitle().toLowerCase();
             String adDesc = ad.getDescription().toLowerCase();
             String adUser = ad.getAccount().toLowerCase();
+
             int match = 0;
             for(int i=0; i < inputArray.length; i++) {
                 if (adName.contains(activeTag) || adDesc.contains(activeTag) || adUser.contains(activeTag)){
