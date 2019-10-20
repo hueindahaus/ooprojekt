@@ -61,14 +61,12 @@ public class Ad{
         public void setLocation(String location) { this.location = location; }
 
         public ArrayList<String> getTagsList() { return tagsList; }
+
         public void setRequests(ArrayList<Request> requests) {
             this.requests = requests;
         }
 
         public void setTagsList(ArrayList<String> tagsList) { this.tagsList = tagsList; }
-
-
-
 
         public void addRequest(Request request){
             requests.add(request);
