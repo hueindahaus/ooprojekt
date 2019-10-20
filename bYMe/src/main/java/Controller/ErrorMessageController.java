@@ -1,9 +1,11 @@
 package Controller;
 
 
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,15 @@ public class ErrorMessageController {
         }
     }
 
+
+    private static void resetTextFields(TextField textField1, TextField textField2, TextField textField3,ComboBox comboBox, Label errorLabel){
+        errorLabel.setText("");
+        textField1.setStyle("-fx-border-color: inherit;");
+        textField2.setStyle("-fx-border-color: inherit;");
+        textField3.setStyle("-fx-border-color: inherit;");
+        comboBox.setStyle("-fx-border-color: inherit;");
+    }
+
     private static void resetTextFields(TextField textField1, TextField textField2, TextField textField3, Label errorLabel){
         errorLabel.setText("");
         textField1.setStyle("-fx-border-color: inherit;");
@@ -76,6 +87,10 @@ public class ErrorMessageController {
         return password1.getText().equals(password2.getText());
     }
 
+    private static boolean allFieldsAreFilled(TextField t1, TextField t2, TextField t3, ComboBox c1){
+        return !t1.getText().isEmpty() && !t2.getText().isEmpty() && !t3.getText().isEmpty() && !(c1.getSelectionModel().getSelectedItem() == null);
+    }
+
     private static boolean allTextFieldsAreFilled(TextField t1, TextField t2, TextField t3){
         return !t1.getText().isEmpty() && !t2.getText().isEmpty() && !t3.getText().isEmpty();
     }
@@ -83,6 +98,7 @@ public class ErrorMessageController {
     private static boolean allTextFieldsAreFilled(TextField t1, TextField t2){
         return !t1.getText().isEmpty() && !t2.getText().isEmpty();
     }
+
 
 
     static void handleLoginErrors(TextField username, TextField password, Label errorLabel, boolean usernameAndPasswordMatch){
@@ -103,6 +119,13 @@ public class ErrorMessageController {
         }
     }
 
+    static void handleAdCreationErrors(TextField title, TextField price, ComboBox location, TextField description, Label errorLabel){
+            resetTextFields(title, price, description,location, errorLabel);
+        if (!allFieldsAreFilled(title,price,description,location)) {
+            handleTextFieldEmptyErrorAdCreation(title, price, description, location, errorLabel);
+        }
+
+    }
 
     private static void handleTextFieldEmptyError(TextField textField1, TextField textField2, Label errorLabel){
 
@@ -119,5 +142,30 @@ public class ErrorMessageController {
         }
 
     }
+
+    private static void handleTextFieldEmptyErrorAdCreation(TextField textField1, TextField textField2, TextField textField3, ComboBox comboBox, Label errorLabel){
+
+        if (textField1.getText().isEmpty()) {
+            textField1.setStyle("-fx-border-color: #e74c3c;");
+        } else textField1.setStyle("-fx-border-color: inherit");
+
+             if (textField2.getText().isEmpty()) {
+            textField2.setStyle("-fx-border-color: #e74c3c;");
+        } else textField2.setStyle("-fx-border-color: inherit");
+
+        if (textField3.getText().isEmpty()) {
+            textField3.setStyle("-fx-border-color: #e74c3c;");
+        } else textField3.setStyle("-fx-border-color: inherit");
+
+        if (comboBox.getSelectionModel().getSelectedItem() == null){
+            comboBox.setStyle("-fx-border-color: #e74c3c;");
+        } else comboBox.setStyle("-fx-border-color: inherit");
+
+       if(!allFieldsAreFilled(textField1,textField2,textField3,comboBox)) {
+            errorLabel.setText("Fyll alla fält!");
+        }
+
+    }
+
 
 }

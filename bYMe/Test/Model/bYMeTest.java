@@ -144,7 +144,7 @@ class bYMeTest {
         IAdHandler adHandler = AdHandler.getInstance();
         Byme bYMe = Byme.getInstance(accountHandler, adHandler);
          int before =   bYMe.getAds().size();
-        bYMe.createAd("Title1", "Description", 10, "Chalmers",null);
+        bYMe.createAd("Title1", "Description", 10, "Chalmers",null,null);
         int after = bYMe.getAds().size();
         assertTrue(after>before);
     }

@@ -89,12 +89,13 @@ public class RequestHandler {
         object.put("ad", request.getAd());
         object.put("message", request.getMessage());
         object.put("date", request.getDateString());
+        object.put("state", request.getState());
 
         return object;
     }
 
     private Request parseJSONObject(JSONObject obj) throws java.text.ParseException {
-        return new Request((String)obj.get("sender"), (String)obj.get("receiver"), (String)obj.get("ad"), (String)obj.get("message"), (String)obj.get("date"));
+        return new Request((String)obj.get("sender"), (String)obj.get("receiver"), (String)obj.get("ad"), (String)obj.get("message"), (String)obj.get("date"), ((Long)obj.get("state")).intValue());
     }
 
 

@@ -116,6 +116,10 @@ public class DetailViewController extends AnchorPane{
     TextField requestMonth;
     @FXML
     TextField requestYear;
+    @FXML
+    TextField requestHour;
+    @FXML
+    TextField requestMinute;
 
     @FXML
     void changeAdPic1(){
@@ -286,7 +290,7 @@ public class DetailViewController extends AnchorPane{
 
     @FXML
     void sendRequest() throws ParseException {
-        String date = requestDay.getText() + "/" + requestMonth.getText() + "/" + requestYear.getText();
+        String date = requestDay.getText() + "/" + requestMonth.getText() + "/" + requestYear.getText() + "-" + requestHour.getText() + ":" + requestMinute.getText();
         byme.sendRequest(byme.getCurrentUser().getUsername(), ad.getAccount(), ad, messageContent.getText(), date);
         sendRequestClosePrompt();
     }
