@@ -200,7 +200,7 @@ public class Byme {
     }
 
     public void sendRequest(String sender, String receiver, Ad ad, String content, String date) throws ParseException {
-        ad.addRequest(new Request(sender, receiver, ad.getAdId(), content, date, 0));
+        ad.addRequest(new Request(sender, receiver, ad.getAdId(), content, date,0));
         notifyObservers();
     }
 }
