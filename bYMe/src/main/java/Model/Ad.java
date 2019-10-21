@@ -1,3 +1,6 @@
+/**
+ * Represents an ad object.
+ */
 package Model;
 
 
