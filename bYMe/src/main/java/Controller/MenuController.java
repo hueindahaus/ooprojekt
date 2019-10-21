@@ -219,6 +219,7 @@ public class MenuController extends SidePanelController implements IObserver {
         updateProfilePicImageView();
         displayAccountName();
         updateRequests();
+        populateMyRequests();
     }
 
     @FXML void changeTheme(){

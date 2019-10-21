@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Ad;
+import Model.Byme;
 import Model.IObserver;
 import Model.Request;
 import Services.PictureHandler;
@@ -17,7 +18,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class RequestItem extends AnchorPane{
+public class RequestItem extends AnchorPane {
 
     @FXML
     private AnchorPane requestAnchorPane;
@@ -43,6 +44,8 @@ public class RequestItem extends AnchorPane{
     DetailViewToggler detailViewToggler;
 
     private Request request;
+
+    private Byme byme = Byme.getInstance(null, null);
 
     public RequestItem(Request request, DetailViewToggler detailViewToggler, boolean userIsRecipient)  {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../requests.fxml"));
@@ -100,6 +103,6 @@ public class RequestItem extends AnchorPane{
 
     @FXML
     private void removeRequest(){
-        request.remove();
+        byme.removeRequest(request);
     }
 }
