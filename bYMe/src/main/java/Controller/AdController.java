@@ -7,6 +7,8 @@ import Services.AdHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
@@ -78,6 +80,21 @@ public class AdController extends AnchorPane {
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(greyZone.opacityProperty(), 1))
         );
 
+
+        adPrice.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    adPrice.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+
+                if(newValue.length() > 0 && newValue.charAt(0) == '0'){
+                    adPrice.setText(oldValue);
+                }
+            }
+        });
+
+
     }
 
     @FXML
@@ -98,11 +115,17 @@ public class AdController extends AnchorPane {
 
         ErrorMessageController.handleAdCreationErrors(adTitle, adPrice, adLocation, adDescription, errormessage);
 
-        adCreator.createAd(adTitle.getText(), adDescription.getText(), Integer.valueOf(adPrice.getText()),
-                adLocation.getSelectionModel().getSelectedItem().toString(), getTagsTextField());
-        adCreator.updateAdItems();
-        toggleCreateAdWindow();
+        if(allTextFieldsFilled()) {
+            adCreator.createAd(adTitle.getText(), adDescription.getText(), Integer.valueOf(adPrice.getText()),
+                    adLocation.getSelectionModel().getSelectedItem().toString(), getTagsTextField());
+            adCreator.updateAdItems();
+            toggleCreateAdWindow();
+        }
 
+    }
+
+    private boolean allTextFieldsFilled(){
+        return (!adTitle.getText().isEmpty() && !adPrice.getText().isEmpty() && adLocation.getSelectionModel().getSelectedItem() != null && !adDescription.getText().isEmpty());
     }
 
 
