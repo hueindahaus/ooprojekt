@@ -122,7 +122,7 @@ public class ErrorMessageController {
     static void handleAdCreationErrors(TextField title, TextField price, ComboBox location, TextField description, Label errorLabel){
             resetTextFields(title, price, description,location, errorLabel);
         if (!allFieldsAreFilled(title,price,description,location)) {
-            handleTextFieldEmptyErrorAdCreation(title, price, description, location, errorLabel);
+            handleTextFieldsEmptyErrorAdCreation(title, price, description, location, errorLabel);
         }
 
     }
@@ -143,7 +143,7 @@ public class ErrorMessageController {
 
     }
 
-    private static void handleTextFieldEmptyErrorAdCreation(TextField textField1, TextField textField2, TextField textField3, ComboBox comboBox, Label errorLabel){
+    private static void handleTextFieldsEmptyErrorAdCreation(TextField textField1, TextField textField2, TextField textField3, ComboBox comboBox, Label errorLabel){
 
         if (textField1.getText().isEmpty()) {
             textField1.setStyle("-fx-border-color: #e74c3c;");
