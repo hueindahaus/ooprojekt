@@ -39,15 +39,11 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TextField fx:id="searchInput" layoutX="675.0" layoutY="22.0" maxWidth="-Infinity" minHeight="-Infinity" onKeyTyped="#searchAds" prefHeight="40.0" promptText="Sök..." styleClass="searchbar" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="15.0">
+            <TextField fx:id="searchInput" layoutX="675.0" layoutY="22.0" maxWidth="-Infinity" minHeight="-Infinity" onKeyTyped="#searchAds" prefHeight="40.0" promptText="Sök..." styleClass="searchbar" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="640.0" AnchorPane.topAnchor="15.0">
                <font>
                   <Font size="18.0" />
                </font></TextField>
-<<<<<<< HEAD
             <Button layoutX="760.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseReleased="#searchAds" prefHeight="35.0" prefWidth="35.0" styleClass="searchButton" AnchorPane.rightAnchor="642.0" AnchorPane.topAnchor="17.0">
-=======
-            <Button layoutX="760.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseReleased="#searchAds" prefHeight="35.0" prefWidth="35.0" styleClass="searchButton" AnchorPane.leftAnchor="900.0" AnchorPane.rightAnchor="502.0" AnchorPane.topAnchor="17.0">
->>>>>>> Dev
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>

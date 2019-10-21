@@ -7,7 +7,6 @@
   secondary-dark: #f39c12;
   tertiary: #34495e;
   tertiary-dark: #2c3e50;
-  extreme-color: #FFFFFF;
 }
 .appbar {
   -fx-background-color: main;
@@ -150,33 +149,13 @@
   -fx-background-color: secondary;
   -fx-border-radius: 20px 20px 20px 0px;
   -fx-background-radius: 20px 20px 20px 0px;
-  -fx-background-image: url('images/blackSearchGlass.png');
+  -fx-background-image: url('images/whiteSearchGlass.png');
   -fx-background-size: 30px;
   -fx-background-position: center;
   -fx-background-repeat: no-repeat;
 }
 
 .searchButton:hover{
-  -fx-background-image: url('images/whiteSearchGlass.png');
-  -fx-background-color: secondary-dark;
+  -fx-background-image: url('images/blackSearchGlass.png');
+  -fx-background-color: primary;
 }
-
-.loginTextField{
-  -fx-background-color: white;
-  -fx-border-width: 0px 0px 2px 0px;
-  -fx-border-color: primary;
-  -fx-border-radius: 0px;
-  -fx-padding: 0 0 0 26;
-
-}
-
-.loginTextField:focused{
-  -fx-border-color: secondary;
-}
-
-
-.loginBox{
-  -fx-background-color: extreme-color;
-  -fx-background-radius: 10px;
-}
-
