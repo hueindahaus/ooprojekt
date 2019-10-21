@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -12,8 +14,9 @@
       <AnchorPane fx:id="greyZone" disable="true" layoutX="-20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#togglePanel" opacity="0.0" pickOnBounds="false" prefHeight="800.0" prefWidth="1460.0" styleClass="greyZone" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0" />
       <AnchorPane fx:id="logInPanel" layoutX="1440.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="220.0" styleClass="loginpanel" AnchorPane.topAnchor="70.0">
          <children>
-            <TextField fx:id="logInUsername" layoutX="20.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" promptText="Användarnamn" styleClass="RegTextfield" />
-            <PasswordField fx:id="logInPassword" layoutX="20.0" layoutY="98.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#loginUser" prefHeight="28.0" prefWidth="180.0" promptText="Lösenord" styleClass="RegTextfield" />
+            <AnchorPane layoutX="10.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="200.0" styleClass="loginBox" />
+            <TextField fx:id="logInUsername" layoutX="20.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0" promptText="Användarnamn" styleClass="loginTextField" />
+            <PasswordField fx:id="logInPassword" layoutX="20.0" layoutY="98.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#loginUser" prefHeight="28.0" prefWidth="180.0" promptText="Lösenord" styleClass="loginTextField" />
             <Button defaultButton="true" layoutX="20.0" layoutY="150.0" mnemonicParsing="false" onMouseClicked="#loginUser" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Logga In">
                <font>
                   <Font size="14.0" />
@@ -35,6 +38,16 @@
                </font>
             </Button>
             <Label fx:id="errorLabelLogin" alignment="CENTER" layoutY="128.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="220.0" textAlignment="CENTER" textFill="RED" />
+            <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="25.0" layoutY="65.0" opacity="0.25" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/defaultProfilePic.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="25.0" layoutY="102.0" opacity="0.25" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/lock.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="registerBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#toggleRegisterBox" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" stylesheets="@byme-stylesheet.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
