@@ -124,15 +124,19 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         HashMap<String, Ad> ads = byme.getAds();
         for (Map.Entry ad : ads.entrySet()) {
             Ad currentAd = (Ad) ad.getValue();
-            if (!tags.contains(currentAd.getTitle())) {
-                tags.add(currentAd.getTitle());
-                tags.add("1");
-            } else {
-                int valueIndex = tags.indexOf(currentAd.getTitle()) + 1;
-                String oldValue = tags.get(valueIndex);
-                String newValue = String.valueOf(Integer.valueOf(oldValue) + 1);
-                tags.set(valueIndex, newValue);
+            for(String tag: currentAd.getTagsList()){
+                
+                if (!tags.contains(tag)) {
+                    tags.add(tag);
+                    tags.add("1");
+                } else {
+                    int valueIndex = tags.indexOf(tag) + 1;
+                    String oldValue = tags.get(valueIndex);
+                    String newValue = String.valueOf(Integer.valueOf(oldValue) + 1);
+                    tags.set(valueIndex, newValue);
+                }
             }
+
             AdItem currentAdItem = adItems.get(currentAd.getAdId());
             currentAdItem.update();
             adsListFlowPane.getChildren().add(currentAdItem);
