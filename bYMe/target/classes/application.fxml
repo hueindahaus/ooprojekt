@@ -39,7 +39,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TextField fx:id="searchInput" layoutX="675.0" layoutY="22.0" maxWidth="-Infinity" minHeight="-Infinity" onKeyTyped="#searchAds" prefHeight="40.0" promptText="Sök..." styleClass="searchbar" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="640.0" AnchorPane.topAnchor="15.0">
+            <TextField fx:id="searchInput" layoutX="675.0" layoutY="22.0" maxWidth="-Infinity" minHeight="-Infinity" onKeyTyped="#searchAds" prefHeight="40.0" promptText="Sök..." styleClass="searchbar" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="15.0">
                <font>
                   <Font size="18.0" />
                </font></TextField>

@@ -47,6 +47,9 @@ public class AdController extends AnchorPane {
     @FXML
     ComboBox adLocation;
 
+    @FXML
+    Label errormessage;
+
     Timeline hideGreyZone;
 
     Timeline showGreyZone;
@@ -54,13 +57,13 @@ public class AdController extends AnchorPane {
     private AdCreator adCreator;
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
-    AdController(AdCreator adCreator){
+    AdController(AdCreator adCreator) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../createAdWindow.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-        try{
+        try {
             fxmlLoader.load();
-        } catch(IOException exception){
+        } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
         adLocation.getItems().addAll("Västra Götaland", "Stockholm", "Skåne", "Jönköping", "Bergsjön");
@@ -78,8 +81,8 @@ public class AdController extends AnchorPane {
     }
 
     @FXML
-    void toggleCreateAdWindow(){
-        if(createAdBoxFrame.isVisible()){
+    void toggleCreateAdWindow() {
+        if (createAdBoxFrame.isVisible()) {
             createAdBoxFrame.setVisible(false);
             hideGreyZone.play();
             greyZone.setDisable(true);
@@ -91,7 +94,10 @@ public class AdController extends AnchorPane {
     }
 
     @FXML
-    void createAd(){
+    void createAd() {
+
+        ErrorMessageController.handleAdCreationErrors(adTitle, adPrice, adLocation, adDescription, errormessage);
+
         adCreator.createAd(adTitle.getText(), adDescription.getText(), Integer.valueOf(adPrice.getText()),
                 adLocation.getSelectionModel().getSelectedItem().toString(), getTagsTextField());
         adCreator.updateAdItems();
@@ -100,8 +106,7 @@ public class AdController extends AnchorPane {
     }
 
 
-
-    ArrayList<String> getTagsTextField(){
+    ArrayList<String> getTagsTextField() {
         ArrayList<String> tagsTemp = new ArrayList<>();
         tagsTemp.add(tag1TextField.getText());
         tagsTemp.add(tag2TextField.getText());
@@ -112,8 +117,6 @@ public class AdController extends AnchorPane {
         return tagsTemp;
 
     }
-
-
 
 
 }
