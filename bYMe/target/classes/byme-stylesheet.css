@@ -45,7 +45,7 @@
 
 .primaryButton {
   -fx-background-color: secondary;
-  -fx-border-radius: 10px;
+  -fx-background-radius: 10;
   -fx-text-fill: FFFFFF;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .RegTextfield {
-  -fx-background-color: white;
+  -fx-background-color: extreme-color;
   -fx-border-width: 1px;
   -fx-border-color: #bdc3c7;
   -fx-border-radius: 5px;
@@ -135,11 +135,10 @@
 
 .tagPanel {
   -fx-background-color: main;
-  -fx-background-radius: 10;
 }
 
 .searchbar{
-  -fx-background-color: main;
+  -fx-background-color: extreme-color;
   -fx-border-width: 0.3px;
   -fx-border-color: gray;
   -fx-background-radius: 20px;
@@ -150,19 +149,18 @@
   -fx-background-color: secondary;
   -fx-border-radius: 20px 20px 20px 0px;
   -fx-background-radius: 20px 20px 20px 0px;
-  -fx-background-image: url('images/blackSearchGlass.png');
+  -fx-background-image: url('images/whiteSearchGlass.png');
   -fx-background-size: 30px;
   -fx-background-position: center;
   -fx-background-repeat: no-repeat;
 }
 
 .searchButton:hover{
-  -fx-background-image: url('images/whiteSearchGlass.png');
   -fx-background-color: secondary-dark;
 }
 
 .loginTextField{
-  -fx-background-color: white;
+  -fx-background-color: extreme-color;
   -fx-border-width: 0px 0px 2px 0px;
   -fx-border-color: primary;
   -fx-border-radius: 0px;
@@ -180,3 +178,18 @@
   -fx-background-radius: 10px;
 }
 
+.requestTabs {
+  -fx-background-color: primary;
+  -fx-background-radius: 33 33 0 0;
+  -fx-text-fill: FFFFFF;
+}
+
+.requestTabs:hover {
+  -fx-cursor: hand;
+}
+
+.requestTabsPressed {
+  -fx-background-color: primary-dark;
+  -fx-background-radius: 33 33 0 0;
+  -fx-text-fill: FFFFFF;
+}
