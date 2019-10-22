@@ -126,20 +126,23 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         HashMap<String, Ad> ads = byme.getAds();
         for (Map.Entry ad : ads.entrySet()) {
             Ad currentAd = (Ad) ad.getValue();
+            for (String tag : currentAd.getTagsList()) {
+                if(tag.equals("")){
+                    //do nothing, we dont want to show empty tags
+                }
 
-            for(String tag: currentAd.getTagsList()){
-
-                if (!tags.contains(tag)) {
+                else if (!tags.contains(tag)) {
                     tags.add(tag);
                     tags.add("1");
-                } else {
+                }
+                else {
                     int valueIndex = tags.indexOf(tag) + 1;
                     String oldValue = tags.get(valueIndex);
                     String newValue = String.valueOf(Integer.valueOf(oldValue) + 1);
                     tags.set(valueIndex, newValue);
                 }
-            }
 
+            }
             AdItem currentAdItem = adItems.get(currentAd.getAdId());
             currentAdItem.update();
             adsListFlowPane.getChildren().add(currentAdItem);
