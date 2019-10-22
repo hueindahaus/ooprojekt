@@ -65,8 +65,9 @@ public class ErrorMessageController {
 
     static void resetTextFields(TextField textField1, TextField textField2, Label errorLabel){
         errorLabel.setText("");
-        textField1.setStyle("-fx-border-color: inherit;");
-        textField2.setStyle("-fx-border-color: inherit;");
+        textField1.setStyle("");
+        textField2.setStyle("");
+
     }
 
     static void handleRegisterErrors(TextField username, TextField password, TextField password2, Label errorLabel, boolean userAlreadyExist){
@@ -131,11 +132,17 @@ public class ErrorMessageController {
 
         if (textField1.getText().isEmpty()) {
             textField1.setStyle("-fx-border-color: #e74c3c;");
-        } else textField1.setStyle("-fx-border-color: inherit");
+        } else {
+            textField1.setStyle("");
+
+        }
 
         if (textField2.getText().isEmpty()) {
             textField2.setStyle("-fx-border-color: #e74c3c;");
-        } else textField2.setStyle("-fx-border-color: inherit");
+        } else {
+            textField2.setStyle("");
+
+        }
 
         if(!allTextFieldsAreFilled(textField1,textField2)) {
             errorLabel.setText("Fyll alla fält!");

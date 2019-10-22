@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BoxBlur;
@@ -66,15 +65,13 @@ public class DetailViewController extends AnchorPane{
     @FXML
     TextField adTitleTextField;
     @FXML
-    ComboBox adLocationComboBox;
+    TextField adLocationTextField;
     @FXML
     TextField adDescriptionTextField;
     @FXML
     TextField adUserTextField;
     @FXML
     TextField adPriceTextField;
-    @FXML
-    Label errorLabel;
 
     @FXML
     Label tag1Label;
@@ -123,7 +120,6 @@ public class DetailViewController extends AnchorPane{
     TextField requestHour;
     @FXML
     TextField requestMinute;
-
 
     @FXML
     void changeAdPic1(){
@@ -202,24 +198,6 @@ public class DetailViewController extends AnchorPane{
         setHoverEffectOnImageView(imageChanger3);
         setHoverEffectOnImageView(imageChanger4);
         setHoverEffectOnImageView(imageChanger5);
-
-
-        adLocationComboBox.getItems().addAll("Västra Götaland", "Stockholm", "Skåne", "Jönköping", "Bergsjön");
-
-        adPriceTextField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    adPriceTextField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-
-                if(newValue.length() > 0 && newValue.charAt(0) == '0'){
-                    adPriceTextField.setText(oldValue);
-                }
-            }
-        });
-
-
     }
 
     private void setHoverEffectOnImageView(ImageView imageView){
@@ -436,42 +414,33 @@ public class DetailViewController extends AnchorPane{
     @FXML
     void saveChanges(){
 
+        byme.editAd(ad.getAdId(), adTitleTextField.getText(),Integer.valueOf(adPriceTextField.getText()),
+                adDescriptionTextField.getText(), adLocation.getText(), getTagsText());
 
-        ErrorMessageController.handleAdCreationErrors(adTitleTextField,adPriceTextField,adLocationComboBox,adDescriptionTextField,errorLabel);
-
-        if(allTextFieldsFilled()) {
-
-            byme.editAd(ad.getAdId(), adTitleTextField.getText(), Integer.valueOf(adPriceTextField.getText()),
-                    adDescriptionTextField.getText(), adLocation.getText(), getTagsText());
-
-            adTitle.setText(ad.getTitle());
-            adLocation.setText(ad.getLocation());
-            adDescription.setText(ad.getDescription());
-            adPrice.setText(String.valueOf(ad.getPrice()));
+        adTitle.setText(ad.getTitle());
+        adLocation.setText(ad.getLocation());
+        adDescription.setText(ad.getDescription());
+        adPrice.setText(String.valueOf(ad.getPrice()));
 
 
-            //flytta funktionalitet till egen method och kalla på här..
-            tag1Label.setText(ad.getTagsList().get(0));
-            tag2Label.setText(ad.getTagsList().get(1));
-            tag3Label.setText(ad.getTagsList().get(2));
-            tag4Label.setText(ad.getTagsList().get(3));
-            tag5Label.setText(ad.getTagsList().get(4));
+
+        //flytta funktionalitet till egen method och kalla på här..
+        tag1Label.setText(ad.getTagsList().get(0));
+        tag2Label.setText(ad.getTagsList().get(1));
+        tag3Label.setText(ad.getTagsList().get(2));
+        tag4Label.setText(ad.getTagsList().get(3));
+        tag5Label.setText(ad.getTagsList().get(4));
 
 
-            showLabels();
-            setEnablePictureChange(false);
-            greyZone.setDisable(false);
-            greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
-            editButton.setVisible(true);
-            saveButton.setVisible(false);
-        }
+
+        showLabels();
+        setEnablePictureChange(false);
+        greyZone.setDisable(false);
+        greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
+        editButton.setVisible(true);
+        saveButton.setVisible(false);
 
 
-    }
-
-
-    private boolean allTextFieldsFilled(){
-        return (!adTitleTextField.getText().isEmpty()  && !adDescriptionTextField.getText().isEmpty() && (adLocationComboBox.getSelectionModel().getSelectedItem() != null) && !adPriceTextField.getText().isEmpty());
     }
 
     private ArrayList<String> getTagsText(){
@@ -533,7 +502,7 @@ public class DetailViewController extends AnchorPane{
 
 
         adTitleTextField.setVisible(true);
-        adLocationComboBox.setVisible(true);
+        adLocationTextField.setVisible(true);
         adDescriptionTextField.setVisible(true);
         adPriceTextField.setVisible(true);
 
@@ -544,7 +513,7 @@ public class DetailViewController extends AnchorPane{
         tag5TextField.setVisible(true);
 
         adTitleTextField.setText(adTitle.getText());
-        adLocationComboBox.getSelectionModel().select(ad.getLocation());
+        adLocationTextField.setText(adLocation.getText());
         adDescriptionTextField.setText(adDescription.getText());
         adPriceTextField.setText(adPrice.getText());
 
@@ -579,7 +548,7 @@ public class DetailViewController extends AnchorPane{
         tag5Label.setVisible(true);
 
         adTitleTextField.setVisible(false);
-        adLocationComboBox.setVisible(false);
+        adLocationTextField.setVisible(false);
         adDescriptionTextField.setVisible(false);
         adPriceTextField.setVisible(false);
 
