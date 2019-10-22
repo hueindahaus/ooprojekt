@@ -215,4 +215,8 @@ public class Byme {
         currentAd.setRequests(requests);
         notifyObservers();
     }
+
+    public void reviewAccount(String username, int rating){
+        accounts.get(username).addRating(rating);
+    }
 }
