@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" visible="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane fx:id="greyZone" onMouseClicked="#closeDetailView" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" />
       <AnchorPane layoutX="220.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="detailViewBox">
@@ -32,7 +32,7 @@
                </font>
             </Button>
             <Button layoutX="461.0" layoutY="552.0" mnemonicParsing="false" onAction="#sendRequestPrompt" text="Skicka förfrågan" />
-            <ImageView fitHeight="37.0" fitWidth="46.0" layoutX="931.0" layoutY="24.0" onMouseClicked="#closeDetailView" pickOnBounds="true" preserveRatio="true" smooth="false" styleClass="exitButton">
+            <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="931.0" layoutY="24.0" onMouseClicked="#closeDetailView" pickOnBounds="true" preserveRatio="true" smooth="false" styleClass="exitButton" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                <image>
                   <Image url="@images/close.png" />
                </image>
