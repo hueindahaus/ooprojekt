@@ -203,12 +203,4 @@ public class Byme {
         ad.addRequest(new Request(sender, receiver, ad.getAdId(), content, date,0));
         notifyObservers();
     }
-
-    public void removeRequest(Request request){
-        Ad currentAd = ads.get(request.getAd());
-        ArrayList<Request> requests = currentAd.getRequests();
-        requests.remove(request);
-        currentAd.setRequests(requests);
-        notifyObservers();
-    }
 }
