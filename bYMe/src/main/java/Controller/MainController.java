@@ -32,8 +32,8 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     private boolean dark_theme = false;
 
-    private Theme default_theme = new Theme("#ecf0f1", "#bdc3c7", "#3498db", "#2980b9", "#f1c40f", "#f39c12", "#34495e", " #2c3e50");
-    private Theme alternative_theme = new Theme("#2C3A47", "#2f3640", "#273c75", "#192a56", "#fbc531", "#e1b12c", "#f5f6fa", "#dcdde1");
+    private Theme default_theme = new Theme("#ecf0f1", "#bdc3c7", "#3498db", "#2980b9", "#f1c40f", "#f39c12", "#34495e", " #2c3e50", "#FFFFFF");
+    private Theme alternative_theme = new Theme("#2C3A47", "#2f3640", "#273c75", "#192a56", "#fbc531", "#e1b12c", "#f5f6fa", "#dcdde1","000000");
 
     private LoginController loginController;
     private MenuController menuController;
@@ -94,7 +94,9 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
                         "secondary:" + theme.secondary + ";" + "\n" +
                         "secondary-dark:" + theme.secondary_dark + ";" + "\n" +
                         "tertiary:" + theme.tertiary + ";" + "\n" +
-                        "tertiary-dark:" + theme.tertiary_dark + ";");
+                        "tertiary-dark:" + theme.tertiary_dark + ";" +"\n" +
+                        "extreme-color:" + theme.extreme_color+ ";");
+        ;
 
     }
 
@@ -124,23 +126,20 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         HashMap<String, Ad> ads = byme.getAds();
         for (Map.Entry ad : ads.entrySet()) {
             Ad currentAd = (Ad) ad.getValue();
-            for (String tag : currentAd.getTagsList()) {
-                if(tag.equals("")){
-                    //do nothing, we dont want to show empty tags
-                }
 
-                else if (!tags.contains(tag)) {
+            for(String tag: currentAd.getTagsList()){
+
+                if (!tags.contains(tag)) {
                     tags.add(tag);
                     tags.add("1");
-                }
-                else {
+                } else {
                     int valueIndex = tags.indexOf(tag) + 1;
                     String oldValue = tags.get(valueIndex);
                     String newValue = String.valueOf(Integer.valueOf(oldValue) + 1);
                     tags.set(valueIndex, newValue);
                 }
+            }
 
-        }
             AdItem currentAdItem = adItems.get(currentAd.getAdId());
             currentAdItem.update();
             adsListFlowPane.getChildren().add(currentAdItem);

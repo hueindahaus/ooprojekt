@@ -56,13 +56,4 @@ public class Request {
         this.state = state;
     }
 
-    public void remove(){
-        //Fult, fixa nedan :) Behövs också någon typ av update!
-        Byme byme = Byme.getInstance(null, null);
-        HashMap<String, Ad> ads = byme.getAds();
-        Ad currentAd = ads.get(ad);
-        ArrayList<Request> requests = currentAd.getRequests();
-        requests.remove(this);
-        currentAd.setRequests(requests);
-    }
 }
