@@ -69,7 +69,21 @@ public class MenuController extends SidePanelController implements IObserver {
     @FXML
     Button myRequestsButton;
 
+
     PictureHandler pictureHandler = PictureHandler.getInstance();
+
+    @FXML
+    AnchorPane  mySentRequestsAnchorPane;
+
+    @FXML
+    AnchorPane myReceivedRequestsAnchorPane;
+
+    @FXML
+    Button toggleReceviedButton;
+
+    @FXML
+    Button toggleSentButton;
+    
 
     Timeline showMyAdsPanel = new Timeline();
 
@@ -297,5 +311,19 @@ public class MenuController extends SidePanelController implements IObserver {
                 requests.addAll(currentAd.getRequests());
             }
         }
+    }
+
+    @FXML void toggleSentRequests(){
+        mySentRequestsAnchorPane.setVisible(true);
+        myReceivedRequestsAnchorPane.setVisible(false);
+        toggleReceviedButton.setStyle("-fx-background-color: primary");
+        toggleSentButton.setStyle("-fx-background-color: primary-dark");
+    }
+    @FXML void toggleReceivedRequests(){
+        mySentRequestsAnchorPane.setVisible(false);
+        myReceivedRequestsAnchorPane.setVisible(true);
+        toggleReceviedButton.setStyle("-fx-background-color: primary-dark");
+        toggleSentButton.setStyle("-fx-background-color: primary");
+
     }
 }
