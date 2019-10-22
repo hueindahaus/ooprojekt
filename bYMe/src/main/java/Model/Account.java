@@ -30,5 +30,13 @@ public class Account {
         return this.password;
     }
 
+    public void addRating(int rating){
+        this.rating += rating;
+        ratingCount ++;
+    }
+    public int getAveregeRating(){
+        return (rating/ratingCount);
+    }
+
 
 }

@@ -41,8 +41,11 @@
             <TextField fx:id="tag3TextField" layoutX="45.0" layoutY="88.0" prefHeight="27.0" prefWidth="94.0" />
             <TextField fx:id="tag4TextField" layoutX="48.0" layoutY="123.0" prefHeight="27.0" prefWidth="94.0" />
             <TextField fx:id="tag5TextField" layoutX="49.0" layoutY="155.0" prefHeight="27.0" prefWidth="94.0" />
-            <Label fx:id="errormessage" layoutX="397.0" layoutY="391.0" prefHeight="17.0" prefWidth="121.0" text="Label" />
-                <Button layoutX="55.0" layoutY="163.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="150.0" text="Man kan för tillfället endast lägga till bilder i redigeringsläget när man klickar in på en annons" wrapText="true" />
+                <Label fx:id="errormessage" alignment="CENTER" layoutX="360.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="200.0" textFill="RED">
+                <font>
+                    <Font size="18.0" />
+                </font></Label>
+        <Button layoutX="55.0" layoutY="163.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="150.0" text="Man kan för tillfället endast lägga till bilder i redigeringsläget när man klickar in på en annons" wrapText="true" />
             </children>
         </AnchorPane>
         <AnchorPane fx:id="registerBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" stylesheets="@byme-stylesheet.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

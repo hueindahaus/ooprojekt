@@ -8,6 +8,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ComboBox?>
+
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" visible="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -70,7 +72,6 @@
                   <Font size="17.0" />
                </font>
             </TextField>
-            <TextField fx:id="adLocationTextField" layoutX="157.0" layoutY="158.0" />
             <TextField fx:id="adPriceTextField" layoutX="159.0" layoutY="218.0" />
             <TextField fx:id="adDescriptionTextField" layoutX="49.0" layoutY="290.0" prefHeight="184.0" prefWidth="842.0" />
             <Label layoutX="40.0" layoutY="135.0" prefHeight="17.0" prefWidth="81.0" text="Taggar">
@@ -122,6 +123,8 @@
                   </Button>
                </children>
             </AnchorPane>
+                   <ComboBox fx:id="adLocationComboBox" layoutX="151.0" layoutY="130.0" prefWidth="150.0" />
+                   <Label fx:id="errorLabel" layoutX="397.0" layoutY="237.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="greyZone2" prefHeight="902.0" prefWidth="1443.0" styleClass="greyZone" visible="false" />
