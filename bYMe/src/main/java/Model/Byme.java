@@ -65,9 +65,7 @@ public class Byme {
     }
 
     private void addTagsToAd(String adID, ArrayList<String> tags){
-
         Ad ad = ads.get(adID);
-
         ad.setTagsList(tags);
     }
 
@@ -184,7 +182,13 @@ public class Byme {
             }
         } while (ads.containsKey(stringBuilder.toString()));
 
-        return stringBuilder.toString();
+        String value = stringBuilder.toString();
+
+        if(ads.containsKey(value)){
+            value = generateRandomAdId();
+        }
+
+        return value;
     }
 
 

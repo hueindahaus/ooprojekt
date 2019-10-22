@@ -1,13 +1,13 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class Search {
 
     private String activeTag = "";
+
+
+
 
     public ArrayList<Ad> findAds(String input, HashMap<String, Ad> ads) {
         ArrayList<Ad> result = new ArrayList();
@@ -20,8 +20,8 @@ public class Search {
             String adName = ad.getTitle().toLowerCase();
             String adDesc = ad.getDescription().toLowerCase();
             String adUser = ad.getAccount().toLowerCase();
-           ArrayList<String> adTags = ad.getTagsList();
-
+            ArrayList<String> adTags = tagsToLowerCase(ad.getTagsList());
+            
             int match = 0;
 
             for(int i=0; i < inputArray.length; i++) {
@@ -37,6 +37,17 @@ public class Search {
             }
         }
         return result;
+    }
+
+
+    public static ArrayList<String> tagsToLowerCase(ArrayList<String> tags)
+    {
+        ListIterator<String> iterator = tags.listIterator();
+        while (iterator.hasNext())
+        {
+            iterator.set(iterator.next().toLowerCase());
+        }
+        return tags;
     }
 
     public void setActiveTag(String activeTag){
