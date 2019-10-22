@@ -16,6 +16,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import javax.imageio.ImageIO;
+import java.io.File;
 import java.io.IOException;
 
 public class RequestItem extends AnchorPane {
@@ -105,9 +107,46 @@ public class RequestItem extends AnchorPane {
     private ImageView star5;
 
 
+    Image yellowStar = new Image("File:"+"src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "images" + File.separatorChar + "star.png");
+    Image hollowStar = new Image("File:"+"src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "images" + File.separatorChar + "hollowStar.png");
+
     @FXML
-    private void ratingHoverToggler(){
-        
+    private void toggleStar1Enter(){
+        star1.setImage(yellowStar);
+    }
+    @FXML
+    private void toggleStar2Enter(){
+        star1.setImage(yellowStar);
+        star2.setImage(yellowStar);
+    }
+    @FXML
+    private void toggleStar3Enter(){
+        star1.setImage(yellowStar);
+        star2.setImage(yellowStar);
+        star3.setImage(yellowStar);
+    }
+    @FXML
+    private void toggleStar4Enter(){
+        star1.setImage(yellowStar);
+        star2.setImage(yellowStar);
+        star3.setImage(yellowStar);
+        star4.setImage(yellowStar);
+    }
+    @FXML
+    private void toggleStar5Enter(){
+        star1.setImage(yellowStar);
+        star2.setImage(yellowStar);
+        star3.setImage(yellowStar);
+        star4.setImage(yellowStar);
+        star5.setImage(yellowStar);
+    }
+    @FXML
+    private void toggleStarExit(){
+        star1.setImage(hollowStar);
+        star2.setImage(hollowStar);
+        star3.setImage(hollowStar);
+        star4.setImage(hollowStar);
+        star5.setImage(hollowStar);
     }
 
     @FXML
