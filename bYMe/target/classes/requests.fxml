@@ -18,14 +18,14 @@
          <font>
             <Font size="16.0" />
          </font></Label>
-      <Label fx:id="requestSender" alignment="CENTER_RIGHT" layoutX="640.0" layoutY="170.0" text="Sender" AnchorPane.rightAnchor="15.0" />
+      <Label fx:id="requestSender" alignment="CENTER_RIGHT" layoutX="640.0" layoutY="170.0" prefHeight="17.0" prefWidth="97.0" text="Sender" AnchorPane.rightAnchor="15.0" />
       <Label fx:id="requestDate" layoutX="337.0" layoutY="162.0" text="date" />
       <Label fx:id="requestReceiver" layoutX="14.0" layoutY="170.0" text="Receiver" AnchorPane.leftAnchor="15.0" />
       <Button fx:id="buttonDecline" layoutX="641.0" layoutY="2.0" mnemonicParsing="false" onAction="#declineRequest" text="Avböj" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
       <Button fx:id="buttonAccept" layoutX="561.0" layoutY="10.0" mnemonicParsing="false" onAction="#acceptRequest" text="Acceptera" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="10.0" />
       <Button fx:id="buttonRemove" layoutX="651.0" layoutY="12.0" mnemonicParsing="false" onAction="#removeRequest" text="Ta bort" visible="false" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
       <Button fx:id="buttonReview" layoutX="577.0" layoutY="10.0" mnemonicParsing="false" onAction="#reviewPaneToggle" text="Betygsätt" visible="false" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="10.0" />
-      <AnchorPane fx:id="reviewPane" prefHeight="200.0" prefWidth="700.0" styleClass="ad">
+      <AnchorPane fx:id="reviewPane" prefHeight="200.0" prefWidth="700.0" styleClass="ad" visible="false">
          <children>
             <ImageView fx:id="star1" fitHeight="65.0" fitWidth="65.0" layoutX="118.0" layoutY="69.0" onMouseClicked="#reviewAd" onMouseEntered="#toggleStar1Enter" onMouseExited="#toggleStarExit" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="70.0">
                <image>

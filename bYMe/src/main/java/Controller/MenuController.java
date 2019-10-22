@@ -230,7 +230,9 @@ public class MenuController extends SidePanelController implements IObserver {
         }
     }
     private void userRatingDisplay(){
-        userRating.setText("Omdömme: "+byme.getCurrentUser().getRating());
+        if(byme.isLoggedIn()){
+            userRating.setText("Omdömme: "+ byme.getCurrentUser().getAverageRating()+"("+(int)byme.getCurrentUser().getRatingCount()+")");
+        }
     }
     public void update(){
         updateProfilePicImageView();

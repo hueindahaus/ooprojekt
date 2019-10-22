@@ -86,12 +86,14 @@ public class AccountHandler implements IAccountHandler {
         JSONObject object = new JSONObject();
         object.put("username", account.getUsername());
         object.put("password", account.getPassword());
+        object.put("rating", account.getRating());
+        object.put("ratingCount", account.getRatingCount());
 
         return object;
     }
 
     private Account parseJSONObject(JSONObject obj){
-        return new Account((String)obj.get("username"),(String)(obj.get("password")));
+        return new Account((String)obj.get("username"),(String)obj.get("password"),(double)obj.get("rating"),(double)obj.get("ratingCount"));
     }
 
 
