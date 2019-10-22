@@ -185,7 +185,6 @@
 }
 
 .requestTabs:hover {
-  -fx-background-color: primary-dark;
   -fx-cursor: hand;
 }
 
