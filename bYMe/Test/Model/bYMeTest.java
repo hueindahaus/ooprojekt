@@ -198,6 +198,7 @@ class bYMeTest {
         int after = bYMe.getAds().size();
         assertTrue(before>after);
     }
+
     @Test
     void loginUser() {
         IAccountHandler accountHandler = new IAccountHandler() {
