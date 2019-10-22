@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -166,7 +167,7 @@ class bYMeTest {
         String titleBefore = ad.getTitle();
         String descBefore = ad.getDescription();
         String locBefore = ad.getLocation();
-        bYMe.editAd("1234","Changed",1,"Changed","Changed",null);
+        bYMe.editAd("1234","Changed",1,"Changed","Changed", new ArrayList<>());
         int priceAfter = ad.getPrice();
         String titleAfter = ad.getTitle();
         String descAfter = ad.getDescription();
@@ -263,7 +264,7 @@ class bYMeTest {
         IAdHandler adHandler = AdHandler.getInstance();
         Byme bYMe = Byme.getInstance(accountHandler, adHandler);
          int before =   bYMe.getAds().size();
-        bYMe.createAd("Title1", "Description", 10, "Chalmers",null,null);
+        bYMe.createAd("Title1", "Description", 10, "Chalmers","Account", new ArrayList<>());
         int after = bYMe.getAds().size();
         assertTrue(after>before);
     }
