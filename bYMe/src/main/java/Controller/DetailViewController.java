@@ -17,30 +17,26 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 
-public class DetailViewController extends AnchorPane{
+
+public class DetailViewController extends AnchorPane implements ImageViewUpdater{
 
 
     DetailViewToggler detailViewToggler;
 
-    PictureHandler pictureHandler = new PictureHandler();
+    PictureHandler pictureHandler = PictureHandler.getInstance();
+
+    PictureChangeController pictureChanger;
 
     Byme byme = Byme.getInstance(null,null);
 
@@ -108,8 +104,6 @@ public class DetailViewController extends AnchorPane{
     @FXML
     AnchorPane greyZone2;
     @FXML
-    AnchorPane pictureChangePanel;
-    @FXML
     ImageView image1;
     @FXML
     TextField messageContent;
@@ -124,32 +118,9 @@ public class DetailViewController extends AnchorPane{
     @FXML
     TextField requestMinute;
 
-    @FXML
-    void changeAdPic1(){
-        changeAdPic(0);
-    }
 
-    @FXML
-    void changeAdPic2(){
-        changeAdPic(1);
-    }
 
-    @FXML
-    void changeAdPic3(){
-        changeAdPic(2);
-    }
 
-    @FXML
-    void changeAdPic4(){
-        changeAdPic(3);
-    }
-
-    @FXML
-    void changeAdPic5(){
-        changeAdPic(4);
-    }
-
-    ColorAdjust pictureEffect = new ColorAdjust();
 
 
     Timeline showPrompt;
@@ -163,7 +134,6 @@ public class DetailViewController extends AnchorPane{
 
     Ad ad;
 
-    ArrayList<BufferedImage> images = new ArrayList<>();
 
     public DetailViewController(DetailViewToggler detailViewToggler){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../detailView.fxml"));
@@ -193,14 +163,27 @@ public class DetailViewController extends AnchorPane{
 
         this.detailViewToggler = detailViewToggler;
 
-        pictureEffect.setBrightness(-0.5);
-        pictureEffect.setInput(new BoxBlur());
+        this.pictureChanger = new PictureChangeController(this);
+        Button pictureChangeButton = new Button();
+        pictureChangeButton.setText("Spara Ändringar");
+        pictureChangeButton.setPrefWidth(200);
+        pictureChangeButton.setPrefHeight(50);
+        pictureChangeButton.setLayoutX(400);
+        pictureChangeButton.setLayoutY(400);
+        pictureChangeButton.getStyleClass().add("saveImageButton");
+        pictureChangeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                closePictureChangePanel();
+            }
+        });
+        pictureChanger.getChildren().add(pictureChangeButton);
+        this.getChildren().add(pictureChanger);
 
-        setHoverEffectOnImageView(imageChanger1);
-        setHoverEffectOnImageView(imageChanger2);
-        setHoverEffectOnImageView(imageChanger3);
-        setHoverEffectOnImageView(imageChanger4);
-        setHoverEffectOnImageView(imageChanger5);
+
+
+
+
 
         adLocationComboBox.getItems().addAll("Västra Götaland", "Stockholm", "Skåne", "Jönköping", "Bergsjön");
 
@@ -220,18 +203,7 @@ public class DetailViewController extends AnchorPane{
 
 
 
-    private void setHoverEffectOnImageView(ImageView imageView){
-        imageView.hoverProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(newValue){
-                    imageView.setEffect(pictureEffect);
-                } else {
-                    imageView.setEffect(null);
-                }
-            }
-        });
-    }
+
 
     /**
      *
@@ -315,9 +287,9 @@ public class DetailViewController extends AnchorPane{
         sendRequestClosePrompt();
     }
 
-    void updateAdImageViews(){
-        if(images.size() > 0){
-            image1.setImage(SwingFXUtils.toFXImage(images.get(0), null));
+    public void updateImageViews(){
+        if(pictureChanger.getImages().size() > 0){
+            image1.setImage(SwingFXUtils.toFXImage(pictureChanger.getImages().get(0), null));
         } else {
             try {
                 image1.setImage(SwingFXUtils.toFXImage(ImageIO.read(new File("src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "images" + File.separatorChar + "insert_photo.png")), null));
@@ -327,42 +299,19 @@ public class DetailViewController extends AnchorPane{
         }
     }
 
-    void changeAdPic(int index){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("jpg", "*.jpg"), new FileChooser.ExtensionFilter("png", "*.png"), new FileChooser.ExtensionFilter("jpeg", "*.jpg"));
-        File selectedFile = fileChooser.showOpenDialog(null);
-
-
-
-        if(selectedFile != null){
-            try {
-                BufferedImage image = ImageIO.read(selectedFile);
-                if(images.size() - 1 >= index) {
-                    images.add(index, image);
-                    images.remove(index+1);
-                } else {
-                    images.add(image);
-                }
-                updateAdImageViews();
-                updatePictureChangePanel();
-            } catch(IOException exception){
-                System.out.println("Can't read image: " + selectedFile.getPath());
-            }
-        }
-    }
 
 
 
 
     void savePictures(){
         if(ad != null) {
-            pictureHandler.saveAdPictures(ad.getAdId(), images);
+            pictureHandler.saveAdPictures(ad.getAdId(), pictureChanger.getImages());
         }
     }
 
     void loadPictures(){
         if(ad != null) {
-            images = pictureHandler.getAdPictures(ad.getAdId());
+            pictureChanger.setImages(pictureHandler.getAdPictures(ad.getAdId()));
         }
     }
 
@@ -379,7 +328,7 @@ public class DetailViewController extends AnchorPane{
             image1.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    image1.setEffect(pictureEffect);
+                    image1.setEffect(pictureChanger.pictureEffect);
                 }
             });
 
@@ -589,57 +538,21 @@ public class DetailViewController extends AnchorPane{
 
 
     void openPictureChangePanel(){
-            updatePictureChangePanel();
-            pictureChangePanel.setVisible(true);
-
+            pictureChanger.update();
+            pictureChanger.setVisible(true);
     }
 
-    @FXML
+
     void closePictureChangePanel(){
         savePictures();
-        updateAdImageViews();
-        pictureChangePanel.setVisible(false);
+        updateImageViews();
+        pictureChanger.setVisible(false);
     }
 
 
 
-    @FXML
-    ImageView imageChanger1;
-    @FXML
-    ImageView imageChanger2;
-    @FXML
-    ImageView imageChanger3;
-    @FXML
-    ImageView imageChanger4;
-    @FXML
-    ImageView imageChanger5;
 
 
-
-
-    void updatePictureChangePanel(){
-        try {
-            Image defaultImage = SwingFXUtils.toFXImage(ImageIO.read(new File("src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "images" + File.separatorChar + "insert_photo.png")), null);
-            imageChanger1.setImage(defaultImage);
-            imageChanger2.setImage(defaultImage);
-            imageChanger3.setImage(defaultImage);
-            imageChanger4.setImage(defaultImage);
-            imageChanger5.setImage(defaultImage);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-        setImageIfPossible(imageChanger1,0,images);
-        setImageIfPossible(imageChanger2,1,images);
-        setImageIfPossible(imageChanger3,2,images);
-        setImageIfPossible(imageChanger4,3,images);
-        setImageIfPossible(imageChanger5,4,images);
-    }
-
-    private void setImageIfPossible(ImageView imageView, int num, ArrayList<BufferedImage> list){
-        if(list.size() > num){
-            imageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(list.get(num),null)));
-        }
-    }
 
 
 

@@ -10,7 +10,8 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <AnchorPane fx:id="greyZone" disable="true" layoutX="-20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#toggleCreateAdWindow" opacity="0.0" pickOnBounds="false" prefHeight="800.0" prefWidth="1460.0" styleClass="greyZone" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0" />
+        <AnchorPane fx:id="greyZone" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#toggleCreateAdWindow" opacity="0.0" pickOnBounds="false" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="mouseBlockerPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" visible="false" />
         <AnchorPane fx:id="createAdBoxFrame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="828.0" styleClass="loginpanel" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="200.0">
             <children>
                 <TextField fx:id="adTitle" layoutX="200.0" layoutY="31.0" prefHeight="50.0" prefWidth="440.0" promptText="Annonstitel:" styleClass="RegTextfield" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="25.0">
@@ -45,9 +46,8 @@
                 <font>
                     <Font size="18.0" />
                 </font></Label>
-        <Button layoutX="55.0" layoutY="163.0" mnemonicParsing="false" prefHeight="136.0" prefWidth="150.0" text="Man kan för tillfället endast lägga till bilder i redigeringsläget när man klickar in på en annons" wrapText="true" />
+            <ImageView fx:id="imageView" fitHeight="140.0" fitWidth="140.0" layoutX="67.0" layoutY="242.0" onMouseClicked="#openPictureChangePanel" pickOnBounds="true" preserveRatio="true" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="registerBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" stylesheets="@byme-stylesheet.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 </fx:root>

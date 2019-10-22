@@ -43,7 +43,7 @@ public class RequestItem extends AnchorPane {
     @FXML
     private AnchorPane reviewPane;
 
-    PictureHandler pictureHandler = new PictureHandler();
+    PictureHandler pictureHandler = PictureHandler.getInstance();
 
     DetailViewToggler detailViewToggler;
 

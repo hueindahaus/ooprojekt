@@ -42,7 +42,7 @@ public class AdItem extends AnchorPane implements IObserver{
     @FXML
     private Label tag5Label;
 
-    PictureHandler pictureHandler = new PictureHandler();
+    PictureHandler pictureHandler = PictureHandler.getInstance();
 
     DetailViewToggler detailViewToggler;
     private Ad ad;

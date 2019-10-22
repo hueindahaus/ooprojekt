@@ -69,7 +69,7 @@ public class MenuController extends SidePanelController implements IObserver {
     @FXML
     Button myRequestsButton;
 
-    PictureHandler pictureHandler = new PictureHandler();
+    PictureHandler pictureHandler = PictureHandler.getInstance();
 
     Timeline showMyAdsPanel = new Timeline();
 

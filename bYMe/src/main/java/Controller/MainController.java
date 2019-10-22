@@ -6,7 +6,6 @@ import Model.IObserver;
 import Model.Search;
 import Services.AccountHandler;
 import Services.AdHandler;
-import Services.RequestHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,7 +16,7 @@ import javafx.scene.layout.FlowPane;
 import java.net.URL;
 import java.util.*;
 
-public class MainController implements Initializable, SidePanelToggler, ThemeSetter, AdCreator, DetailViewToggler, IObserver {
+public class MainController implements Initializable, SidePanelToggler, ThemeSetter, DetailViewToggler, IObserver, AdItemsUpdater {
 
     @FXML
     AnchorPane root;
@@ -37,7 +36,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     private LoginController loginController;
     private MenuController menuController;
-    private AdController adController;
+    private AdCreatorController adController;
     private DetailViewController detailViewController;
 
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
@@ -51,7 +50,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         root.getChildren().add(loginController);
         menuController = new MenuController(this, this);
         root.getChildren().add(menuController);
-        adController = new AdController(this);
+        adController = new AdCreatorController(this);
         root.getChildren().add(adController);
         detailViewController = new DetailViewController(this);
         root.getChildren().add(detailViewController);
@@ -116,6 +115,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
             if (!adItems.containsKey(ad.getAdId())) {
                 adItems.put(ad.getAdId(), new AdItem(ad, this));
             }
+            adItems.get(ad.getAdId()).update();
         }
         populateAds();
     }
@@ -173,7 +173,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
             detailViewController.showLabels();
 
             detailViewController.loadPictures();
-            detailViewController.updateAdImageViews();
+            detailViewController.updateImageViews();
         } else {
             detailViewController.setVisible(false);
         }
@@ -181,7 +181,6 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
 
         public void update(){
-
             updateAdItems();
             menuController.populateMyAds();
         }
