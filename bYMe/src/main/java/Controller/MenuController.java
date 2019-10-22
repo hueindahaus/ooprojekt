@@ -81,6 +81,9 @@ public class MenuController extends SidePanelController implements IObserver {
     @FXML
     Button toggleSentButton;
 
+    @FXML
+    Label userRating;
+
     PictureHandler pictureHandler = new PictureHandler();
 
     Timeline showMyAdsPanel = new Timeline();
@@ -226,12 +229,15 @@ public class MenuController extends SidePanelController implements IObserver {
             System.out.println("Can't find default profile picture");
         }
     }
-
+    private void userRatingDisplay(){
+        userRating.setText("Omdömme: "+byme.getCurrentUser().getRating());
+    }
     public void update(){
         updateProfilePicImageView();
         displayAccountName();
         updateRequests();
         populateMyRequests();
+        userRatingDisplay();
     }
 
     @FXML void changeTheme(){

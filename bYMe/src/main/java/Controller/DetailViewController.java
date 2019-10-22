@@ -61,6 +61,8 @@ public class DetailViewController extends AnchorPane{
     Label adUser;
     @FXML
     Label adPrice;
+    @FXML
+    Label userRating;
 
 
     @FXML
@@ -192,7 +194,6 @@ public class DetailViewController extends AnchorPane{
         );
 
         this.detailViewToggler = detailViewToggler;
-
         pictureEffect.setBrightness(-0.5);
         pictureEffect.setInput(new BoxBlur());
 
