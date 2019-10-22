@@ -43,7 +43,7 @@
                <font>
                   <Font size="18.0" />
                </font></TextField>
-            <Button layoutX="760.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseReleased="#searchAds" prefHeight="35.0" prefWidth="35.0" styleClass="searchButton" AnchorPane.rightAnchor="642.0" AnchorPane.topAnchor="17.0">
+            <Button layoutX="760.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseReleased="#searchAds" prefHeight="35.0" prefWidth="35.0" styleClass="searchButton" AnchorPane.leftAnchor="900.0" AnchorPane.rightAnchor="502.0" AnchorPane.topAnchor="17.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
