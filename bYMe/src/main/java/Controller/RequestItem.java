@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Ad;
+import Model.Byme;
 import Model.IObserver;
 import Model.Request;
 import Services.PictureHandler;
@@ -17,7 +18,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class RequestItem extends AnchorPane{
+public class RequestItem extends AnchorPane {
 
     @FXML
     private AnchorPane requestAnchorPane;
@@ -37,12 +38,18 @@ public class RequestItem extends AnchorPane{
     private Button buttonDecline;
     @FXML
     private Button buttonRemove;
+    @FXML
+    private Button buttonReview;
+    @FXML
+    private AnchorPane reviewPane;
 
     PictureHandler pictureHandler = new PictureHandler();
 
     DetailViewToggler detailViewToggler;
 
     private Request request;
+
+    private Byme byme = Byme.getInstance(null, null);
 
     public RequestItem(Request request, DetailViewToggler detailViewToggler, boolean userIsRecipient)  {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../requests.fxml"));
@@ -73,6 +80,7 @@ public class RequestItem extends AnchorPane{
         }
 
         if(request.getState() != 0) {
+            buttonReview.setVisible(false);
             buttonAccept.setDisable(true);
             buttonDecline.setDisable(true);
             if (request.getState() == 1) {
@@ -81,8 +89,68 @@ public class RequestItem extends AnchorPane{
                 requestAnchorPane.setStyle("-fx-background-color: IndianRed");
             } else {
                 requestAnchorPane.setStyle("-fx-background-color: Gold");
+                buttonReview.setVisible(true);
             }
         }
+    }
+    @FXML
+    private ImageView star1;
+    @FXML
+    private ImageView star2;
+    @FXML
+    private ImageView star3;
+    @FXML
+    private ImageView star4;
+    @FXML
+    private ImageView star5;
+
+
+    @FXML
+    private void ratingHoverToggler(){
+        
+    }
+
+    @FXML
+    private void reviewPaneToggle(){
+        if(reviewPane.isVisible()) {
+            reviewPane.setVisible(false);
+        }else{
+            reviewPane.setVisible(true);
+        }
+    }
+    @FXML
+    private void reviewAd(){
+        reviewPaneToggle();
+        byme.reviewAccount(request.getReceiver(), 1);
+        removeRequest();
+    }
+
+    @FXML
+    private void reviewAd2(){
+        reviewPaneToggle();
+        byme.reviewAccount(request.getReceiver(), 2);
+        removeRequest();
+    }
+
+    @FXML
+    private void reviewAd3(){
+        reviewPaneToggle();
+        byme.reviewAccount(request.getReceiver(), 3);
+        removeRequest();
+    }
+
+    @FXML
+    private void reviewAd4(){
+        reviewPaneToggle();
+        byme.reviewAccount(request.getReceiver(), 4);
+        removeRequest();
+    }
+
+    @FXML
+    private void reviewAd5(){
+        reviewPaneToggle();
+        byme.reviewAccount(request.getReceiver(), 5);
+        removeRequest();
     }
 
     @FXML
@@ -100,6 +168,6 @@ public class RequestItem extends AnchorPane{
 
     @FXML
     private void removeRequest(){
-        request.remove();
+        byme.removeRequest(request);
     }
 }

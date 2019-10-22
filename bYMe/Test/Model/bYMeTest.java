@@ -2,8 +2,11 @@ package Model;
 
 import Services.AdHandler;
 import Services.RequestHandler;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.attribute.UserDefinedFileAttributeView;
+import java.text.ParseException;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -77,6 +80,69 @@ class bYMeTest {
 
         assertEquals(bYMe.getAccounts().size(), 3); // 3 accounts registered
 
+
+    }
+    @Test
+    void userExists(){
+        IAccountHandler accountHandler = new IAccountHandler() {
+            @Override
+            public void loadAccounts(HashMap<String, Account> accounts) {
+            }
+
+            @Override
+            public void saveAccounts(HashMap<String, Account> accounts) {
+
+            }
+        };
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
+        bYMe.registerAccount("User1", "Password1");
+        assertTrue(bYMe.userExist("User1","Password1"));
+    }
+
+
+    @Test
+    void sendRequest() throws ParseException {
+        IAccountHandler accountHandler = new IAccountHandler() {
+            @Override
+            public void loadAccounts(HashMap<String, Account> accounts) {
+            }
+            @Override
+            public void saveAccounts(HashMap<String, Account> accounts) {
+
+            }
+        };
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
+        bYMe.registerAccount("User1", "Password1");
+        bYMe.registerAccount("User2", "Password2");
+        bYMe.loginUser("User1", "Password1");
+        Ad ad = new Ad("add",4,"ad","GBG","1234","123");
+        bYMe.getAds().put(ad.getAdId(),ad);
+        bYMe.sendRequest("User1", "User2", ad,"Hej","12/12/12-12:12");
+        bYMe.signoutUser();
+        bYMe.loginUser("User2","Password2");
+        assertEquals("User1",ad.getRequests().get(0).getSender());
+
+    }
+    @Test
+    void isLoggedIn(){
+        IAccountHandler accountHandler = new IAccountHandler() {
+            @Override
+            public void loadAccounts(HashMap<String, Account> accounts) {
+
+            }
+
+            @Override
+            public void saveAccounts(HashMap<String, Account> accounts) {
+
+            }
+        };
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
+        bYMe.registerAccount("User1", "Password1");
+        bYMe.loginUser("User1","Password1");
+        assertTrue(bYMe.isLoggedIn());
 
     }
     @Test
