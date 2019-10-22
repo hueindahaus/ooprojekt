@@ -253,7 +253,7 @@ public class MenuController extends SidePanelController implements IObserver {
             for (Map.Entry ad : ads.entrySet()) {
                 Ad currentAd = (Ad) ad.getValue();
                 if (currentAd.getAccount().equals(byme.getCurrentUser().getUsername())) {
-                    myAdsFlowPane.getChildren().add(new AdItem(currentAd, detailViewToggler));
+                    myAdsFlowPane.getChildren().add(new AdItem(currentAd, detailViewToggler, byme.getAccountRating(currentAd.getAccount())));
                 }
             }
         }

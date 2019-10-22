@@ -219,4 +219,8 @@ public class Byme {
     public void reviewAccount(String username, int rating){
         accounts.get(username).addRating(rating);
     }
+
+    public double getAccountRating(String username){
+        return accounts.get(username).getAverageRating();
+    }
 }
