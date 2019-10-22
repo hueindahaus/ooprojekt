@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -26,11 +27,26 @@
       <Button fx:id="buttonReview" layoutX="577.0" layoutY="10.0" mnemonicParsing="false" onAction="#reviewPaneToggle" text="Betygsätt" visible="false" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="10.0" />
       <AnchorPane fx:id="reviewPane" prefHeight="200.0" prefWidth="700.0" styleClass="ad" visible="false">
          <children>
-            <ImageView fitHeight="83.0" fitWidth="111.0" layoutX="52.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="83.0" fitWidth="111.0" layoutX="216.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="83.0" fitWidth="111.0" layoutX="327.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="83.0" fitWidth="111.0" layoutX="438.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="83.0" fitWidth="111.0" layoutX="549.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="star1" fitHeight="65.0" fitWidth="65.0" layoutX="118.0" layoutY="69.0" onMouseClicked="#reviewAd" onMouseEntered="#toggleStar1Enter" onMouseExited="#toggleStarExit" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="70.0">
+               <image>
+                  <Image url="@images/hollowStar.png" />
+               </image></ImageView>
+            <ImageView fx:id="star2" fitHeight="65.0" fitWidth="65.0" layoutX="218.0" layoutY="69.0" onMouseClicked="#reviewAd2" onMouseEntered="#toggleStar2Enter" onMouseExited="#toggleStarExit" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="218.0" AnchorPane.topAnchor="70.0">
+               <image>
+                  <Image url="@images/hollowStar.png" />
+               </image></ImageView>
+            <ImageView fx:id="star3" fitHeight="65.0" fitWidth="65.0" layoutX="318.0" layoutY="69.0" onMouseClicked="#reviewAd3" onMouseEntered="#toggleStar3Enter" onMouseExited="#toggleStarExit" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="318.0" AnchorPane.topAnchor="70.0">
+               <image>
+                  <Image url="@images/hollowStar.png" />
+               </image></ImageView>
+            <ImageView fx:id="star4" fitHeight="65.0" fitWidth="65.0" layoutX="418.0" layoutY="69.0" onMouseClicked="#reviewAd4" onMouseEntered="#toggleStar4Enter" onMouseExited="#toggleStarExit" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="418.0" AnchorPane.topAnchor="70.0">
+               <image>
+                  <Image url="@images/hollowStar.png" />
+               </image></ImageView>
+            <ImageView fx:id="star5" fitHeight="65.0" fitWidth="65.0" layoutX="518.0" layoutY="69.0" onMouseClicked="#reviewAd5" onMouseEntered="#toggleStar5Enter" onMouseExited="#toggleStarExit" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="518.0" AnchorPane.topAnchor="70.0">
+               <image>
+                  <Image url="@images/hollowStar.png" />
+               </image></ImageView>
          </children>
       </AnchorPane>
    </children>
