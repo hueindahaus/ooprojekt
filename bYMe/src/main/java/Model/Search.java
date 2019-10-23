@@ -12,11 +12,8 @@ public class Search {
     public ArrayList<Ad> findAds(String input, HashMap<String, Ad> ads) {
         ArrayList<Ad> result = new ArrayList();
         String inputArray[] = input.toLowerCase().split(" ");
-        Iterator iterator = ads.entrySet().iterator();
 
-        while(iterator.hasNext()) {
-            Map.Entry account = (Map.Entry) iterator.next();
-            Ad ad = (Ad) account.getValue();
+        for(Ad ad:ads.values()) {
             String adName = ad.getTitle().toLowerCase();
             String adDesc = ad.getDescription().toLowerCase();
             String adUser = ad.getAccount().toLowerCase();
