@@ -234,6 +234,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
      */
     @FXML
     void closeDetailView() {
+        switchToNormalViewMode();
         detailViewToggler.toggleDetailView(false, ad);
     }
 
@@ -370,9 +371,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     void editAd() {
         showTextFields();
         setEnablePictureChange(true);
-        greyZone.setDisable(true);
         editButton.setVisible(false);
-        greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
         saveButton.setVisible(true);
     }
 
@@ -389,31 +388,34 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
             byme.editAd(ad.getAdId(), adTitleTextField.getText(), Integer.valueOf(adPriceTextField.getText()),
                     adDescriptionTextField.getText(), adLocation.getText(), getTagsText());
-
-            adTitle.setText(ad.getTitle());
-            adLocation.setText(ad.getLocation());
-            adDescription.setText(ad.getDescription());
-            adPrice.setText(String.valueOf(ad.getPrice()));
-
-
-            //flytta funktionalitet till egen method och kalla på här..
-            tag1Label.setText(ad.getTagsList().get(0));
-            tag2Label.setText(ad.getTagsList().get(1));
-            tag3Label.setText(ad.getTagsList().get(2));
-            tag4Label.setText(ad.getTagsList().get(3));
-            tag5Label.setText(ad.getTagsList().get(4));
-
-
-            showLabels();
-            setEnablePictureChange(false);
-            greyZone.setDisable(false);
-            greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
-            editButton.setVisible(true);
-            saveButton.setVisible(false);
-
-
+            switchToNormalViewMode();
         }
 
+    }
+
+
+
+    private void switchToNormalViewMode(){
+        adTitle.setText(ad.getTitle());
+        adLocation.setText(ad.getLocation());
+        adDescription.setText(ad.getDescription());
+        adPrice.setText(String.valueOf(ad.getPrice()));
+
+
+        //flytta funktionalitet till egen method och kalla på här..
+        tag1Label.setText(ad.getTagsList().get(0));
+        tag2Label.setText(ad.getTagsList().get(1));
+        tag3Label.setText(ad.getTagsList().get(2));
+        tag4Label.setText(ad.getTagsList().get(3));
+        tag5Label.setText(ad.getTagsList().get(4));
+
+
+        showLabels();
+        setEnablePictureChange(false);
+        greyZone.setDisable(false);
+        greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
+        editButton.setVisible(true);
+        saveButton.setVisible(false);
     }
 
     private boolean allTextFieldsFilled() {
@@ -536,6 +538,8 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
     void openPictureChangePanel(){
             pictureChanger.update();
+            greyZone.setDisable(true);
+            greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
             pictureChanger.setVisible(true);
     }
 
@@ -543,6 +547,8 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     void closePictureChangePanel(){
         savePictures();
         updateImageViews();
+        greyZone.setDisable(false);
+        greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
         pictureChanger.setVisible(false);
     }
 
