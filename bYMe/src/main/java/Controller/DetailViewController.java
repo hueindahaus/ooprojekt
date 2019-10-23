@@ -213,7 +213,8 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
             adTitle.setText(ad.getTitle());
             adDescription.setText(ad.getDescription());
             adLocation.setText(ad.getLocation());
-            adUser.setText(ad.getAccount());
+            String result = String.format("%.2f", byme.getAccountRating(ad.getAccount()));
+            adUser.setText(ad.getAccount()+" ("+result+")");
             adPrice.setText(String.valueOf(ad.getPrice()));
 
 
