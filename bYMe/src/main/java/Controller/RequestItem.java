@@ -1,9 +1,6 @@
 package Controller;
 
-import Model.Ad;
-import Model.Byme;
-import Model.IObserver;
-import Model.Request;
+import Model.*;
 import Services.PictureHandler;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
@@ -75,19 +72,19 @@ public class RequestItem extends AnchorPane {
 
         buttonAccept.setVisible(userIsRecipient);
         buttonDecline.setVisible(userIsRecipient);
-        if(!userIsRecipient && request.getState() != 1){ // Can't remove accepted requests
+        if(!userIsRecipient && !request.isAccepted()){ // Can't remove accepted requests
             buttonRemove.setVisible(true);
         } else {
             buttonRemove.setVisible(false);
         }
 
-        if(request.getState() != 0) {
+        if(!request.isRequested()) {
             buttonReview.setVisible(false);
             buttonAccept.setDisable(true);
             buttonDecline.setDisable(true);
-            if (request.getState() == 1) {
+            if (request.isAccepted()) {
                 requestAnchorPane.setStyle("-fx-background-color: greenyellow");
-            } else if (request.getState() == 2) {
+            } else if (request.isDeclined()) {
                 requestAnchorPane.setStyle("-fx-background-color: IndianRed");
             } else {
                 requestAnchorPane.setStyle("-fx-background-color: Gold");
@@ -194,14 +191,14 @@ public class RequestItem extends AnchorPane {
 
     @FXML
     private void acceptRequest(){
-        request.setState(1);
+        request.setState(RequestState.ACCEPTED);
         requestAnchorPane.setStyle("-fx-background-color: greenyellow");
 
     }
 
     @FXML
     private void declineRequest(){
-        request.setState(2);
+        request.setState(RequestState.DECLINED);
         requestAnchorPane.setStyle("-fx-background-color: IndianRed");
     }
 

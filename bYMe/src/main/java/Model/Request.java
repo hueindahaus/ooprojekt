@@ -2,9 +2,7 @@ package Model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 public class Request {
     private String sender;
@@ -13,9 +11,9 @@ public class Request {
     private String message;
     private Date date;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy-HH:mm");
-    private int state; // 0 = requested, 1 = accepted, 2 = declined, 3 = accepted and done
+    private RequestState state;
 
-    public Request(String sender, String receiver, String ad, String message, String dateString, int state) throws ParseException {
+    public Request(String sender, String receiver, String ad, String message, String dateString, RequestState state) throws ParseException {
         this.sender = sender;
         this.receiver = receiver;
         this.ad = ad;
@@ -48,12 +46,29 @@ public class Request {
         return dateFormat.format(date);
     }
 
-    public int getState() {
+    public RequestState getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(RequestState state) {
         this.state = state;
+    }
+
+
+    public boolean isAccepted(){
+        return state == RequestState.ACCEPTED;
+    }
+
+    public boolean isAcceptedAndDone(){
+        return state == RequestState.ACCEPTEDANDDONE;
+    }
+
+    public boolean isRequested(){
+        return state == RequestState.REQUESTED;
+    }
+
+    public boolean isDeclined(){
+        return state == RequestState.DECLINED;
     }
 
 }

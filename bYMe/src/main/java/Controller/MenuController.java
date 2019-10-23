@@ -1,10 +1,7 @@
 package Controller;
 
 
-import Model.Ad;
-import Model.Byme;
-import Model.IObserver;
-import Model.Request;
+import Model.*;
 import Services.PictureHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -71,7 +68,6 @@ public class MenuController extends SidePanelController implements IObserver {
 
     @FXML
     Button myRequestsButton;
-
 
     PictureHandler pictureHandler = PictureHandler.getInstance();
 
@@ -276,9 +272,9 @@ public class MenuController extends SidePanelController implements IObserver {
             myReceivedRequestsFlowPane.getChildren().clear();
             mySentRequestsFlowPane.getChildren().clear();
             for (Request request : requests) {
-                if(request.getState() == 1) { //Check if accepted requests have been completed (due-date)
+                if(request.isAccepted()) { //Check if accepted requests have been completed (due-date)
                     if (request.getDate().before(Calendar.getInstance().getTime())) {
-                        request.setState(3);
+                        request.setState(RequestState.ACCEPTEDANDDONE);
                     }
                 }
                 if (request.getReceiver().equals(byme.getCurrentUser().getUsername())) {
