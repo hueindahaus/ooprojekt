@@ -102,12 +102,7 @@ public class Byme {
      */
 
     public boolean isAlreadyRegistered(String username){   //metod som kollar om ett användarnamn redan är registrerat eller ej
-        for(Map.Entry account: accounts.entrySet()){
-            if(account.getKey().equals(username)){
-                return true;
-            }
-        }
-        return false;
+        return accounts.containsKey(username);
     }
 
     /**

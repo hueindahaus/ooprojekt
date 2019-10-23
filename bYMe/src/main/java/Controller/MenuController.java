@@ -250,11 +250,9 @@ public class MenuController extends SidePanelController implements IObserver {
     }
 
     public void populateMyAds(){
-        HashMap<String, Ad> ads = byme.getAds();
         if(byme.isLoggedIn()) {
             myAdsFlowPane.getChildren().clear();
-            for (Map.Entry ad : ads.entrySet()) {
-                Ad currentAd = (Ad) ad.getValue();
+            for (Ad currentAd: byme.getAds().values()) {
                 if (currentAd.getAccount().equals(byme.getCurrentUser().getUsername())) {
                     myAdsFlowPane.getChildren().add(new AdItem(currentAd, detailViewToggler, byme.getAccountRating(currentAd.getAccount())));
                 }
@@ -313,10 +311,8 @@ public class MenuController extends SidePanelController implements IObserver {
 
     private void updateRequests(){
         if(byme.isLoggedIn()) {
-            HashMap<String, Ad> ads = byme.getAds();
             requests.clear();
-            for (Map.Entry ad : ads.entrySet()) {
-                Ad currentAd = (Ad) ad.getValue();
+            for (Ad currentAd: byme.getAds().values()) {
                 requests.addAll(currentAd.getRequests());
             }
         }

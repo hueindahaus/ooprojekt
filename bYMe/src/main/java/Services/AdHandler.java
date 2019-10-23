@@ -66,10 +66,7 @@ public class AdHandler implements IAdHandler {
         JSONArray jsonList = new JSONArray();
         ArrayList<Request> requests = new ArrayList<>();
 
-        Iterator iterator = ads.entrySet().iterator();
-        while(iterator.hasNext()){
-            Map.Entry account = (Map.Entry) iterator.next();
-            Ad ad = (Ad) account.getValue();
+        for(Ad ad: ads.values()){
             requests.addAll(ad.getRequests());
             jsonList.add(convertToJSONObject(ad));
         }
