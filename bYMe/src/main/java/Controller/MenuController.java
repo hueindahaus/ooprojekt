@@ -34,6 +34,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import static jdk.nashorn.internal.objects.NativeMath.round;
+
 
 public class MenuController extends SidePanelController implements IObserver {
 
@@ -231,7 +233,8 @@ public class MenuController extends SidePanelController implements IObserver {
     }
     private void userRatingDisplay(){
         if(byme.isLoggedIn()){
-            userRating.setText("Omdömme: "+ byme.getCurrentUser().getAverageRating()+"("+(int)byme.getCurrentUser().getRatingCount()+")");
+            String result = String.format("%.2f", byme.getCurrentUser().getAverageRating());
+            userRating.setText("Omdömme: "+ result+"("+(int)byme.getCurrentUser().getRatingCount()+")");
         }
     }
     public void update(){

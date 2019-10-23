@@ -64,7 +64,8 @@ public class AdItem extends AnchorPane implements IObserver{
         adDescription.setText(ad.getDescription());
         adLocation.setText(ad.getLocation());
         adPrice.setText(Integer.toString(ad.getPrice()));
-        adAccount.setText(ad.getAccount()+" ("+rating+")");
+        String result = String.format("%.2f", rating);
+        adAccount.setText(ad.getAccount()+" ("+result+")");
 
 
         this.detailViewToggler = detailViewToggler;
