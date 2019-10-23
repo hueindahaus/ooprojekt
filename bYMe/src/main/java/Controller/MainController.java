@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
@@ -29,6 +30,8 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     private TextField searchInput;
     @FXML
     private FlowPane tagsFlowPane;
+    @FXML
+    private ImageView bymeImage;
 
     private boolean dark_theme = false;
 
@@ -139,6 +142,12 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
                 adItems.put(ad.getAdId(), new AdItem(ad, this));
             }
         }
+        populateAds();
+    }
+
+    @FXML
+    void populateAllAds(){
+        adsListFlowPane.getChildren().clear();
         populateAds();
     }
 

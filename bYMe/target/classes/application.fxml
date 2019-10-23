@@ -48,7 +48,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
          </children></AnchorPane>
-      <ImageView fitHeight="61.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" AnchorPane.bottomAnchor="900.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1224.0" AnchorPane.topAnchor="8.0">
+      <ImageView fx:id="bymeImage" fitHeight="61.0" fitWidth="196.0" onMouseReleased="#populateAllAds" pickOnBounds="true" preserveRatio="true" styleClass="logo" AnchorPane.bottomAnchor="900.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1224.0" AnchorPane.topAnchor="8.0">
          <image>
             <Image url="@images/loggaByMe.png" />
          </image>
