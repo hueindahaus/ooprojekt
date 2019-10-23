@@ -134,9 +134,8 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     public void populateAds() {
         adsListFlowPane.getChildren().clear();
         tags.clear();
-        HashMap<String, Ad> ads = byme.getAds();
-        for (Map.Entry ad : ads.entrySet()) {
-            Ad currentAd = (Ad) ad.getValue();
+
+        for (Ad currentAd : byme.getAds().values()) {
             for (String tag : currentAd.getTagsList()) {
                 if(tag.equals("")){
                     //do nothing, we dont want to show empty tags
@@ -182,7 +181,6 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
             detailViewController.setAd(ad);
             detailViewController.showUserButtons();
             detailViewController.showLabels();
-
             detailViewController.loadPictures();
             detailViewController.updateImageViews();
         } else {
