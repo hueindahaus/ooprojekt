@@ -2,6 +2,7 @@ package ViewController;
 
 
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -72,6 +73,14 @@ public class ErrorMessageController {
         textField6.setStyle("-fx-border-color: inherit;");
     }
 
+    private static void resetDatepickerandTextFields(TextField hour, TextField minute, TextField description, DatePicker datePicker, Label errorLabel) {
+        errorLabel.setText("");
+        hour.setStyle("-fx-border-color: inherit;");
+        minute.setStyle("-fx-border-color: inherit;");
+        description.setStyle("-fx-border-color: inherit;");
+        datePicker.setStyle("-fx-border-color: inherit;");
+    }
+
     static void resetTextFields(TextField textField1, TextField textField2, Label errorLabel) {
         errorLabel.setText("");
         textField1.setStyle("");
@@ -140,12 +149,17 @@ public class ErrorMessageController {
         }
     }
 
-    static void handleRequestErrors(TextField description, TextField day, TextField month, TextField year, TextField hour, TextField minute,Label errorLabel){
-        resetTextFields(description,day,month,year,hour,minute,errorLabel);
-        if (!allTextFieldsAreFilled(description,day,month,year,hour,minute)){
-            handleTextFieldsEmptyErrorRequest(description,day,month,year,hour,minute,errorLabel);
+    static void handleRequestErrors(TextField hour, TextField minute,TextField description,DatePicker datePicker,Label errorLabel){
+        resetDatepickerandTextFields(hour,minute,description,datePicker,errorLabel);
+        if (!allTextFieldsAreFilledandDatepicker(hour,minute,description,datePicker)){
+            handleTextFieldsEmptyErrorRequest(hour,minute,description,datePicker, errorLabel);
         }
     }
+
+    private static boolean allTextFieldsAreFilledandDatepicker(TextField hour, TextField minute, TextField description, DatePicker datePicker) {
+   return !hour.getText().isEmpty() && !minute.getText().isEmpty() && !description.getText().isEmpty() && !(datePicker.getValue() == null);
+    }
+
 
     static void handleTextFieldEmpty(TextField textField){
         if (textField.getText().isEmpty()) {
@@ -159,6 +173,11 @@ public class ErrorMessageController {
         } else comboBox.setStyle("-fx-border-color: inherit");
     }
 
+    static void handleDatepickerEmpty(DatePicker datePicker){
+        if (datePicker.getValue() == null) {
+            datePicker.setStyle("-fx-border-color: #e74c3c;");
+        } else datePicker.setStyle("-fx-border-color: inherit");
+    }
 
     private static void handleTextFieldEmptyError(TextField textField1, TextField textField2, Label errorLabel) {
 
@@ -187,17 +206,14 @@ public class ErrorMessageController {
     }
 
 
-    private static void handleTextFieldsEmptyErrorRequest(TextField textField1, TextField textField2, TextField textField3, TextField textField4, TextField textField5, TextField textField6, Label errorLabel) {
+    private static void handleTextFieldsEmptyErrorRequest(TextField textField1, TextField textField2,TextField textField3,DatePicker datePicker, Label errorLabel) {
 
 
         handleTextFieldEmpty(textField1);
         handleTextFieldEmpty(textField2);
         handleTextFieldEmpty(textField3);
-        handleTextFieldEmpty(textField4);
-        handleTextFieldEmpty(textField5);
-        handleTextFieldEmpty(textField6);
-
-        if (!allTextFieldsAreFilled(textField1, textField2, textField3, textField4, textField5, textField6)) {
+        handleDatepickerEmpty(datePicker);
+        if (!allTextFieldsAreFilled(textField1,textField2 )) {
             errorLabel.setText("Fyll alla fält!");
         }
     }
