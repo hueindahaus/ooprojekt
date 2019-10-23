@@ -282,13 +282,17 @@ public class MenuController extends SidePanelController implements IObserver {
             myReceivedRequestsFlowPane.getChildren().clear();
             mySentRequestsFlowPane.getChildren().clear();
             for (Request request : requests) {
-                if(request.isAccepted()) { //Check if accepted requests have been completed (due-date)
-                    if (request.getDate().before(Calendar.getInstance().getTime())) {
+                if(request.getDate().before(Calendar.getInstance().getTime())) { //Check if accepted requests have been completed (due-date)
+                    if (request.isAccepted()) {
                         request.setState(RequestState.ACCEPTEDANDDONE);
+                    } else if (request.isRequested()) {
+                        request.setState(RequestState.DECLINED);
                     }
                 }
                 if (request.getReceiver().equals(byme.getCurrentUser().getUsername())) {
-                    myReceivedRequestsFlowPane.getChildren().add(new RequestItem(request, detailViewToggler, true));
+                    if(!request.isDeclined()) {
+                        myReceivedRequestsFlowPane.getChildren().add(new RequestItem(request, detailViewToggler, true));
+                    }
                 } else if (request.getSender().equals(byme.getCurrentUser().getUsername())) {
                     mySentRequestsFlowPane.getChildren().add(new RequestItem(request, detailViewToggler, false));
                 }

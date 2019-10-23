@@ -14,10 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -27,6 +24,7 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -113,15 +111,13 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     @FXML
     TextField messageContent;
     @FXML
-    TextField requestDay;
-    @FXML
-    TextField requestMonth;
-    @FXML
-    TextField requestYear;
+    DatePicker requestDate;
     @FXML
     TextField requestHour;
     @FXML
     TextField requestMinute;
+    @FXML
+    Button requestButton;
     @FXML
     Label errorLabelRequest;
 
@@ -199,6 +195,14 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
                 if (newValue.length() > 0 && newValue.charAt(0) == '0') {
                     adPriceTextField.setText(oldValue);
                 }
+            }
+        });
+        requestDate.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                LocalDate today = LocalDate.now();
+
+                setDisable(empty || date.compareTo(today) < 0 );
             }
         });
     }
@@ -284,9 +288,9 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     @FXML
     void sendRequest() throws ParseException {
 
-        ErrorMessageController.handleRequestErrors(messageContent,requestDay,requestMonth,requestYear,requestHour,requestMinute,errorLabelRequest);
+        //ErrorMessageController.handleRequestErrors(messageContent, requestDate,requestHour,requestMinute,errorLabelRequest);
 
-        String date = requestDay.getText() + "/" + requestMonth.getText() + "/" + requestYear.getText() + "-" + requestHour.getText() + ":" + requestMinute.getText();
+        String date = requestDate.getValue() + "/" + requestHour.getText() + ":" + requestMinute.getText();
         byme.sendRequest(byme.getCurrentUser().getUsername(), ad.getAccount(), ad, messageContent.getText(), date);
         sendRequestClosePrompt();
     }
@@ -446,9 +450,11 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         if (isUsersAd()) {
             deleteButton.setVisible(true);
             editButton.setVisible(true);
+            requestButton.setVisible(false);
         } else {
             deleteButton.setVisible(false);
             editButton.setVisible(false);
+            requestButton.setVisible(true);
         }
     }
 

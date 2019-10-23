@@ -3,6 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" visible="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" visible="false" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane fx:id="greyZone" onMouseClicked="#closeDetailView" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" />
       <AnchorPane layoutX="220.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="detailViewBox">
@@ -31,7 +32,7 @@
                   <Font size="30.0" />
                </font>
             </Button>
-            <Button layoutX="461.0" layoutY="552.0" mnemonicParsing="false" onAction="#sendRequestPrompt" text="Skicka förfrågan" />
+            <Button fx:id="requestButton" layoutX="461.0" layoutY="552.0" mnemonicParsing="false" onAction="#sendRequestPrompt" text="Skicka förfrågan" />
             <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="931.0" layoutY="24.0" onMouseClicked="#closeDetailView" pickOnBounds="true" preserveRatio="true" smooth="false" styleClass="exitButton" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                <image>
                   <Image url="@images/close.png" />
@@ -109,12 +110,10 @@
             <Button layoutX="46.0" layoutY="146.0" mnemonicParsing="false" onAction="#sendRequest" text="Skicka medddelande" />
             <Button layoutX="188.0" layoutY="146.0" mnemonicParsing="false" onAction="#sendRequestClosePrompt" text="Jag ångrade mig, dålig tjänst tbh" />
             <TextField fx:id="messageContent" alignment="TOP_LEFT" layoutX="32.0" layoutY="20.0" prefHeight="78.0" prefWidth="371.0" promptText="Skriv gärna kontakt info, t.ex. email eller snapchat" />
-            <TextField fx:id="requestDay" layoutX="109.0" layoutY="112.0" prefHeight="25.0" prefWidth="35.0" promptText="DD" />
-            <TextField fx:id="requestMonth" layoutX="155.0" layoutY="112.0" prefHeight="25.0" prefWidth="35.0" promptText="MM" />
-            <TextField fx:id="requestYear" layoutX="200.0" layoutY="112.0" prefHeight="25.0" prefWidth="35.0" promptText="ÅÅ" />
             <TextField fx:id="requestHour" layoutX="248.0" layoutY="112.0" prefHeight="25.0" prefWidth="35.0" promptText="TT" />
             <TextField fx:id="requestMinute" layoutX="295.0" layoutY="112.0" prefHeight="25.0" prefWidth="35.0" promptText="MM" />
             <Label fx:id="errorLabelRequest" layoutX="190.0" />
+            <DatePicker fx:id="requestDate" layoutX="53.0" layoutY="112.0" />
          </children>
       </AnchorPane>
    </children>
