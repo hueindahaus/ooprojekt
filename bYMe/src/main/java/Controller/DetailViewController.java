@@ -240,11 +240,9 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         detailViewToggler.toggleDetailView(false, ad);
     }
 
-
     /**
-     * Gives the user the ability to remove a specific ad.
+     * Gives the user a prompt to make sure the user is sure they want to delete their ad.
      */
-
     @FXML
     void removeAdPrompt() {
         showPrompt.play();
@@ -256,7 +254,9 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         closePrompt.play();
         greyZone2.setVisible(false);
     }
-
+    /**
+     * Gives the user the ability to remove a specific ad.
+     */
     @FXML
     void removeAd() {
         pictureHandler.removePictureFolder(ad.getAdId());
