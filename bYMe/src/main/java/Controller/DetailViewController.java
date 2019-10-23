@@ -58,6 +58,8 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     Label adUser;
     @FXML
     Label adPrice;
+    @FXML
+    Label userRating;
 
 
     @FXML

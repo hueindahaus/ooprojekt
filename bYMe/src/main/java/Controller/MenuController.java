@@ -87,6 +87,8 @@ public class MenuController extends SidePanelController implements IObserver {
     @FXML
     Button toggleSentButton;
 
+    @FXML
+    Label userRating;
 
     Timeline showMyAdsPanel = new Timeline();
 
@@ -231,12 +233,17 @@ public class MenuController extends SidePanelController implements IObserver {
             System.out.println("Can't find default profile picture");
         }
     }
-
+    private void userRatingDisplay(){
+        if(byme.isLoggedIn()){
+            userRating.setText("Omdömme: "+ byme.getCurrentUser().getAverageRating()+"("+(int)byme.getCurrentUser().getRatingCount()+")");
+        }
+    }
     public void update(){
         updateProfilePicImageView();
         displayAccountName();
         updateRequests();
         populateMyRequests();
+        userRatingDisplay();
     }
 
     @FXML void changeTheme(){
@@ -250,7 +257,7 @@ public class MenuController extends SidePanelController implements IObserver {
             for (Map.Entry ad : ads.entrySet()) {
                 Ad currentAd = (Ad) ad.getValue();
                 if (currentAd.getAccount().equals(byme.getCurrentUser().getUsername())) {
-                    myAdsFlowPane.getChildren().add(new AdItem(currentAd, detailViewToggler));
+                    myAdsFlowPane.getChildren().add(new AdItem(currentAd, detailViewToggler, byme.getAccountRating(currentAd.getAccount())));
                 }
             }
         }

@@ -124,7 +124,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         for (Object obj : byme.getAds().values()) {
             Ad ad = (Ad) obj;
             if (!adItems.containsKey(ad.getAdId())) {
-                adItems.put(ad.getAdId(), new AdItem(ad, this));
+                adItems.put(ad.getAdId(), new AdItem(ad, this, byme.getAccountRating(ad.getAccount())));
             }
             adItems.get(ad.getAdId()).update();
         }

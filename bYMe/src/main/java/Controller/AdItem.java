@@ -48,7 +48,7 @@ public class AdItem extends AnchorPane implements IObserver{
     DetailViewToggler detailViewToggler;
     private Ad ad;
 
-    public AdItem(Ad ad, DetailViewToggler detailViewToggler)  {
+    public AdItem(Ad ad, DetailViewToggler detailViewToggler, double rating)  {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ads.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -64,7 +64,7 @@ public class AdItem extends AnchorPane implements IObserver{
         adDescription.setText(ad.getDescription());
         adLocation.setText(ad.getLocation());
         adPrice.setText(Integer.toString(ad.getPrice()));
-        adAccount.setText(ad.getAccount());
+        adAccount.setText(ad.getAccount()+" ("+rating+")");
 
 
         this.detailViewToggler = detailViewToggler;
