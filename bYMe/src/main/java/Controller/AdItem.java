@@ -109,7 +109,9 @@ public class AdItem extends AnchorPane implements IObserver{
 
     }
 */
-
+    /**
+     * Updates the ImageView in an ad and displays only the primary picture(first one in the ArrayList).
+     **/
     private void updatePicture(){
         if(pictureHandler.getAdPictures(ad.getAdId()).size() > 0) {
             Image image = pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(pictureHandler.getAdPictures(ad.getAdId()).get(0), null));

@@ -10,7 +10,7 @@ public class Request {
     private String ad;
     private String message;
     private Date date;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy-HH:mm");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd/HH:mm");
     private RequestState state;
 
     public Request(String sender, String receiver, String ad, String message, String dateString, RequestState state) throws ParseException {
