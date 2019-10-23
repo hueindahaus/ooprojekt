@@ -288,7 +288,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     @FXML
     void sendRequest() throws ParseException {
 
-        //ErrorMessageController.handleRequestErrors(messageContent, requestDate,requestHour,requestMinute,errorLabelRequest);
+        ErrorMessageController.handleRequestErrors(requestMinute,requestHour,messageContent,requestDate,errorLabelRequest);
 
         String date = requestDate.getValue() + "/" + requestHour.getText() + ":" + requestMinute.getText();
         byme.sendRequest(byme.getCurrentUser().getUsername(), ad.getAccount(), ad, messageContent.getText(), date);
