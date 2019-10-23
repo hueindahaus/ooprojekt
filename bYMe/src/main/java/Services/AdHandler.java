@@ -35,7 +35,7 @@ public class AdHandler implements IAdHandler {
 
 
     private String getAdsFilePath(){
-        return "data" + File.separatorChar + "ads.json";
+        return "src" + File.separatorChar + "main" + File.separatorChar  + "java" + File.separatorChar + "Services" + File.separatorChar +"data" + File.separatorChar + "ads.json";
     }
 
     public void loadAds(HashMap<String, Ad> ads){

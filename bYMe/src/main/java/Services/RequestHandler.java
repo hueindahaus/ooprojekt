@@ -32,7 +32,7 @@ public class RequestHandler {
 
 
     private String getRequestsFilePath(){
-        return "data" + File.separatorChar + "requests.json";
+        return "src" + File.separatorChar + "main" + File.separatorChar  + "java" + File.separatorChar + "Services" + File.separatorChar +"data" + File.separatorChar + "requests.json";
     }
 
     public ArrayList<Request> loadRequests(String adId){

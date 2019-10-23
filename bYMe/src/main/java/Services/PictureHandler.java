@@ -27,11 +27,11 @@ public class PictureHandler {
 
 
     private String getAdPictureDirPath(String id){
-        return "ad_pictures" + File.separatorChar + id;
+        return "src" + File.separatorChar + "main" + File.separatorChar  + "java" + File.separatorChar + "Services" + File.separatorChar + "ad_pictures" + File.separatorChar + id;
     }
 
     private String getProfilePictureFilePath(String username){
-        return "profile_pics" + File.separatorChar + username + ".jpg";
+        return "src" + File.separatorChar + "main" + File.separatorChar  + "java" + File.separatorChar + "Services" + File.separatorChar +" profile_pics" + File.separatorChar + username + ".jpg";
     }
     private String getAdPicturePath(int index, String id){
         return getAdPictureDirPath(id) + File.separatorChar + index + ".jpg";
