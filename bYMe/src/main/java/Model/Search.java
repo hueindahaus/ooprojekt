@@ -21,11 +21,12 @@ public class Search {
             String adDesc = ad.getDescription().toLowerCase();
             String adUser = ad.getAccount().toLowerCase();
             ArrayList<String> adTags = tagsToLowerCase(ad.getTagsList());
-            
+
             int match = 0;
 
             for(int i=0; i < inputArray.length; i++) {
                 if (adName.contains(activeTag) || adDesc.contains(activeTag) || adUser.contains(activeTag) || adTags.contains(activeTag)){
+
                     if (adName.contains(inputArray[i]) || adDesc.contains(inputArray[i]) || adUser.contains(inputArray[i])
                             || adTags.contains(inputArray[i])){
                         match++;
@@ -49,6 +50,8 @@ public class Search {
         }
         return tags;
     }
+
+
 
     public void setActiveTag(String activeTag){
         this.activeTag = activeTag;

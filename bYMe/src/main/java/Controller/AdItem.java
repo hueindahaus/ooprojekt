@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class AdItem extends AnchorPane implements IObserver{
     @FXML
     private Label tag5Label;
 
-    PictureHandler pictureHandler = new PictureHandler();
+    PictureHandler pictureHandler = PictureHandler.getInstance();
 
     DetailViewToggler detailViewToggler;
     private Ad ad;
@@ -74,6 +75,12 @@ public class AdItem extends AnchorPane implements IObserver{
                 detailViewToggler.toggleDetailView(true, ad);
             }
         });
+
+        Rectangle clip = new Rectangle(adImage.getFitWidth(), adImage.getFitHeight());
+        clip.setArcHeight(20);
+        clip.setArcWidth(20);
+        adImage.setClip(clip);
+
 
         updatePicture();
     }

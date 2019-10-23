@@ -21,11 +21,14 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -69,6 +72,9 @@ public class MenuController extends SidePanelController implements IObserver {
     @FXML
     Button myRequestsButton;
 
+
+    PictureHandler pictureHandler = PictureHandler.getInstance();
+
     @FXML
     AnchorPane  mySentRequestsAnchorPane;
 
@@ -83,8 +89,6 @@ public class MenuController extends SidePanelController implements IObserver {
 
     @FXML
     Label userRating;
-
-    PictureHandler pictureHandler = new PictureHandler();
 
     Timeline showMyAdsPanel = new Timeline();
 
@@ -144,7 +148,7 @@ public class MenuController extends SidePanelController implements IObserver {
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(myRequestsPanel.layoutXProperty(), 1660))
         );
 
-        Circle clip = new Circle(profilePicImageView.getFitWidth()/2,profilePicImageView.getFitHeight()/2,80);
+        Circle clip = new Circle(profilePicImageView.getFitWidth()/2, profilePicImageView.getFitHeight()/2,80);
         profilePicImageView.setClip(clip);
 
         ColorAdjust colorAdjust = new ColorAdjust();

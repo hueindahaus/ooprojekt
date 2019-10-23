@@ -1,4 +1,5 @@
 package Services;
+import Controller.PictureChangeController;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 
@@ -10,6 +11,21 @@ import java.util.ArrayList;
 
 
 public class PictureHandler {
+
+    private static PictureHandler singleton;
+
+    private PictureHandler(){
+
+    }
+
+    public static PictureHandler getInstance(){
+        if(singleton==null){
+            singleton = new PictureHandler();
+        }
+        return singleton;
+    }
+
+
 
     private String getAdPictureDirPath(String id){
         return "ad_pictures" + File.separatorChar + id;

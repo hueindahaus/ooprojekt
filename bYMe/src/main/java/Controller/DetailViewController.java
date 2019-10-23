@@ -17,32 +17,29 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 import javafx.util.Duration;
+
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 
-public class DetailViewController extends AnchorPane{
+public class DetailViewController extends AnchorPane implements ImageViewUpdater{
+
 
 
     DetailViewToggler detailViewToggler;
 
-    PictureHandler pictureHandler = new PictureHandler();
+    PictureHandler pictureHandler = PictureHandler.getInstance();
 
-    Byme byme = Byme.getInstance(null,null);
+    PictureChangeController pictureChanger;
+
+    Byme byme = Byme.getInstance(null, null);
 
 
     @FXML
@@ -68,7 +65,8 @@ public class DetailViewController extends AnchorPane{
     @FXML
     TextField adTitleTextField;
     @FXML
-    ComboBox adLocationComboBox;;
+    ComboBox adLocationComboBox;
+    ;
     @FXML
     TextField adDescriptionTextField;
     @FXML
@@ -110,8 +108,6 @@ public class DetailViewController extends AnchorPane{
     @FXML
     AnchorPane greyZone2;
     @FXML
-    AnchorPane pictureChangePanel;
-    @FXML
     ImageView image1;
     @FXML
     TextField messageContent;
@@ -125,34 +121,8 @@ public class DetailViewController extends AnchorPane{
     TextField requestHour;
     @FXML
     TextField requestMinute;
-
     @FXML
-    void changeAdPic1(){
-        changeAdPic(0);
-    }
-
-    @FXML
-    void changeAdPic2(){
-        changeAdPic(1);
-    }
-
-    @FXML
-    void changeAdPic3(){
-        changeAdPic(2);
-    }
-
-    @FXML
-    void changeAdPic4(){
-        changeAdPic(3);
-    }
-
-    @FXML
-    void changeAdPic5(){
-        changeAdPic(4);
-    }
-
-    ColorAdjust pictureEffect = new ColorAdjust();
-
+    Label errorLabelRequest;
 
     Timeline showPrompt;
 
@@ -165,15 +135,14 @@ public class DetailViewController extends AnchorPane{
 
     Ad ad;
 
-    ArrayList<BufferedImage> images = new ArrayList<>();
 
-    public DetailViewController(DetailViewToggler detailViewToggler){
+    public DetailViewController(DetailViewToggler detailViewToggler) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../detailView.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-        try{
+        try {
             fxmlLoader.load();
-        } catch(IOException exception){
+        } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
 
@@ -194,14 +163,28 @@ public class DetailViewController extends AnchorPane{
         );
 
         this.detailViewToggler = detailViewToggler;
-        pictureEffect.setBrightness(-0.5);
-        pictureEffect.setInput(new BoxBlur());
 
-        setHoverEffectOnImageView(imageChanger1);
-        setHoverEffectOnImageView(imageChanger2);
-        setHoverEffectOnImageView(imageChanger3);
-        setHoverEffectOnImageView(imageChanger4);
-        setHoverEffectOnImageView(imageChanger5);
+        this.pictureChanger = new PictureChangeController(this);
+        Button pictureChangeButton = new Button();
+        pictureChangeButton.setText("Spara Ändringar");
+        pictureChangeButton.setPrefWidth(200);
+        pictureChangeButton.setPrefHeight(50);
+        pictureChangeButton.setLayoutX(400);
+        pictureChangeButton.setLayoutY(400);
+        pictureChangeButton.getStyleClass().add("saveImageButton");
+        pictureChangeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                closePictureChangePanel();
+            }
+        });
+        pictureChanger.getChildren().add(pictureChangeButton);
+        this.getChildren().add(pictureChanger);
+
+
+
+
+
 
         adLocationComboBox.getItems().addAll("Västra Götaland", "Stockholm", "Skåne", "Jönköping", "Bergsjön");
 
@@ -212,7 +195,7 @@ public class DetailViewController extends AnchorPane{
                     adPriceTextField.setText(newValue.replaceAll("[^\\d]", ""));
                 }
 
-                if(newValue.length() > 0 && newValue.charAt(0) == '0'){
+                if (newValue.length() > 0 && newValue.charAt(0) == '0') {
                     adPriceTextField.setText(oldValue);
                 }
             }
@@ -220,25 +203,10 @@ public class DetailViewController extends AnchorPane{
     }
 
 
-
-    private void setHoverEffectOnImageView(ImageView imageView){
-        imageView.hoverProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(newValue){
-                    imageView.setEffect(pictureEffect);
-                } else {
-                    imageView.setEffect(null);
-                }
-            }
-        });
-    }
-
     /**
-     *
      * @param ad Sends in an ad as parameter so the detailView can show the data of an ad.
      */
-    void setAd(Ad ad){
+    void setAd(Ad ad) {
         this.ad = ad;
         if (ad != null) {
             adTitle.setText(ad.getTitle());
@@ -248,7 +216,7 @@ public class DetailViewController extends AnchorPane{
             adPrice.setText(String.valueOf(ad.getPrice()));
 
 
-            if (!(ad.getTagsList().size() == 0)){
+            if (!(ad.getTagsList().size() == 0)) {
                 ArrayList<String> tags = ad.getTagsList();
                 tag1Label.setText(tags.get(0));
                 tag2Label.setText(tags.get(1));
@@ -265,7 +233,7 @@ public class DetailViewController extends AnchorPane{
      * Used for the exitButton which upon a press closes the detailView panel.
      */
     @FXML
-    void closeDetailView(){
+    void closeDetailView() {
         detailViewToggler.toggleDetailView(false, ad);
     }
 
@@ -275,19 +243,19 @@ public class DetailViewController extends AnchorPane{
      */
 
     @FXML
-    void removeAdPrompt(){
+    void removeAdPrompt() {
         showPrompt.play();
         greyZone2.setVisible(true);
     }
 
     @FXML
-    void removeAdClosePrompt(){
+    void removeAdClosePrompt() {
         closePrompt.play();
         greyZone2.setVisible(false);
     }
 
     @FXML
-    void removeAd(){
+    void removeAd() {
         pictureHandler.removePictureFolder(ad.getAdId());
         byme.removeAd(ad.getAdId());
         removeAdClosePrompt();
@@ -295,8 +263,8 @@ public class DetailViewController extends AnchorPane{
     }
 
     @FXML
-    void sendRequestPrompt(){
-        if(byme.isLoggedIn()) {
+    void sendRequestPrompt() {
+        if (byme.isLoggedIn()) {
             messageContent.setText("");
             showRequestPrompt.play();
             greyZone2.setVisible(true);
@@ -304,50 +272,31 @@ public class DetailViewController extends AnchorPane{
     }
 
     @FXML
-    void sendRequestClosePrompt(){
+    void sendRequestClosePrompt() {
         closeRequestPrompt.play();
         greyZone2.setVisible(false);
     }
 
+
     @FXML
     void sendRequest() throws ParseException {
+
+        ErrorMessageController.handleRequestErrors(messageContent,requestDay,requestMonth,requestYear,requestHour,requestMinute,errorLabelRequest);
+
         String date = requestDay.getText() + "/" + requestMonth.getText() + "/" + requestYear.getText() + "-" + requestHour.getText() + ":" + requestMinute.getText();
         byme.sendRequest(byme.getCurrentUser().getUsername(), ad.getAccount(), ad, messageContent.getText(), date);
         sendRequestClosePrompt();
     }
 
-    void updateAdImageViews(){
-        if(images.size() > 0){
-            image1.setImage(SwingFXUtils.toFXImage(images.get(0), null));
+
+    public void updateImageViews(){
+        if(pictureChanger.getImages().size() > 0){
+            image1.setImage(SwingFXUtils.toFXImage(pictureChanger.getImages().get(0), null));
         } else {
             try {
                 image1.setImage(SwingFXUtils.toFXImage(ImageIO.read(new File("src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "images" + File.separatorChar + "insert_photo.png")), null));
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
-            }
-        }
-    }
-
-    void changeAdPic(int index){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("jpg", "*.jpg"), new FileChooser.ExtensionFilter("png", "*.png"), new FileChooser.ExtensionFilter("jpeg", "*.jpg"));
-        File selectedFile = fileChooser.showOpenDialog(null);
-
-
-
-        if(selectedFile != null){
-            try {
-                BufferedImage image = ImageIO.read(selectedFile);
-                if(images.size() - 1 >= index) {
-                    images.add(index, image);
-                    images.remove(index+1);
-                } else {
-                    images.add(image);
-                }
-                updateAdImageViews();
-                updatePictureChangePanel();
-            } catch(IOException exception){
-                System.out.println("Can't read image: " + selectedFile.getPath());
             }
         }
     }
@@ -357,19 +306,20 @@ public class DetailViewController extends AnchorPane{
 
     void savePictures(){
         if(ad != null) {
-            pictureHandler.saveAdPictures(ad.getAdId(), images);
+            pictureHandler.saveAdPictures(ad.getAdId(), pictureChanger.getImages());
         }
     }
 
-    void loadPictures(){
-        if(ad != null) {
-            images = pictureHandler.getAdPictures(ad.getAdId());
+    void loadPictures() {
+        if (ad != null) {
+            pictureChanger.setImages(pictureHandler.getAdPictures(ad.getAdId()));
         }
     }
 
 
-    private void setEnablePictureChange(boolean enable){
-        if(enable) {
+
+    private void setEnablePictureChange(boolean enable) {
+        if (enable) {
             image1.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -380,7 +330,7 @@ public class DetailViewController extends AnchorPane{
             image1.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    image1.setEffect(pictureEffect);
+                    image1.setEffect(pictureChanger.pictureEffect);
                 }
             });
 
@@ -417,8 +367,7 @@ public class DetailViewController extends AnchorPane{
      * Used for the button which upon a press enables the "edit mode".
      */
     @FXML
-    void editAd(){
-
+    void editAd() {
         showTextFields();
         setEnablePictureChange(true);
         greyZone.setDisable(true);
@@ -467,11 +416,11 @@ public class DetailViewController extends AnchorPane{
 
     }
 
-    private boolean allTextFieldsFilled(){
-        return (!adTitleTextField.getText().isEmpty()  && !adDescriptionTextField.getText().isEmpty() && (adLocationComboBox.getSelectionModel().getSelectedItem() != null) && !adPriceTextField.getText().isEmpty());
+    private boolean allTextFieldsFilled() {
+        return (!adTitleTextField.getText().isEmpty() && !adDescriptionTextField.getText().isEmpty() && (adLocationComboBox.getSelectionModel().getSelectedItem() != null) && !adPriceTextField.getText().isEmpty());
     }
 
-    private ArrayList<String> getTagsText(){
+    private ArrayList<String> getTagsText() {
 
         ArrayList<String> tempList = new ArrayList<>();
         tempList.add(tag1TextField.getText());
@@ -489,8 +438,8 @@ public class DetailViewController extends AnchorPane{
      * Method that makes sure that the delete and edit button only shows on an ad if the logged in user
      * owns that specific ad.
      */
-    void showUserButtons(){
-        if(isUsersAd()){
+    void showUserButtons() {
+        if (isUsersAd()) {
             deleteButton.setVisible(true);
             editButton.setVisible(true);
         } else {
@@ -500,10 +449,9 @@ public class DetailViewController extends AnchorPane{
     }
 
 
-
-    private boolean isUsersAd(){
-        if (byme.getCurrentUser() != null){
-            if (byme.getCurrentUser().getUsername().equals(ad.getAccount())){
+    private boolean isUsersAd() {
+        if (byme.getCurrentUser() != null) {
+            if (byme.getCurrentUser().getUsername().equals(ad.getAccount())) {
                 return true;
             }
         }
@@ -513,9 +461,8 @@ public class DetailViewController extends AnchorPane{
     /**
      * Method which enables visibility for an ads TextFields and at the same time disables visibility for the Labels.
      * It also sets the text for all TextFields so they get the current data.
-     *
      */
-    void showTextFields(){
+    void showTextFields() {
 
         adTitle.setVisible(false);
         adLocation.setVisible(false);
@@ -552,16 +499,13 @@ public class DetailViewController extends AnchorPane{
         tag5TextField.setText(tag5Label.getText());
 
 
-
-
     }
 
     /**
      * Method which enables visibility for an ads Labels and at the same time disables visibility for the TextFields.
-     *
      */
 
-    public void showLabels(){
+    public void showLabels() {
 
         adTitle.setVisible(true);
         adLocation.setVisible(true);
@@ -589,59 +533,18 @@ public class DetailViewController extends AnchorPane{
     }
 
 
-    void openPictureChangePanel(){
-            updatePictureChangePanel();
-            pictureChangePanel.setVisible(true);
 
+    void openPictureChangePanel(){
+            pictureChanger.update();
+            pictureChanger.setVisible(true);
     }
 
-    @FXML
+
     void closePictureChangePanel(){
         savePictures();
-        updateAdImageViews();
-        pictureChangePanel.setVisible(false);
+        updateImageViews();
+        pictureChanger.setVisible(false);
     }
-
-
-
-    @FXML
-    ImageView imageChanger1;
-    @FXML
-    ImageView imageChanger2;
-    @FXML
-    ImageView imageChanger3;
-    @FXML
-    ImageView imageChanger4;
-    @FXML
-    ImageView imageChanger5;
-
-
-
-
-    void updatePictureChangePanel(){
-        try {
-            Image defaultImage = SwingFXUtils.toFXImage(ImageIO.read(new File("src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "images" + File.separatorChar + "insert_photo.png")), null);
-            imageChanger1.setImage(defaultImage);
-            imageChanger2.setImage(defaultImage);
-            imageChanger3.setImage(defaultImage);
-            imageChanger4.setImage(defaultImage);
-            imageChanger5.setImage(defaultImage);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-        setImageIfPossible(imageChanger1,0,images);
-        setImageIfPossible(imageChanger2,1,images);
-        setImageIfPossible(imageChanger3,2,images);
-        setImageIfPossible(imageChanger4,3,images);
-        setImageIfPossible(imageChanger5,4,images);
-    }
-
-    private void setImageIfPossible(ImageView imageView, int num, ArrayList<BufferedImage> list){
-        if(list.size() > num){
-            imageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(list.get(num),null)));
-        }
-    }
-
 
 
 }

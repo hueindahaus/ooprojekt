@@ -89,7 +89,7 @@
 }
 
 .greyZone {
-  -fx-background-color: rgba(0, 0, 0, 0.5);
+  -fx-background-color: rgba(0, 0, 0, 0.7);
 }
 
 .RegTextfield {
@@ -178,6 +178,18 @@
   -fx-background-radius: 10px;
 }
 
+
+.saveImageButton{
+  -fx-background-color: secondary;
+  -fx-background-radius: 10px;
+  -fx-cursor:hand;
+}
+
+.saveImageButton:hover{
+  -fx-background-color: secondary-dark;
+
+}
+
 .requestTabs {
   -fx-background-color: primary;
   -fx-background-radius: 33 33 0 0;
@@ -193,3 +205,4 @@
   -fx-background-radius: 33 33 0 0;
   -fx-text-fill: FFFFFF;
 }
+

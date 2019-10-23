@@ -23,7 +23,7 @@ public class Byme {
 
     private IAdHandler adHandler;
 
-    private HashMap<String,Ad> ads= new HashMap<>();
+    private LinkedHashMap<String,Ad> ads= new LinkedHashMap<>();
 
     public HashMap<String,Ad> getAds(){
         return ads;
@@ -120,7 +120,7 @@ public class Byme {
         return currentUser;
     }
 
-    protected HashMap<String, Account> getAccounts() {
+    HashMap<String, Account> getAccounts() {
         return accounts;
     }
 
@@ -196,7 +196,6 @@ public class Byme {
         String adId = generateRandomAdId();
         ads.put(adId,new Ad(title,price,description,location,adId, account));
         addTagsToAd(adId,tags);
-
     }
 
     public boolean isLoggedIn(){
@@ -222,5 +221,13 @@ public class Byme {
 
     public double getAccountRating(String username){
         return accounts.get(username).getAverageRating();
+    }
+
+    public String getLastAddedAdId(){
+        Ad lastAdded = null;
+        for(Ad ad: ads.values()){
+            lastAdded = ad;
+        }
+        return lastAdded.getAdId();
     }
 }
