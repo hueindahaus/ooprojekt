@@ -5,7 +5,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -148,22 +147,23 @@ public class ErrorMessageController {
         }
     }
 
+    static void handleTextFieldEmpty(TextField textField){
+        if (textField.getText().isEmpty()) {
+            textField.setStyle("-fx-border-color: #e74c3c;");
+        } else textField.setStyle("-fx-border-color: inherit");
+    }
+
+    static void handleComboBoxEmpty(ComboBox comboBox){
+        if (comboBox.getSelectionModel().getSelectedItem() == null) {
+            comboBox.setStyle("-fx-border-color: #e74c3c;");
+        } else comboBox.setStyle("-fx-border-color: inherit");
+    }
+
 
     private static void handleTextFieldEmptyError(TextField textField1, TextField textField2, Label errorLabel) {
 
-        if (textField1.getText().isEmpty()) {
-            textField1.setStyle("-fx-border-color: #e74c3c;");
-        } else {
-            textField1.setStyle("");
-
-        }
-
-        if (textField2.getText().isEmpty()) {
-            textField2.setStyle("-fx-border-color: #e74c3c;");
-        } else {
-            textField2.setStyle("");
-
-        }
+        handleTextFieldEmpty(textField1);
+        handleTextFieldEmpty(textField2);
 
         if (!allTextFieldsAreFilled(textField1, textField2)) {
             errorLabel.setText("Fyll alla fält!");
@@ -173,21 +173,12 @@ public class ErrorMessageController {
 
     private static void handleTextFieldsEmptyErrorAdCreation(TextField textField1, TextField textField2, TextField textField3, ComboBox comboBox, Label errorLabel) {
 
-        if (textField1.getText().isEmpty()) {
-            textField1.setStyle("-fx-border-color: #e74c3c;");
-        } else textField1.setStyle("-fx-border-color: inherit");
+        handleTextFieldEmpty(textField1);
+        handleTextFieldEmpty(textField2);
+        handleTextFieldEmpty(textField3);
+        handleComboBoxEmpty(comboBox);
 
-        if (textField2.getText().isEmpty()) {
-            textField2.setStyle("-fx-border-color: #e74c3c;");
-        } else textField2.setStyle("-fx-border-color: inherit");
 
-        if (textField3.getText().isEmpty()) {
-            textField3.setStyle("-fx-border-color: #e74c3c;");
-        } else textField3.setStyle("-fx-border-color: inherit");
-
-        if (comboBox.getSelectionModel().getSelectedItem() == null) {
-            comboBox.setStyle("-fx-border-color: #e74c3c;");
-        } else comboBox.setStyle("-fx-border-color: inherit");
 
         if (!allFieldsAreFilled(textField1, textField2, textField3, comboBox)) {
             errorLabel.setText("Fyll alla fält!");
@@ -198,30 +189,13 @@ public class ErrorMessageController {
 
     private static void handleTextFieldsEmptyErrorRequest(TextField textField1, TextField textField2, TextField textField3, TextField textField4, TextField textField5, TextField textField6, Label errorLabel) {
 
-        if (textField1.getText().isEmpty()) {
-            textField1.setStyle("-fx-border-color: #e74c3c;");
-        } else textField1.setStyle("-fx-border-color: inherit");
 
-        if (textField2.getText().isEmpty()) {
-            textField2.setStyle("-fx-border-color: #e74c3c;");
-        } else textField2.setStyle("-fx-border-color: inherit");
-
-        if (textField3.getText().isEmpty()) {
-            textField3.setStyle("-fx-border-color: #e74c3c;");
-        } else textField3.setStyle("-fx-border-color: inherit");
-
-        if (textField4.getText().isEmpty()) {
-            textField4.setStyle("-fx-border-color: #e74c3c;");
-        } else textField4.setStyle("-fx-border-color: inherit");
-
-        if (textField5.getText().isEmpty()) {
-            textField5.setStyle("-fx-border-color: #e74c3c;");
-        } else textField5.setStyle("-fx-border-color: inherit");
-
-        if (textField6.getText().isEmpty()) {
-            textField6.setStyle("-fx-border-color: #e74c3c;");
-        } else textField6.setStyle("-fx-border-color: inherit");
-
+        handleTextFieldEmpty(textField1);
+        handleTextFieldEmpty(textField2);
+        handleTextFieldEmpty(textField3);
+        handleTextFieldEmpty(textField4);
+        handleTextFieldEmpty(textField5);
+        handleTextFieldEmpty(textField6);
 
         if (!allTextFieldsAreFilled(textField1, textField2, textField3, textField4, textField5, textField6)) {
             errorLabel.setText("Fyll alla fält!");

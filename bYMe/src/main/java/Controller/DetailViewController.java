@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -460,6 +461,15 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         return false;
     }
 
+
+    private void setVisible(Node node, Node node2, Node node3, Node node4, Node node5, boolean value){
+        node.setVisible(value);
+        node2.setVisible(value);
+        node3.setVisible(value);
+        node4.setVisible(value);
+        node5.setVisible(value);
+    }
+
     /**
      * Method which enables visibility for an ads TextFields and at the same time disables visibility for the Labels.
      * It also sets the text for all TextFields so they get the current data.
@@ -471,11 +481,9 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         adDescription.setVisible(false);
         adPrice.setVisible(false);
 
-        tag1Label.setVisible(false);
-        tag2Label.setVisible(false);
-        tag3Label.setVisible(false);
-        tag4Label.setVisible(false);
-        tag5Label.setVisible(false);
+
+        setVisible(tag1Label,tag2Label,tag3Label,tag4Label,tag5Label, false);
+
 
 
         adTitleTextField.setVisible(true);
@@ -483,11 +491,9 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         adDescriptionTextField.setVisible(true);
         adPriceTextField.setVisible(true);
 
-        tag1TextField.setVisible(true);
-        tag2TextField.setVisible(true);
-        tag3TextField.setVisible(true);
-        tag4TextField.setVisible(true);
-        tag5TextField.setVisible(true);
+        setVisible(tag1TextField,tag2TextField,tag3TextField,tag4TextField,tag5TextField, true);
+
+
 
         adTitleTextField.setText(adTitle.getText());
         adLocationComboBox.getSelectionModel().select(adLocation.getText());
@@ -515,22 +521,18 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         adPrice.setVisible(true);
         tag1Label.setVisible(true);
 
-        tag1Label.setVisible(true);
-        tag2Label.setVisible(true);
-        tag3Label.setVisible(true);
-        tag4Label.setVisible(true);
-        tag5Label.setVisible(true);
+
+        setVisible(tag1Label,tag2Label,tag3Label,tag4Label,tag5Label, true);
+
 
         adTitleTextField.setVisible(false);
         adLocationComboBox.setVisible(false);
         adDescriptionTextField.setVisible(false);
         adPriceTextField.setVisible(false);
 
-        tag1TextField.setVisible(false);
-        tag2TextField.setVisible(false);
-        tag3TextField.setVisible(false);
-        tag4TextField.setVisible(false);
-        tag5TextField.setVisible(false);
+
+        setVisible(tag1TextField,tag2TextField,tag3TextField,tag4TextField,tag5TextField, false);
+
 
     }
 
