@@ -6,7 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AdTest {
 
-    Ad testad = new Ad("Title1", 10, "Description", "Chalmers", "idtest", null);
+
+    Ad testad = new Ad("Title1", 10, "Description", "Chalmers", "idtest", "user");
 
     @Test
     void getTitle() {

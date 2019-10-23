@@ -39,6 +39,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     private AdCreatorController adController;
     private DetailViewController detailViewController;
 
+
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
     private Search search = new Search();
     private ArrayList<String> tags = new ArrayList<>();
@@ -67,6 +68,16 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
+    void searchTags(String tagName){
+
+        search.setActiveTag(tagName);
+
+        adsListFlowPane.getChildren().clear();
+
+        for(Ad ad: search.findAds(tagName, byme.getAds())){
+            adsListFlowPane.getChildren().add(adItems.get(ad.getAdId()));
+        }
+    }
 
     @FXML
     public void togglePanel() {
@@ -189,7 +200,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
             tagsFlowPane.getChildren().clear();
             ArrayList<String> sortedTags = sortTags();
             for (int i = 0; i < sortedTags.size(); i += 2) {
-                tagsFlowPane.getChildren().add(new tagItem(sortedTags.get(i), Integer.valueOf(sortedTags.get(i + 1))));
+                tagsFlowPane.getChildren().add(new tagItem(sortedTags.get(i), Integer.valueOf(sortedTags.get(i + 1)), this));
             }
         }
 
