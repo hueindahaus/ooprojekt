@@ -61,10 +61,10 @@ public class RequestItem extends AnchorPane {
         }
 
         this.request = request;
-
+        reviewPane.setVisible(false);
         requestAd.setText(request.getAd());
         requestMessage.setText(request.getMessage());
-        requestSender.setText("From: " + request.getSender());
+        requestSender.setText("From: " + request.getSender()+" ("+byme.getCurrentUser().getAverageRating()+")");
         requestDate.setText(request.getDateString());
         requestReceiver.setText("To: " + request.getReceiver());
 

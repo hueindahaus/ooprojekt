@@ -219,6 +219,10 @@ public class Byme {
         accounts.get(username).addRating(rating);
     }
 
+    public double getAccountRating(String username){
+        return accounts.get(username).getAverageRating();
+    }
+
     public String getLastAddedAdId(){
         Ad lastAdded = null;
         for(Ad ad: ads.values()){
