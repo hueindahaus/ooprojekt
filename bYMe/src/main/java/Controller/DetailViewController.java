@@ -21,11 +21,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import static java.lang.Math.abs;
 
 
 public class DetailViewController extends AnchorPane implements ImageViewUpdater{
@@ -129,8 +133,9 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
     Timeline closeRequestPrompt;
 
-
     Ad ad;
+
+    int index;
 
 
     public DetailViewController(DetailViewToggler detailViewToggler) {
@@ -298,7 +303,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
     public void updateImageViews(){
         if(pictureChanger.getImages().size() > 0){
-            image1.setImage(SwingFXUtils.toFXImage(pictureChanger.getImages().get(0), null));
+            image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(pictureChanger.getImages().get(0), null)));
         } else {
             try {
                 image1.setImage(SwingFXUtils.toFXImage(ImageIO.read(new File("src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "images" + File.separatorChar + "insert_photo.png")), null));
@@ -447,6 +452,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
      * owns that specific ad.
      */
     void showUserButtons() {
+        index = 0;
         if (isUsersAd()) {
             deleteButton.setVisible(true);
             editButton.setVisible(true);
@@ -559,6 +565,24 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         greyZone.setDisable(false);
         greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
         pictureChanger.setVisible(false);
+    }
+
+    @FXML
+    void nextImage(){
+        ArrayList<BufferedImage> images = pictureChanger.getImages();
+        if(images.size() > 0) {
+            index++;
+            image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(images.get(abs(index) % images.size()), null)));
+        }
+    }
+
+    @FXML
+    void prevImage(){
+        ArrayList<BufferedImage> images = pictureChanger.getImages();
+        if(pictureChanger.getImages().size() > 0) {
+            index--;
+            image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(images.get(abs(index) % images.size()), null)));
+        }
     }
 
 
