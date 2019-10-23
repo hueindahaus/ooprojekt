@@ -103,14 +103,19 @@ public class RequestItem extends AnchorPane {
     @FXML
     private ImageView star5;
 
+    
+    private Image yellowStar = new Image("File:"+"src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "images" + File.separatorChar + "star.png");
+    private Image hollowStar = new Image("File:"+"src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "images" + File.separatorChar + "hollowStar.png");
 
-    Image yellowStar = new Image("File:"+"src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "images" + File.separatorChar + "star.png");
-    Image hollowStar = new Image("File:"+"src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "images" + File.separatorChar + "hollowStar.png");
 
+    /**
+     * Sets the right amount yellowStar images in response to the current star the user is hovering.
+     **/
     @FXML
     private void toggleStar1Enter(){
         star1.setImage(yellowStar);
     }
+
     @FXML
     private void toggleStar2Enter(){
         star1.setImage(yellowStar);
@@ -137,6 +142,9 @@ public class RequestItem extends AnchorPane {
         star4.setImage(yellowStar);
         star5.setImage(yellowStar);
     }
+    /**
+     * Sets all rating stars to hollowStar image when the user stops hovering a rating star.
+     **/
     @FXML
     private void toggleStarExit(){
         star1.setImage(hollowStar);
@@ -154,6 +162,9 @@ public class RequestItem extends AnchorPane {
             reviewPane.setVisible(true);
         }
     }
+    /**
+     * Sends a rating from 1-5 to the accounts rating system
+     **/
     @FXML
     private void reviewAd(){
         reviewPaneToggle();
@@ -189,19 +200,26 @@ public class RequestItem extends AnchorPane {
         removeRequest();
     }
 
+    /**
+     * If a user accepts a request then the request item changes color to a green color
+     **/
     @FXML
     private void acceptRequest(){
         request.setState(RequestState.ACCEPTED);
         requestAnchorPane.setStyle("-fx-background-color: greenyellow");
 
     }
-
+    /**
+     * If a user declines a request then the request item changes color to a red color
+     **/
     @FXML
     private void declineRequest(){
         request.setState(RequestState.DECLINED);
         requestAnchorPane.setStyle("-fx-background-color: IndianRed");
     }
-
+    /**
+     * Removes a request item from the request item ArrayList
+     **/
     @FXML
     private void removeRequest(){
         byme.removeRequest(request);
