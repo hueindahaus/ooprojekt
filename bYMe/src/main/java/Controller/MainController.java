@@ -46,6 +46,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     private ArrayList<String> tags = new ArrayList<>();
     private HashMap<String, AdItem> adItems = new HashMap<>();
 
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loginController = new LoginController(this, this);
@@ -71,14 +72,24 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     void searchTags(String tagName){
 
-        search.setActiveTag(tagName);
-
+        search.setNewActiveTag(tagName);
         adsListFlowPane.getChildren().clear();
 
-        for(Ad ad: search.findAds(tagName, byme.getAds())){
-            adsListFlowPane.getChildren().add(adItems.get(ad.getAdId()));
+        if(!search.getActiveTag().equals(search.getNewActiveTag())){
+            search.setActiveTag(search.getNewActiveTag());
+            for (Ad ad : search.findAds(tagName, byme.getAds())) {
+                adsListFlowPane.getChildren().add(adItems.get(ad.getAdId()));
+                populateTags();
         }
+            }
+            else {
+                search.setActiveTag("");
+                populateAds();
+        }
+
     }
+
+
 
     @FXML
     public void togglePanel() {
@@ -200,8 +211,11 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         public void populateTags() {
             tagsFlowPane.getChildren().clear();
             ArrayList<String> sortedTags = sortTags();
+            boolean isActive = false;
             for (int i = 0; i < sortedTags.size(); i += 2) {
-                tagsFlowPane.getChildren().add(new tagItem(sortedTags.get(i), Integer.valueOf(sortedTags.get(i + 1)), this));
+                String currentTag = sortedTags.get(i);
+
+                tagsFlowPane.getChildren().add(new tagItem(sortedTags.get(i), Integer.valueOf(sortedTags.get(i + 1)), currentTag.equals(search.getActiveTag()), this));
             }
         }
 
