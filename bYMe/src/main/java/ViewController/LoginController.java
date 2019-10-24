@@ -77,7 +77,7 @@ public class LoginController extends SidePanelController{
 
         ErrorMessageController.handleRegisterErrors(signUpUsername,signUpPassword,signUpPassword2,errorLabelRegister,bYMe.isAlreadyRegistered(signUpUsername.getText()));
 
-        if(!bYMe.isAlreadyRegistered(signUpUsername.getText()) && isAllTextFieldsFilled() && signUpPassword.getText().equals(signUpPassword2.getText())) {
+        if(!bYMe.isAlreadyRegistered(username) && isAllTextFieldsFilled() && password.equals(verifyPassword)) {
             bYMe.registerAccount(username, password);
             bYMe.loginUser(username, password);
             toggleRegisterBox();
@@ -92,12 +92,14 @@ public class LoginController extends SidePanelController{
     }
 
 
+    @Override
     void setGreyZoneDisable(boolean value){
         greyZone.setDisable(value);
     }
 
 
-    @FXML public void toggleRegisterBox(){
+    @FXML
+    private void toggleRegisterBox(){
         if(registerBox.isVisible()){
             registerBox.setVisible(false);
         } else {

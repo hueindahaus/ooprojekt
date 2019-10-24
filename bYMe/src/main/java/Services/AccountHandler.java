@@ -8,9 +8,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.util.HashMap;
+import java.util.Map;
 
-public class AccountHandler implements IAccountHandler {
+public final class AccountHandler implements IAccountHandler {
     private static AccountHandler singleton = null;
 
 
@@ -34,7 +34,8 @@ public class AccountHandler implements IAccountHandler {
     }   //För att denna path:en ska fungera måste man importa projektet som mappen "Byme"
 
 
-    public void loadAccounts(HashMap<String, Account> accounts){
+    @Override
+    public void loadAccounts(Map<String, Account> accounts){
         JSONParser parser = new JSONParser();
 
         try{
@@ -56,7 +57,8 @@ public class AccountHandler implements IAccountHandler {
         }
     }
 
-    public void saveAccounts(HashMap<String,Account> accounts){
+    @Override
+    public void saveAccounts(Map<String,Account> accounts){
         JSONArray jsonList = new JSONArray();
 
 

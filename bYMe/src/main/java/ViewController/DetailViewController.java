@@ -6,17 +6,13 @@ import Services.PictureHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
@@ -27,6 +23,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Math.abs;
 
@@ -45,86 +42,124 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
 
     @FXML
+    private
     Button deleteButton;
     @FXML
+    private
     Button editButton;
     @FXML
+    private
     Button saveButton;
     @FXML
+    private
     Label adTitle;
     @FXML
+    private
     Label adLocation;
     @FXML
+    private
     Label adDescription;
     @FXML
+    private
     Label adUser;
     @FXML
+    private
     Label adPrice;
     @FXML
+    private
     Label userRating;
 
 
     @FXML
+    private
     TextField adTitleTextField;
     @FXML
+    private
     ComboBox adLocationComboBox;
     @FXML
+    private
     TextField adDescriptionTextField;
     @FXML
+    private
     TextField adUserTextField;
     @FXML
+    private
     TextField adPriceTextField;
     @FXML
+    private
     Label errorLabel;
 
     @FXML
+    private
     Label tag1Label;
     @FXML
+    private
     Label tag2Label;
     @FXML
+    private
     Label tag3Label;
     @FXML
+    private
     Label tag4Label;
     @FXML
+    private
     Label tag5Label;
 
     @FXML
+    private
     TextField tag1TextField;
     @FXML
+    private
     TextField tag2TextField;
     @FXML
+    private
     TextField tag3TextField;
     @FXML
+    private
     TextField tag4TextField;
     @FXML
+    private
     TextField tag5TextField;
 
 
     @FXML
+    private
     AnchorPane greyZone;
     @FXML
+    private
     AnchorPane confirmPane;
     @FXML
+    private
     AnchorPane requestPane;
     @FXML
+    private
     AnchorPane greyZone2;
     @FXML
+    private
     ImageView image1;
     @FXML
+    private
     TextField messageContent;
     @FXML
+    private
     DatePicker requestDate;
     @FXML
+    private
     TextField requestHour;
     @FXML
+    private
     TextField requestMinute;
     @FXML
+    private
     Button requestButton;
     @FXML
+    private
     Label errorLabelRequest;
     @FXML
+    private
     Button buttonNextImage;
     @FXML
+    private
     Button buttonPrevImage;
 
     private Timeline showPrompt;
@@ -176,12 +211,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         pictureChangeButton.setLayoutX(400);
         pictureChangeButton.setLayoutY(400);
         pictureChangeButton.getStyleClass().add("saveImageButton");
-        pictureChangeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                closePictureChangePanel();
-            }
-        });
+        pictureChangeButton.setOnMouseClicked(event -> closePictureChangePanel());
         pictureChanger.getChildren().add(pictureChangeButton);
         this.getChildren().add(pictureChanger);
 
@@ -192,19 +222,17 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
         adLocationComboBox.getItems().addAll("Västra Götaland", "Stockholm", "Skåne", "Jönköping", "Bergsjön");
 
-        adPriceTextField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    adPriceTextField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+        adPriceTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                adPriceTextField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
 
-                if (newValue.length() > 0 && newValue.charAt(0) == '0') {
-                    adPriceTextField.setText(oldValue);
-                }
+            if (newValue.length() > 0 && newValue.charAt(0) == '0') {
+                adPriceTextField.setText(oldValue);
             }
         });
         requestDate.setDayCellFactory(picker -> new DateCell() {
+            @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
                 LocalDate today = LocalDate.now();
@@ -229,8 +257,8 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
             adPrice.setText(String.valueOf(ad.getPrice()));
 
 
-            if (!(ad.getTagsList().size() == 0)) {
-                ArrayList<String> tags = ad.getTagsList();
+            if (!ad.getTagsList().isEmpty()) {
+                List<String> tags = ad.getTagsList();
                 tag1Label.setText(tags.get(0));
                 tag2Label.setText(tags.get(1));
                 tag3Label.setText(tags.get(2));
@@ -302,7 +330,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         sendRequestClosePrompt();
     }
 
-
+    @Override
     public void updateImageViews(){
         if(pictureChanger.getImages().size() > 0){
             image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(pictureChanger.getImages().get(0), null)));
@@ -334,43 +362,20 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
     private void setEnablePictureChange(boolean enable) {
         if (enable) {
-            image1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    openPictureChangePanel();
-                }
-            });
+            image1.setOnMouseClicked(event -> openPictureChangePanel());
 
-            image1.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    image1.setEffect(pictureChanger.pictureEffect);
-                }
-            });
+            image1.setOnMouseEntered(event -> image1.setEffect(pictureChanger.pictureEffect));
 
-            image1.setOnMouseExited(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    image1.setEffect(null);
-                }
-            });
+            image1.setOnMouseExited(event -> image1.setEffect(null));
 
             image1.setCursor(Cursor.HAND);
         } else {
-            image1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    //do nothing
-                }
+            image1.setOnMouseClicked(event -> {
+                //do nothing
             });
 
 
-            image1.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    image1.setEffect(null);
-                }
-            });
+            image1.setOnMouseEntered(event -> image1.setEffect(null));
 
 
             image1.setCursor(Cursor.DEFAULT);
@@ -435,9 +440,9 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         return (!adTitleTextField.getText().isEmpty() && !adDescriptionTextField.getText().isEmpty() && (adLocationComboBox.getSelectionModel().getSelectedItem() != null) && !adPriceTextField.getText().isEmpty());
     }
 
-    private ArrayList<String> getTagsText() {
+    private List<String> getTagsText() {
 
-        ArrayList<String> tempList = new ArrayList<>();
+        List<String> tempList = new ArrayList<>();
         tempList.add(tag1TextField.getText());
         tempList.add(tag2TextField.getText());
         tempList.add(tag3TextField.getText());
@@ -569,8 +574,8 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
     @FXML
     void nextImage(){
-        ArrayList<BufferedImage> images = pictureHandler.getAdPictures(ad.getAdId());
-        if(images.size() > 0) {
+        List<BufferedImage> images = pictureHandler.getAdPictures(ad.getAdId());
+        if(!images.isEmpty()) {
             index++;
             image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(images.get(abs(index) % images.size()), null)));
         }
@@ -578,8 +583,8 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
     @FXML
     void prevImage(){
-        ArrayList<BufferedImage> images = pictureHandler.getAdPictures(ad.getAdId());
-        if(pictureChanger.getImages().size() > 0) {
+        List<BufferedImage> images = pictureHandler.getAdPictures(ad.getAdId());
+        if(!pictureChanger.getImages().isEmpty()) {
             index--;
             image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(images.get(abs(index) % images.size()), null)));
         }

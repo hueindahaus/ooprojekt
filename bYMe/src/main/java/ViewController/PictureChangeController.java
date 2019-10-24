@@ -1,8 +1,6 @@
 package ViewController;
 
 import Services.PictureHandler;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,24 +16,30 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 class PictureChangeController extends AnchorPane {
 
 
     @FXML
+    private
     ImageView imageChanger1;
     @FXML
+    private
     ImageView imageChanger2;
     @FXML
+    private
     ImageView imageChanger3;
     @FXML
+    private
     ImageView imageChanger4;
     @FXML
+    private
     ImageView imageChanger5;
 
     ColorAdjust pictureEffect = new ColorAdjust();
 
-    private ArrayList<BufferedImage> images = new ArrayList<>();
+    private List<BufferedImage> images = new ArrayList<>();
 
     private PictureHandler pictureHandler = PictureHandler.getInstance();
 
@@ -87,7 +91,7 @@ class PictureChangeController extends AnchorPane {
     }
 
 
-    private void setImageIfPossible(ImageView imageView, int num, ArrayList<BufferedImage> list){
+    private void setImageIfPossible(ImageView imageView, int num, List<BufferedImage> list){
         if(list.size() > num){
             imageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(list.get(num),null)));
         }
@@ -147,23 +151,20 @@ class PictureChangeController extends AnchorPane {
 
 
     private void setHoverEffectOnImageView(ImageView imageView){
-        imageView.hoverProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(newValue){
-                    imageView.setEffect(pictureEffect);
-                } else {
-                    imageView.setEffect(null);
-                }
+        imageView.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                imageView.setEffect(pictureEffect);
+            } else {
+                imageView.setEffect(null);
             }
         });
     }
 
-    ArrayList<BufferedImage> getImages(){
+    List<BufferedImage> getImages(){
         return images;
     }
 
-    void setImages(ArrayList<BufferedImage> images){
+    void setImages(List<BufferedImage> images){
         this.images = images;
     }
 

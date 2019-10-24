@@ -1,9 +1,9 @@
 package Model;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface IAccountHandler {      //utnyttjar dependency-injection pattern för att kunna read:a/write:a lagring
 
-    void loadAccounts(HashMap<String, Account> accounts);
-    void saveAccounts(HashMap<String, Account> accounts);
+    void loadAccounts(Map<String, Account> accounts);
+    void saveAccounts(Map<String, Account> accounts);
 }

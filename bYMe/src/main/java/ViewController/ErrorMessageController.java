@@ -13,7 +13,9 @@ import javafx.scene.control.TextField;
 import java.util.ArrayList;
 import java.util.List;
 
-class ErrorMessageController {
+final class ErrorMessageController {
+
+    private ErrorMessageController(){}
 
     private static void handleTextFieldEmptyError(TextField textField1, TextField textField2, TextField textField3, Label errorLabel) {
 
@@ -24,10 +26,12 @@ class ErrorMessageController {
         for (TextField textfield : textfields) {
             if (textfield.getText().isEmpty()) {
                 textfield.setStyle("-fx-border-color: #e74c3c;");
-            } else textfield.setStyle("-fx-border-color: inherit");
+            } else {
+                textfield.setStyle("-fx-border-color: inherit");
+            }
         }
 
-        if (!allTextFieldsAreFilled(textField1, textField2, textField3)) {
+        if (allTextFieldsAreNotFilled(textField1, textField2, textField3)) {
             errorLabel.setText("Fyll alla fält!");
         }
 
@@ -45,7 +49,7 @@ class ErrorMessageController {
 
     private static void handlePasswordDontMatchError(TextField password1, TextField password2, Label errorLabel) {
 
-        if (!passwordsAreEqual(password1, password2)) {
+        if (passwordsAreNotEqual(password1, password2)) {
             password2.setStyle("-fx-border-color: #e74c3c;");
             errorLabel.setText("Lösenorden matchar ej!");
         }
@@ -109,36 +113,31 @@ class ErrorMessageController {
     static void handleRegisterErrors(TextField username, TextField password, TextField password2, Label errorLabel, boolean userAlreadyExist) {
         resetTextFields(username, password, password2, errorLabel);
 
-        if (!allTextFieldsAreFilled(username, password, password2)) {
+        if (allTextFieldsAreNotFilled(username, password, password2)) {
             handleTextFieldEmptyError(username, password, password2, errorLabel);
         } else if (userAlreadyExist) {
-            handleUserAlreadyExistError(userAlreadyExist, username, errorLabel);
-        } else if (!passwordsAreEqual(password, password2)) {
+            handleUserAlreadyExistError(true, username, errorLabel);
+        } else if (passwordsAreNotEqual(password, password2)) {
             handlePasswordDontMatchError(password, password2, errorLabel);
         }
 
     }
 
 
-    private static boolean passwordsAreEqual(TextField password1, TextField password2) {
-        return password1.getText().equals(password2.getText());
+    private static boolean passwordsAreNotEqual(TextField password1, TextField password2) {
+        return !password1.getText().equals(password2.getText());
     }
 
-    private static boolean allFieldsAreFilled(TextField t1, TextField t2, TextField t3, ComboBox c1) {
-        return !t1.getText().isEmpty() && !t2.getText().isEmpty() && !t3.getText().isEmpty() && !(c1.getSelectionModel().getSelectedItem() == null);
+    private static boolean allFieldsAreNotFilled(TextField t1, TextField t2, TextField t3, ComboBox c1) {
+        return t1.getText().isEmpty() || t2.getText().isEmpty() || t3.getText().isEmpty() || c1.getSelectionModel().getSelectedItem() == null;
     }
 
-    private static boolean allTextFieldsAreFilled(TextField t1, TextField t2, TextField t3) {
-        return !t1.getText().isEmpty() && !t2.getText().isEmpty() && !t3.getText().isEmpty();
+    private static boolean allTextFieldsAreNotFilled(TextField t1, TextField t2, TextField t3) {
+        return t1.getText().isEmpty() || t2.getText().isEmpty() || t3.getText().isEmpty();
     }
 
-    private static boolean allTextFieldsAreFilled(TextField t1, TextField t2) {
-        return !t1.getText().isEmpty() && !t2.getText().isEmpty();
-    }
-
-
-    private static boolean allTextFieldsAreFilled(TextField t1, TextField t2, TextField t3, TextField t4, TextField t5, TextField t6) {
-        return !t1.getText().isEmpty() && !t2.getText().isEmpty() && !t3.getText().isEmpty() && !t4.getText().isEmpty() && !t5.getText().isEmpty() && !t6.getText().isEmpty();
+    private static boolean allTextFieldsAreNotFilled(TextField t1, TextField t2) {
+        return t1.getText().isEmpty() || t2.getText().isEmpty();
     }
 
     /**
@@ -156,10 +155,10 @@ class ErrorMessageController {
     static void handleLoginErrors(TextField username, TextField password, Label errorLabel, boolean usernameAndPasswordMatch) {
         resetTextFields(username, password, errorLabel);
 
-        if (!allTextFieldsAreFilled(username, password)) {
+        if (allTextFieldsAreNotFilled(username, password)) {
             handleTextFieldEmptyError(username, password, errorLabel);
         } else if (!usernameAndPasswordMatch) {
-            handleWrongUsernameOrPasswordError(usernameAndPasswordMatch, username, password, errorLabel);
+            handleWrongUsernameOrPasswordError(false, username, password, errorLabel);
         }
     }
     /**
@@ -191,7 +190,7 @@ class ErrorMessageController {
      */
     static void handleAdCreationErrors(TextField title, TextField price, ComboBox location, TextField description, Label errorLabel) {
         resetTextFields(title, price, description, location, errorLabel);
-        if (!allFieldsAreFilled(title, price, description, location)) {
+        if (allFieldsAreNotFilled(title, price, description, location)) {
             handleTextFieldsEmptyErrorAdCreation(title, price, description, location, errorLabel);
         }
     }
@@ -208,13 +207,13 @@ class ErrorMessageController {
      */
     static void handleRequestErrors(TextField hour, TextField minute,TextField description,DatePicker datePicker,Label errorLabel){
         resetDatepickerandTextFields(hour,minute,description,datePicker,errorLabel);
-        if (!allTextFieldsAreFilledandDatepicker(hour,minute,description,datePicker)){
+        if (allTextFieldsAreFilledandDatepicker(hour,minute,description,datePicker)){
             handleTextFieldsEmptyErrorRequest(hour,minute,description,datePicker, errorLabel);
         }
     }
 
     private static boolean allTextFieldsAreFilledandDatepicker(TextField hour, TextField minute, TextField description, DatePicker datePicker) {
-   return !hour.getText().isEmpty() && !minute.getText().isEmpty() && !description.getText().isEmpty() && !(datePicker.getValue() == null);
+   return hour.getText().isEmpty() && minute.getText().isEmpty() && description.getText().isEmpty() && (datePicker.getValue() == null);
     }
 
     /**
@@ -225,7 +224,9 @@ class ErrorMessageController {
     private static void handleTextFieldEmpty(TextField textField){
         if (textField.getText().isEmpty()) {
             textField.setStyle("-fx-border-color: #e74c3c;");
-        } else textField.setStyle("-fx-border-color: inherit");
+        } else {
+            textField.setStyle("-fx-border-color: inherit");
+        }
     }
 
     /**
@@ -236,7 +237,9 @@ class ErrorMessageController {
     private static void handleComboBoxEmpty(ComboBox comboBox){
         if (comboBox.getSelectionModel().getSelectedItem() == null) {
             comboBox.setStyle("-fx-border-color: #e74c3c;");
-        } else comboBox.setStyle("-fx-border-color: inherit");
+        } else {
+            comboBox.setStyle("-fx-border-color: inherit");
+        }
     }
     /**
      * When the datepicker is empty it will change color to red
@@ -246,7 +249,9 @@ class ErrorMessageController {
     private static void handleDatepickerEmpty(DatePicker datePicker){
         if (datePicker.getValue() == null) {
             datePicker.setStyle("-fx-border-color: #e74c3c;");
-        } else datePicker.setStyle("-fx-border-color: inherit");
+        } else {
+            datePicker.setStyle("-fx-border-color: inherit");
+        }
     }
 
     private static void handleTextFieldEmptyError(TextField textField1, TextField textField2, Label errorLabel) {
@@ -254,7 +259,7 @@ class ErrorMessageController {
         handleTextFieldEmpty(textField1);
         handleTextFieldEmpty(textField2);
 
-        if (!allTextFieldsAreFilled(textField1, textField2)) {
+        if (allTextFieldsAreNotFilled(textField1, textField2)) {
             errorLabel.setText("Fyll alla fält!");
         }
 
@@ -269,7 +274,7 @@ class ErrorMessageController {
 
 
 
-        if (!allFieldsAreFilled(textField1, textField2, textField3, comboBox)) {
+        if (allFieldsAreNotFilled(textField1, textField2, textField3, comboBox)) {
             errorLabel.setText("Fyll alla fält!");
         }
 
@@ -283,7 +288,7 @@ class ErrorMessageController {
         handleTextFieldEmpty(textField2);
         handleTextFieldEmpty(textField3);
         handleDatepickerEmpty(datePicker);
-        if (!allTextFieldsAreFilled(textField1,textField2 )) {
+        if (allTextFieldsAreNotFilled(textField1, textField2)) {
             errorLabel.setText("Fyll alla fält!");
         }
     }

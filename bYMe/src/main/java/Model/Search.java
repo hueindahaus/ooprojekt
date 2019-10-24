@@ -2,41 +2,40 @@ package Model;
 
 import java.util.*;
 
-public class Search {
+public final class Search {
 
+    private Search(){}
 
-    private String activeTag = "";
-    private String newActiveTag = "";
+    private static String activeTag = "";
+    private static String newActiveTag = "";
 
-    public ArrayList<Ad> findAds(String input, HashMap<String, Ad> ads) {
-        ArrayList<Ad> result = new ArrayList();
-        String inputArray[] = input.toLowerCase().split(" ");
-        Iterator iterator = ads.entrySet().iterator();
+    public static List<Ad> findAds(String input, Map<String, Ad> ads) {
+        List<Ad> result = new ArrayList();
+        String[] inputArray = input.toLowerCase(Locale.ENGLISH).split(" ");
 
-        while(iterator.hasNext()) {
-            Map.Entry account = (Map.Entry) iterator.next();
-            Ad ad = (Ad) account.getValue();
-            String adName = ad.getTitle().toLowerCase();
-            String adDesc = ad.getDescription().toLowerCase();
-            String adUser = ad.getAccount().toLowerCase();
-            ArrayList<String> adTags = tagsToLowerCase(ad.getTagsList());
+        for (Map.Entry<String, Ad> stringAdEntry : ads.entrySet()) {
+            Ad ad = (Ad) ((Map.Entry) stringAdEntry).getValue();
+            String adName = ad.getTitle().toLowerCase(Locale.ENGLISH);
+            String adDesc = ad.getDescription().toLowerCase(Locale.ENGLISH);
+            String adUser = ad.getAccount().toLowerCase(Locale.ENGLISH);
+            List<String> adTags = tagsToLowerCase(ad.getTagsList());
 
             int match = 0;
 
-            for(int i=0; i < inputArray.length; i++) {
-                if(activeTag.equals("")){
-                    if (adName.contains(inputArray[i]) || adDesc.contains(inputArray[i]) || adUser.contains(inputArray[i])
-                            || adTags.contains(inputArray[i])){
+            for (String s : inputArray) {
+                if (activeTag.equals("")) {
+                    if (adName.contains(s) || adDesc.contains(s) || adUser.contains(s)
+                            || adTags.contains(s)) {
                         match++;
                     }
-                } else if (adTags.contains(activeTag)){
-                    if (adName.contains(inputArray[i]) || adDesc.contains(inputArray[i]) || adUser.contains(inputArray[i])
-                            || adTags.contains(inputArray[i])){
+                } else if (adTags.contains(activeTag)) {
+                    if (adName.contains(s) || adDesc.contains(s) || adUser.contains(s)
+                            || adTags.contains(s)) {
                         match++;
                     }
                 }
             }
-            if(match == inputArray.length){
+            if (match == inputArray.length) {
                 result.add(ad);
             }
         }
@@ -44,31 +43,31 @@ public class Search {
     }
 
 
-    public static ArrayList<String> tagsToLowerCase(ArrayList<String> tags)
+    private static List<String> tagsToLowerCase(List<String> tags)
     {
         ListIterator<String> iterator = tags.listIterator();
         while (iterator.hasNext())
         {
-            iterator.set(iterator.next().toLowerCase());
+            iterator.set(iterator.next().toLowerCase(Locale.ENGLISH));
         }
         return tags;
     }
 
 
-    public void setActiveTag(String activeTag){
-        this.activeTag = activeTag;
+    static public void setActiveTag(String activeTag){
+        Search.activeTag = activeTag;
     }
 
-    public String getActiveTag() {
+    static public String getActiveTag() {
         return activeTag;
     }
 
-    public String getNewActiveTag() {
+    static public String getNewActiveTag() {
         return newActiveTag;
     }
 
-    public void setNewActiveTag(String newActiveTag) {
-        this.newActiveTag = newActiveTag;
+    static public void setNewActiveTag(String newActiveTag) {
+        Search.newActiveTag = newActiveTag;
     }
 
 }

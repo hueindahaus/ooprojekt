@@ -26,53 +26,68 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdCreatorController extends AnchorPane {
 
     @FXML
+    private
     AnchorPane createAdBoxFrame;
 
     @FXML
+    private
     AnchorPane greyZone;
     @FXML
+    private
     AnchorPane mouseBlockerPane;
 
     @FXML
+    private
     TextField adTitle;
 
     @FXML
+    private
     TextField adPrice;
     @FXML
+    private
     TextField adDescription;
     @FXML
+    private
     TextField tag1TextField;
     @FXML
+    private
     TextField tag2TextField;
     @FXML
+    private
     TextField tag3TextField;
     @FXML
+    private
     TextField tag4TextField;
     @FXML
+    private
     TextField tag5TextField;
 
     @FXML
+    private
     ComboBox adLocation;
 
     @FXML
+    private
     Label errormessage;
 
-    Timeline hideGreyZone;
+    private Timeline hideGreyZone;
 
-    Timeline showGreyZone;
+    private Timeline showGreyZone;
 
     @FXML
+    private
     ImageView imageView;
 
-    PictureHandler pictureHandler = PictureHandler.getInstance();
+    private PictureHandler pictureHandler = PictureHandler.getInstance();
 
-    PictureChangeController pictureChanger = new PictureChangeController(null);
+    private PictureChangeController pictureChanger = new PictureChangeController(null);
 
-    AdItemsUpdater adItemsUpdater;
+    private AdItemsUpdater adItemsUpdater;
 
 
 
@@ -177,8 +192,8 @@ public class AdCreatorController extends AnchorPane {
     }
 
 
-    ArrayList<String> getTagsTextField() {
-        ArrayList<String> tagsTemp = new ArrayList<>();
+    List<String> getTagsTextField() {
+        List<String> tagsTemp = new ArrayList<>();
         tagsTemp.add(tag1TextField.getText());
         tagsTemp.add(tag2TextField.getText());
         tagsTemp.add(tag3TextField.getText());
@@ -214,7 +229,7 @@ public class AdCreatorController extends AnchorPane {
 
 
 
-    void closePictureChangePanel(){
+    private void closePictureChangePanel(){
         pictureChanger.setVisible(false);
         greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
         mouseBlockerPane.setVisible(false);

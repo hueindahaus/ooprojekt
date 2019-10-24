@@ -7,9 +7,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class PictureHandler {
+public final class PictureHandler {
 
     private static PictureHandler singleton;
 
@@ -40,22 +41,20 @@ public class PictureHandler {
 
     public BufferedImage getProfilePic(String username){
         try{
-            BufferedImage image = ImageIO.read(new File(getProfilePictureFilePath(username)));
-            return image;
+            return ImageIO.read(new File(getProfilePictureFilePath(username)));
         } catch(IOException expection){
             System.out.println("Could not associate account: " + username + " with a profile picture with path: " + getProfilePictureFilePath(username));
         }
         return null;
     }
 
-    public ArrayList<BufferedImage> getAdPictures(String adId){
+    public List<BufferedImage> getAdPictures(String adId){
         File folder = new File(getAdPictureDirPath(adId));
         ArrayList<BufferedImage> images = new ArrayList<>();
         if(folder.isDirectory() && folder.listFiles().length > 0) {
             for (File file : folder.listFiles()) {
                 try {
-                    BufferedImage image = ImageIO.read(file);
-                    images.add(image);
+                    images.add(ImageIO.read(file));
                 } catch (IOException expection) {
                     System.out.println("Could not associate ad: " + adId + " with a picture with path: " + file.getName());
                 }
@@ -66,7 +65,7 @@ public class PictureHandler {
 
 
     //Saves pictures in new directory(If it does not exists
-    public void saveAdPictures(String adID,ArrayList<BufferedImage> images){
+    public void saveAdPictures(String adID,List<BufferedImage> images){
 
         File theDir = new File(getAdPictureDirPath(adID));
         // if the directory does not exist, create it

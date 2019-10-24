@@ -38,9 +38,9 @@ public class Account {
         this.rating += rating;
         ratingCount ++;
     }
-    public double getAverageRating(){
+    double getAverageRating(){
         if(ratingCount<1) {
-            return (0.0);
+            return 0.0;
         }else{
             return rating/ratingCount;
         }

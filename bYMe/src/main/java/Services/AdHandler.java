@@ -10,13 +10,10 @@ import org.json.simple.parser.ParseException;
 
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 
-public class AdHandler implements IAdHandler {
+public final class AdHandler implements IAdHandler {
 
     private static AdHandler singleton;
 
@@ -38,7 +35,8 @@ public class AdHandler implements IAdHandler {
         return "src" + File.separatorChar + "main" + File.separatorChar  + "java" + File.separatorChar + "Services" + File.separatorChar +"data" + File.separatorChar + "ads.json";
     }
 
-    public void loadAds(HashMap<String, Ad> ads){
+    @Override
+    public void loadAds(Map<String, Ad> ads){
         JSONParser parser = new JSONParser();
 
         try{
@@ -60,7 +58,8 @@ public class AdHandler implements IAdHandler {
         }
     }
 
-    public void saveAds(HashMap<String, Ad> ads){
+    @Override
+    public void saveAds(Map<String, Ad> ads){
         JSONArray jsonList = new JSONArray();
         ArrayList<Request> requests = new ArrayList<>();
 
@@ -97,9 +96,9 @@ public class AdHandler implements IAdHandler {
 
     private Ad parseJSONObject(JSONObject obj){
         Ad ad = new Ad((String)obj.get("title"),Integer.valueOf(String.valueOf(obj.get("price"))),(String)obj.get("description"),(String)obj.get("location"),(String)obj.get("adId"), (String)obj.get("account"));
-        ArrayList<Request> requests = requestHandler.loadRequests(ad.getAdId());
+        List<Request> requests = requestHandler.loadRequests(ad.getAdId());
         ad.setRequests(requests);
-        ad.setTagsList((ArrayList<String>)obj.get("tagsList"));
+        ad.setTagsList((List<String>)obj.get("tagsList"));
         return ad;
     }
 

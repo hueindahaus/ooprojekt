@@ -4,13 +4,11 @@ import Model.Ad;
 import Model.IObserver;
 import Services.PictureHandler;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
@@ -42,12 +40,11 @@ public class AdItem extends AnchorPane implements IObserver{
     @FXML
     private Label tag5Label;
 
-    PictureHandler pictureHandler = PictureHandler.getInstance();
+    private PictureHandler pictureHandler = PictureHandler.getInstance();
 
-    DetailViewToggler detailViewToggler;
     private Ad ad;
 
-    public AdItem(Ad ad, DetailViewToggler detailViewToggler, double rating)  {
+    AdItem(Ad ad, DetailViewToggler detailViewToggler, double rating)  {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXML/ads.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -67,14 +64,7 @@ public class AdItem extends AnchorPane implements IObserver{
         adAccount.setText(ad.getAccount()+" ("+result+")");
 
 
-        this.detailViewToggler = detailViewToggler;
-
-        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                detailViewToggler.toggleDetailView(true, ad);
-            }
-        });
+        this.setOnMouseClicked(event -> detailViewToggler.toggleDetailView(true, ad));
 
         Rectangle clip = new Rectangle(adImage.getFitWidth(), adImage.getFitHeight());
         clip.setArcHeight(20);
@@ -85,11 +75,12 @@ public class AdItem extends AnchorPane implements IObserver{
         updatePicture();
     }
 
+    @Override
     public void update(){
         adTitle.setText(this.ad.getTitle());
         adDescription.setText(this.ad.getDescription());
         adLocation.setText(this.ad.getLocation());
-        adPrice.setText(Integer.toString(this.ad.getPrice()) + " kr");
+        adPrice.setText(this.ad.getPrice() + " kr");
        // setTagLabels();
         updatePicture();
     }

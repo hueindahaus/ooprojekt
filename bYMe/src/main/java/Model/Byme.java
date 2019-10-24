@@ -11,7 +11,7 @@ import java.util.*;
  * @Author Adam Jawad
  */
 
-public class Byme {
+public final class Byme {
 
     private static Byme singleton = null;
 
@@ -40,7 +40,7 @@ public class Byme {
 
     private List<IObserver> observers = new ArrayList<>();
 
-    private HashMap<String, Account> accounts;
+    private Map<String, Account> accounts;
 
     private Account currentUser;
 
@@ -48,14 +48,14 @@ public class Byme {
 
     private IAdHandler adHandler;
 
-    private LinkedHashMap<String,Ad> ads= new LinkedHashMap<>();
+    private Map<String,Ad> ads= new LinkedHashMap<>();
 
     /**
      * Getter for the HashMap with all the ads in the program.
      * @return HashMap with the ads in the program.
      */
 
-    public HashMap<String,Ad> getAds(){
+    public Map<String,Ad> getAds(){
         return ads;
     }
 
@@ -83,7 +83,7 @@ public class Byme {
      * @param tags The list of tags that should be setted in the ad.
      */
 
-    public void editAd(String adID, String title, int price, String description, String location, ArrayList<String> tags){
+    public void editAd(String adID, String title, int price, String description, String location, List<String> tags){
 
         Ad ad = ads.get(adID);
 
@@ -96,7 +96,7 @@ public class Byme {
         notifyObservers();
     }
 
-    private void addTagsToAd(String adID, ArrayList<String> tags){
+    private void addTagsToAd(String adID, List<String> tags){
         Ad ad = ads.get(adID);
         ad.setTagsList(tags);
     }
@@ -219,7 +219,7 @@ public class Byme {
      * @param account Username of the account that creates the ad.
      * @param tags The list of tags that the ad should include
      */
-    public void createAd(String title, String description, int price, String location, String account, ArrayList<String> tags){
+    public void createAd(String title, String description, int price, String location, String account, List<String> tags){
         String adId = generateRandomAdId();
         ads.put(adId,new Ad(title,price,description,location,adId, account));
         addTagsToAd(adId,tags);
@@ -237,7 +237,7 @@ public class Byme {
 
     public void removeRequest(Request request){
         Ad currentAd = ads.get(request.getAd());
-        ArrayList<Request> requests = currentAd.getRequests();
+        List<Request> requests = currentAd.getRequests();
         requests.remove(request);
         currentAd.setRequests(requests);
         notifyObservers();

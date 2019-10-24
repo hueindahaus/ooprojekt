@@ -6,14 +6,11 @@ import Services.PictureHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
-
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -28,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class MenuController extends SidePanelController implements IObserver {
@@ -35,65 +33,80 @@ public class MenuController extends SidePanelController implements IObserver {
     private ThemeSetter themeSetter;
 
     @FXML
+    private
     Button categoryButton;
 
     @FXML
+    private
     ImageView profilePicImageView;
 
     @FXML
+    private
     Label pictureChangeLabel;
 
     @FXML
+    private
     AnchorPane myAdsPanel;
 
     @FXML
+    private
     FlowPane myAdsFlowPane;
 
     @FXML
+    private
     Button myAdsButton;
 
     @FXML
+    private
     AnchorPane myRequestsPanel;
 
     @FXML
+    private
     FlowPane myReceivedRequestsFlowPane;
 
     @FXML
+    private
     FlowPane mySentRequestsFlowPane;
 
     @FXML
+    private
     Button myRequestsButton;
 
-    PictureHandler pictureHandler = PictureHandler.getInstance();
+    private PictureHandler pictureHandler = PictureHandler.getInstance();
 
     @FXML
+    private
     AnchorPane  mySentRequestsAnchorPane;
 
     @FXML
+    private
     AnchorPane myReceivedRequestsAnchorPane;
 
     @FXML
+    private
     Button toggleReceviedButton;
 
     @FXML
+    private
     Button toggleSentButton;
 
     @FXML
+    private
     Label userRating;
 
-    private Timeline showMyAdsPanel = new Timeline();
+    private Timeline showMyAdsPanel;
 
-    private Timeline hideMyAdsPanel = new Timeline();
+    private Timeline hideMyAdsPanel;
 
-    private Timeline showMyRequestsPanel = new Timeline();
+    private Timeline showMyRequestsPanel;
 
-    private Timeline hideMyRequestsPanel = new Timeline();
+    private Timeline hideMyRequestsPanel;
 
     private int panelState = 0;
 
     private Byme byme = Byme.getInstance(null,null);
 
-    private ArrayList<Request> requests = new ArrayList<>();
+    private List<Request> requests = new ArrayList<>();
 
     private DetailViewToggler detailViewToggler;
 
@@ -146,28 +159,28 @@ public class MenuController extends SidePanelController implements IObserver {
         colorAdjust.setBrightness(-0.5);
         colorAdjust.setInput(new BoxBlur());
 
-        profilePicImageView.hoverProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(newValue){
-                    profilePicImageView.setEffect(colorAdjust);
-                    pictureChangeLabel.setVisible(true);
-                } else {
-                    profilePicImageView.setEffect(null);
-                    pictureChangeLabel.setVisible(false);
-                }
+        profilePicImageView.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                profilePicImageView.setEffect(colorAdjust);
+                pictureChangeLabel.setVisible(true);
+            } else {
+                profilePicImageView.setEffect(null);
+                pictureChangeLabel.setVisible(false);
             }
         });
 
     }
-    @FXML AnchorPane menuPanel;
-    @FXML AnchorPane greyZone;
+    @FXML
+    private AnchorPane menuPanel;
+    @FXML
+    private AnchorPane greyZone;
 
     @FXML
+    private
     Label currentUser;
 
 
-
+    @Override
     void setGreyZoneDisable(boolean value){
         greyZone.setDisable(value);
         myAdsButton.setStyle("-fx-background-color: primary");
@@ -230,6 +243,8 @@ public class MenuController extends SidePanelController implements IObserver {
             userRating.setText("Omdömme: "+ result+"("+(int)byme.getAccountRatingCount(byme.getCurrentUsersUsername())+")");
         }
     }
+
+    @Override
     public void update(){
         updateProfilePicImageView();
         displayAccountName();

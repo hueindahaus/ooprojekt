@@ -2,6 +2,7 @@ package Model;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ad{
         private String title;
@@ -10,8 +11,8 @@ public class Ad{
         private String location;
         private final String adId;
         private final String account;
-        private ArrayList<String> tagsList = new ArrayList<>(5);
-        private ArrayList<Request> requests = new ArrayList<>();
+        private List<String> tagsList = new ArrayList<>(5);
+        private List<Request> requests = new ArrayList<>();
 
     public String getTitle(){
             return title;
@@ -46,27 +47,27 @@ public class Ad{
             return account;
         }
 
-        public ArrayList<Request> getRequests() {
+        public List<Request> getRequests() {
         return requests;
     }
 
-        public void setPrice(int price) { this.price = price; }
+        void setPrice(int price) { this.price = price; }
 
-        public void setTitle(String title) { this.title = title; }
+        void setTitle(String title) { this.title = title; }
 
-        public void setDescription(String description) { this.description = description; }
+        void setDescription(String description) { this.description = description; }
 
-        public void setLocation(String location) { this.location = location; }
+        void setLocation(String location) { this.location = location; }
 
-        public ArrayList<String> getTagsList() { return tagsList; }
+        public List<String> getTagsList() { return tagsList; }
 
-        public void setRequests(ArrayList<Request> requests) {
+        public void setRequests(List<Request> requests) {
             this.requests = requests;
         }
 
-        public void setTagsList(ArrayList<String> tagsList) { this.tagsList = tagsList; }
+        public void setTagsList(List<String> tagsList) { this.tagsList = tagsList; }
 
-        public void addRequest(Request request){
+        void addRequest(Request request){
             requests.add(request);
         }
 }
