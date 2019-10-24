@@ -137,7 +137,7 @@ class PictureChangeController extends AnchorPane {
                     images.add(image);
                 }
                 if (imageViewUpdater != null) {
-                    imageViewUpdater.updateImageViews();
+                    imageViewUpdater.updateImageView();
                 }
                 update();
             } catch (IOException exception) {

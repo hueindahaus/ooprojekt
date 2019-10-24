@@ -327,7 +327,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     }
 
     @Override
-    public void updateImageViews() {
+    public void updateImageView() {
         if (pictureChanger.getImages().size() > 0) {
             image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(pictureChanger.getImages().get(0), null)));
         } else {
@@ -563,7 +563,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
     private void closePictureChangePanel() {
         savePictures();
-        updateImageViews();
+        updateImageView();
         greyZone.setDisable(false);
         greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
         pictureChanger.setVisible(false);

@@ -225,7 +225,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
             detailViewController.showUserButtons();
             detailViewController.showLabels();
             detailViewController.loadPictures();
-            detailViewController.updateImageViews();
+            detailViewController.updateImageView();
         } else {
             detailViewController.setVisible(false);
         }
