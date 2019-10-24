@@ -226,8 +226,8 @@ public class MenuController extends SidePanelController implements IObserver {
     }
     private void userRatingDisplay(){
         if(byme.isLoggedIn()){
-            String result = String.format("%.2f", byme.getCurrentUser().getAverageRating());
-            userRating.setText("Omdömme: "+ result+"("+(int)byme.getCurrentUser().getRatingCount()+")");
+            String result = String.format("%.2f", byme.getAccountRating(byme.getCurrentUser().getUsername()));
+            userRating.setText("Omdömme: "+ result+"("+(int)byme.getAccountRatingCount(byme.getCurrentUser().getUsername())+")");
         }
     }
     public void update(){

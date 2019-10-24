@@ -31,8 +31,7 @@ class bYMeTest {
         IAdHandler adHandler = AdHandler.getInstance();
         Byme bYMe = Byme.getInstance(accountHandler, adHandler);
         bYMe.registerAccount("User1", "Password1");
-        assertEquals(bYMe.getAccounts().get("User1").getPassword(), ("Password1"));
-        assertEquals(bYMe.getAccounts().get("User1").getUsername(), ("User1"));
+        assertTrue(bYMe.isAlreadyRegistered("User1"));
 
     }
 
@@ -53,36 +52,10 @@ class bYMeTest {
         Byme bYMe = Byme.getInstance(accountHandler, adHandler);
 
         bYMe.registerAccount("User1", "Password1");
-        bYMe.registerAccount("User1", "Password2"); // User already exist: User1
-        assertEquals(bYMe.getAccounts().get("User1").getPassword(), ("Password1")); // Password has not changed
-        bYMe.registerAccount("User2", "Password1"); // ok
+        assertTrue(bYMe.isAlreadyRegistered("User1"));
     }
 
 
-    @Test
-    void getAccounts() {
-        IAccountHandler accountHandler = new IAccountHandler() {
-            @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
-
-            }
-
-            @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
-
-            }
-        };
-        IAdHandler adHandler = AdHandler.getInstance();
-        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
-        assertEquals(bYMe.getAccounts().size(), 2); //User1 and User2 saved from previous tests (bYMe is singleton).
-        bYMe.registerAccount("User1", "Password1");
-        bYMe.registerAccount("User2", "Password2");
-        bYMe.registerAccount("User3", "Password3");
-
-        assertEquals(bYMe.getAccounts().size(), 3); // 3 accounts registered
-
-
-    }
     @Test
     void userExists(){
         IAccountHandler accountHandler = new IAccountHandler() {
@@ -120,7 +93,7 @@ class bYMeTest {
         bYMe.loginUser("User1", "Password1");
         Ad ad = new Ad("add",4,"ad","GBG","1234","123");
         bYMe.getAds().put(ad.getAdId(),ad);
-        bYMe.sendRequest("User1", "User2", ad,"Hej","12/12/12-12:12");
+        bYMe.sendRequest("User1", "User2", ad,"Hej","12-12-12/12:12");
         bYMe.signoutUser();
         bYMe.loginUser("User2","Password2");
         assertEquals("User1",ad.getRequests().get(0).getSender());

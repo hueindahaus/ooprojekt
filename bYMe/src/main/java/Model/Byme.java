@@ -2,9 +2,34 @@ package Model;
 import java.text.ParseException;
 import java.util.*;
 
+/**
+ * Byme is the aggregate object in the model. It has responsibility for the fundamental logic in the model
+ * (such as adding an ad to a hashmap, editing an ad, deleting an ad, creating an account etc). Is represented as a singleton.
+ * @Author Alexander Huang
+ * @Author Joel Jönsson
+ * @Author Milos Bastajic
+ * @Author Adam Jawad
+ */
+
 public class Byme {
 
     private static Byme singleton = null;
+
+    private Byme(IAccountHandler accountHandler, IAdHandler adHandler){
+        accounts = new HashMap<>();
+        this.accountHandler = accountHandler;
+        this.adHandler = adHandler;
+        accountHandler.loadAccounts(accounts);
+        adHandler.loadAds(ads);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> saveObjects(), "Shutdown-thread"));
+    }
+
+    /**
+     * Singleton pattern offers a getInstance()-method which caps the amount that can be created to 1. Its a static and public method which can be accessed everywhere in the program.
+     * @param accountHandler is the one that handles saving/loading of accounts
+     * @param adHandler is the one that handles saving/loading of ads
+     * @return returns the singleton object.
+     */
 
     public static Byme getInstance(IAccountHandler accountHandler, IAdHandler adHandler){   //argumenten måste vi ha för att Modellen inte ska vara beroende av "services"
         if(singleton == null){
@@ -25,22 +50,19 @@ public class Byme {
 
     private LinkedHashMap<String,Ad> ads= new LinkedHashMap<>();
 
+    /**
+     * Getter for the HashMap with all the ads in the program.
+     * @return HashMap with the ads in the program.
+     */
+
     public HashMap<String,Ad> getAds(){
         return ads;
     }
 
-
-
-    private Byme(IAccountHandler accountHandler, IAdHandler adHandler){
-        accounts = new HashMap<>();
-        this.accountHandler = accountHandler;
-        this.adHandler = adHandler;
-        accountHandler.loadAccounts(accounts);
-        adHandler.loadAds(ads);
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> saveObjects(), "Shutdown-thread"));
-    }
-
-
+    /**
+     * A method which removes an ad from the HashMap with ads.
+     * @param adID The id to the ad that shall be removed.
+     */
     public void removeAd(String adID){
         try {
             ads.remove(adID);
@@ -50,6 +72,16 @@ public class Byme {
             none.getMessage();
         }
     }
+
+    /**
+     * A method which edits an ad from the HashMap with ads.
+     * @param adID The id to the ad that shall be edited.
+     * @param title The title that should be setted in the ad.
+     * @param price The price that should be setted in the ad
+     * @param description The description that should be setted in the ad.
+     * @param location The Location that should be setted in the ad.
+     * @param tags The list of tags that should be setted in the ad.
+     */
 
     public void editAd(String adID, String title, int price, String description, String location, ArrayList<String> tags){
 
@@ -81,8 +113,8 @@ public class Byme {
      * The method adds the account into a hashmap.
      * If the account is already registered the user
      * gets a message telling them about it.
-     * @param username
-     * @param password
+     * @param username The username which is setted for the account to be made.
+     * @param password The password which is setted for the account to be made.
      */
 
     public void registerAccount(String username, String password){
@@ -97,8 +129,8 @@ public class Byme {
     /**
      * This method checks if an account
      * has already been registered.
-     * @param username
-     * @return
+     * @param username The username which either exist or not
+     * @return A boolean that returns true or false based on if an account with the given username exist.
      */
 
     public boolean isAlreadyRegistered(String username){   //metod som kollar om ett användarnamn redan är registrerat eller ej
@@ -115,9 +147,6 @@ public class Byme {
         return currentUser;
     }
 
-    HashMap<String, Account> getAccounts() {
-        return accounts;
-    }
 
 
     /**
@@ -187,6 +216,15 @@ public class Byme {
     }
 
 
+    /**
+     * Method that creates an ad and puts it in the HashMap with ads.
+     * @param title Title of the ad that is created.
+     * @param description Description of the ad that is created.
+     * @param price Price of the ad that is created.
+     * @param location Location of the ad that is created.
+     * @param account Username of the account that creates the ad.
+     * @param tags The list of tags that the ad should include
+     */
     public void createAd(String title, String description, int price, String location, String account, ArrayList<String> tags){
         String adId = generateRandomAdId();
         ads.put(adId,new Ad(title,price,description,location,adId, account));
@@ -224,5 +262,9 @@ public class Byme {
             lastAdded = ad;
         }
         return lastAdded.getAdId();
+    }
+
+    public double getAccountRatingCount(String username) {
+        return accounts.get(username).getRatingCount();
     }
 }

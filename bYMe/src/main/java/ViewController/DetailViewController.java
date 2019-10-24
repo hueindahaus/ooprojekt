@@ -24,7 +24,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -69,7 +68,6 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     TextField adTitleTextField;
     @FXML
     ComboBox adLocationComboBox;
-    ;
     @FXML
     TextField adDescriptionTextField;
     @FXML
