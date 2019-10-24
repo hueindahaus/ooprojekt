@@ -30,3 +30,4 @@ bYMe/src/main/java/Services/data/logins.json
 bYMe/src/main/java/Services/data/requests.json
 bYMe/src/main/java/Services/profile_pics/*.jpg
 bYMe/src/main/java/Services/ad_pictures/*/*.jpg
+bYMe/target/*
