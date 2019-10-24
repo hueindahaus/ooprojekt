@@ -155,7 +155,7 @@ public class Byme {
     public void loginUser(String username, String password){
         if(accounts.containsKey(username)){
             Account user = accounts.get(username);
-            if(user.getPassword().equals(password)){
+            if(user.passwordMatches(password)){
                 currentUser = user;
                 notifyObservers();
                 System.out.println(currentUser.getUsername() + " logged in");
@@ -164,7 +164,7 @@ public class Byme {
     }
 
     public boolean userExist(String username, String password){
-        return accounts.containsKey(username) && accounts.get(username).getPassword().equals(password);
+        return accounts.containsKey(username) && accounts.get(username).passwordMatches(password);
     }
 
     public void signoutUser(){
