@@ -17,7 +17,7 @@ import javafx.scene.layout.FlowPane;
 import java.net.URL;
 import java.util.*;
 
-public class MainController implements Initializable, SidePanelToggler, ThemeSetter, DetailViewToggler, IObserver, AdItemsUpdater {
+public class MainController implements Initializable, SidePanelToggler, ThemeSetter, DetailViewToggler, IObserver, AdItemsUpdater, TagSearcher {
 
     @FXML
     AnchorPane root;
@@ -71,7 +71,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
-    void searchTags(String tagName){
+    public void searchTags(String tagName){
 
         Search.setNewActiveTag(tagName);
         adsListFlowPane.getChildren().clear();
