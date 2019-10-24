@@ -84,7 +84,7 @@ public class RequestItem extends AnchorPane {
                 requestAnchorPane.setStyle("-fx-background-color: IndianRed");
             } else {
                 requestAnchorPane.setStyle("-fx-background-color: Gold");
-                buttonReview.setVisible(true);
+                buttonReview.setVisible(!userIsRecipient);
             }
         }
     }
