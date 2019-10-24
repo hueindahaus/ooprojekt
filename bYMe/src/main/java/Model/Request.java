@@ -55,19 +55,19 @@ public class Request {
     }
 
 
-    public boolean isAccepted(){
+    public boolean isAccepted() {
         return state == RequestState.ACCEPTED;
     }
 
-    public boolean isAcceptedAndDone(){
+    public boolean isAcceptedAndDone() {
         return state == RequestState.ACCEPTEDANDDONE;
     }
 
-    public boolean isPending(){
+    public boolean isPending() {
         return state == RequestState.PENDING;
     }
 
-    public boolean isDeclined(){
+    public boolean isDeclined() {
         return state == RequestState.DECLINED;
     }
 

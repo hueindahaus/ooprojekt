@@ -15,20 +15,21 @@ abstract class SidePanelController extends AnchorPane {
     Timeline hideGreyZone;
     Timeline showGreyZone;
 
-    private boolean panelIsToggled= false;
+    private boolean panelIsToggled = false;
 
-    SidePanelController(String fxmlPath){
+    SidePanelController(String fxmlPath) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-        try{
+        try {
             fxmlLoader.load();
-        } catch(IOException exception){
+        } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
     }
 
-    @FXML void togglePanel(){
+    @FXML
+    void togglePanel() {
         if (panelIsToggled) {
             toggleOffPanel();
         } else {
@@ -36,14 +37,14 @@ abstract class SidePanelController extends AnchorPane {
         }
     }
 
-    void toggleOnPanel(){
+    void toggleOnPanel() {
         showPanel.play();
         showGreyZone.play();
         setGreyZoneDisable(false);
         panelIsToggled = true;
     }
 
-    void toggleOffPanel(){
+    void toggleOffPanel() {
         hidePanel.play();
         hideGreyZone.play();
         setGreyZoneDisable(true);

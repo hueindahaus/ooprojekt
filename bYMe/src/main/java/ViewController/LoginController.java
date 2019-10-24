@@ -13,27 +13,36 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
-public class LoginController extends SidePanelController{
+public class LoginController extends SidePanelController {
 
+    @FXML
+    AnchorPane registerBox;
+    @FXML
+    AnchorPane registerBoxFrame;
+    @FXML
+    TextField signUpUsername;
+    @FXML
+    PasswordField signUpPassword;
+    @FXML
+    PasswordField signUpPassword2;
+    @FXML
+    Label errorLabelRegister;
+    @FXML
+    AnchorPane greyZone;
     private ThemeSetter themeSetter;
-
-    @FXML AnchorPane registerBox;
-    @FXML AnchorPane registerBoxFrame;
-    @FXML TextField signUpUsername;
-    @FXML PasswordField signUpPassword;
-    @FXML PasswordField signUpPassword2;
-    @FXML Label errorLabelRegister;
-    @FXML AnchorPane greyZone;
-    @FXML private TextField logInUsername;
-    @FXML private PasswordField logInPassword;
-    @FXML private AnchorPane logInPanel;
-    @FXML private Label errorLabelLogin;
+    @FXML
+    private TextField logInUsername;
+    @FXML
+    private PasswordField logInPassword;
+    @FXML
+    private AnchorPane logInPanel;
+    @FXML
+    private Label errorLabelLogin;
 
     private SidePanelToggler panelToggler;
+    private Byme bYMe = Byme.getInstance(null, null);
 
-
-
-    LoginController(SidePanelToggler panelToggler, ThemeSetter themeSetter){
+    LoginController(SidePanelToggler panelToggler, ThemeSetter themeSetter) {
         super("FXML/login.fxml");
 
         this.themeSetter = themeSetter;
@@ -67,17 +76,15 @@ public class LoginController extends SidePanelController{
         this.panelToggler = panelToggler;
     }
 
-    private Byme bYMe = Byme.getInstance(null,null);
-
-
-    @FXML void registerUser(){
+    @FXML
+    void registerUser() {
         String username = signUpUsername.getText();
         String password = signUpPassword.getText();
         String verifyPassword = signUpPassword2.getText();
 
-        ErrorMessageController.handleRegisterErrors(signUpUsername,signUpPassword,signUpPassword2,errorLabelRegister,bYMe.isAlreadyRegistered(signUpUsername.getText()));
+        ErrorMessageController.handleRegisterErrors(signUpUsername, signUpPassword, signUpPassword2, errorLabelRegister, bYMe.isAlreadyRegistered(signUpUsername.getText()));
 
-        if(!bYMe.isAlreadyRegistered(username) && isAllTextFieldsFilled() && password.equals(verifyPassword)) {
+        if (!bYMe.isAlreadyRegistered(username) && isAllTextFieldsFilled() && password.equals(verifyPassword)) {
             bYMe.registerAccount(username, password);
             bYMe.loginUser(username, password);
             toggleRegisterBox();
@@ -87,38 +94,40 @@ public class LoginController extends SidePanelController{
 
     }
 
-    private boolean isAllTextFieldsFilled(){
+    private boolean isAllTextFieldsFilled() {
         return !signUpUsername.getText().isEmpty() && !signUpPassword.getText().isEmpty() && !signUpPassword2.getText().isEmpty();
     }
 
 
     @Override
-    void setGreyZoneDisable(boolean value){
+    void setGreyZoneDisable(boolean value) {
         greyZone.setDisable(value);
     }
 
 
     @FXML
-    private void toggleRegisterBox(){
-        if(registerBox.isVisible()){
+    private void toggleRegisterBox() {
+        if (registerBox.isVisible()) {
             registerBox.setVisible(false);
         } else {
             registerBox.setVisible(true);
         }
     }
 
-    @FXML void loginUser(){
+    @FXML
+    void loginUser() {
 
-        ErrorMessageController.handleLoginErrors(logInUsername,logInPassword,errorLabelLogin, bYMe.userExist(logInUsername.getText(),logInPassword.getText()));
+        ErrorMessageController.handleLoginErrors(logInUsername, logInPassword, errorLabelLogin, bYMe.userExist(logInUsername.getText(), logInPassword.getText()));
 
         bYMe.loginUser(logInUsername.getText(), logInPassword.getText());
-        if(bYMe.isLoggedIn()) {
-            ErrorMessageController.resetTextFields(logInUsername,logInPassword,errorLabelLogin);
+        if (bYMe.isLoggedIn()) {
+            ErrorMessageController.resetTextFields(logInUsername, logInPassword, errorLabelLogin);
             panelToggler.togglePanel(true);
         }
     }
 
-    @FXML void changeTheme(){
+    @FXML
+    void changeTheme() {
         themeSetter.changeTheme();
     }
 

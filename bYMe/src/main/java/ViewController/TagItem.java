@@ -16,7 +16,7 @@ class TagItem extends AnchorPane {
 
     private TagSearcher tagSearcher;
 
-    TagItem(String tagName, int tagNo, boolean isActive, TagSearcher tagSearcher){
+    TagItem(String tagName, int tagNo, boolean isActive, TagSearcher tagSearcher) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXML/tags.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -29,13 +29,13 @@ class TagItem extends AnchorPane {
         this.tagNo.setText(tagNo + "st");
         this.tagSearcher = tagSearcher;
 
-        if(isActive){
+        if (isActive) {
             this.setStyle("-fx-background-color: primary-dark");
         }
     }
 
     @FXML
-    void searchTags(){
+    void searchTags() {
         tagSearcher.searchTags(tagName.getText());
     }
 

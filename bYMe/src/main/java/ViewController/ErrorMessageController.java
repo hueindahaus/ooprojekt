@@ -15,7 +15,8 @@ import java.util.List;
 
 final class ErrorMessageController {
 
-    private ErrorMessageController(){}
+    private ErrorMessageController() {
+    }
 
     private static void handleTextFieldEmptyError(TextField textField1, TextField textField2, TextField textField3, Label errorLabel) {
 
@@ -71,7 +72,7 @@ final class ErrorMessageController {
         textField3.setStyle("-fx-border-color: inherit;");
     }
 
-    private static void resetTextFields(TextField textField1,TextField textField2, TextField textField3,TextField textField4, TextField textField5, TextField textField6, Label errorLabel) {
+    private static void resetTextFields(TextField textField1, TextField textField2, TextField textField3, TextField textField4, TextField textField5, TextField textField6, Label errorLabel) {
         errorLabel.setText("");
         textField1.setStyle("-fx-border-color: inherit;");
         textField2.setStyle("-fx-border-color: inherit;");
@@ -104,10 +105,11 @@ final class ErrorMessageController {
      * errormessage telling them that the username is taken.
      * If the two passwords do not match the user will get an
      * errormessage telling them that the passwords do not match.
-     * @param username The textfield username is the textfield where the user types the username they desire for their account.
-     * @param password The textfield password is the textfield where the user types the password they desire for their account.
-     * @param password2 The textfield password2 is the "confirm password" textfield.
-     * @param errorLabel The label errorLabel is the label that the users see at registration when something goes wrong.
+     *
+     * @param username         The textfield username is the textfield where the user types the username they desire for their account.
+     * @param password         The textfield password is the textfield where the user types the password they desire for their account.
+     * @param password2        The textfield password2 is the "confirm password" textfield.
+     * @param errorLabel       The label errorLabel is the label that the users see at registration when something goes wrong.
      * @param userAlreadyExist Controls if an username is alrady taken.
      */
     static void handleRegisterErrors(TextField username, TextField password, TextField password2, Label errorLabel, boolean userAlreadyExist) {
@@ -141,15 +143,16 @@ final class ErrorMessageController {
     }
 
     /**
-     *  This methods handles the Errors at login.
-     *  If a textfield is left empty the user will get an
-     *  errormessage telling them to fill in all fields.
-     *  If the username and password does not match
-     *  the user will get an errormessage telling them that
-     *  the password or username is wrong.
-     * @param username The username that the user previously registered. Used for logging in.
-     * @param password The password that the user previously chosen for his account.
-     * @param errorLabel The label that the users see at login when something goes wrong.
+     * This methods handles the Errors at login.
+     * If a textfield is left empty the user will get an
+     * errormessage telling them to fill in all fields.
+     * If the username and password does not match
+     * the user will get an errormessage telling them that
+     * the password or username is wrong.
+     *
+     * @param username                 The username that the user previously registered. Used for logging in.
+     * @param password                 The password that the user previously chosen for his account.
+     * @param errorLabel               The label that the users see at login when something goes wrong.
      * @param usernameAndPasswordMatch Controls if the password and username is correct.
      */
     static void handleLoginErrors(TextField username, TextField password, Label errorLabel, boolean usernameAndPasswordMatch) {
@@ -174,7 +177,8 @@ final class ErrorMessageController {
     /**
      * This methods handles the Errors at adcreation.
      * If a textfield or combobox is left empty the user will get an
-     *errormessage telling them to fill in all fields.
+     * errormessage telling them to fill in all fields.
+     *
      * @param title
      * @param price
      * @param location
@@ -192,29 +196,31 @@ final class ErrorMessageController {
      * This methods handles the Errors at the page where the user sends a request.
      * If a textfield or the datepicker is left empty the user will get an
      * errormessage telling them to fill in all fields.
+     *
      * @param hour
      * @param minute
      * @param description
      * @param datePicker
      * @param errorLabel
      */
-    static void handleRequestErrors(TextField hour, TextField minute,TextField description,DatePicker datePicker,Label errorLabel){
-        resetDatepickerandTextFields(hour,minute,description,datePicker,errorLabel);
-        if (allTextFieldsAreFilledandDatepicker(hour,minute,description,datePicker)){
-            handleTextFieldsEmptyErrorRequest(hour,minute,description,datePicker, errorLabel);
+    static void handleRequestErrors(TextField hour, TextField minute, TextField description, DatePicker datePicker, Label errorLabel) {
+        resetDatepickerandTextFields(hour, minute, description, datePicker, errorLabel);
+        if (allTextFieldsAreFilledandDatepicker(hour, minute, description, datePicker)) {
+            handleTextFieldsEmptyErrorRequest(hour, minute, description, datePicker, errorLabel);
         }
     }
 
     private static boolean allTextFieldsAreFilledandDatepicker(TextField hour, TextField minute, TextField description, DatePicker datePicker) {
-   return hour.getText().isEmpty() && minute.getText().isEmpty() && description.getText().isEmpty() && (datePicker.getValue() == null);
+        return hour.getText().isEmpty() && minute.getText().isEmpty() && description.getText().isEmpty() && (datePicker.getValue() == null);
     }
 
     /**
      * When the textfield is empty it will change color to red
      * otherwise the border does not change color.
+     *
      * @param textField
      */
-    private static void handleTextFieldEmpty(TextField textField){
+    private static void handleTextFieldEmpty(TextField textField) {
         if (textField.getText().isEmpty()) {
             textField.setStyle("-fx-border-color: #e74c3c;");
         } else {
@@ -225,21 +231,24 @@ final class ErrorMessageController {
     /**
      * When the combobox is empty it will change color to red
      * otherwise the border does not change color.
+     *
      * @param comboBox
      */
-    private static void handleComboBoxEmpty(ComboBox comboBox){
+    private static void handleComboBoxEmpty(ComboBox comboBox) {
         if (comboBox.getSelectionModel().getSelectedItem() == null) {
             comboBox.setStyle("-fx-border-color: #e74c3c;");
         } else {
             comboBox.setStyle("-fx-border-color: inherit");
         }
     }
+
     /**
      * When the datepicker is empty it will change color to red
      * otherwise the border does not change color.
+     *
      * @param datePicker
      */
-    private static void handleDatepickerEmpty(DatePicker datePicker){
+    private static void handleDatepickerEmpty(DatePicker datePicker) {
         if (datePicker.getValue() == null) {
             datePicker.setStyle("-fx-border-color: #e74c3c;");
         } else {
@@ -266,7 +275,6 @@ final class ErrorMessageController {
         handleComboBoxEmpty(comboBox);
 
 
-
         if (allFieldsAreNotFilled(textField1, textField2, textField3, comboBox)) {
             errorLabel.setText("Fyll alla fält!");
         }
@@ -274,7 +282,7 @@ final class ErrorMessageController {
     }
 
 
-    private static void handleTextFieldsEmptyErrorRequest(TextField textField1, TextField textField2,TextField textField3,DatePicker datePicker, Label errorLabel) {
+    private static void handleTextFieldsEmptyErrorRequest(TextField textField1, TextField textField2, TextField textField3, DatePicker datePicker, Label errorLabel) {
 
 
         handleTextFieldEmpty(textField1);

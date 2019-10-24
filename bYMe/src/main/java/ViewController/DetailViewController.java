@@ -28,8 +28,7 @@ import java.util.List;
 import static java.lang.Math.abs;
 
 
-public class DetailViewController extends AnchorPane implements ImageViewUpdater{
-
+public class DetailViewController extends AnchorPane implements ImageViewUpdater {
 
 
     private DetailViewToggler detailViewToggler;
@@ -216,10 +215,6 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         this.getChildren().add(pictureChanger);
 
 
-
-
-
-
         adLocationComboBox.getItems().addAll("Västra Götaland", "Stockholm", "Skåne", "Jönköping", "Bergsjön");
 
         adPriceTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -237,7 +232,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
                 super.updateItem(date, empty);
                 LocalDate today = LocalDate.now();
 
-                setDisable(empty || date.compareTo(today) < 0 );
+                setDisable(empty || date.compareTo(today) < 0);
             }
         });
     }
@@ -253,7 +248,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
             adDescription.setText(ad.getDescription());
             adLocation.setText(ad.getLocation());
             String result = String.format("%.2f", byme.getAccountRating(ad.getAccount()));
-            adUser.setText(ad.getAccount()+" ("+result+")");
+            adUser.setText(ad.getAccount() + " (" + result + ")");
             adPrice.setText(String.valueOf(ad.getPrice()));
 
 
@@ -293,6 +288,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         closePrompt.play();
         greyZone2.setVisible(false);
     }
+
     /**
      * Gives the user the ability to remove a specific ad.
      */
@@ -323,7 +319,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     @FXML
     void sendRequest() throws ParseException {
 
-        ErrorMessageController.handleRequestErrors(requestMinute,requestHour,messageContent,requestDate,errorLabelRequest);
+        ErrorMessageController.handleRequestErrors(requestMinute, requestHour, messageContent, requestDate, errorLabelRequest);
 
         String date = requestDate.getValue() + "/" + requestHour.getText() + ":" + requestMinute.getText();
         byme.sendRequest(byme.getCurrentUsersUsername(), ad.getAccount(), ad, messageContent.getText(), date);
@@ -331,8 +327,8 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     }
 
     @Override
-    public void updateImageViews(){
-        if(pictureChanger.getImages().size() > 0){
+    public void updateImageViews() {
+        if (pictureChanger.getImages().size() > 0) {
             image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(pictureChanger.getImages().get(0), null)));
         } else {
             try {
@@ -344,10 +340,8 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     }
 
 
-
-
-    private void savePictures(){
-        if(ad != null) {
+    private void savePictures() {
+        if (ad != null) {
             pictureHandler.saveAdPictures(ad.getAdId(), pictureChanger.getImages());
         }
     }
@@ -357,7 +351,6 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
             pictureChanger.setImages(pictureHandler.getAdPictures(ad.getAdId()));
         }
     }
-
 
 
     private void setEnablePictureChange(boolean enable) {
@@ -412,8 +405,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     }
 
 
-
-    private void switchToNormalViewMode(){
+    private void switchToNormalViewMode() {
         adTitle.setText(ad.getTitle());
         adLocation.setText(ad.getLocation());
         adDescription.setText(ad.getDescription());
@@ -480,7 +472,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     }
 
 
-    private void setVisible(Node node, Node node2, Node node3, Node node4, Node node5, boolean value){
+    private void setVisible(Node node, Node node2, Node node3, Node node4, Node node5, boolean value) {
         node.setVisible(value);
         node2.setVisible(value);
         node3.setVisible(value);
@@ -500,8 +492,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         adPrice.setVisible(false);
 
 
-        setVisible(tag1Label,tag2Label,tag3Label,tag4Label,tag5Label, false);
-
+        setVisible(tag1Label, tag2Label, tag3Label, tag4Label, tag5Label, false);
 
 
         adTitleTextField.setVisible(true);
@@ -509,8 +500,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         adDescriptionTextField.setVisible(true);
         adPriceTextField.setVisible(true);
 
-        setVisible(tag1TextField,tag2TextField,tag3TextField,tag4TextField,tag5TextField, true);
-
+        setVisible(tag1TextField, tag2TextField, tag3TextField, tag4TextField, tag5TextField, true);
 
 
         adTitleTextField.setText(adTitle.getText());
@@ -540,7 +530,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         tag1Label.setVisible(true);
 
 
-        setVisible(tag1Label,tag2Label,tag3Label,tag4Label,tag5Label, true);
+        setVisible(tag1Label, tag2Label, tag3Label, tag4Label, tag5Label, true);
 
 
         adTitleTextField.setVisible(false);
@@ -549,22 +539,21 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         adPriceTextField.setVisible(false);
 
 
-        setVisible(tag1TextField,tag2TextField,tag3TextField,tag4TextField,tag5TextField, false);
+        setVisible(tag1TextField, tag2TextField, tag3TextField, tag4TextField, tag5TextField, false);
 
 
     }
 
 
-
-    private void openPictureChangePanel(){
-            pictureChanger.update();
-            greyZone.setDisable(true);
-            greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
-            pictureChanger.setVisible(true);
+    private void openPictureChangePanel() {
+        pictureChanger.update();
+        greyZone.setDisable(true);
+        greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
+        pictureChanger.setVisible(true);
     }
 
 
-    private void closePictureChangePanel(){
+    private void closePictureChangePanel() {
         savePictures();
         updateImageViews();
         greyZone.setDisable(false);
@@ -573,18 +562,18 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     }
 
     @FXML
-    void nextImage(){
+    void nextImage() {
         List<BufferedImage> images = pictureHandler.getAdPictures(ad.getAdId());
-        if(!images.isEmpty()) {
+        if (!images.isEmpty()) {
             index++;
             image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(images.get(abs(index) % images.size()), null)));
         }
     }
 
     @FXML
-    void prevImage(){
+    void prevImage() {
         List<BufferedImage> images = pictureHandler.getAdPictures(ad.getAdId());
-        if(!pictureChanger.getImages().isEmpty()) {
+        if (!pictureChanger.getImages().isEmpty()) {
             index--;
             image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(images.get(abs(index) % images.size()), null)));
         }

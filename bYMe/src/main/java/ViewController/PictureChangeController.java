@@ -21,6 +21,7 @@ import java.util.List;
 class PictureChangeController extends AnchorPane {
 
 
+    ColorAdjust pictureEffect = new ColorAdjust();
     @FXML
     private
     ImageView imageChanger1;
@@ -36,9 +37,6 @@ class PictureChangeController extends AnchorPane {
     @FXML
     private
     ImageView imageChanger5;
-
-    ColorAdjust pictureEffect = new ColorAdjust();
-
     private List<BufferedImage> images = new ArrayList<>();
 
     private PictureHandler pictureHandler = PictureHandler.getInstance();
@@ -46,13 +44,13 @@ class PictureChangeController extends AnchorPane {
     private ImageViewUpdater imageViewUpdater;
 
 
-    PictureChangeController(ImageViewUpdater imageViewUpdater){
+    PictureChangeController(ImageViewUpdater imageViewUpdater) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXML/pictureChanger.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-        try{
+        try {
             fxmlLoader.load();
-        } catch(IOException exception){
+        } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
 
@@ -72,7 +70,7 @@ class PictureChangeController extends AnchorPane {
 
     }
 
-    void update(){
+    void update() {
         try {
             Image defaultImage = SwingFXUtils.toFXImage(ImageIO.read(new File("src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "ViewController/images" + File.separatorChar + "insert_photo.png")), null);
             imageChanger1.setImage(defaultImage);
@@ -80,79 +78,78 @@ class PictureChangeController extends AnchorPane {
             imageChanger3.setImage(defaultImage);
             imageChanger4.setImage(defaultImage);
             imageChanger5.setImage(defaultImage);
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        setImageIfPossible(imageChanger1,0,images);
-        setImageIfPossible(imageChanger2,1,images);
-        setImageIfPossible(imageChanger3,2,images);
-        setImageIfPossible(imageChanger4,3,images);
-        setImageIfPossible(imageChanger5,4,images);
+        setImageIfPossible(imageChanger1, 0, images);
+        setImageIfPossible(imageChanger2, 1, images);
+        setImageIfPossible(imageChanger3, 2, images);
+        setImageIfPossible(imageChanger4, 3, images);
+        setImageIfPossible(imageChanger5, 4, images);
     }
 
 
-    private void setImageIfPossible(ImageView imageView, int num, List<BufferedImage> list){
-        if(list.size() > num){
-            imageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(list.get(num),null)));
+    private void setImageIfPossible(ImageView imageView, int num, List<BufferedImage> list) {
+        if (list.size() > num) {
+            imageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(list.get(num), null)));
         }
     }
 
 
     @FXML
-    void changeAdPic1(){
+    void changeAdPic1() {
         changeAdPic(0);
     }
 
     @FXML
-    void changeAdPic2(){
+    void changeAdPic2() {
         changeAdPic(1);
     }
 
     @FXML
-    void changeAdPic3(){
+    void changeAdPic3() {
         changeAdPic(2);
     }
 
     @FXML
-    void changeAdPic4(){
+    void changeAdPic4() {
         changeAdPic(3);
     }
 
     @FXML
-    void changeAdPic5(){
+    void changeAdPic5() {
         changeAdPic(4);
     }
 
-    private void changeAdPic(int index){
+    private void changeAdPic(int index) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("jpg", "*.jpg"), new FileChooser.ExtensionFilter("png", "*.png"), new FileChooser.ExtensionFilter("jpeg", "*.jpg"));
         File selectedFile = fileChooser.showOpenDialog(null);
 
 
-
-        if(selectedFile != null){
+        if (selectedFile != null) {
             try {
                 BufferedImage image = ImageIO.read(selectedFile);
-                if(images.size() - 1 >= index) {
+                if (images.size() - 1 >= index) {
                     images.add(index, image);
-                    images.remove(index+1);
+                    images.remove(index + 1);
                 } else {
                     images.add(image);
                 }
-                if(imageViewUpdater != null) {
+                if (imageViewUpdater != null) {
                     imageViewUpdater.updateImageViews();
                 }
                 update();
-            } catch(IOException exception){
+            } catch (IOException exception) {
                 System.out.println("Can't read image: " + selectedFile.getPath());
             }
         }
     }
 
 
-    private void setHoverEffectOnImageView(ImageView imageView){
+    private void setHoverEffectOnImageView(ImageView imageView) {
         imageView.hoverProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
+            if (newValue) {
                 imageView.setEffect(pictureEffect);
             } else {
                 imageView.setEffect(null);
@@ -160,16 +157,16 @@ class PictureChangeController extends AnchorPane {
         });
     }
 
-    List<BufferedImage> getImages(){
+    List<BufferedImage> getImages() {
         return images;
     }
 
-    void setImages(List<BufferedImage> images){
+    void setImages(List<BufferedImage> images) {
         this.images = images;
     }
 
 
-    void resetImageList(){
+    void resetImageList() {
         images.clear();
     }
 }

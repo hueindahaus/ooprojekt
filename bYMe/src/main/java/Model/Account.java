@@ -10,43 +10,50 @@ public class Account {
     private double rating;
     private double ratingCount;
 
-    public Account(String username, String password, double rating, double ratingCount){
+    public Account(String username, String password, double rating, double ratingCount) {
         this.username = username;
         this.password = password;
         this.rating = rating;
         this.ratingCount = ratingCount;
     }
-    Account(String username, String password){
+
+    Account(String username, String password) {
         this.username = username;
         this.password = password;
         this.rating = 0;
         this.ratingCount = 0;
     }
-    public double getRatingCount() {return this.ratingCount;}
 
-    public double getRating() { return rating; }
+    public double getRatingCount() {
+        return this.ratingCount;
+    }
 
-    public String getUsername(){
+    public double getRating() {
+        return rating;
+    }
+
+    public String getUsername() {
         return this.username;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return this.password;
     }
 
-    void addRating(int rating){
+    void addRating(int rating) {
         this.rating += rating;
-        ratingCount ++;
+        ratingCount++;
     }
-    double getAverageRating(){
-        if(ratingCount<1) {
+
+    double getAverageRating() {
+        if (ratingCount < 1) {
             return 0.0;
-        }else{
-            return rating/ratingCount;
+        } else {
+            return rating / ratingCount;
         }
     }
 
-    public boolean passwordMatches(String password){
+    public boolean passwordMatches(String password) {
         return this.password.equals(password);
     }
 

@@ -1,6 +1,8 @@
 package ViewController;
 
-import Model.*;
+import Model.Byme;
+import Model.Request;
+import Model.RequestState;
 import Services.PictureHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,8 @@ import java.io.IOException;
 
 public class RequestItem extends AnchorPane {
 
+    PictureHandler pictureHandler = PictureHandler.getInstance();
+    DetailViewToggler detailViewToggler;
     @FXML
     private AnchorPane requestAnchorPane;
     @FXML
@@ -28,7 +32,7 @@ public class RequestItem extends AnchorPane {
     @FXML
     private Label requestDate;
     @FXML
-    private Button buttonAccept ;
+    private Button buttonAccept;
     @FXML
     private Button buttonDecline;
     @FXML
@@ -37,16 +41,22 @@ public class RequestItem extends AnchorPane {
     private Button buttonReview;
     @FXML
     private AnchorPane reviewPane;
-
-    PictureHandler pictureHandler = PictureHandler.getInstance();
-
-    DetailViewToggler detailViewToggler;
-
     private Request request;
 
     private Byme byme = Byme.getInstance(null, null);
-
-    public RequestItem(Request request, DetailViewToggler detailViewToggler, boolean userIsRecipient)  {
+    @FXML
+    private ImageView star1;
+    @FXML
+    private ImageView star2;
+    @FXML
+    private ImageView star3;
+    @FXML
+    private ImageView star4;
+    @FXML
+    private ImageView star5;
+    private Image yellowStar = new Image("File:" + "src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "ViewController/images" + File.separatorChar + "star.png");
+    private Image hollowStar = new Image("File:" + "src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "ViewController/images" + File.separatorChar + "hollowStar.png");
+    public RequestItem(Request request, DetailViewToggler detailViewToggler, boolean userIsRecipient) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXML/requests.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -60,7 +70,7 @@ public class RequestItem extends AnchorPane {
         reviewPane.setVisible(false);
         requestAd.setText(request.getAd());
         requestMessage.setText(request.getMessage());
-        requestSender.setText("From: " + request.getSender()+" ("+byme.getAccountRating(byme.getCurrentUsersUsername())+")");
+        requestSender.setText("From: " + request.getSender() + " (" + byme.getAccountRating(byme.getCurrentUsersUsername()) + ")");
         requestDate.setText(request.getDateString());
         requestReceiver.setText("To: " + request.getReceiver());
 
@@ -68,13 +78,13 @@ public class RequestItem extends AnchorPane {
 
         buttonAccept.setVisible(userIsRecipient);
         buttonDecline.setVisible(userIsRecipient);
-        if(!userIsRecipient && !request.isAccepted()){ // Can't remove accepted requests
+        if (!userIsRecipient && !request.isAccepted()) { // Can't remove accepted requests
             buttonRemove.setVisible(true);
         } else {
             buttonRemove.setVisible(false);
         }
 
-        if(!request.isPending()) {
+        if (!request.isPending()) {
             buttonReview.setVisible(false);
             buttonAccept.setDisable(true);
             buttonDecline.setDisable(true);
@@ -88,61 +98,50 @@ public class RequestItem extends AnchorPane {
             }
         }
     }
-    @FXML
-    private ImageView star1;
-    @FXML
-    private ImageView star2;
-    @FXML
-    private ImageView star3;
-    @FXML
-    private ImageView star4;
-    @FXML
-    private ImageView star5;
-
-    
-    private Image yellowStar = new Image("File:"+"src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "ViewController/images" + File.separatorChar + "star.png");
-    private Image hollowStar = new Image("File:"+"src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "ViewController/images" + File.separatorChar + "hollowStar.png");
-
 
     /**
      * Sets the right amount yellowStar in response to the current star the user is hovering.
      **/
     @FXML
-    private void toggleStar1Enter(){
+    private void toggleStar1Enter() {
         star1.setImage(yellowStar);
     }
 
     @FXML
-    private void toggleStar2Enter(){
+    private void toggleStar2Enter() {
         star1.setImage(yellowStar);
         star2.setImage(yellowStar);
     }
+
     @FXML
-    private void toggleStar3Enter(){
+    private void toggleStar3Enter() {
         star1.setImage(yellowStar);
         star2.setImage(yellowStar);
         star3.setImage(yellowStar);
     }
+
     @FXML
-    private void toggleStar4Enter(){
+    private void toggleStar4Enter() {
         star1.setImage(yellowStar);
         star2.setImage(yellowStar);
         star3.setImage(yellowStar);
         star4.setImage(yellowStar);
     }
+
     @FXML
-    private void toggleStar5Enter(){
+    private void toggleStar5Enter() {
         star1.setImage(yellowStar);
         star2.setImage(yellowStar);
         star3.setImage(yellowStar);
         star4.setImage(yellowStar);
         star5.setImage(yellowStar);
     }
+
     /**
      * Sets all rating stars to hollowStar image when the user stops hovering a rating star.
      **/
     @FXML
-    private void toggleStarExit(){
+    private void toggleStarExit() {
         star1.setImage(hollowStar);
         star2.setImage(hollowStar);
         star3.setImage(hollowStar);
@@ -151,46 +150,47 @@ public class RequestItem extends AnchorPane {
     }
 
     @FXML
-    private void reviewPaneToggle(){
-        if(reviewPane.isVisible()) {
+    private void reviewPaneToggle() {
+        if (reviewPane.isVisible()) {
             reviewPane.setVisible(false);
-        }else{
+        } else {
             reviewPane.setVisible(true);
         }
     }
+
     /**
      * Sends a rating from 1-5 to the accounts rating system
      **/
     @FXML
-    private void reviewAd(){
+    private void reviewAd() {
         reviewPaneToggle();
         byme.reviewAccount(request.getReceiver(), 1);
         removeRequest();
     }
 
     @FXML
-    private void reviewAd2(){
+    private void reviewAd2() {
         reviewPaneToggle();
         byme.reviewAccount(request.getReceiver(), 2);
         removeRequest();
     }
 
     @FXML
-    private void reviewAd3(){
+    private void reviewAd3() {
         reviewPaneToggle();
         byme.reviewAccount(request.getReceiver(), 3);
         removeRequest();
     }
 
     @FXML
-    private void reviewAd4(){
+    private void reviewAd4() {
         reviewPaneToggle();
         byme.reviewAccount(request.getReceiver(), 4);
         removeRequest();
     }
 
     @FXML
-    private void reviewAd5(){
+    private void reviewAd5() {
         reviewPaneToggle();
         byme.reviewAccount(request.getReceiver(), 5);
         removeRequest();
@@ -200,24 +200,26 @@ public class RequestItem extends AnchorPane {
      * If a user accepts a request then the request item changes color to a green color
      **/
     @FXML
-    private void acceptRequest(){
+    private void acceptRequest() {
         request.setState(RequestState.ACCEPTED);
         requestAnchorPane.setStyle("-fx-background-color: greenyellow");
 
     }
+
     /**
      * If a user declines a request then the request item changes color to a red color
      **/
     @FXML
-    private void declineRequest(){
+    private void declineRequest() {
         request.setState(RequestState.DECLINED);
         requestAnchorPane.setStyle("-fx-background-color: IndianRed");
     }
+
     /**
      * Removes a request item from the request item ArrayList
      **/
     @FXML
-    private void removeRequest(){
+    private void removeRequest() {
         byme.removeRequest(request);
     }
 }

@@ -19,67 +19,67 @@ public final class RequestHandler {
 
     private static RequestHandler singleton;
 
-    private RequestHandler(){
+    private RequestHandler() {
 
     }
 
-    public static RequestHandler getInstance(){
-        if (singleton==null){
+    public static RequestHandler getInstance() {
+        if (singleton == null) {
             singleton = new RequestHandler();
         }
         return singleton;
     }
 
 
-    private String getRequestsFilePath(){
-        return "src" + File.separatorChar + "main" + File.separatorChar  + "java" + File.separatorChar + "Services" + File.separatorChar +"data" + File.separatorChar + "requests.json";
+    private String getRequestsFilePath() {
+        return "src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "Services" + File.separatorChar + "data" + File.separatorChar + "requests.json";
     }
 
-    List<Request> loadRequests(String adId){
+    List<Request> loadRequests(String adId) {
         List<Request> requests = new ArrayList<>();
         JSONParser parser = new JSONParser();
 
-        try{
+        try {
             FileReader fileReader = new FileReader(getRequestsFilePath());
             File file = new File(getRequestsFilePath());
 
-            if(file.length() > 0) {
+            if (file.length() > 0) {
                 Object obj = parser.parse(fileReader);
                 JSONArray objects = (JSONArray) obj;
 
                 for (Object object : objects) {
-                        Request request = parseJSONObject((JSONObject) object);
-                        if(request.getAd().equals(adId)) {
-                            requests.add(request);
-                        }
+                    Request request = parseJSONObject((JSONObject) object);
+                    if (request.getAd().equals(adId)) {
+                        requests.add(request);
+                    }
                 }
             }
 
-        } catch(IOException | ParseException | java.text.ParseException exception){
+        } catch (IOException | ParseException | java.text.ParseException exception) {
             exception.printStackTrace();
         }
         return requests;
     }
 
-    void saveRequests(List<Request> requests){
+    void saveRequests(List<Request> requests) {
         JSONArray jsonList = new JSONArray();
 
-        for(Request request : requests){
+        for (Request request : requests) {
             jsonList.add(convertToJSONObject(request));
         }
 
-        try{
+        try {
             FileWriter file = new FileWriter(getRequestsFilePath());
             file.write(jsonList.toString());
             file.flush();
-        } catch (IOException exception){
+        } catch (IOException exception) {
             System.out.println("Can't save list with requests");
             exception.printStackTrace();
         }
 
     }
 
-    private JSONObject convertToJSONObject(Request request){
+    private JSONObject convertToJSONObject(Request request) {
         JSONObject object = new JSONObject();
         object.put("sender", request.getSender());
         object.put("receiver", request.getReceiver());
@@ -92,10 +92,8 @@ public final class RequestHandler {
     }
 
     private Request parseJSONObject(JSONObject obj) throws java.text.ParseException {
-        return new Request((String)obj.get("sender"), (String)obj.get("receiver"), (String)obj.get("ad"), (String)obj.get("message"), (String)obj.get("date"), Enum.valueOf(RequestState.class ,(String)obj.get("state")));
+        return new Request((String) obj.get("sender"), (String) obj.get("receiver"), (String) obj.get("ad"), (String) obj.get("message"), (String) obj.get("date"), Enum.valueOf(RequestState.class, (String) obj.get("state")));
     }
-
-
 
 
 }
