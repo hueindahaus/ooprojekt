@@ -32,7 +32,7 @@ public class AccountHandler implements IAccountHandler {
 
 
     private String getLoginFilePath(){
-        return "data" + File.separatorChar + "logins.json";
+        return "src" + File.separatorChar + "main" + File.separatorChar  + "java" + File.separatorChar + "Services" + File.separatorChar +"data" + File.separatorChar + "logins.json";
     }   //För att denna path:en ska fungera måste man importa projektet som mappen "Byme"
 
 
@@ -64,10 +64,7 @@ public class AccountHandler implements IAccountHandler {
         JSONArray jsonList = new JSONArray();
 
 
-        Iterator iterator = accounts.entrySet().iterator();
-        while(iterator.hasNext()){
-            Map.Entry acc = (Map.Entry) iterator.next();
-            Account account = (Account) acc.getValue();
+        for(Account account: accounts.values()){
             jsonList.add(convertToJSONObject(account));
         }
 

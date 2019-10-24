@@ -1,6 +1,3 @@
-import Model.Byme;
-import Services.AccountHandler;
-import Services.AdHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +8,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("application.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ViewController/FXML/application.fxml"));
         primaryStage.setTitle("Byme");
         primaryStage.setScene(new Scene(root, 1440, 900));
         primaryStage.setResizable(false);

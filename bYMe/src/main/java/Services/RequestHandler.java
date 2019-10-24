@@ -1,6 +1,7 @@
 package Services;
 
 import Model.Request;
+import Model.RequestState;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -31,7 +32,7 @@ public class RequestHandler {
 
 
     private String getRequestsFilePath(){
-        return "data" + File.separatorChar + "requests.json";
+        return "src" + File.separatorChar + "main" + File.separatorChar  + "java" + File.separatorChar + "Services" + File.separatorChar +"data" + File.separatorChar + "requests.json";
     }
 
     public ArrayList<Request> loadRequests(String adId){
@@ -89,13 +90,13 @@ public class RequestHandler {
         object.put("ad", request.getAd());
         object.put("message", request.getMessage());
         object.put("date", request.getDateString());
-        object.put("state", request.getState());
+        object.put("state", request.getState().name());
 
         return object;
     }
 
     private Request parseJSONObject(JSONObject obj) throws java.text.ParseException {
-        return new Request((String)obj.get("sender"), (String)obj.get("receiver"), (String)obj.get("ad"), (String)obj.get("message"), (String)obj.get("date"), ((Long)obj.get("state")).intValue());
+        return new Request((String)obj.get("sender"), (String)obj.get("receiver"), (String)obj.get("ad"), (String)obj.get("message"), (String)obj.get("date"), (Enum.valueOf(RequestState.class ,(String)obj.get("state"))));
     }
 
 

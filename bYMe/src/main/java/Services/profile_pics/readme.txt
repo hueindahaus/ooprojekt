@@ -1,0 +1,1 @@
+Textfil så att mappen profile_pics existerar i git (den läser inte av tomma mappar)

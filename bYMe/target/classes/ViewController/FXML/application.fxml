@@ -34,7 +34,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@images/round_person_white_36dp.png" />
+                        <Image url="@../images/round_person_white_36dp.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -49,7 +49,7 @@
          </children></AnchorPane>
       <ImageView fitHeight="61.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" AnchorPane.bottomAnchor="900.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1224.0" AnchorPane.topAnchor="8.0">
          <image>
-            <Image url="@images/loggaByMe.png" />
+            <Image url="@../images/loggaByMe.png" />
          </image>
       </ImageView>
       <Button layoutX="1257.0" layoutY="720.0" mnemonicParsing="false" onMouseReleased="#openCreateAd" prefHeight="80.0" prefWidth="80.0" styleClass="addAdButton" text="+" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="130.0">

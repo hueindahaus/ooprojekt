@@ -1,0 +1,208 @@
+.root{
+  main: #ecf0f1;
+  main-dark: #bdc3c7;
+  primary: #3498db;
+  primary-dark: #2980b9;
+  secondary: #f1c40f;
+  secondary-dark: #f39c12;
+  tertiary: #34495e;
+  tertiary-dark: #2c3e50;
+  extreme-color: #FFFFFF;
+}
+.appbar {
+  -fx-background-color: main;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 2);
+}
+
+.loginpanel {
+  -fx-background-color: main;
+}
+
+.cardholder {
+  -fx-background-radius: 10;
+}
+
+.scroll-pane > .viewport {
+  -fx-background-color: transparent;
+}
+
+.scroll-pane {
+  -fx-background-color: transparent;
+}
+
+.split-pane > .viewport {
+  -fx-background-color: transparent;
+}
+
+.split-pane {
+  -fx-background-color: transparent;
+}
+
+
+.background{
+  -fx-background-color: primary;
+}
+
+.primaryButton {
+  -fx-background-color: secondary;
+  -fx-background-radius: 10;
+  -fx-text-fill: FFFFFF;
+}
+
+.accountButton {
+  -fx-background-color: primary;
+  -fx-background-radius: 50% 50% 50% 0%;
+  -fx-text-fill: FFFFFF;
+}
+
+
+.primaryButton:hover {
+   -fx-background-color: secondary-dark;
+   -fx-cursor: hand;
+ }
+
+.accountButton:hover {
+  -fx-background-color: primary-dark;
+  -fx-cursor: hand;
+}
+
+.loginButton {
+  -fx-background-color: primary;
+  -fx-background-radius: 10;
+  -fx-text-fill: FFFFFF;
+}
+
+.loginButton:hover {
+  -fx-background-color: primary-dark;
+  -fx-cursor: hand;
+}
+
+.createAccountButton{
+  -fx-background-color: tertiary;
+  -fx-background-radius: 10;
+  -fx-text-fill: FFFFFF;
+}
+
+.createAccountButton:hover{
+  -fx-background-color: tertiary-dark;
+  -fx-cursor: hand;
+}
+
+.greyZone {
+  -fx-background-color: rgba(0, 0, 0, 0.7);
+}
+
+.RegTextfield {
+  -fx-background-color: extreme-color;
+  -fx-border-width: 1px;
+  -fx-border-color: #bdc3c7;
+  -fx-border-radius: 5px;
+}
+
+.logo {
+  -fx-image: url("/ViewController/images/loggaByMe.png");
+}
+
+.logo:hover {
+  -fx-image: url("/ViewController/images/loggaByMeHover.png");
+  -fx-cursor: hand;
+}
+
+.addAdButton {
+  -fx-background-radius: 100%;
+  -fx-background-color: secondary;
+  -fx-text-fill: FFFFFF;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 2);
+}
+
+.addAdButton:hover {
+  -fx-background-color: secondary-dark;
+  -fx-cursor: hand;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 2, 0, 0, 2);
+}
+
+.detailViewBox {
+  -fx-background-color: main;
+}
+
+.exitButton:hover {
+ -fx-opacity: 50%;
+}
+
+.pictureChangePanel {
+  -fx-background-color: main;
+}
+
+.tagPanel {
+  -fx-background-color: main;
+}
+
+.searchbar{
+  -fx-background-color: extreme-color;
+  -fx-border-width: 0.3px;
+  -fx-border-color: gray;
+  -fx-background-radius: 20px;
+  -fx-border-radius: 20px;
+  -fx-padding: 0px 0px 0px 20px;
+}
+.searchButton{
+  -fx-background-color: secondary;
+  -fx-border-radius: 20px 20px 20px 0px;
+  -fx-background-radius: 20px 20px 20px 0px;
+  -fx-background-image: url('../images/whiteSearchGlass.png');
+  -fx-background-size: 30px;
+  -fx-background-position: center;
+  -fx-background-repeat: no-repeat;
+}
+
+.searchButton:hover{
+  -fx-background-color: secondary-dark;
+}
+
+.loginTextField{
+  -fx-background-color: extreme-color;
+  -fx-border-width: 0px 0px 2px 0px;
+  -fx-border-color: primary;
+  -fx-border-radius: 0px;
+  -fx-padding: 0 0 0 26;
+
+}
+
+.loginTextField:focused{
+  -fx-border-color: secondary;
+}
+
+
+.loginBox{
+  -fx-background-color: extreme-color;
+  -fx-background-radius: 10px;
+}
+
+
+.saveImageButton{
+  -fx-background-color: secondary;
+  -fx-background-radius: 10px;
+  -fx-cursor:hand;
+}
+
+.saveImageButton:hover{
+  -fx-background-color: secondary-dark;
+
+}
+
+.requestTabs {
+  -fx-background-color: primary;
+  -fx-background-radius: 33 33 0 0;
+  -fx-text-fill: FFFFFF;
+}
+
+.requestTabs:hover {
+  -fx-cursor: hand;
+}
+
+.requestTabsPressed {
+  -fx-background-color: primary-dark;
+  -fx-background-radius: 33 33 0 0;
+  -fx-text-fill: FFFFFF;
+}
+
