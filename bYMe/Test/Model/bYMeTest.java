@@ -9,6 +9,7 @@ import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,12 +19,12 @@ class bYMeTest {
     void registerAccount() {
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
 
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
@@ -39,12 +40,12 @@ class bYMeTest {
     void isAlreadyRegistered() {
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
 
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
@@ -60,11 +61,11 @@ class bYMeTest {
     void userExists(){
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
@@ -79,10 +80,10 @@ class bYMeTest {
     void sendRequest() throws ParseException {
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
             }
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
@@ -103,12 +104,12 @@ class bYMeTest {
     void isLoggedIn(){
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
 
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
@@ -123,12 +124,12 @@ class bYMeTest {
     void editAd(){
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
 
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
@@ -154,12 +155,12 @@ class bYMeTest {
     void removeAd(){
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
 
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
@@ -177,12 +178,12 @@ class bYMeTest {
     void loginUser() {
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
 
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
@@ -203,12 +204,12 @@ class bYMeTest {
     void signout() {
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
 
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
@@ -225,12 +226,12 @@ class bYMeTest {
     void createAd() {
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
 
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };

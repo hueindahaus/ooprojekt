@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,12 +16,12 @@ public class SearchTest {
 
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
 
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
@@ -28,11 +29,10 @@ public class SearchTest {
 
         IAdHandler adHandler = AdHandler.getInstance();
         Byme byme = Byme.getInstance(accountHandler, adHandler);
-        Search searchTest = new Search();
 
 
-        Ad adTested1 = new Ad("Title1", 10, "Description1", "Chalmers1", "idtest1", "user");
-        Ad adTested2 = new Ad("Title2", 20, "Description2", "Chalmers2", "idtest2", "user");
+        Ad adTested1 = new Ad("TitleA", 10, "Description1", "Chalmers1", "idtest1", "user");
+        Ad adTested2 = new Ad("TitleB", 20, "Description2", "Chalmers2", "idtest2", "user");
 
         ArrayList<String> tagList1 = new ArrayList<>();
         tagList1.add("tag1");
@@ -47,24 +47,11 @@ public class SearchTest {
         String inputTest2 = adTested2.getTitle();
         String inputTest3 = tagList1.get(0);
 
-        assertEquals(1, searchTest.findAds("Title1", byme.getAds()).size()); //clear data.ads.JSON before tests
-        assertEquals(adTested1, searchTest.findAds("Title1", byme.getAds()).get(0));
-        assertEquals(adTested2, searchTest.findAds("Description2", byme.getAds()).get(0));
-        assertEquals(adTested1, searchTest.findAds("tag1", byme.getAds()).get(0));
-        assertEquals(adTested2, searchTest.findAds("tag2", byme.getAds()).get(1));
-
-    }
-
-    @Test
-    void tagsToLowerCase(){
-
-        Search searchTest = new Search();
-
-        ArrayList<String> testList = new ArrayList<>();
-
-        testList.add("TestTag");
-
-        assertEquals("testtag", searchTest.tagsToLowerCase(testList).get(0));
+        assertEquals(1, Search.findAds("TitleA", byme.getAds()).size()); //clear data.ads.JSON before tests
+        assertEquals(adTested1, Search.findAds("TitleA", byme.getAds()).get(0));
+        assertEquals(adTested2, Search.findAds("Description2", byme.getAds()).get(0));
+        assertEquals(adTested1, Search.findAds("tag1", byme.getAds()).get(0));
+        assertEquals(adTested2, Search.findAds("tag2", byme.getAds()).get(1));
 
     }
 
