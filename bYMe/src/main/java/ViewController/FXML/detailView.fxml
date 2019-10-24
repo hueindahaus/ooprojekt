@@ -95,8 +95,8 @@
             <TextField fx:id="tag5TextField" layoutX="400.0" layoutY="170.0" />
                    <ComboBox fx:id="adLocationComboBox" layoutX="151.0" layoutY="130.0" prefWidth="150.0" />
                    <Label fx:id="errorLabel" layoutX="397.0" layoutY="237.0" />
-            <Button fx:id="buttonNextImage" layoutX="940.0" layoutY="118.0" mnemonicParsing="false" onAction="#nextImage" text="next" />
-            <Button fx:id="buttonPrevImage" layoutX="530.0" layoutY="128.0" mnemonicParsing="false" onAction="#prevImage" text="Prev" />
+            <Button fx:id="buttonNextImage" layoutX="940.0" layoutY="118.0" mnemonicParsing="false" onAction="#nextImage" text="--&gt;" />
+            <Button fx:id="buttonPrevImage" layoutX="530.0" layoutY="128.0" mnemonicParsing="false" onAction="#prevImage" text="&lt;--" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="greyZone2" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" visible="false" />

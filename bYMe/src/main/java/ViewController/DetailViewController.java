@@ -122,6 +122,10 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     Button requestButton;
     @FXML
     Label errorLabelRequest;
+    @FXML
+    Button buttonNextImage;
+    @FXML
+    Button buttonPrevImage;
 
     Timeline showPrompt;
 
@@ -451,15 +455,13 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
      */
     void showUserButtons() {
         index = 0;
-        if (isUsersAd()) {
-            deleteButton.setVisible(true);
-            editButton.setVisible(true);
-            requestButton.setVisible(false);
-        } else {
-            deleteButton.setVisible(false);
-            editButton.setVisible(false);
-            requestButton.setVisible(true);
-        }
+        boolean usersAd = isUsersAd();
+        boolean multipleImages = pictureHandler.getAdPictures(ad.getAdId()).size() > 1;
+        requestButton.setVisible(byme.isLoggedIn() && !usersAd);
+        buttonNextImage.setVisible(multipleImages);
+        buttonPrevImage.setVisible(multipleImages);
+        deleteButton.setVisible(usersAd);
+        editButton.setVisible(usersAd);
     }
 
 
@@ -567,7 +569,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
     @FXML
     void nextImage(){
-        ArrayList<BufferedImage> images = pictureChanger.getImages();
+        ArrayList<BufferedImage> images = pictureHandler.getAdPictures(ad.getAdId());
         if(images.size() > 0) {
             index++;
             image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(images.get(abs(index) % images.size()), null)));
@@ -576,7 +578,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
     @FXML
     void prevImage(){
-        ArrayList<BufferedImage> images = pictureChanger.getImages();
+        ArrayList<BufferedImage> images = pictureHandler.getAdPictures(ad.getAdId());
         if(pictureChanger.getImages().size() > 0) {
             index--;
             image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(images.get(abs(index) % images.size()), null)));
