@@ -76,7 +76,7 @@ public class MenuController extends SidePanelController implements IObserver {
 
     @FXML
     private
-    AnchorPane  mySentRequestsAnchorPane;
+    AnchorPane mySentRequestsAnchorPane;
 
     @FXML
     private
@@ -104,11 +104,18 @@ public class MenuController extends SidePanelController implements IObserver {
 
     private int panelState = 0;
 
-    private Byme byme = Byme.getInstance(null,null);
+    private Byme byme = Byme.getInstance(null, null);
 
     private List<Request> requests = new ArrayList<>();
 
     private DetailViewToggler detailViewToggler;
+    @FXML
+    private AnchorPane menuPanel;
+    @FXML
+    private AnchorPane greyZone;
+    @FXML
+    private
+    Label currentUser;
 
     MenuController(ThemeSetter themeSetter, DetailViewToggler detailViewToggler) {
         super("FXML/signedIn.fxml");
@@ -152,7 +159,7 @@ public class MenuController extends SidePanelController implements IObserver {
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(myRequestsPanel.layoutXProperty(), 1660))
         );
 
-        Circle clip = new Circle(profilePicImageView.getFitWidth()/2, profilePicImageView.getFitHeight()/2,80);
+        Circle clip = new Circle(profilePicImageView.getFitWidth() / 2, profilePicImageView.getFitHeight() / 2, 80);
         profilePicImageView.setClip(clip);
 
         ColorAdjust colorAdjust = new ColorAdjust();
@@ -160,7 +167,7 @@ public class MenuController extends SidePanelController implements IObserver {
         colorAdjust.setInput(new BoxBlur());
 
         profilePicImageView.hoverProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue){
+            if (newValue) {
                 profilePicImageView.setEffect(colorAdjust);
                 pictureChangeLabel.setVisible(true);
             } else {
@@ -170,59 +177,51 @@ public class MenuController extends SidePanelController implements IObserver {
         });
 
     }
-    @FXML
-    private AnchorPane menuPanel;
-    @FXML
-    private AnchorPane greyZone;
-
-    @FXML
-    private
-    Label currentUser;
-
 
     @Override
-    void setGreyZoneDisable(boolean value){
+    void setGreyZoneDisable(boolean value) {
         greyZone.setDisable(value);
         myAdsButton.setStyle("-fx-background-color: primary");
         myRequestsButton.setStyle("-fx-background-color: primary");
         panelState = 0;
     }
 
-    @FXML void signout(){
+    @FXML
+    void signout() {
         byme.signoutUser();
         toggleOffPanel();
     }
 
     @FXML
-    private void displayAccountName(){
-        if(byme.isLoggedIn()) {
+    private void displayAccountName() {
+        if (byme.isLoggedIn()) {
             currentUser.setText(byme.getCurrentUsersUsername());
         }
     }
 
     @FXML
-    void changeProfilePic(){
+    void changeProfilePic() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("jpg", "*.jpg"), new FileChooser.ExtensionFilter("png", "*.png"), new FileChooser.ExtensionFilter("jpeg", "*.jpg"));
         File selectedFile = fileChooser.showOpenDialog(null);
 
-        if(selectedFile != null){
+        if (selectedFile != null) {
             try {
                 BufferedImage image = ImageIO.read(selectedFile);
-                pictureHandler.saveProfilePic(image ,byme.getCurrentUsersUsername());
+                pictureHandler.saveProfilePic(image, byme.getCurrentUsersUsername());
                 updateProfilePicImageView();
-            } catch(IOException exception){
+            } catch (IOException exception) {
                 System.out.println("Can't read image: " + selectedFile.getPath());
             }
         }
     }
 
-    void updateProfilePicImageView(){
+    void updateProfilePicImageView() {
 
-        if(byme.isLoggedIn()) {
+        if (byme.isLoggedIn()) {
             BufferedImage image = pictureHandler.getProfilePic(byme.getCurrentUsersUsername());
-            if(image != null) {
-                profilePicImageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(image,null)));
+            if (image != null) {
+                profilePicImageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(image, null)));
             } else {    //default profilbild
                 setDefaultprofilePic();
             }
@@ -230,22 +229,23 @@ public class MenuController extends SidePanelController implements IObserver {
     }
 
 
-    private void setDefaultprofilePic(){
+    private void setDefaultprofilePic() {
         try {
-            profilePicImageView.setImage(SwingFXUtils.toFXImage(ImageIO.read(new File("src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "ViewController/images" + File.separatorChar + "defaultProfilePic.png")),null));
-        } catch(IOException exception){
+            profilePicImageView.setImage(SwingFXUtils.toFXImage(ImageIO.read(new File("src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "ViewController/images" + File.separatorChar + "defaultProfilePic.png")), null));
+        } catch (IOException exception) {
             System.out.println("Can't find default profile picture");
         }
     }
-    private void userRatingDisplay(){
-        if(byme.isLoggedIn()){
+
+    private void userRatingDisplay() {
+        if (byme.isLoggedIn()) {
             String result = String.format("%.2f", byme.getAccountRating(byme.getCurrentUsersUsername()));
-            userRating.setText("Omdömme: "+ result+"("+(int)byme.getAccountRatingCount(byme.getCurrentUsersUsername())+")");
+            userRating.setText("Omdömme: " + result + "(" + (int) byme.getAccountRatingCount(byme.getCurrentUsersUsername()) + ")");
         }
     }
 
     @Override
-    public void update(){
+    public void update() {
         updateProfilePicImageView();
         displayAccountName();
         updateRequests();
@@ -253,14 +253,15 @@ public class MenuController extends SidePanelController implements IObserver {
         userRatingDisplay();
     }
 
-    @FXML void changeTheme(){
+    @FXML
+    void changeTheme() {
         themeSetter.changeTheme();
     }
 
-    void populateMyAds(){
-        if(byme.isLoggedIn()) {
+    void populateMyAds() {
+        if (byme.isLoggedIn()) {
             myAdsFlowPane.getChildren().clear();
-            for (Ad currentAd: byme.getAds().values()) {
+            for (Ad currentAd : byme.getAds().values()) {
                 if (currentAd.getAccount().equals(byme.getCurrentUsersUsername())) {
                     myAdsFlowPane.getChildren().add(new AdItem(currentAd, detailViewToggler, byme.getAccountRating(currentAd.getAccount())));
                 }
@@ -268,10 +269,11 @@ public class MenuController extends SidePanelController implements IObserver {
         }
     }
 
-    @FXML void toggleMyAdsPanel(){
+    @FXML
+    void toggleMyAdsPanel() {
         hideMyRequestsPanel.play();
         myRequestsButton.setStyle("-fx-background-color: primary");
-        if(panelState != 1) {
+        if (panelState != 1) {
             panelState = 1;
             showMyAdsPanel.play();
             populateMyAds();
@@ -283,12 +285,12 @@ public class MenuController extends SidePanelController implements IObserver {
         }
     }
 
-    private void populateMyRequests(){
-        if(byme.isLoggedIn()) {
+    private void populateMyRequests() {
+        if (byme.isLoggedIn()) {
             myReceivedRequestsFlowPane.getChildren().clear();
             mySentRequestsFlowPane.getChildren().clear();
             for (Request request : requests) {
-                if(request.getDate().before(Calendar.getInstance().getTime())) { //Check if accepted requests have been completed (due-date)
+                if (request.getDate().before(Calendar.getInstance().getTime())) { //Check if accepted requests have been completed (due-date)
                     if (request.isAccepted()) {
                         request.setState(RequestState.ACCEPTEDANDDONE);
                     } else if (request.isPending()) {
@@ -296,7 +298,7 @@ public class MenuController extends SidePanelController implements IObserver {
                     }
                 }
                 if (request.getReceiver().equals(byme.getCurrentUsersUsername())) {
-                    if(!request.isDeclined()) {
+                    if (!request.isDeclined()) {
                         myReceivedRequestsFlowPane.getChildren().add(new RequestItem(request, detailViewToggler, true));
                     }
                 } else if (request.getSender().equals(byme.getCurrentUsersUsername())) {
@@ -306,10 +308,11 @@ public class MenuController extends SidePanelController implements IObserver {
         }
     }
 
-    @FXML void toggleMyRequestsPanel(){
+    @FXML
+    void toggleMyRequestsPanel() {
         hideMyAdsPanel.play();
         myAdsButton.setStyle("-fx-background-color: primary");
-        if(panelState != 2) {
+        if (panelState != 2) {
             panelState = 2;
             showMyRequestsPanel.play();
             populateMyRequests();
@@ -321,22 +324,25 @@ public class MenuController extends SidePanelController implements IObserver {
         }
     }
 
-    private void updateRequests(){
-        if(byme.isLoggedIn()) {
+    private void updateRequests() {
+        if (byme.isLoggedIn()) {
             requests.clear();
-            for (Ad currentAd: byme.getAds().values()) {
+            for (Ad currentAd : byme.getAds().values()) {
                 requests.addAll(currentAd.getRequests());
             }
         }
     }
 
-    @FXML void toggleSentRequests(){
+    @FXML
+    void toggleSentRequests() {
         mySentRequestsAnchorPane.setVisible(true);
         myReceivedRequestsAnchorPane.setVisible(false);
         toggleReceviedButton.setStyle("-fx-background-color: primary");
         toggleSentButton.setStyle("-fx-background-color: primary-dark");
     }
-    @FXML void toggleReceivedRequests(){
+
+    @FXML
+    void toggleReceivedRequests() {
         mySentRequestsAnchorPane.setVisible(false);
         myReceivedRequestsAnchorPane.setVisible(true);
         toggleReceviedButton.setStyle("-fx-background-color: primary-dark");

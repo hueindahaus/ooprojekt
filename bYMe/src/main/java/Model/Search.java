@@ -4,10 +4,10 @@ import java.util.*;
 
 public final class Search {
 
-    private Search(){}
-
     private static String activeTag = "";
     private static String newActiveTag = "";
+    private Search() {
+    }
 
     public static List<Ad> findAds(String input, Map<String, Ad> ads) {
         List<Ad> result = new ArrayList();
@@ -43,23 +43,20 @@ public final class Search {
     }
 
 
-    private static List<String> tagsToLowerCase(List<String> tags)
-    {
+    private static List<String> tagsToLowerCase(List<String> tags) {
         ListIterator<String> iterator = tags.listIterator();
-        while (iterator.hasNext())
-        {
+        while (iterator.hasNext()) {
             iterator.set(iterator.next().toLowerCase(Locale.ENGLISH));
         }
         return tags;
     }
 
-
-    static public void setActiveTag(String activeTag){
-        Search.activeTag = activeTag;
-    }
-
     static public String getActiveTag() {
         return activeTag;
+    }
+
+    static public void setActiveTag(String activeTag) {
+        Search.activeTag = activeTag;
     }
 
     static public String getNewActiveTag() {

@@ -14,7 +14,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 
-public class AdItem extends AnchorPane implements IObserver{
+public class AdItem extends AnchorPane implements IObserver {
 
     @FXML
     private ImageView adImage;
@@ -44,7 +44,7 @@ public class AdItem extends AnchorPane implements IObserver{
 
     private Ad ad;
 
-    AdItem(Ad ad, DetailViewToggler detailViewToggler, double rating)  {
+    AdItem(Ad ad, DetailViewToggler detailViewToggler, double rating) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXML/ads.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -61,7 +61,7 @@ public class AdItem extends AnchorPane implements IObserver{
         adLocation.setText(ad.getLocation());
         adPrice.setText(Integer.toString(ad.getPrice()));
         String result = String.format("%.2f", rating);
-        adAccount.setText(ad.getAccount()+" ("+result+")");
+        adAccount.setText(ad.getAccount() + " (" + result + ")");
 
 
         this.setOnMouseClicked(event -> detailViewToggler.toggleDetailView(true, ad));
@@ -76,12 +76,12 @@ public class AdItem extends AnchorPane implements IObserver{
     }
 
     @Override
-    public void update(){
+    public void update() {
         adTitle.setText(this.ad.getTitle());
         adDescription.setText(this.ad.getDescription());
         adLocation.setText(this.ad.getLocation());
         adPrice.setText(this.ad.getPrice() + " kr");
-       // setTagLabels();
+        // setTagLabels();
         updatePicture();
     }
 
@@ -99,11 +99,12 @@ public class AdItem extends AnchorPane implements IObserver{
 
     }
 */
+
     /**
      * Updates the ImageView in an ad and displays only the primary picture(first one in the ArrayList).
      **/
-    private void updatePicture(){
-        if(pictureHandler.getAdPictures(ad.getAdId()).size() > 0) {
+    private void updatePicture() {
+        if (pictureHandler.getAdPictures(ad.getAdId()).size() > 0) {
             Image image = pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(pictureHandler.getAdPictures(ad.getAdId()).get(0), null));
             adImage.setImage(image);
         }

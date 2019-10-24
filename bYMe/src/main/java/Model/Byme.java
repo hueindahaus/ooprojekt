@@ -1,10 +1,12 @@
 package Model;
+
 import java.text.ParseException;
 import java.util.*;
 
 /**
  * Byme is the aggregate object in the model. It has responsibility for the fundamental logic in the model
  * (such as adding an ad to a hashmap, editing an ad, deleting an ad, creating an account etc). Is represented as a singleton.
+ *
  * @Author Alexander Huang
  * @Author Joel Jönsson
  * @Author Milos Bastajic
@@ -14,8 +16,14 @@ import java.util.*;
 public final class Byme {
 
     private static Byme singleton = null;
+    private List<IObserver> observers = new ArrayList<>();
+    private Map<String, Account> accounts;
+    private Account currentUser;
+    private IAccountHandler accountHandler;
+    private IAdHandler adHandler;
+    private Map<String, Ad> ads = new LinkedHashMap<>();
 
-    private Byme(IAccountHandler accountHandler, IAdHandler adHandler){
+    private Byme(IAccountHandler accountHandler, IAdHandler adHandler) {
         accounts = new HashMap<>();
         this.accountHandler = accountHandler;
         this.adHandler = adHandler;
@@ -26,64 +34,55 @@ public final class Byme {
 
     /**
      * Singleton pattern offers a getInstance()-method which caps the amount that can be created to 1. Its a static and public method which can be accessed everywhere in the program.
+     *
      * @param accountHandler is the one that handles saving/loading of accounts
-     * @param adHandler is the one that handles saving/loading of ads
+     * @param adHandler      is the one that handles saving/loading of ads
      * @return returns the singleton object.
      */
 
-    public static Byme getInstance(IAccountHandler accountHandler, IAdHandler adHandler){   //argumenten måste vi ha för att Modellen inte ska vara beroende av "services"
-        if(singleton == null){
+    public static Byme getInstance(IAccountHandler accountHandler, IAdHandler adHandler) {   //argumenten måste vi ha för att Modellen inte ska vara beroende av "services"
+        if (singleton == null) {
             singleton = new Byme(accountHandler, adHandler);
         }
         return singleton;
     }
 
-    private List<IObserver> observers = new ArrayList<>();
-
-    private Map<String, Account> accounts;
-
-    private Account currentUser;
-
-    private IAccountHandler accountHandler;
-
-    private IAdHandler adHandler;
-
-    private Map<String,Ad> ads= new LinkedHashMap<>();
-
     /**
      * Getter for the HashMap with all the ads in the program.
+     *
      * @return HashMap with the ads in the program.
      */
 
-    public Map<String,Ad> getAds(){
+    public Map<String, Ad> getAds() {
         return ads;
     }
 
     /**
      * A method which removes an ad from the HashMap with ads.
+     *
      * @param adID The id to the ad that shall be removed.
      */
-    public void removeAd(String adID){
+    public void removeAd(String adID) {
         try {
             ads.remove(adID);
             notifyObservers();
-        }
-        catch(NullPointerException none){
+        } catch (NullPointerException none) {
             none.getMessage();
         }
     }
 
     /**
      * A method which edits an ad from the HashMap with ads.
-     * @param adID The id to the ad that shall be edited.
-     * @param title The title that should be setted in the ad.
-     * @param price The price that should be setted in the ad
+     *
+     * @param adID        The id to the ad that shall be edited.
+     * @param title       The title that should be setted in the ad.
+     * @param price       The price that should be setted in the ad
      * @param description The description that should be setted in the ad.
-     * @param location The Location that should be setted in the ad.
-     * @param tags The list of tags that should be setted in the ad.
+     * @param location    The Location that should be setted in the ad.
+     * @param tags        The list of tags that should be setted in the ad.
      */
 
-    public void editAd(String adID, String title, int price, String description, String location, List<String> tags){
+    public void editAd(String adID, String title, int price, String description, String location, List<String> tags) {
 
         Ad ad = ads.get(adID);
 
@@ -96,13 +95,13 @@ public final class Byme {
         notifyObservers();
     }
 
-    private void addTagsToAd(String adID, List<String> tags){
+    private void addTagsToAd(String adID, List<String> tags) {
         Ad ad = ads.get(adID);
         ad.setTagsList(tags);
     }
 
 
-    private void saveObjects(){
+    private void saveObjects() {
         accountHandler.saveAccounts(accounts);
         adHandler.saveAds(ads);
     }
@@ -113,12 +112,13 @@ public final class Byme {
      * The method adds the account into a hashmap.
      * If the account is already registered the user
      * gets a message telling them about it.
+     *
      * @param username The username which is setted for the account to be made.
      * @param password The password which is setted for the account to be made.
      */
 
-    public void registerAccount(String username, String password){
-        if(!isAlreadyRegistered(username)) {
+    public void registerAccount(String username, String password) {
+        if (!isAlreadyRegistered(username)) {
             accounts.put(username, new Account(username, password));
         } else {
             System.out.println("User already exist: " + username);
@@ -129,18 +129,18 @@ public final class Byme {
     /**
      * This method checks if an account
      * has already been registered.
+     *
      * @param username The username which either exist or not
      * @return A boolean that returns true or false based on if an account with the given username exist.
      */
 
-    public boolean isAlreadyRegistered(String username){   //metod som kollar om ett användarnamn redan är registrerat eller ej
+    public boolean isAlreadyRegistered(String username) {   //metod som kollar om ett användarnamn redan är registrerat eller ej
         return accounts.containsKey(username);
     }
 
-    public String getCurrentUsersUsername(){
+    public String getCurrentUsersUsername() {
         return currentUser.getUsername();
     }
-
 
 
     /**
@@ -148,14 +148,15 @@ public final class Byme {
      * Changes the currentUser.
      * In order to login the password must
      * match the given password at registration.
+     *
      * @param username
      * @param password
      */
 
-    public void loginUser(String username, String password){
-        if(accounts.containsKey(username)){
+    public void loginUser(String username, String password) {
+        if (accounts.containsKey(username)) {
             Account user = accounts.get(username);
-            if(user.passwordMatches(password)){
+            if (user.passwordMatches(password)) {
                 currentUser = user;
                 notifyObservers();
                 System.out.println(currentUser.getUsername() + " logged in");
@@ -163,17 +164,17 @@ public final class Byme {
         }
     }
 
-    public boolean userExist(String username, String password){
+    public boolean userExist(String username, String password) {
         return accounts.containsKey(username) && accounts.get(username).passwordMatches(password);
     }
 
-    public void signoutUser(){
+    public void signoutUser() {
         currentUser = null;
         notifyObservers();
     }
 
 
-    public void addObserver(IObserver observer){
+    public void addObserver(IObserver observer) {
         observers.add(observer);
     }
 
@@ -183,14 +184,14 @@ public final class Byme {
      */
 
 
-    private void notifyObservers(){         //används för att uppdatera allt som är beroende av modellen när något i modellen ändras
-        for(IObserver observer: observers){
+    private void notifyObservers() {         //används för att uppdatera allt som är beroende av modellen när något i modellen ändras
+        for (IObserver observer : observers) {
             observer.update();
         }
     }
 
 
-    private String generateRandomAdId(){
+    private String generateRandomAdId() {
         StringBuilder stringBuilder = new StringBuilder();
         Random randomizer = new Random();
 
@@ -202,7 +203,7 @@ public final class Byme {
 
         String value = stringBuilder.toString();
 
-        if(ads.containsKey(value)){
+        if (ads.containsKey(value)) {
             value = generateRandomAdId();
         }
 
@@ -212,21 +213,22 @@ public final class Byme {
 
     /**
      * Method that creates an ad and puts it in the HashMap with ads.
-     * @param title Title of the ad that is created.
+     *
+     * @param title       Title of the ad that is created.
      * @param description Description of the ad that is created.
-     * @param price Price of the ad that is created.
-     * @param location Location of the ad that is created.
-     * @param account Username of the account that creates the ad.
-     * @param tags The list of tags that the ad should include
+     * @param price       Price of the ad that is created.
+     * @param location    Location of the ad that is created.
+     * @param account     Username of the account that creates the ad.
+     * @param tags        The list of tags that the ad should include
      */
-    public void createAd(String title, String description, int price, String location, String account, List<String> tags){
+    public void createAd(String title, String description, int price, String location, String account, List<String> tags) {
         String adId = generateRandomAdId();
-        ads.put(adId,new Ad(title,price,description,location,adId, account));
-        addTagsToAd(adId,tags);
+        ads.put(adId, new Ad(title, price, description, location, adId, account));
+        addTagsToAd(adId, tags);
     }
 
 
-    public boolean isLoggedIn(){
+    public boolean isLoggedIn() {
         return currentUser != null;
     }
 
@@ -235,7 +237,7 @@ public final class Byme {
         notifyObservers();
     }
 
-    public void removeRequest(Request request){
+    public void removeRequest(Request request) {
         Ad currentAd = ads.get(request.getAd());
         List<Request> requests = currentAd.getRequests();
         requests.remove(request);
@@ -243,17 +245,17 @@ public final class Byme {
         notifyObservers();
     }
 
-    public void reviewAccount(String username, int rating){
+    public void reviewAccount(String username, int rating) {
         accounts.get(username).addRating(rating);
     }
 
-    public double getAccountRating(String username){
+    public double getAccountRating(String username) {
         return accounts.get(username).getAverageRating();
     }
 
-    public String getLastAddedAdId(){
+    public String getLastAddedAdId() {
         Ad lastAdded = null;
-        for(Ad ad: ads.values()){
+        for (Ad ad : ads.values()) {
             lastAdded = ad;
         }
         return lastAdded.getAdId();

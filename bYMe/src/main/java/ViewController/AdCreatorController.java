@@ -90,7 +90,6 @@ public class AdCreatorController extends AnchorPane {
     private AdItemsUpdater adItemsUpdater;
 
 
-
     private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
 
     AdCreatorController(AdItemsUpdater adItemsUpdater) {
@@ -121,14 +120,13 @@ public class AdCreatorController extends AnchorPane {
                     adPrice.setText(newValue.replaceAll("[^\\d]", ""));
                 }
 
-                if(newValue.length() > 0 && newValue.charAt(0) == '0'){
+                if (newValue.length() > 0 && newValue.charAt(0) == '0') {
                     adPrice.setText(oldValue);
                 }
             }
         });
 
         this.getChildren().add(pictureChanger);
-
 
 
         Button pictureChangeButton = new Button();
@@ -172,8 +170,8 @@ public class AdCreatorController extends AnchorPane {
 
         ErrorMessageController.handleAdCreationErrors(adTitle, adPrice, adLocation, adDescription, errormessage);
 
-        if(allTextFieldsFilled()) {
-            byme.createAd(adTitle.getText(), adDescription.getText(), Integer.valueOf(adPrice.getText()), adLocation.getSelectionModel().getSelectedItem().toString(),byme.getCurrentUsersUsername(), getTagsTextField());
+        if (allTextFieldsFilled()) {
+            byme.createAd(adTitle.getText(), adDescription.getText(), Integer.valueOf(adPrice.getText()), adLocation.getSelectionModel().getSelectedItem().toString(), byme.getCurrentUsersUsername(), getTagsTextField());
             saveRecentlyAddedPictures();
             toggleCreateAdWindow();
             adItemsUpdater.updateAdItems();
@@ -183,11 +181,11 @@ public class AdCreatorController extends AnchorPane {
     }
 
 
-    void saveRecentlyAddedPictures(){
-        pictureHandler.saveAdPictures(byme.getLastAddedAdId() , pictureChanger.getImages());
+    void saveRecentlyAddedPictures() {
+        pictureHandler.saveAdPictures(byme.getLastAddedAdId(), pictureChanger.getImages());
     }
 
-    private boolean allTextFieldsFilled(){
+    private boolean allTextFieldsFilled() {
         return (!adTitle.getText().isEmpty() && !adPrice.getText().isEmpty() && adLocation.getSelectionModel().getSelectedItem() != null && !adDescription.getText().isEmpty());
     }
 
@@ -204,23 +202,21 @@ public class AdCreatorController extends AnchorPane {
     }
 
 
-
-    private void updateImageViews(){
-        if(pictureChanger.getImages().size() > 0){
+    private void updateImageViews() {
+        if (pictureChanger.getImages().size() > 0) {
             imageView.setImage(SwingFXUtils.toFXImage(pictureChanger.getImages().get(0), null));
         } else {
             try {
                 imageView.setImage(SwingFXUtils.toFXImage(ImageIO.read(new File("src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "ViewController/images" + File.separatorChar + "insert_photo.png")), null));
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
 
-
     @FXML
-    void openPictureChangePanel(){
+    void openPictureChangePanel() {
         pictureChanger.setVisible(true);
         greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.8);");
         mouseBlockerPane.setVisible(true);
@@ -228,15 +224,14 @@ public class AdCreatorController extends AnchorPane {
     }
 
 
-
-    private void closePictureChangePanel(){
+    private void closePictureChangePanel() {
         pictureChanger.setVisible(false);
         greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
         mouseBlockerPane.setVisible(false);
         updateImageViews();
     }
 
-    private void resetAllFields(){
+    private void resetAllFields() {
         pictureChanger.resetImageList();
         updateImageViews();
         adPrice.setText("");
