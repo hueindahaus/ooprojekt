@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ErrorMessageController {
+class ErrorMessageController {
 
     private static void handleTextFieldEmptyError(TextField textField1, TextField textField2, TextField textField3, Label errorLabel) {
 
@@ -222,7 +222,7 @@ public class ErrorMessageController {
      * otherwise the border does not change color.
      * @param textField
      */
-    static void handleTextFieldEmpty(TextField textField){
+    private static void handleTextFieldEmpty(TextField textField){
         if (textField.getText().isEmpty()) {
             textField.setStyle("-fx-border-color: #e74c3c;");
         } else textField.setStyle("-fx-border-color: inherit");
@@ -233,7 +233,7 @@ public class ErrorMessageController {
      * otherwise the border does not change color.
      * @param comboBox
      */
-    static void handleComboBoxEmpty(ComboBox comboBox){
+    private static void handleComboBoxEmpty(ComboBox comboBox){
         if (comboBox.getSelectionModel().getSelectedItem() == null) {
             comboBox.setStyle("-fx-border-color: #e74c3c;");
         } else comboBox.setStyle("-fx-border-color: inherit");
@@ -243,7 +243,7 @@ public class ErrorMessageController {
      * otherwise the border does not change color.
      * @param datePicker
      */
-    static void handleDatepickerEmpty(DatePicker datePicker){
+    private static void handleDatepickerEmpty(DatePicker datePicker){
         if (datePicker.getValue() == null) {
             datePicker.setStyle("-fx-border-color: #e74c3c;");
         } else datePicker.setStyle("-fx-border-color: inherit");

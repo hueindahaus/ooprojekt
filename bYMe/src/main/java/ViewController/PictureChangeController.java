@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PictureChangeController extends AnchorPane {
+class PictureChangeController extends AnchorPane {
 
 
     @FXML
@@ -37,9 +37,9 @@ public class PictureChangeController extends AnchorPane {
 
     private ArrayList<BufferedImage> images = new ArrayList<>();
 
-    PictureHandler pictureHandler = PictureHandler.getInstance();
+    private PictureHandler pictureHandler = PictureHandler.getInstance();
 
-    ImageViewUpdater imageViewUpdater;
+    private ImageViewUpdater imageViewUpdater;
 
 
     PictureChangeController(ImageViewUpdater imageViewUpdater){
@@ -119,7 +119,7 @@ public class PictureChangeController extends AnchorPane {
         changeAdPic(4);
     }
 
-    void changeAdPic(int index){
+    private void changeAdPic(int index){
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("jpg", "*.jpg"), new FileChooser.ExtensionFilter("png", "*.png"), new FileChooser.ExtensionFilter("jpeg", "*.jpg"));
         File selectedFile = fileChooser.showOpenDialog(null);

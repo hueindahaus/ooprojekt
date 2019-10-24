@@ -149,7 +149,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         populateAds();
     }
 
-    public void populateAds() {
+    private void populateAds() {
         adsListFlowPane.getChildren().clear();
         tags.clear();
         tagsCount.clear();
@@ -215,7 +215,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
             menuController.populateMyAds();
         }
 
-    public void populateTags() {
+    private void populateTags() {
         tagsFlowPane.getChildren().clear();
         ArrayList<String> sortedTags = sortTags();
         for (int i = 0; i < sortedTags.size(); i += 2) {

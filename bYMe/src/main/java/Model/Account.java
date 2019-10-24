@@ -12,7 +12,7 @@ public class Account {
         this.rating = rating;
         this.ratingCount = ratingCount;
     }
-    public Account(String username, String password){
+    Account(String username, String password){
         this.username = username;
         this.password = password;
         this.rating = 0;
@@ -30,7 +30,7 @@ public class Account {
         return this.password;
     }
 
-    public void addRating(int rating){
+    void addRating(int rating){
         this.rating += rating;
         ratingCount ++;
     }
