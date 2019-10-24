@@ -1,5 +1,9 @@
 package Model;
 
+/**
+ *
+ */
+
 public class Account {
     private final String username;
     private String password;
