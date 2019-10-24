@@ -455,7 +455,6 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     void showUserButtons() {
         index = 0;
         boolean usersAd = isUsersAd();
-        boolean multipleImages = pictureHandler.getAdPictures(ad.getAdId()).size() > 1;
         showPictureBrowseButtons();
         deleteButton.setVisible(usersAd);
         editButton.setVisible(usersAd);
@@ -581,7 +580,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     @FXML
     void prevImage() {
         List<BufferedImage> images = pictureHandler.getAdPictures(ad.getAdId());
-        if (!pictureChanger.getImages().isEmpty()) {
+        if (!images.isEmpty()) {
             index--;
             image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(images.get(abs(index) % images.size()), null)));
         }
