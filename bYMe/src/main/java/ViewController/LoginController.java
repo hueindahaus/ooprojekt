@@ -123,7 +123,13 @@ public class LoginController extends SidePanelController {
         if (bYMe.isLoggedIn()) {
             ErrorMessageController.resetTextFields(logInUsername, logInPassword, errorLabelLogin);
             panelToggler.toggleSidePanel(true);
+            resetLoginFields();
         }
+    }
+
+    private void resetLoginFields(){
+        logInUsername.clear();
+        logInPassword.clear();
     }
 
     @FXML
