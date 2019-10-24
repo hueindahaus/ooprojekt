@@ -25,8 +25,8 @@ hs_err_pid*
 /bYMe/.idea/
 bYMe/.idea/workspace.xml
 bYMe/out/production/
-bYMe/src/main/java/Services/ad_pictures/profile_pics/*.jpg
-bYMe/src/main/java/Services/ad_pictures/data/ads.json
-bYMe/src/main/java/Services/ad_pictures/data/logins.json
+bYMe/src/main/java/Services/data/ads.json
+bYMe/src/main/java/Services/data/logins.json
+bYMe/src/main/java/Services/data/requests.json
+bYMe/src/main/java/Services/profile_pics/*.jpg
 bYMe/src/main/java/Services/ad_pictures/*/*.jpg
-bYMe/src/main/java/Services/ad_pictures/data/requests.json
