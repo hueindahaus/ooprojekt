@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RequestTest {
 
@@ -20,32 +20,32 @@ class RequestTest {
 
     @Test
     void getSender() {
-        assertEquals("user1", request.getSender() );
+        assertEquals("user1", request.getSender());
     }
 
     @Test
     void getReceiver() {
-        assertEquals("user2", request.getReceiver() );
+        assertEquals("user2", request.getReceiver());
     }
 
     @Test
     void getAd() {
-        assertEquals("testAd", request.getAd() );
+        assertEquals("testAd", request.getAd());
     }
 
     @Test
     void getMessage() {
-        assertEquals("Hello", request.getMessage() );
+        assertEquals("Hello", request.getMessage());
     }
 
     @Test
     void getDate() {
-        assertEquals("user1", request.getSender() );
+        assertEquals("user1", request.getSender());
     }
 
     @Test
     void getDateString() {
-        assertEquals("2019-10-01/12:00", request.getDateString() );
+        assertEquals("2019-10-01/12:00", request.getDateString());
     }
 
     @Test

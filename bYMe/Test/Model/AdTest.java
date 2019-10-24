@@ -2,7 +2,7 @@ package Model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AdTest {
 
@@ -36,8 +36,8 @@ class AdTest {
 
     @Test
     void setPrice() {
-    testad.setPrice(1);
-    assertEquals(1, testad.getPrice());
+        testad.setPrice(1);
+        assertEquals(1, testad.getPrice());
     }
 
     @Test
@@ -49,13 +49,13 @@ class AdTest {
 
     @Test
     void setDescription() {
-       testad.setDescription("changedDescription");
+        testad.setDescription("changedDescription");
         assertEquals("changedDescription", testad.getDescription());
     }
 
     @Test
     void setLocation() {
         testad.setLocation("changedLocation");
-        assertEquals("changedLocation",testad.getLocation());
+        assertEquals("changedLocation", testad.getLocation());
     }
 }
