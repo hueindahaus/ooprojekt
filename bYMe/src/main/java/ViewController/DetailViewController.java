@@ -35,13 +35,13 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
 
 
-    DetailViewToggler detailViewToggler;
+    private DetailViewToggler detailViewToggler;
 
-    PictureHandler pictureHandler = PictureHandler.getInstance();
+    private PictureHandler pictureHandler = PictureHandler.getInstance();
 
-    PictureChangeController pictureChanger;
+    private PictureChangeController pictureChanger;
 
-    Byme byme = Byme.getInstance(null, null);
+    private Byme byme = Byme.getInstance(null, null);
 
 
     @FXML
@@ -127,20 +127,20 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     @FXML
     Button buttonPrevImage;
 
-    Timeline showPrompt;
+    private Timeline showPrompt;
 
-    Timeline closePrompt;
+    private Timeline closePrompt;
 
-    Timeline showRequestPrompt;
+    private Timeline showRequestPrompt;
 
-    Timeline closeRequestPrompt;
+    private Timeline closeRequestPrompt;
 
-    Ad ad;
+    private Ad ad;
 
-    int index;
+    private int index;
 
 
-    public DetailViewController(DetailViewToggler detailViewToggler) {
+    DetailViewController(DetailViewToggler detailViewToggler) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXML/detailView.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -246,7 +246,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
      * Used for the exitButton which upon a press closes the detailView panel.
      */
     @FXML
-    void closeDetailView() {
+    private void closeDetailView() {
         switchToNormalViewMode();
         detailViewToggler.toggleDetailView(false, ad);
     }
@@ -261,7 +261,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     }
 
     @FXML
-    void removeAdClosePrompt() {
+    private void removeAdClosePrompt() {
         closePrompt.play();
         greyZone2.setVisible(false);
     }
@@ -286,7 +286,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     }
 
     @FXML
-    void sendRequestClosePrompt() {
+    private void sendRequestClosePrompt() {
         closeRequestPrompt.play();
         greyZone2.setVisible(false);
     }
@@ -318,7 +318,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
 
 
-    void savePictures(){
+    private void savePictures(){
         if(ad != null) {
             pictureHandler.saveAdPictures(ad.getAdId(), pictureChanger.getImages());
         }
@@ -487,7 +487,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
      * Method which enables visibility for an ads TextFields and at the same time disables visibility for the Labels.
      * It also sets the text for all TextFields so they get the current data.
      */
-    void showTextFields() {
+    private void showTextFields() {
 
         adTitle.setVisible(false);
         adLocation.setVisible(false);
@@ -526,7 +526,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
      * Method which enables visibility for an ads Labels and at the same time disables visibility for the TextFields.
      */
 
-    public void showLabels() {
+    void showLabels() {
 
         adTitle.setVisible(true);
         adLocation.setVisible(true);
@@ -551,7 +551,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
 
 
-    void openPictureChangePanel(){
+    private void openPictureChangePanel(){
             pictureChanger.update();
             greyZone.setDisable(true);
             greyZone.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
@@ -559,7 +559,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     }
 
 
-    void closePictureChangePanel(){
+    private void closePictureChangePanel(){
         savePictures();
         updateImageViews();
         greyZone.setDisable(false);

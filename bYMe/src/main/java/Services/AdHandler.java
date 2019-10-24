@@ -55,10 +55,8 @@ public class AdHandler implements IAdHandler {
                 }
             }
 
-        } catch(IOException exception){
+        } catch(IOException | ParseException exception){
             exception.printStackTrace();
-        } catch (ParseException excpetion){
-            excpetion.printStackTrace();
         }
     }
 

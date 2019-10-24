@@ -24,8 +24,6 @@ public class Ad{
             this.location = location;
             this.adId = adId;
             this.account = account;
-            this.tagsList = tagsList;
-
         }
 
         public int getPrice(){

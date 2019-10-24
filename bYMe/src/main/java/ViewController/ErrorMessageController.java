@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ErrorMessageController {
+class ErrorMessageController {
 
     private static void handleTextFieldEmptyError(TextField textField1, TextField textField2, TextField textField3, Label errorLabel) {
 
@@ -99,12 +99,12 @@ public class ErrorMessageController {
      * If the username is already taken the user will get an
      * errormessage telling them that the username is taken.
      * If the two passwords do not match the user will get an
-     * errormessage telling them that the passwords do not match. 
-     * @param username
-     * @param password
-     * @param password2
-     * @param errorLabel
-     * @param userAlreadyExist
+     * errormessage telling them that the passwords do not match.
+     * @param username The textfield username is the textfield where the user types the username they desire for their account.
+     * @param password The textfield password is the textfield where the user types the password they desire for their account.
+     * @param password2 The textfield password2 is the "confirm password" textfield.
+     * @param errorLabel The label errorLabel is the label that the users see at registration when something goes wrong.
+     * @param userAlreadyExist Controls if an username is alrady taken.
      */
     static void handleRegisterErrors(TextField username, TextField password, TextField password2, Label errorLabel, boolean userAlreadyExist) {
         resetTextFields(username, password, password2, errorLabel);
@@ -148,10 +148,10 @@ public class ErrorMessageController {
      *  If the username and password does not match
      *  the user will get an errormessage telling them that
      *  the password or username is wrong.
-     * @param username
-     * @param password
-     * @param errorLabel
-     * @param usernameAndPasswordMatch
+     * @param username The username that the user previously registered. Used for logging in.
+     * @param password The password that the user previously chosen for his account.
+     * @param errorLabel The label that the users see at login when something goes wrong.
+     * @param usernameAndPasswordMatch Controls if the password and username is correct.
      */
     static void handleLoginErrors(TextField username, TextField password, Label errorLabel, boolean usernameAndPasswordMatch) {
         resetTextFields(username, password, errorLabel);
@@ -162,15 +162,8 @@ public class ErrorMessageController {
             handleWrongUsernameOrPasswordError(usernameAndPasswordMatch, username, password, errorLabel);
         }
     }
-    /**
-     * This methods controls if the password and username
-     *matches and if they do not the username and password textfields
-     * will change color to red. The errorlabel will also change.
-     * @param usernameAndPasswordMatch
-     * @param username
-     * @param password
-     * @param errorLabel
-     */
+
+
     private static void handleWrongUsernameOrPasswordError(boolean usernameAndPasswordMatch, TextField username, TextField password, Label errorLabel) {
         if (!usernameAndPasswordMatch) {
             username.setStyle("-fx-border-color: #e74c3c;");
@@ -222,7 +215,7 @@ public class ErrorMessageController {
      * otherwise the border does not change color.
      * @param textField
      */
-    static void handleTextFieldEmpty(TextField textField){
+    private static void handleTextFieldEmpty(TextField textField){
         if (textField.getText().isEmpty()) {
             textField.setStyle("-fx-border-color: #e74c3c;");
         } else textField.setStyle("-fx-border-color: inherit");
@@ -233,7 +226,7 @@ public class ErrorMessageController {
      * otherwise the border does not change color.
      * @param comboBox
      */
-    static void handleComboBoxEmpty(ComboBox comboBox){
+    private static void handleComboBoxEmpty(ComboBox comboBox){
         if (comboBox.getSelectionModel().getSelectedItem() == null) {
             comboBox.setStyle("-fx-border-color: #e74c3c;");
         } else comboBox.setStyle("-fx-border-color: inherit");
@@ -243,7 +236,7 @@ public class ErrorMessageController {
      * otherwise the border does not change color.
      * @param datePicker
      */
-    static void handleDatepickerEmpty(DatePicker datePicker){
+    private static void handleDatepickerEmpty(DatePicker datePicker){
         if (datePicker.getValue() == null) {
             datePicker.setStyle("-fx-border-color: #e74c3c;");
         } else datePicker.setStyle("-fx-border-color: inherit");

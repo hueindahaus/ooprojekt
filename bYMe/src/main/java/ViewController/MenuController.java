@@ -81,19 +81,19 @@ public class MenuController extends SidePanelController implements IObserver {
     @FXML
     Label userRating;
 
-    Timeline showMyAdsPanel = new Timeline();
+    private Timeline showMyAdsPanel = new Timeline();
 
-    Timeline hideMyAdsPanel = new Timeline();
+    private Timeline hideMyAdsPanel = new Timeline();
 
-    Timeline showMyRequestsPanel = new Timeline();
+    private Timeline showMyRequestsPanel = new Timeline();
 
-    Timeline hideMyRequestsPanel = new Timeline();
+    private Timeline hideMyRequestsPanel = new Timeline();
 
     private int panelState = 0;
 
     private Byme byme = Byme.getInstance(null,null);
 
-    ArrayList<Request> requests = new ArrayList<>();
+    private ArrayList<Request> requests = new ArrayList<>();
 
     private DetailViewToggler detailViewToggler;
 
@@ -242,7 +242,7 @@ public class MenuController extends SidePanelController implements IObserver {
         themeSetter.changeTheme();
     }
 
-    public void populateMyAds(){
+    void populateMyAds(){
         if(byme.isLoggedIn()) {
             myAdsFlowPane.getChildren().clear();
             for (Ad currentAd: byme.getAds().values()) {
@@ -268,7 +268,7 @@ public class MenuController extends SidePanelController implements IObserver {
         }
     }
 
-    public void populateMyRequests(){
+    private void populateMyRequests(){
         if(byme.isLoggedIn()) {
             myReceivedRequestsFlowPane.getChildren().clear();
             mySentRequestsFlowPane.getChildren().clear();

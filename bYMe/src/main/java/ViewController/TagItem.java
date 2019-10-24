@@ -7,16 +7,16 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class TagItem extends AnchorPane {
+class TagItem extends AnchorPane {
 
     @FXML
     private Label tagName;
     @FXML
     private Label tagNo;
 
-    MainController mainController;
+    private MainController mainController;
 
-    public TagItem(String tagName, int tagNo, boolean isActive, MainController mainController){
+    TagItem(String tagName, int tagNo, boolean isActive, MainController mainController){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXML/tags.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
