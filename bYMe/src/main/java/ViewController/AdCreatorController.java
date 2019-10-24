@@ -28,6 +28,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsible for the FXML-file:createAdWindow containing all of the fxml-elements needed for creating a new ad item.
+ * @author Joel Jönsson, Alexander Huang.
+ *
+ * Uses: AdItemsUpdater, PictureHandler, PictureChangeController, Byme.
+ * Used by: MainController.
+ */
+
 public class AdCreatorController extends AnchorPane {
 
     @FXML

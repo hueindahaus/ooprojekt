@@ -1,5 +1,4 @@
 package ViewController;
-
 import Model.Ad;
 import Model.Byme;
 import Model.IObserver;
@@ -17,6 +16,14 @@ import javafx.scene.layout.FlowPane;
 import java.net.URL;
 import java.util.*;
 
+
+/**
+ *
+ *@author Alexander Huang, Joel Jönsson, Adam Jawad, Johan Gottlander & Milos Bastajic.
+ *
+ * Used by: TagItem
+ * Uses: Byme, Search, LoginController, MenuController, AdCreatorController, DetailViewController, Theme
+ */
 public class MainController implements Initializable, SidePanelToggler, ThemeSetter, DetailViewToggler, IObserver, AdItemsUpdater, TagSearcher {
 
     @FXML
@@ -89,6 +96,9 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     }
 
+    /**
+     *
+     */
     @FXML
     public void togglePanel() {
         if (!byme.isLoggedIn()) {
@@ -99,6 +109,10 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     }
 
     @Override
+    /**
+     *
+     * @param login
+     */
     public void togglePanel(boolean login) {
         if (login) {
             loginController.toggleOffPanel();
@@ -120,6 +134,9 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     }
 
+    /**
+     * Changes the theme from default to a dark theme, and the other way around(Used as a method on a toggle button).
+     */
     @Override
     public void changeTheme() {
         if (!dark_theme) {
@@ -131,6 +148,9 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
+    /**
+     * This method updates all existing ads.
+     */
     @Override
     public void updateAdItems() {
         for (Object obj : byme.getAds().values()) {
@@ -183,6 +203,9 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     }
 
 
+    /**
+     * This method opens the view for creating new ads if a user is logged in, else the right hand side pane for logging in toggles open.
+     */
     @FXML
     void openCreateAd() {
         if (byme.isLoggedIn()) {
@@ -192,6 +215,11 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
+    /**
+     * A method for toggling the open/close function of the view which display more information about an ad
+     * @param openDetailView Is a boolean containing the information whether or not an ad is open or not.
+     * @param ad Is the current ad that the user clicked on.
+     */
     @Override
     public void toggleDetailView(boolean openDetailView, Ad ad) {
         if (openDetailView) {

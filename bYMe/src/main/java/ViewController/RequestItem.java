@@ -15,6 +15,15 @@ import javafx.scene.layout.AnchorPane;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * This class is responsible for displaying and setting ratings on the sender(the buyer in this case) of the request.
+ * The requests also have a specific color to match their current state, as an example does the "request item" in the
+ * users request list turn green when they "Accept" a request from a buyer.
+ * @author Milos Bastajic, Joel Jönsson
+ *
+ * Uses: DetailViewToggler, Request, Byme.
+ * Used by: MenuController.
+ */
 public class RequestItem extends AnchorPane {
 
     PictureHandler pictureHandler = PictureHandler.getInstance();
