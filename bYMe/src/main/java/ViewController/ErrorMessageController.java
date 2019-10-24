@@ -1,3 +1,7 @@
+/**
+ * Author: Adam
+ * Used by: AdCreatorController, DetailViewController & LoginController
+ */
 package ViewController;
 
 
@@ -88,6 +92,20 @@ public class ErrorMessageController {
 
     }
 
+    /**
+     * This methods handles the Errors at registration.
+     * If a textfield is left empty the user will get an
+     * errormessage telling them to fill in all fields.
+     * If the username is already taken the user will get an
+     * errormessage telling them that the username is taken.
+     * If the two passwords do not match the user will get an
+     * errormessage telling them that the passwords do not match. 
+     * @param username
+     * @param password
+     * @param password2
+     * @param errorLabel
+     * @param userAlreadyExist
+     */
     static void handleRegisterErrors(TextField username, TextField password, TextField password2, Label errorLabel, boolean userAlreadyExist) {
         resetTextFields(username, password, password2, errorLabel);
 
@@ -123,7 +141,18 @@ public class ErrorMessageController {
         return !t1.getText().isEmpty() && !t2.getText().isEmpty() && !t3.getText().isEmpty() && !t4.getText().isEmpty() && !t5.getText().isEmpty() && !t6.getText().isEmpty();
     }
 
-
+    /**
+     *  This methods handles the Errors at login.
+     *  If a textfield is left empty the user will get an
+     *  errormessage telling them to fill in all fields.
+     *  If the username and password does not match
+     *  the user will get an errormessage telling them that
+     *  the password or username is wrong.
+     * @param username
+     * @param password
+     * @param errorLabel
+     * @param usernameAndPasswordMatch
+     */
     static void handleLoginErrors(TextField username, TextField password, Label errorLabel, boolean usernameAndPasswordMatch) {
         resetTextFields(username, password, errorLabel);
 
@@ -133,7 +162,15 @@ public class ErrorMessageController {
             handleWrongUsernameOrPasswordError(usernameAndPasswordMatch, username, password, errorLabel);
         }
     }
-
+    /**
+     * This methods controls if the password and username
+     *matches and if they do not the username and password textfields
+     * will change color to red. The errorlabel will also change.
+     * @param usernameAndPasswordMatch
+     * @param username
+     * @param password
+     * @param errorLabel
+     */
     private static void handleWrongUsernameOrPasswordError(boolean usernameAndPasswordMatch, TextField username, TextField password, Label errorLabel) {
         if (!usernameAndPasswordMatch) {
             username.setStyle("-fx-border-color: #e74c3c;");
@@ -142,6 +179,16 @@ public class ErrorMessageController {
         }
     }
 
+    /**
+     * This methods handles the Errors at adcreation.
+     * If a textfield or combobox is left empty the user will get an
+     *errormessage telling them to fill in all fields.
+     * @param title
+     * @param price
+     * @param location
+     * @param description
+     * @param errorLabel
+     */
     static void handleAdCreationErrors(TextField title, TextField price, ComboBox location, TextField description, Label errorLabel) {
         resetTextFields(title, price, description, location, errorLabel);
         if (!allFieldsAreFilled(title, price, description, location)) {
@@ -149,6 +196,16 @@ public class ErrorMessageController {
         }
     }
 
+    /**
+     * This methods handles the Errors at the page where the user sends a request.
+     * If a textfield or the datepicker is left empty the user will get an
+     * errormessage telling them to fill in all fields.
+     * @param hour
+     * @param minute
+     * @param description
+     * @param datePicker
+     * @param errorLabel
+     */
     static void handleRequestErrors(TextField hour, TextField minute,TextField description,DatePicker datePicker,Label errorLabel){
         resetDatepickerandTextFields(hour,minute,description,datePicker,errorLabel);
         if (!allTextFieldsAreFilledandDatepicker(hour,minute,description,datePicker)){
@@ -160,19 +217,32 @@ public class ErrorMessageController {
    return !hour.getText().isEmpty() && !minute.getText().isEmpty() && !description.getText().isEmpty() && !(datePicker.getValue() == null);
     }
 
-
+    /**
+     * When the textfield is empty it will change color to red
+     * otherwise the border does not change color.
+     * @param textField
+     */
     static void handleTextFieldEmpty(TextField textField){
         if (textField.getText().isEmpty()) {
             textField.setStyle("-fx-border-color: #e74c3c;");
         } else textField.setStyle("-fx-border-color: inherit");
     }
 
+    /**
+     * When the combobox is empty it will change color to red
+     * otherwise the border does not change color.
+     * @param comboBox
+     */
     static void handleComboBoxEmpty(ComboBox comboBox){
         if (comboBox.getSelectionModel().getSelectedItem() == null) {
             comboBox.setStyle("-fx-border-color: #e74c3c;");
         } else comboBox.setStyle("-fx-border-color: inherit");
     }
-
+    /**
+     * When the datepicker is empty it will change color to red
+     * otherwise the border does not change color.
+     * @param datePicker
+     */
     static void handleDatepickerEmpty(DatePicker datePicker){
         if (datePicker.getValue() == null) {
             datePicker.setStyle("-fx-border-color: #e74c3c;");
