@@ -12,7 +12,7 @@ class RequestTest {
 
     {
         try {
-            request = new Request("user1", "user2", "testAd", "Hello", "2019-10-01/12:00", RequestState.REQUESTED);
+            request = new Request("user1", "user2", "testAd", "Hello", "2019-10-01/12:00", RequestState.PENDING);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -50,7 +50,7 @@ class RequestTest {
 
     @Test
     void getState() {
-        assertEquals(RequestState.REQUESTED, request.getState());
+        assertEquals(RequestState.PENDING, request.getState());
     }
 
     @Test
@@ -74,8 +74,8 @@ class RequestTest {
 
     @Test
     void isRequested() {
-        request.setState(RequestState.REQUESTED);
-        assertEquals(true, request.isRequested());
+        request.setState(RequestState.PENDING);
+        assertEquals(true, request.isPending());
     }
 
     @Test

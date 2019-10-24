@@ -276,7 +276,7 @@ public class MenuController extends SidePanelController implements IObserver {
                 if(request.getDate().before(Calendar.getInstance().getTime())) { //Check if accepted requests have been completed (due-date)
                     if (request.isAccepted()) {
                         request.setState(RequestState.ACCEPTEDANDDONE);
-                    } else if (request.isRequested()) {
+                    } else if (request.isPending()) {
                         request.setState(RequestState.DECLINED);
                     }
                 }
