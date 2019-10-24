@@ -1,5 +1,5 @@
 package ViewController;
 
 public interface ImageViewUpdater {
-    void updateImageViews();
+    void updateImageView();
 }
