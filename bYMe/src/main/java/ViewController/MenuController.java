@@ -182,8 +182,8 @@ public class MenuController extends SidePanelController implements IObserver {
 
     @FXML
     private void displayAccountName(){
-        if(byme.getCurrentUser() != null) {
-            currentUser.setText(byme.getCurrentUser().getUsername());
+        if(byme.isLoggedIn()) {
+            currentUser.setText(byme.getCurrentUsersUsername());
         }
     }
 
@@ -196,7 +196,7 @@ public class MenuController extends SidePanelController implements IObserver {
         if(selectedFile != null){
             try {
                 BufferedImage image = ImageIO.read(selectedFile);
-                pictureHandler.saveProfilePic(image ,byme.getCurrentUser().getUsername());
+                pictureHandler.saveProfilePic(image ,byme.getCurrentUsersUsername());
                 updateProfilePicImageView();
             } catch(IOException exception){
                 System.out.println("Can't read image: " + selectedFile.getPath());
@@ -207,7 +207,7 @@ public class MenuController extends SidePanelController implements IObserver {
     void updateProfilePicImageView(){
 
         if(byme.isLoggedIn()) {
-            BufferedImage image = pictureHandler.getProfilePic(byme.getCurrentUser().getUsername());
+            BufferedImage image = pictureHandler.getProfilePic(byme.getCurrentUsersUsername());
             if(image != null) {
                 profilePicImageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(image,null)));
             } else {    //default profilbild
@@ -226,8 +226,8 @@ public class MenuController extends SidePanelController implements IObserver {
     }
     private void userRatingDisplay(){
         if(byme.isLoggedIn()){
-            String result = String.format("%.2f", byme.getCurrentUser().getAverageRating());
-            userRating.setText("Omdömme: "+ result+"("+(int)byme.getCurrentUser().getRatingCount()+")");
+            String result = String.format("%.2f", byme.getAccountRating(byme.getCurrentUsersUsername()));
+            userRating.setText("Omdömme: "+ result+"("+(int)byme.getAccountRatingCount(byme.getCurrentUsersUsername())+")");
         }
     }
     public void update(){
@@ -246,7 +246,7 @@ public class MenuController extends SidePanelController implements IObserver {
         if(byme.isLoggedIn()) {
             myAdsFlowPane.getChildren().clear();
             for (Ad currentAd: byme.getAds().values()) {
-                if (currentAd.getAccount().equals(byme.getCurrentUser().getUsername())) {
+                if (currentAd.getAccount().equals(byme.getCurrentUsersUsername())) {
                     myAdsFlowPane.getChildren().add(new AdItem(currentAd, detailViewToggler, byme.getAccountRating(currentAd.getAccount())));
                 }
             }
@@ -280,11 +280,11 @@ public class MenuController extends SidePanelController implements IObserver {
                         request.setState(RequestState.DECLINED);
                     }
                 }
-                if (request.getReceiver().equals(byme.getCurrentUser().getUsername())) {
+                if (request.getReceiver().equals(byme.getCurrentUsersUsername())) {
                     if(!request.isDeclined()) {
                         myReceivedRequestsFlowPane.getChildren().add(new RequestItem(request, detailViewToggler, true));
                     }
-                } else if (request.getSender().equals(byme.getCurrentUser().getUsername())) {
+                } else if (request.getSender().equals(byme.getCurrentUsersUsername())) {
                     mySentRequestsFlowPane.getChildren().add(new RequestItem(request, detailViewToggler, false));
                 }
             }
