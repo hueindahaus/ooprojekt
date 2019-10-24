@@ -7,10 +7,7 @@ import java.util.*;
  * Byme is the aggregate object in the model. It has responsibility for the fundamental logic in the model
  * (such as adding an ad to a hashmap, editing an ad, deleting an ad, creating an account etc). Is represented as a singleton.
  *
- * @Author Alexander Huang
- * @Author Joel Jönsson
- * @Author Milos Bastajic
- * @Author Adam Jawad
+ * @Author Alexander Huang, Joel Jönsson, Johan Gottlander, Milos Bastajic, Adam Jawad
  */
 
 public final class Byme {
