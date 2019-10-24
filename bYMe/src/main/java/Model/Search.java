@@ -24,7 +24,12 @@ public class Search {
             int match = 0;
 
             for(int i=0; i < inputArray.length; i++) {
-                if (adTags.contains(activeTag)){
+                if(activeTag.equals("")){
+                    if (adName.contains(inputArray[i]) || adDesc.contains(inputArray[i]) || adUser.contains(inputArray[i])
+                            || adTags.contains(inputArray[i])){
+                        match++;
+                    }
+                } else if (adTags.contains(activeTag)){
                     if (adName.contains(inputArray[i]) || adDesc.contains(inputArray[i]) || adUser.contains(inputArray[i])
                             || adTags.contains(inputArray[i])){
                         match++;
