@@ -137,14 +137,8 @@ public class Byme {
         return accounts.containsKey(username);
     }
 
-    /**
-     * Returns the account that is currently
-     * logged in.
-     * @return
-     */
-
-    public Account getCurrentUser() {
-        return currentUser;
+    public String getCurrentUsersUsername(){
+        return currentUser.getUsername();
     }
 
 
@@ -230,6 +224,7 @@ public class Byme {
         ads.put(adId,new Ad(title,price,description,location,adId, account));
         addTagsToAd(adId,tags);
     }
+
 
     public boolean isLoggedIn(){
         return currentUser != null;

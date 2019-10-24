@@ -93,7 +93,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     @FXML
     public void togglePanel() {
-        if (byme.getCurrentUser() == null) {
+        if (!byme.isLoggedIn()) {
             loginController.togglePanel();
         } else {
             menuController.togglePanel();
@@ -149,7 +149,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         populateAds();
     }
 
-    public void populateAds() {
+    private void populateAds() {
         adsListFlowPane.getChildren().clear();
         tags.clear();
         tagsCount.clear();
@@ -163,7 +163,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     }
 
     public void createAd(String title, String description, int price, String location, ArrayList<String> tags) {
-        byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername(), tags);
+        byme.createAd(title, description, price, location, byme.getCurrentUsersUsername(), tags);
     }
 
     private void countTags(Ad currentAd){
@@ -188,7 +188,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     @FXML
     void openCreateAd() {
-        if (byme.getCurrentUser() != null) {
+        if (byme.isLoggedIn()) {
             adController.toggleCreateAdWindow();
         } else {
             loginController.togglePanel();
@@ -215,7 +215,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
             menuController.populateMyAds();
         }
 
-    public void populateTags() {
+    private void populateTags() {
         tagsFlowPane.getChildren().clear();
         ArrayList<String> sortedTags = sortTags();
         for (int i = 0; i < sortedTags.size(); i += 2) {

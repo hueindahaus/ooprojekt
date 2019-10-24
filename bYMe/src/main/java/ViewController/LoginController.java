@@ -29,7 +29,7 @@ public class LoginController extends SidePanelController{
     @FXML private AnchorPane logInPanel;
     @FXML private Label errorLabelLogin;
 
-    SidePanelToggler panelToggler;
+    private SidePanelToggler panelToggler;
 
 
 

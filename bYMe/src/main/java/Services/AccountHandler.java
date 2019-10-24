@@ -9,8 +9,6 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class AccountHandler implements IAccountHandler {
     private static AccountHandler singleton = null;
@@ -53,10 +51,8 @@ public class AccountHandler implements IAccountHandler {
                 }
             }
 
-        } catch(IOException exception){
+        } catch(IOException | ParseException exception){
             exception.printStackTrace();
-        } catch (ParseException excpetion){
-            excpetion.printStackTrace();
         }
     }
 

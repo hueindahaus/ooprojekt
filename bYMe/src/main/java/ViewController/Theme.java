@@ -1,6 +1,6 @@
 package ViewController;
 
-public class Theme {
+class Theme {
 
     String main;
     String main_dark;
