@@ -74,7 +74,7 @@ public class RequestItem extends AnchorPane {
             buttonRemove.setVisible(false);
         }
 
-        if(!request.isRequested()) {
+        if(!request.isPending()) {
             buttonReview.setVisible(false);
             buttonAccept.setDisable(true);
             buttonDecline.setDisable(true);

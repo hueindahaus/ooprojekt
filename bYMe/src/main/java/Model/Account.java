@@ -44,8 +44,10 @@ public class Account {
         }else{
             return rating/ratingCount;
         }
-
     }
 
+    public boolean passwordMatches(String password){
+        return this.password.equals(password);
+    }
 
 }

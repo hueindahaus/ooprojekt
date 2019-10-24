@@ -155,7 +155,7 @@ public final class Byme {
     public void loginUser(String username, String password){
         if(accounts.containsKey(username)){
             Account user = accounts.get(username);
-            if(user.getPassword().equals(password)){
+            if(user.passwordMatches(password)){
                 currentUser = user;
                 notifyObservers();
                 System.out.println(currentUser.getUsername() + " logged in");
@@ -164,7 +164,7 @@ public final class Byme {
     }
 
     public boolean userExist(String username, String password){
-        return accounts.containsKey(username) && accounts.get(username).getPassword().equals(password);
+        return accounts.containsKey(username) && accounts.get(username).passwordMatches(password);
     }
 
     public void signoutUser(){
@@ -231,7 +231,7 @@ public final class Byme {
     }
 
     public void sendRequest(String sender, String receiver, Ad ad, String content, String date) throws ParseException {
-        ad.addRequest(new Request(sender, receiver, ad.getAdId(), content, date, RequestState.REQUESTED));
+        ad.addRequest(new Request(sender, receiver, ad.getAdId(), content, date, RequestState.PENDING));
         notifyObservers();
     }
 

@@ -63,8 +63,8 @@ public class Request {
         return state == RequestState.ACCEPTEDANDDONE;
     }
 
-    public boolean isRequested(){
-        return state == RequestState.REQUESTED;
+    public boolean isPending(){
+        return state == RequestState.PENDING;
     }
 
     public boolean isDeclined(){
