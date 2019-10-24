@@ -34,7 +34,7 @@
                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
                 <Button fx:id="primaryButton" layoutX="1300.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#togglePanel"
+                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#toggleSidePanel"
                         prefHeight="50.0" prefWidth="50.0" styleClass="accountButton" textFill="WHITE"
                         AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                     <font>

@@ -100,7 +100,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
      *
      */
     @FXML
-    public void togglePanel() {
+    public void toggleSidePanel() {
         if (!byme.isLoggedIn()) {
             loginController.togglePanel();
         } else {
@@ -108,12 +108,12 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
-    @Override
     /**
      *
      * @param login
      */
-    public void togglePanel(boolean login) {
+    @Override
+    public void toggleSidePanel(boolean login) {
         if (login) {
             loginController.toggleOffPanel();
             menuController.toggleOnPanel();
@@ -179,12 +179,9 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
             currentAdItem.update();
             adsListFlowPane.getChildren().add(currentAdItem);
         }
-        populateTags(); //Won't update when in update() (When you create a new ad, works when you sign-in/out)
+        populateTags();
     }
 
-    public void createAd(String title, String description, int price, String location, List<String> tags) {
-        byme.createAd(title, description, price, location, byme.getCurrentUsersUsername(), tags);
-    }
 
     private void countTags(Ad currentAd) {
         for (String tag : currentAd.getTagsList()) {

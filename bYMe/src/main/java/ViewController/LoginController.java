@@ -88,7 +88,7 @@ public class LoginController extends SidePanelController {
             bYMe.registerAccount(username, password);
             bYMe.loginUser(username, password);
             toggleRegisterBox();
-            panelToggler.togglePanel(true);
+            panelToggler.toggleSidePanel(true);
         }
 
 
@@ -122,7 +122,7 @@ public class LoginController extends SidePanelController {
         bYMe.loginUser(logInUsername.getText(), logInPassword.getText());
         if (bYMe.isLoggedIn()) {
             ErrorMessageController.resetTextFields(logInUsername, logInPassword, errorLabelLogin);
-            panelToggler.togglePanel(true);
+            panelToggler.toggleSidePanel(true);
         }
     }
 
