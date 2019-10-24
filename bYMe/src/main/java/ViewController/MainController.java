@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
@@ -28,6 +29,8 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
     private TextField searchInput;
     @FXML
     private FlowPane tagsFlowPane;
+    @FXML
+    private ImageView bymeImage;
 
     private boolean dark_theme = false;
 
@@ -70,13 +73,21 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     void searchTags(String tagName){
 
-        search.setActiveTag(tagName);
-
+        search.setNewActiveTag(tagName);
         adsListFlowPane.getChildren().clear();
 
-        for(Ad ad: search.findAds(tagName, byme.getAds())){
-            adsListFlowPane.getChildren().add(adItems.get(ad.getAdId()));
+        if(!search.getActiveTag().equals(search.getNewActiveTag())){
+            search.setActiveTag(search.getNewActiveTag());
+            for (Ad ad : search.findAds(tagName, byme.getAds())) {
+                adsListFlowPane.getChildren().add(adItems.get(ad.getAdId()));
+                populateTags();
+            }
         }
+        else {
+            search.setActiveTag("");
+            populateAds();
+        }
+
     }
 
     @FXML
@@ -128,6 +139,12 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
             }
             adItems.get(ad.getAdId()).update();
         }
+        populateAds();
+    }
+
+    @FXML
+    void populateAllAds(){
+        adsListFlowPane.getChildren().clear();
         populateAds();
     }
 
@@ -194,48 +211,50 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
             menuController.populateMyAds();
         }
 
-        public void populateTags() {
-            tagsFlowPane.getChildren().clear();
-            ArrayList<String> sortedTags = sortTags();
-            for (int i = 0; i < sortedTags.size(); i += 2) {
-                tagsFlowPane.getChildren().add(new TagItem(sortedTags.get(i), Integer.valueOf(sortedTags.get(i + 1)), this));
+    public void populateTags() {
+        tagsFlowPane.getChildren().clear();
+        ArrayList<String> sortedTags = sortTags();
+        for (int i = 0; i < sortedTags.size(); i += 2) {
+            String currentTag = sortedTags.get(i);
+
+            tagsFlowPane.getChildren().add(new TagItem(sortedTags.get(i), Integer.valueOf(sortedTags.get(i + 1)), currentTag.equals(search.getActiveTag()), this));
+        }
+    }
+
+
+    private ArrayList<String> sortTags () {
+        ArrayList<String> values = new ArrayList<>();
+        ArrayList<String> keys = new ArrayList<>();
+        for (int i = 0; i < tags.size(); i++) {
+            if (i % 2 == 0) {
+                keys.add(tags.get(i));
+            } else {
+                values.add(tags.get(i));
             }
         }
-
-
-            private ArrayList<String> sortTags () {
-                ArrayList<String> values = new ArrayList<>();
-                ArrayList<String> keys = new ArrayList<>();
-                for (int i = 0; i < tags.size(); i++) {
-                    if (i % 2 == 0) {
-                        keys.add(tags.get(i));
-                    } else {
-                        values.add(tags.get(i));
-                    }
+        String tempValue;
+        String tempKey;
+        for (int i = 0; i < values.size(); i++) { //Bubblesort
+            for (int j = 1; j < values.size() - i; j++) {
+                if (Integer.valueOf(values.get(j - 1)) < Integer.valueOf(values.get(j))) {
+                    tempValue = values.get(j - 1);
+                    tempKey = keys.get(j - 1);
+                    values.set(j - 1, values.get(j));
+                    keys.set(j - 1, keys.get(j));
+                    values.set(j, tempValue);
+                    keys.set(j, tempKey);
                 }
-                String tempValue;
-                String tempKey;
-                for (int i = 0; i < values.size(); i++) { //Bubblesort
-                    for (int j = 1; j < values.size() - i; j++) {
-                        if (Integer.valueOf(values.get(j - 1)) < Integer.valueOf(values.get(j))) {
-                            tempValue = values.get(j - 1);
-                            tempKey = keys.get(j - 1);
-                            values.set(j - 1, values.get(j));
-                            keys.set(j - 1, keys.get(j));
-                            values.set(j, tempValue);
-                            keys.set(j, tempKey);
-                        }
-                    }
-                }
-                ArrayList<String> sortedTags = new ArrayList<>();
-                for (int i = 0; i < values.size(); i++) {
-                    sortedTags.add(keys.get(i));
-                    sortedTags.add(values.get(i));
-                }
-                return sortedTags;
             }
-
         }
+        ArrayList<String> sortedTags = new ArrayList<>();
+        for (int i = 0; i < values.size(); i++) {
+            sortedTags.add(keys.get(i));
+            sortedTags.add(values.get(i));
+        }
+        return sortedTags;
+    }
+
+}
 
 
 
