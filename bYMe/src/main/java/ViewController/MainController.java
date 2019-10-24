@@ -1,5 +1,4 @@
 package ViewController;
-
 import Model.Ad;
 import Model.Byme;
 import Model.IObserver;
@@ -16,6 +15,14 @@ import javafx.scene.layout.FlowPane;
 import java.net.URL;
 import java.util.*;
 
+
+/**
+ *
+ *@author Alexander Huang, Joel Jönsson, Adam Jawad, Johan Gottlander & Milos Bastajic.
+ *
+ * Used by: TagItem
+ * Uses: Byme, Search, LoginController, MenuController, AdCreatorController, DetailViewController, Theme
+ */
 public class MainController implements Initializable, SidePanelToggler, ThemeSetter, DetailViewToggler, IObserver, AdItemsUpdater {
 
     @FXML
@@ -79,6 +86,9 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
+    /**
+     *
+     */
     @FXML
     public void togglePanel() {
         if (byme.getCurrentUser() == null) {
@@ -88,6 +98,10 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
+    /**
+     *
+     * @param login
+     */
     public void togglePanel(boolean login) {
         if (login) {
             loginController.toggleOffPanel();
@@ -110,6 +124,9 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     }
 
+    /**
+     * Changes the theme from default to a dark theme, and the other way around(Used as a method on a toggle button).
+     */
     public void changeTheme() {
         if (!dark_theme) {
             setTheme(alternative_theme);
@@ -120,6 +137,9 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
+    /**
+     * This method updates all existing ads.
+     */
     public void updateAdItems() {
         for (Object obj : byme.getAds().values()) {
             Ad ad = (Ad) obj;
@@ -131,7 +151,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         populateAds();
     }
 
-    public void populateAds() {
+    private void populateAds() {
         adsListFlowPane.getChildren().clear();
         tags.clear();
 
@@ -160,11 +180,9 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         populateTags(); //Won't update when in update() (When you create a new ad, works when you sign-in/out)
     }
 
-    public void createAd(String title, String description, int price, String location, ArrayList<String> tags) {
-        byme.createAd(title, description, price, location, byme.getCurrentUser().getUsername(), tags);
-    }
-
-
+    /**
+     * This method opens the view for creating new ads if a user is logged in, else the right hand side pane for logging in toggles open.
+     */
     @FXML
     void openCreateAd() {
         if (byme.getCurrentUser() != null) {
@@ -174,7 +192,11 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
-
+    /**
+     * A method for toggling the open/close function of the view which display more information about an ad
+     * @param openDetailView Is a boolean containing the information whether or not an ad is open or not.
+     * @param ad Is the current ad that the user clicked on.
+     */
     public void toggleDetailView(boolean openDetailView, Ad ad) {
         if (openDetailView) {
             detailViewController.setVisible(true);
@@ -188,13 +210,15 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
         }
     }
 
-
+    /**
+     * A method for updating different methods.
+     */
         public void update(){
             updateAdItems();
             menuController.populateMyAds();
         }
 
-        public void populateTags() {
+        private void populateTags() {
             tagsFlowPane.getChildren().clear();
             ArrayList<String> sortedTags = sortTags();
             for (int i = 0; i < sortedTags.size(); i += 2) {
@@ -215,7 +239,7 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
                 }
                 String tempValue;
                 String tempKey;
-                for (int i = 0; i < values.size(); i++) { //Bubblesort
+                for (int i = 0; i < values.size(); i++) { //Bubble sort
                     for (int j = 1; j < values.size() - i; j++) {
                         if (Integer.valueOf(values.get(j - 1)) < Integer.valueOf(values.get(j))) {
                             tempValue = values.get(j - 1);
