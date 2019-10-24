@@ -158,7 +158,7 @@ public class AdCreatorController extends AnchorPane {
         ErrorMessageController.handleAdCreationErrors(adTitle, adPrice, adLocation, adDescription, errormessage);
 
         if(allTextFieldsFilled()) {
-            byme.createAd(adTitle.getText(), adDescription.getText(), Integer.valueOf(adPrice.getText()), adLocation.getSelectionModel().getSelectedItem().toString(),byme.getCurrentUser().getUsername(), getTagsTextField());
+            byme.createAd(adTitle.getText(), adDescription.getText(), Integer.valueOf(adPrice.getText()), adLocation.getSelectionModel().getSelectedItem().toString(),byme.getCurrentUsersUsername(), getTagsTextField());
             saveRecentlyAddedPictures();
             toggleCreateAdWindow();
             adItemsUpdater.updateAdItems();

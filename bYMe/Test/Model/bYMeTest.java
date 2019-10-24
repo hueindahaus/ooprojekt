@@ -193,8 +193,8 @@ class bYMeTest {
 
         //  bYMe.loginUser("User1","Password");
         bYMe.loginUser("User1", "Password1"); // User1 logged in
-        assertEquals("User1", bYMe.getCurrentUser().getUsername());
-        assertFalse("User2".equals(bYMe.getCurrentUser().getUsername()));
+        assertEquals("User1", bYMe.getCurrentUsersUsername());
+        assertFalse("User2".equals(bYMe.getCurrentUsersUsername()));
 
 
     }
@@ -216,9 +216,9 @@ class bYMeTest {
         Byme bYMe = Byme.getInstance(accountHandler, adHandler);
         bYMe.registerAccount("User1", "Password1");
         bYMe.loginUser("User1", "Password1"); // User1 logged in
-        assertEquals("User1", bYMe.getCurrentUser().getUsername());
+        assertEquals("User1", bYMe.getCurrentUsersUsername());
         bYMe.signoutUser();
-        assertEquals(null, bYMe.getCurrentUser());
+        assertFalse(bYMe.isLoggedIn());
     }
 
     @Test

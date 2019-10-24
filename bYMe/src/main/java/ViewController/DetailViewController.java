@@ -298,7 +298,7 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         ErrorMessageController.handleRequestErrors(requestMinute,requestHour,messageContent,requestDate,errorLabelRequest);
 
         String date = requestDate.getValue() + "/" + requestHour.getText() + ":" + requestMinute.getText();
-        byme.sendRequest(byme.getCurrentUser().getUsername(), ad.getAccount(), ad, messageContent.getText(), date);
+        byme.sendRequest(byme.getCurrentUsersUsername(), ad.getAccount(), ad, messageContent.getText(), date);
         sendRequestClosePrompt();
     }
 
@@ -466,8 +466,8 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
 
 
     private boolean isUsersAd() {
-        if (byme.getCurrentUser() != null) {
-            if (byme.getCurrentUser().getUsername().equals(ad.getAccount())) {
+        if (byme.isLoggedIn()) {
+            if (byme.getCurrentUsersUsername().equals(ad.getAccount())) {
                 return true;
             }
         }
