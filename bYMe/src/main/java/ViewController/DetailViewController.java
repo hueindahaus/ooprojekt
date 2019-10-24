@@ -337,6 +337,8 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
                 e.printStackTrace();
             }
         }
+        showPictureBrowseButtons();
+
     }
 
 
@@ -454,11 +456,17 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         index = 0;
         boolean usersAd = isUsersAd();
         boolean multipleImages = pictureHandler.getAdPictures(ad.getAdId()).size() > 1;
+        showPictureBrowseButtons();
+        deleteButton.setVisible(usersAd);
+        editButton.setVisible(usersAd);
+    }
+
+    private void showPictureBrowseButtons(){
+        boolean usersAd = isUsersAd();
+        boolean multipleImages = pictureHandler.getAdPictures(ad.getAdId()).size() > 1;
         requestButton.setVisible(byme.isLoggedIn() && !usersAd);
         buttonNextImage.setVisible(multipleImages);
         buttonPrevImage.setVisible(multipleImages);
-        deleteButton.setVisible(usersAd);
-        editButton.setVisible(usersAd);
     }
 
 
