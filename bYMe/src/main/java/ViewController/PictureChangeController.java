@@ -81,17 +81,17 @@ class PictureChangeController extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setImageIfPossible(imageChanger1, 0, images);
-        setImageIfPossible(imageChanger2, 1, images);
-        setImageIfPossible(imageChanger3, 2, images);
-        setImageIfPossible(imageChanger4, 3, images);
-        setImageIfPossible(imageChanger5, 4, images);
+        setImageIfPossible(imageChanger1, 0);
+        setImageIfPossible(imageChanger2, 1);
+        setImageIfPossible(imageChanger3, 2);
+        setImageIfPossible(imageChanger4, 3);
+        setImageIfPossible(imageChanger5, 4);
     }
 
 
-    private void setImageIfPossible(ImageView imageView, int num, List<BufferedImage> list) {
-        if (list.size() > num) {
-            imageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(list.get(num), null)));
+    private void setImageIfPossible(ImageView imageView, int num) {
+        if (images.size() > num) {
+            imageView.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(images.get(num), null)));
         }
     }
 

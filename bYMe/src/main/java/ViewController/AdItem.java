@@ -81,24 +81,9 @@ public class AdItem extends AnchorPane implements IObserver {
         adDescription.setText(this.ad.getDescription());
         adLocation.setText(this.ad.getLocation());
         adPrice.setText(this.ad.getPrice() + " kr");
-        // setTagLabels();
         updatePicture();
     }
 
-    /*
-    void setTagLabels(){
-
-        if (!(ad.getTagsList().size() == 0)){
-            ArrayList<String> tags = ad.getTagsList();
-            tag1Label.setText(tags.get(0));
-            tag2Label.setText(tags.get(1));
-            tag3Label.setText(tags.get(2));
-            tag4Label.setText(tags.get(3));
-            tag5Label.setText(tags.get(4));
-        }
-
-    }
-*/
 
     /**
      * Updates the ImageView in an ad and displays only the primary picture(first one in the ArrayList).
