@@ -1,14 +1,10 @@
 package Model;
 
 import Services.AdHandler;
-import Services.RequestHandler;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,7 +54,7 @@ class bYMeTest {
 
 
     @Test
-    void userExists(){
+    void userExists() {
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
             public void loadAccounts(Map<String, Account> accounts) {
@@ -72,7 +68,7 @@ class bYMeTest {
         IAdHandler adHandler = AdHandler.getInstance();
         Byme bYMe = Byme.getInstance(accountHandler, adHandler);
         bYMe.registerAccount("User1", "Password1");
-        assertTrue(bYMe.userExist("User1","Password1"));
+        assertTrue(bYMe.userExist("User1", "Password1"));
     }
 
 
@@ -82,6 +78,7 @@ class bYMeTest {
             @Override
             public void loadAccounts(Map<String, Account> accounts) {
             }
+
             @Override
             public void saveAccounts(Map<String, Account> accounts) {
 
@@ -92,16 +89,17 @@ class bYMeTest {
         bYMe.registerAccount("User1", "Password1");
         bYMe.registerAccount("User2", "Password2");
         bYMe.loginUser("User1", "Password1");
-        Ad ad = new Ad("add",4,"ad","GBG","1234","123");
-        bYMe.getAds().put(ad.getAdId(),ad);
-        bYMe.sendRequest("User1", "User2", ad,"Hej","12-12-12/12:12");
+        Ad ad = new Ad("add", 4, "ad", "GBG", "1234", "123");
+        bYMe.getAds().put(ad.getAdId(), ad);
+        bYMe.sendRequest("User1", "User2", ad, "Hej", "12-12-12/12:12");
         bYMe.signoutUser();
-        bYMe.loginUser("User2","Password2");
-        assertEquals("User1",ad.getRequests().get(0).getSender());
+        bYMe.loginUser("User2", "Password2");
+        assertEquals("User1", ad.getRequests().get(0).getSender());
 
     }
+
     @Test
-    void isLoggedIn(){
+    void isLoggedIn() {
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
             public void loadAccounts(Map<String, Account> accounts) {
@@ -116,12 +114,13 @@ class bYMeTest {
         IAdHandler adHandler = AdHandler.getInstance();
         Byme bYMe = Byme.getInstance(accountHandler, adHandler);
         bYMe.registerAccount("User1", "Password1");
-        bYMe.loginUser("User1","Password1");
+        bYMe.loginUser("User1", "Password1");
         assertTrue(bYMe.isLoggedIn());
 
     }
+
     @Test
-    void editAd(){
+    void editAd() {
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
             public void loadAccounts(Map<String, Account> accounts) {
@@ -135,24 +134,25 @@ class bYMeTest {
         };
         IAdHandler adHandler = AdHandler.getInstance();
         Byme bYMe = Byme.getInstance(accountHandler, adHandler);
-        Ad ad = new Ad("add",4,"ad","GBG","1234","123");
-        bYMe.getAds().put(ad.getAdId(),ad);
+        Ad ad = new Ad("add", 4, "ad", "GBG", "1234", "123");
+        bYMe.getAds().put(ad.getAdId(), ad);
         int priceBefore = ad.getPrice();
         String titleBefore = ad.getTitle();
         String descBefore = ad.getDescription();
         String locBefore = ad.getLocation();
-        bYMe.editAd("1234","Changed",1,"Changed","Changed", new ArrayList<>());
+        bYMe.editAd("1234", "Changed", 1, "Changed", "Changed", new ArrayList<>());
         int priceAfter = ad.getPrice();
         String titleAfter = ad.getTitle();
         String descAfter = ad.getDescription();
         String locAfter = ad.getLocation();
         assertTrue(priceBefore != priceAfter);
-        assertNotEquals(descBefore,descAfter);
-        assertNotEquals(titleBefore,titleAfter);
-        assertNotEquals(locBefore,locAfter);
+        assertNotEquals(descBefore, descAfter);
+        assertNotEquals(titleBefore, titleAfter);
+        assertNotEquals(locBefore, locAfter);
     }
+
     @Test
-    void removeAd(){
+    void removeAd() {
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
             public void loadAccounts(Map<String, Account> accounts) {
@@ -166,12 +166,12 @@ class bYMeTest {
         };
         IAdHandler adHandler = AdHandler.getInstance();
         Byme bYMe = Byme.getInstance(accountHandler, adHandler);
-        Ad ad = new Ad("add",4,"ad","GBG","1234","123");
-        bYMe.getAds().put(ad.getAdId(),ad);
+        Ad ad = new Ad("add", 4, "ad", "GBG", "1234", "123");
+        bYMe.getAds().put(ad.getAdId(), ad);
         int before = bYMe.getAds().size();
         bYMe.removeAd(ad.getAdId());
         int after = bYMe.getAds().size();
-        assertTrue(before>after);
+        assertTrue(before > after);
     }
 
     @Test
@@ -237,10 +237,10 @@ class bYMeTest {
         };
         IAdHandler adHandler = AdHandler.getInstance();
         Byme bYMe = Byme.getInstance(accountHandler, adHandler);
-         int before =   bYMe.getAds().size();
-        bYMe.createAd("Title1", "Description", 10, "Chalmers","Account", new ArrayList<>());
+        int before = bYMe.getAds().size();
+        bYMe.createAd("Title1", "Description", 10, "Chalmers", "Account", new ArrayList<>());
         int after = bYMe.getAds().size();
-        assertTrue(after>before);
+        assertTrue(after > before);
     }
 
 }
