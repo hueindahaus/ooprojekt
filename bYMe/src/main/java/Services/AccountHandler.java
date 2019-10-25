@@ -20,6 +20,10 @@ public final class AccountHandler implements IAccountHandler {
     private AccountHandler() {
     }
 
+    /**
+     * Singleton getInstance() method.
+     * @return the singleton object.
+     */
     public static AccountHandler getInstance() {
         if (singleton == null) {
             singleton = new AccountHandler();

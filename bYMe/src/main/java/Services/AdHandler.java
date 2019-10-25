@@ -27,6 +27,10 @@ public final class AdHandler implements IAdHandler {
 
     }
 
+    /**
+     * Singleton getInstance() method.
+     * @return the singleton object.
+     */
     public static AdHandler getInstance() {
         if (singleton == null) {
             singleton = new AdHandler();

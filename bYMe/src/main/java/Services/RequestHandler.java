@@ -23,6 +23,10 @@ public final class RequestHandler {
 
     }
 
+    /**
+     * Singleton getInstance() method.
+     * @return the singleton object.
+     */
     public static RequestHandler getInstance() {
         if (singleton == null) {
             singleton = new RequestHandler();

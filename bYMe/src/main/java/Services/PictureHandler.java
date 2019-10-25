@@ -10,15 +10,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The class that handles reading/writing of images. Is responisble of both profile-pictures and pictures of an ad.
+ * It handles them both separately and different since every user only have one profile-picture while an ad can have up to five.
+ * It is a singleton class since there are no points in having multiple objects of this class.
+ * @author Alexander Huang, Milos Bastajic
+ */
 public final class PictureHandler {
 
     private static PictureHandler singleton;
 
     private PictureHandler() {
-
     }
 
+    /**
+     * Singleton getInstance() method.
+     * @return the singleton object.
+     */
     public static PictureHandler getInstance() {
         if (singleton == null) {
             singleton = new PictureHandler();
@@ -40,6 +48,11 @@ public final class PictureHandler {
     }
 
 
+    /**
+     * Used to get the profile-picture that is linked to the given username.
+     * @param username The username that you want the profile-picture of.
+     * @return The image(BufferedImage) that is returned with the given username.
+     */
     public BufferedImage getProfilePic(String username) {
         try {
             return ImageIO.read(new File(getProfilePictureFilePath(username)));
@@ -49,6 +62,11 @@ public final class PictureHandler {
         return null;
     }
 
+    /**
+     * Used to get the ad-pictures that is linked to the given ad-id.
+     * @param adId The id of the ad that you want the pictures of.
+     * @return The list of images(BufferedImage) that is returned with the given ad-id.
+     */
     public List<BufferedImage> getAdPictures(String adId) {
         File folder = new File(getAdPictureDirPath(adId));
         ArrayList<BufferedImage> images = new ArrayList<>();
@@ -65,7 +83,12 @@ public final class PictureHandler {
     }
 
 
-    //Saves pictures in new directory(If it does not exists
+    /**
+     * Method that saves the images in the argument in a map that is named with the given ad-id.
+     * It creates a directory if there is no directory with the name of an ad-id.
+     * @param adID Name of the directory that should hold the images.
+     * @param images List of images that shall be saved.
+     */
     public void saveAdPictures(String adID, List<BufferedImage> images) {
 
         File theDir = new File(getAdPictureDirPath(adID));
@@ -96,6 +119,12 @@ public final class PictureHandler {
         }
     }
 
+
+    /**
+     * Method that writes a profile-picture with a given username.
+     * @param file The image that is saved.
+     * @param username The name of the picture that is saved.
+     */
     public void saveProfilePic(BufferedImage file, String username) {
 
         try {
@@ -105,6 +134,10 @@ public final class PictureHandler {
         }
     }
 
+    /**
+     * Method that removes a folder with ad-pictures. If an ad gets removed, the pictures that is linked with the same ad gets deleted.
+     * @param adId The id of the ad that gets deleted. (Also the name of the folder that is deleted)
+     */
     public void removePictureFolder(String adId) {
 
 
@@ -119,7 +152,11 @@ public final class PictureHandler {
         }
     }
 
-
+    /**
+     * Method that crops an image to a square.
+     * @param image The given image that is getting cropped.
+     * @return A copy of the given image with square dimension.
+     */
     public Image makeSquareImage(Image image) {
         int x = 0;
         int y = 0;
