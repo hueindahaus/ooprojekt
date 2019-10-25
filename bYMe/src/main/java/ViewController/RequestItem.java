@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -21,13 +20,13 @@ import java.io.IOException;
  * users request list turn green when they "Accept" a request from a buyer.
  * @author Milos Bastajic, Joel Jönsson
  *
- * Uses: DetailViewToggler, Request, Byme.
+ * Uses: Request, Byme.
  * Used by: MenuController.
  */
 public class RequestItem extends AnchorPane {
 
     PictureHandler pictureHandler = PictureHandler.getInstance();
-    DetailViewToggler detailViewToggler;
+
     @FXML
     private AnchorPane requestAnchorPane;
     @FXML
@@ -65,6 +64,7 @@ public class RequestItem extends AnchorPane {
     private ImageView star5;
     private Image yellowStar = new Image("File:" + "src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "ViewController/images" + File.separatorChar + "star.png");
     private Image hollowStar = new Image("File:" + "src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "ViewController/images" + File.separatorChar + "hollowStar.png");
+
     public RequestItem(Request request, DetailViewToggler detailViewToggler, boolean userIsRecipient) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXML/requests.fxml"));
         fxmlLoader.setRoot(this);
@@ -82,9 +82,7 @@ public class RequestItem extends AnchorPane {
         requestSender.setText("From: " + request.getSender() + " (" + byme.getAccountRating(byme.getCurrentUsersUsername()) + ")");
         requestDate.setText(request.getDateString());
         requestReceiver.setText("To: " + request.getReceiver());
-
-        this.detailViewToggler = detailViewToggler;
-
+        
         buttonAccept.setVisible(userIsRecipient);
         buttonDecline.setVisible(userIsRecipient);
         if (!userIsRecipient && !request.isAccepted()) { // Can't remove accepted requests
