@@ -1,5 +1,11 @@
 package ViewController;
 
+/**
+ * This class is representing a theme by storing hex-codes for colors in Strings.
+ * @author Alexander Huang, Joel Jönsson
+ *
+ * Used by: MainController.
+ */
 final class Theme {
 
     String main;

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author Adam Jawad
+ * @Author Adam Jawad, Alexander Huang
  *
  * Used by: AdCreatorController, DetailViewController & LoginController
  */

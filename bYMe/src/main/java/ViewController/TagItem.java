@@ -7,6 +7,14 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+/**
+ * This class is responsible for the FXML-file:tags containing all of the fxml-elements needed to display a tag.
+ * Displays the name of the tag and the number of occurrences of that tag.
+ * @author Johan Gottlander, Joel Jönsson
+ *
+ * Uses: TagSearcher.
+ * Used by: MainController.
+ */
 class TagItem extends AnchorPane {
 
     @FXML
