@@ -2,6 +2,16 @@ package Model;
 
 import java.util.*;
 
+/**
+ * A class that handles the search logic.
+ *
+ * @Author Joel Jönsson, Johan Gottlander, Adam Jawad
+ *
+ * Uses: Ad 
+ * Used by: MainController
+ */
+
+
 public final class Search {
 
     private static String activeTag = "";
@@ -9,6 +19,16 @@ public final class Search {
     private Search() {
     }
 
+
+    /**
+     * The method takes in input from the user.
+     * The input from the user and the name, description and user from all ads are changed to lowercase at the start.
+     * If activetags are empty the search will only look for ads that have a matching description, name, tags or username.
+     * If there is an active tag, the method will only look for ads that also include that tag.
+     * @param input The data that the user types into the searchfield.
+     * @param ads Map for all the available ads.
+     * @return
+     */
     public static List<Ad> findAds(String input, Map<String, Ad> ads) {
         List<Ad> result = new ArrayList();
         String[] inputArray = input.toLowerCase(Locale.ENGLISH).split(" ");
@@ -51,6 +71,10 @@ public final class Search {
         return tags;
     }
 
+    /**
+     * Activetags represent the tags that are chosen by the user. Used for filtering.
+     * @return
+     */
     static public String getActiveTag() {
         return activeTag;
     }

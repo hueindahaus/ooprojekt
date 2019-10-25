@@ -14,6 +14,14 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 
+/**
+ * This class is responsible for the FXML-file:ads containing all of the fxml-elements to properly show an ad in a list.
+ * A user can press an ad and open a more detailed view.
+ * @author Alexander Huang, Joel Jönsson, Johan Gottlander, Milos Bastajic.
+ *
+ * Uses: PictureHandler, Ad.
+ * Used by: MainController, MenuController.
+ */
 public class AdItem extends AnchorPane implements IObserver {
 
     @FXML
@@ -75,6 +83,9 @@ public class AdItem extends AnchorPane implements IObserver {
         updatePicture();
     }
 
+    /**
+     * Used when observers are notified. Updates the content in a AdItem.
+     */
     @Override
     public void update() {
         adTitle.setText(this.ad.getTitle());

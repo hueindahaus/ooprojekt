@@ -1,8 +1,6 @@
 package ViewController;
 
 import Model.Byme;
-import Services.AccountHandler;
-import Services.AdHandler;
 import Services.PictureHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -21,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +27,7 @@ import java.util.List;
 
 /**
  * This class is responsible for the FXML-file:createAdWindow containing all of the fxml-elements needed for creating a new ad item.
- * @author Joel Jönsson, Alexander Huang.
+ * @author Joel Jönsson, Alexander Huang, Adam Jawad, Johan Gottlander.
  *
  * Uses: AdItemsUpdater, PictureHandler, PictureChangeController, Byme.
  * Used by: MainController.
@@ -98,7 +95,7 @@ public class AdCreatorController extends AnchorPane {
     private AdItemsUpdater adItemsUpdater;
 
 
-    private Byme byme = Byme.getInstance(AccountHandler.getInstance(), AdHandler.getInstance());
+    private Byme byme = Byme.getInstance(null, null);
 
     AdCreatorController(AdItemsUpdater adItemsUpdater) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXML/createAdWindow.fxml"));

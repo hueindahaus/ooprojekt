@@ -13,6 +13,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+/**
+ * This class is responsible for the FXML-file:login containing all of the fxml-elements needed for showing the sidepanel when a user is not signed in.
+ * A user can sign in, open a panel to create an account and change theme.
+ * @author Alexander Huang, Milos Bastajic.
+ *
+ * Uses: SidePanelToggler, Byme.
+ * Used by: MainController.
+ */
 public class LoginController extends SidePanelController {
 
     @FXML
@@ -47,25 +55,25 @@ public class LoginController extends SidePanelController {
 
         this.themeSetter = themeSetter;
 
-        hidePanel = new Timeline(                                                                                      //animation för att gömma login-panelen
+        hidePanel = new Timeline(
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(logInPanel.layoutXProperty(), 1440))
 
         );
 
-        showPanel = new Timeline(                                                                                      //animation för att visa login-panelen
+        showPanel = new Timeline(
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(logInPanel.layoutXProperty(), 1220))
 
         );
 
-        hideGreyZone = new Timeline(                                                                                        //animation för att gömma gråzonen
+        hideGreyZone = new Timeline(
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(greyZone.opacityProperty(), 0))
         );
 
-        showGreyZone = new Timeline(                                                                                        //animation för att visa gråzonen
+        showGreyZone = new Timeline(
                 new KeyFrame(Duration.seconds(0.6), new KeyValue(greyZone.opacityProperty(), 1))
         );
 
-        registerBoxFrame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {                         //gör så att inget ska hända när man trycker på registreringsrutan
+        registerBoxFrame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 event.consume();

@@ -1,7 +1,4 @@
-/**
- * Author: Adam
- * Used by: AdCreatorController, DetailViewController & LoginController
- */
+
 package ViewController;
 
 
@@ -12,6 +9,12 @@ import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * @Author Adam Jawad
+ *
+ * Used by: AdCreatorController, DetailViewController & LoginController
+ */
 
 final class ErrorMessageController {
 

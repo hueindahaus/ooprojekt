@@ -28,6 +28,14 @@ import java.util.Calendar;
 import java.util.List;
 
 
+/**
+ * This class is responsible for the FXML-file:signedin containing all of the fxml-elements needed for displaying the sidepanel when a user is signed in.
+ * When a user is signed in they can view and manage their ads, requests and profile picture. They can also sign out and change theme.
+ * @author Alexander Huang, Milos Bastajic, Joel Jönsson.
+ *
+ * Uses: Byme, Ad, DetailViewToggler, Request, Ad.
+ * Used by: MainController.
+ */
 public class MenuController extends SidePanelController implements IObserver {
 
     private ThemeSetter themeSetter;
@@ -244,6 +252,9 @@ public class MenuController extends SidePanelController implements IObserver {
         }
     }
 
+    /**
+     * Used when observers are notified. Updates the content in sidepanel.
+     */
     @Override
     public void update() {
         updateProfilePicImageView();
