@@ -4,7 +4,11 @@ import java.util.*;
 
 /**
  * A class that handles the search logic.
+ *
  * @Author Joel Jönsson, Johan Gottlander, Adam Jawad
+ *
+ * Uses: Ad 
+ * Used by: MainController
  */
 
 
