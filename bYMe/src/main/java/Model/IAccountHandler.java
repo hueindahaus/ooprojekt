@@ -1,10 +1,15 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 
-public interface IAccountHandler {      //utnyttjar dependency-injection pattern för att kunna read:a/write:a lagring
+/**
+ * @Author Alexander Huang
+ * Uses dependency-injection pattern in order to read and write data.
+ * Used by: Byme
+ */
+public interface IAccountHandler {
 
-    void loadAccounts(HashMap<String, Account> accounts);
-    void saveAccounts(HashMap<String, Account> accounts);
+    void loadAccounts(Map<String, Account> accounts);
+
+    void saveAccounts(Map<String, Account> accounts);
 }

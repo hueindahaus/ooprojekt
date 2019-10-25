@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css" type="AnchorPane" visible="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <AnchorPane fx:id="greyZone" onMouseClicked="#closeDetailView" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" />
+        <AnchorPane layoutX="220.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="detailViewBox">
+
+                        <children>
+                <Button fx:id="deleteButton" layoutX="740.0" layoutY="500.0" mnemonicParsing="false" onMouseReleased="#removeAdPrompt" prefHeight="50.0" prefWidth="160.0" text="Ta bort" visible="false">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="editButton" layoutX="580.0" layoutY="500.0" mnemonicParsing="false" onMouseReleased="#editAd" prefHeight="50.0" prefWidth="160.0" text="Ändra annons" visible="false">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="saveButton" layoutX="580.0" layoutY="500.0" mnemonicParsing="false" onMouseReleased="#saveChanges" prefHeight="50.0" prefWidth="160.0" text="Spara ändringar" visible="false" wrapText="true">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="requestButton" layoutX="461.0" layoutY="552.0" mnemonicParsing="false" onAction="#sendRequestPrompt" text="Skicka förfrågan" />
+                <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="931.0" layoutY="24.0" onMouseClicked="#closeDetailView" pickOnBounds="true" preserveRatio="true" smooth="false" styleClass="exitButton" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                    <image>
+                        <Image url="@../images/close.png" />
+                    </image>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </ImageView>
+                <ImageView fx:id="image1" fitHeight="240.0" fitWidth="240.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                    </cursor>
+                    <viewport>
+                        <Rectangle2D />
+                    </viewport>
+                </ImageView>
+                <Label fx:id="adTitle" layoutX="280.0" layoutY="20.0" prefHeight="60.0" prefWidth="628.0" text="Titel:" wrapText="true">
+                    <font>
+                        <Font size="48.0" />
+                    </font>
+                </Label>
+                <Label fx:id="adLocation" layoutX="20.0" layoutY="270.0" prefWidth="372.0" text="Plats:">
+                    <font>
+                        <Font size="19.0" />
+                    </font>
+                </Label>
+                <Label fx:id="adPrice" layoutX="20.0" layoutY="300.0" text="Pris:">
+                    <font>
+                        <Font size="19.0" />
+                    </font>
+                </Label>
+                <Label fx:id="adDescription" alignment="TOP_LEFT" layoutX="280.0" layoutY="96.0" prefHeight="389.0" prefWidth="695.0" text="Beskrivning:" wrapText="true">
+                    <font>
+                        <Font size="19.0" />
+                    </font>
+                </Label>
+                <Label fx:id="adUser" layoutX="927.0" layoutY="576.0" text="User" AnchorPane.rightAnchor="10.0" />
+                <TextField fx:id="adTitleTextField" layoutX="280.0" layoutY="30.0" prefHeight="40.0" prefWidth="150.0" promptText="Titel">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </TextField>
+                <TextField fx:id="adPriceTextField" layoutX="20.0" layoutY="300.0" promptText="Pris" />
+                <TextField fx:id="adDescriptionTextField" alignment="TOP_LEFT" layoutX="280.0" layoutY="80.0" prefHeight="414.0" prefWidth="611.0" promptText="Beskrivning" />
+                <Label layoutX="20.0" layoutY="339.0" prefHeight="17.0" prefWidth="81.0" text="Taggar">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Label>
+                <Label fx:id="tag1Label" layoutX="20.0" layoutY="354.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+                <Label fx:id="tag2Label" layoutX="20.0" layoutY="369.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+                <Label fx:id="tag3Label" layoutX="20.0" layoutY="384.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+                <Label fx:id="tag4Label" layoutX="20.0" layoutY="399.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+                <Label fx:id="tag5Label" layoutX="20.0" layoutY="414.0" prefHeight="17.0" prefWidth="81.0" text="Tag" />
+                <TextField fx:id="tag1TextField" layoutX="20.0" layoutY="334.0" promptText="Tag" />
+                <TextField fx:id="tag2TextField" layoutX="20.0" layoutY="364.0" promptText="Tag" />
+                <TextField fx:id="tag3TextField" layoutX="20.0" layoutY="394.0" promptText="Tag" />
+                <TextField fx:id="tag4TextField" layoutX="20.0" layoutY="424.0" promptText="Tag" />
+                <TextField fx:id="tag5TextField" layoutX="20.0" layoutY="454.0" promptText="Tag" />
+                <ComboBox fx:id="adLocationComboBox" layoutX="20.0" layoutY="270.0" prefWidth="150.0" promptText="Stad" />
+                <Label fx:id="errorLabel" layoutX="397.0" layoutY="237.0" />
+            <ImageView fx:id="buttonPrevImage" fitHeight="40.0" fitWidth="40.0" layoutX="40.0" layoutY="115.0" onMouseClicked="#prevImage" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/LeftArow.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="buttonNextImage" fitHeight="40.0" fitWidth="40.0" layoutX="200.0" layoutY="114.0" onMouseClicked="#nextImage" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/RightArrow.png" />
+               </image>
+            </ImageView>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="greyZone2" prefHeight="900.0" prefWidth="1440.0" styleClass="greyZone" visible="false" />
+        <AnchorPane fx:id="confirmPane" layoutY="-200.0" prefHeight="200.0" prefWidth="200.0" styleClass="detailViewBox" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0">
+            <children>
+                <Label layoutX="-4.0" layoutY="56.0" text="ÄR DU SÄKER?" textAlignment="CENTER">
+                    <font>
+                        <Font size="54.0" />
+                    </font>
+                </Label>
+                <Button layoutX="68.0" layoutY="146.0" mnemonicParsing="false" onMouseReleased="#removeAd" text="JA" />
+                <Button layoutX="246.0" layoutY="143.0" mnemonicParsing="false" onMouseReleased="#removeAdClosePrompt" text="NEJ" />
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="requestPane" layoutX="-22.0" layoutY="900.0" prefHeight="200.0" prefWidth="200.0" styleClass="detailViewBox" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0">
+            <children>
+                <Button layoutX="46.0" layoutY="146.0" mnemonicParsing="false" onAction="#sendRequest" text="Skicka medddelande" />
+                <Button layoutX="188.0" layoutY="146.0" mnemonicParsing="false" onAction="#sendRequestClosePrompt" text="Jag ångrade mig, dålig tjänst tbh" />
+                <TextField fx:id="messageContent" alignment="TOP_LEFT" layoutX="32.0" layoutY="20.0" prefHeight="78.0" prefWidth="371.0" promptText="Skriv gärna kontakt info, t.ex. email eller snapchat" />
+                <TextField fx:id="requestHour" layoutX="248.0" layoutY="112.0" prefHeight="25.0" prefWidth="35.0" promptText="TT" />
+                <TextField fx:id="requestMinute" layoutX="295.0" layoutY="112.0" prefHeight="25.0" prefWidth="35.0" promptText="MM" />
+                <Label fx:id="errorLabelRequest" layoutX="190.0" />
+                <DatePicker fx:id="requestDate" layoutX="53.0" layoutY="112.0" />
+            </children>
+        </AnchorPane>
+    </children>
+</fx:root>

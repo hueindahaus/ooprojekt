@@ -1,9 +1,11 @@
 package Model;
 
-import Services.AccountHandler;
+import Services.AdHandler;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,116 +13,234 @@ class bYMeTest {
 
     @Test
     void registerAccount() {
-        IAccountHandler accountHandler= new IAccountHandler() {
+        IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
 
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
-        Byme bYMe = new Byme(accountHandler);
-        bYMe.registerAccount("User1","Password1");
-        assertEquals(bYMe.getAccounts().get("User1").getPassword(), ("Password1"));
-        assertEquals(bYMe.getAccounts().get("User1").getUsername(), ("User1"));
+
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
+        bYMe.registerAccount("User1", "Password1");
+        assertTrue(bYMe.isAlreadyRegistered("User1"));
 
     }
 
     @Test
     void isAlreadyRegistered() {
-        IAccountHandler accountHandler= new IAccountHandler() {
+        IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
 
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
-        Byme bYMe = new Byme(accountHandler);
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
 
-        bYMe.registerAccount("User1","Password1");
-        bYMe.registerAccount("User1","Password2"); // User already exist: User1
-        assertEquals(bYMe.getAccounts().get("User1").getPassword(), ("Password1")); // Password has not changed
-        bYMe.registerAccount("User2","Password1"); // ok
+        bYMe.registerAccount("User1", "Password1");
+        assertTrue(bYMe.isAlreadyRegistered("User1"));
     }
 
 
-
     @Test
-    void getAccounts() {
-        IAccountHandler accountHandler= new IAccountHandler() {
+    void userExists() {
+        IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
-
+            public void loadAccounts(Map<String, Account> accounts) {
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
-        Byme bYMe = new Byme(accountHandler);
-        assertEquals(bYMe.getAccounts().size(), 0); //empty
-        bYMe.registerAccount("User1","Password1");
-        bYMe.registerAccount("User2","Password2");
-        bYMe.registerAccount("User3","Password3");
-
-        assertEquals(bYMe.getAccounts().size(), 3); // 3 accounts registered
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
+        bYMe.registerAccount("User1", "Password1");
+        assertTrue(bYMe.userExist("User1", "Password1"));
+    }
 
 
+    @Test
+    void sendRequest() throws ParseException {
+        IAccountHandler accountHandler = new IAccountHandler() {
+            @Override
+            public void loadAccounts(Map<String, Account> accounts) {
+            }
+
+            @Override
+            public void saveAccounts(Map<String, Account> accounts) {
+
+            }
+        };
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
+        bYMe.registerAccount("User1", "Password1");
+        bYMe.registerAccount("User2", "Password2");
+        bYMe.loginUser("User1", "Password1");
+        Ad ad = new Ad("add", 4, "ad", "GBG", "1234", "123");
+        bYMe.getAds().put(ad.getAdId(), ad);
+        bYMe.sendRequest("User1", "User2", ad, "Hej", "12-12-12/12:12");
+        bYMe.signoutUser();
+        bYMe.loginUser("User2", "Password2");
+        assertEquals("User1", ad.getRequests().get(0).getSender());
+
+    }
+
+    @Test
+    void isLoggedIn() {
+        IAccountHandler accountHandler = new IAccountHandler() {
+            @Override
+            public void loadAccounts(Map<String, Account> accounts) {
+
+            }
+
+            @Override
+            public void saveAccounts(Map<String, Account> accounts) {
+
+            }
+        };
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
+        bYMe.registerAccount("User1", "Password1");
+        bYMe.loginUser("User1", "Password1");
+        assertTrue(bYMe.isLoggedIn());
+
+    }
+
+    @Test
+    void editAd() {
+        IAccountHandler accountHandler = new IAccountHandler() {
+            @Override
+            public void loadAccounts(Map<String, Account> accounts) {
+
+            }
+
+            @Override
+            public void saveAccounts(Map<String, Account> accounts) {
+
+            }
+        };
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
+        Ad ad = new Ad("add", 4, "ad", "GBG", "1234", "123");
+        bYMe.getAds().put(ad.getAdId(), ad);
+        int priceBefore = ad.getPrice();
+        String titleBefore = ad.getTitle();
+        String descBefore = ad.getDescription();
+        String locBefore = ad.getLocation();
+        bYMe.editAd("1234", "Changed", 1, "Changed", "Changed", new ArrayList<>());
+        int priceAfter = ad.getPrice();
+        String titleAfter = ad.getTitle();
+        String descAfter = ad.getDescription();
+        String locAfter = ad.getLocation();
+        assertTrue(priceBefore != priceAfter);
+        assertNotEquals(descBefore, descAfter);
+        assertNotEquals(titleBefore, titleAfter);
+        assertNotEquals(locBefore, locAfter);
+    }
+
+    @Test
+    void removeAd() {
+        IAccountHandler accountHandler = new IAccountHandler() {
+            @Override
+            public void loadAccounts(Map<String, Account> accounts) {
+
+            }
+
+            @Override
+            public void saveAccounts(Map<String, Account> accounts) {
+
+            }
+        };
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
+        Ad ad = new Ad("add", 4, "ad", "GBG", "1234", "123");
+        bYMe.getAds().put(ad.getAdId(), ad);
+        int before = bYMe.getAds().size();
+        bYMe.removeAd(ad.getAdId());
+        int after = bYMe.getAds().size();
+        assertTrue(before > after);
     }
 
     @Test
     void loginUser() {
-        IAccountHandler accountHandler= new IAccountHandler() {
+        IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
 
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
-        Byme bYMe = new Byme(accountHandler);
-        bYMe.registerAccount("User1","Password1");
-        bYMe.registerAccount("User2","Password1");
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
+        bYMe.registerAccount("User1", "Password1");
+        bYMe.registerAccount("User2", "Password1");
 
         //  bYMe.loginUser("User1","Password");
-        bYMe.loginUser("User1","Password1"); // User1 logged in
-        assertEquals("User1",bYMe.getCurrentUser().getUsername());
-        assertFalse("User2".equals(bYMe.getCurrentUser().getUsername()));
+        bYMe.loginUser("User1", "Password1"); // User1 logged in
+        assertEquals("User1", bYMe.getCurrentUsersUsername());
+        assertFalse("User2".equals(bYMe.getCurrentUsersUsername()));
 
 
     }
+
     @Test
     void signout() {
         IAccountHandler accountHandler = new IAccountHandler() {
             @Override
-            public void loadAccounts(HashMap<String, Account> accounts) {
+            public void loadAccounts(Map<String, Account> accounts) {
 
             }
 
             @Override
-            public void saveAccounts(HashMap<String, Account> accounts) {
+            public void saveAccounts(Map<String, Account> accounts) {
 
             }
         };
-        Byme bYMe = new Byme(accountHandler);
-        bYMe.registerAccount("User1","Password1");
-        bYMe.loginUser("User1","Password1"); // User1 logged in
-        assertEquals("User1",bYMe.getCurrentUser().getUsername());
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
+        bYMe.registerAccount("User1", "Password1");
+        bYMe.loginUser("User1", "Password1"); // User1 logged in
+        assertEquals("User1", bYMe.getCurrentUsersUsername());
         bYMe.signoutUser();
-        assertEquals(null,bYMe.getCurrentUser());
-
-
-
+        assertFalse(bYMe.isLoggedIn());
     }
+
+    @Test
+    void createAd() {
+        IAccountHandler accountHandler = new IAccountHandler() {
+            @Override
+            public void loadAccounts(Map<String, Account> accounts) {
+
+            }
+
+            @Override
+            public void saveAccounts(Map<String, Account> accounts) {
+
+            }
+        };
+        IAdHandler adHandler = AdHandler.getInstance();
+        Byme bYMe = Byme.getInstance(accountHandler, adHandler);
+        int before = bYMe.getAds().size();
+        bYMe.createAd("Title1", "Description", 10, "Chalmers", "Account", new ArrayList<>());
+        int after = bYMe.getAds().size();
+        assertTrue(after > before);
+    }
+
 }

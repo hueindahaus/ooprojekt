@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+         pickOnBounds="false" prefHeight="900.0" prefWidth="1440.0" stylesheets="@byme-stylesheet.css"
+         type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.171">
+    <children>
+        <AnchorPane fx:id="greyZone" disable="true" layoutX="7.0" layoutY="100.0" maxHeight="-Infinity"
+                    maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#togglePanel"
+                    opacity="0.0" pickOnBounds="false" prefHeight="900.0" prefWidth="1220.0" styleClass="greyZone"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="70.0"/>
+        <AnchorPane fx:id="myAdsPanel" layoutX="1660.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                    minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="700.0"
+                    styleClass="loginpanel" AnchorPane.bottomAnchor="0.0">
+            <children>
+                <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="0.0">
+                    <content>
+                        <FlowPane fx:id="myAdsFlowPane" prefHeight="830.0" prefWidth="700.0"/>
+                    </content>
+                </ScrollPane>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="myRequestsPanel" layoutX="1670.0" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                    minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="700.0"
+                    styleClass="loginpanel" AnchorPane.bottomAnchor="0.0">
+            <children>
+                <AnchorPane fx:id="myReceivedRequestsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0"
+                            prefWidth="160.0" styleClass="loginpanel" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                    <children>
+                        <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="394.0" prefWidth="700.0"
+                                    vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <content>
+                                <FlowPane fx:id="myReceivedRequestsFlowPane" prefHeight="0.0" prefWidth="700.0"/>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="mySentRequestsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0"
+                            prefWidth="160.0" styleClass="loginpanel" visible="false" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                    <children>
+                        <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="394.0" prefWidth="700.0"
+                                    vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <content>
+                                <FlowPane fx:id="mySentRequestsFlowPane" prefHeight="0.0" prefWidth="700.0"/>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </AnchorPane>
+                <Button fx:id="toggleReceviedButton" mnemonicParsing="false" onAction="#toggleReceivedRequests"
+                        prefHeight="50.0" styleClass="requestTabsPressed" text="Mottagna" AnchorPane.leftAnchor="10.0"
+                        AnchorPane.rightAnchor="360.0" AnchorPane.topAnchor="0.0">
+                    <font>
+                        <Font size="22.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="toggleSentButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                        onAction="#toggleSentRequests" prefHeight="50.0" styleClass="requestTabs" text="Skickade"
+                        AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                    <font>
+                        <Font size="22.0"/>
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="menuPanel" layoutX="1440.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                    minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="220.0"
+                    styleClass="loginpanel" AnchorPane.topAnchor="70.0">
+            <children>
+
+                <Button layoutX="20.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#changeProfilePic"
+                        prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Ändra profilbild">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="myAdsButton" layoutX="20.0" layoutY="350.0" mnemonicParsing="false"
+                        onMouseReleased="#toggleMyAdsPanel" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton"
+                        text="Mina annonser">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="myRequestsButton" layoutX="20.0" layoutY="406.0" mnemonicParsing="false"
+                        onAction="#toggleMyRequestsPanel" prefHeight="24.0" prefWidth="180.0" styleClass="loginButton"
+                        text="Mina förfrågningar">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button layoutX="20.0" layoutY="538.0" mnemonicParsing="false" onMouseReleased="#signout"
+                        prefHeight="24.0" prefWidth="180.0" styleClass="createAccountButton" text="Logga ut">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <ImageView fx:id="profilePicImageView" accessibleRole="TOOLTIP"
+                           accessibleRoleDescription="Ändra profilbild" accessibleText="Ändra profilbild"
+                           fitHeight="160.0" fitWidth="160.0" layoutX="10.0" layoutY="25.0" nodeOrientation="INHERIT"
+                           onMouseClicked="#changeProfilePic" pickOnBounds="true" preserveRatio="true"
+                           AnchorPane.bottomAnchor="625.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"
+                           AnchorPane.topAnchor="25.0">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </ImageView>
+                <Label fx:id="currentUser" alignment="CENTER" layoutX="25.0" layoutY="180.0" maxHeight="-Infinity"
+                       maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0"
+                       prefWidth="165.0" text="Label" wrapText="true" AnchorPane.leftAnchor="30.0"
+                       AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="200.0">
+                    <font>
+                        <Font name="System Bold" size="18.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="20.0" layoutY="508.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                       minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="180.0"
+                       text="Välkommen åter!">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="pictureChangeLabel" layoutX="41.0" layoutY="84.0" mouseTransparent="true"
+                       text="Ändra profilbild" textFill="WHITE" visible="false">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Label>
+                <Button layoutX="20.0" layoutY="716.0" mnemonicParsing="false" onMouseReleased="#changeTheme"
+                        prefHeight="24.0" prefWidth="180.0" styleClass="loginButton" text="Byt tema"
+                        AnchorPane.bottomAnchor="50.0">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Label fx:id="userRating" alignment="BOTTOM_LEFT" layoutX="35.0" layoutY="190.0" maxHeight="-Infinity"
+                       maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0"
+                       prefWidth="165.0" text="Label" wrapText="true" AnchorPane.leftAnchor="30.0"
+                       AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="230.0"/>
+
+            </children>
+        </AnchorPane>
+    </children>
+</fx:root>
