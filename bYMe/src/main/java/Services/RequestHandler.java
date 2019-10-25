@@ -15,6 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Read and writes to requests.json, responsible for storing Requests
+ * When the application starts it reads from the json files and creates Request-objects with the parameters from the json-file
+ * When the application is closed it writes all Request-object's parameters to the json-file so that they can be created when the application is opened.
+ * @author Alexander Huang, Joel Jönsson
+ *
+ * Uses: Request, RequestState.
+ * Used by: AdHandler.
+ */
 public final class RequestHandler {
 
     private static RequestHandler singleton;

@@ -17,6 +17,16 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * Read and writes to ads.json, responsible for storing Ads
+ * When the application starts it reads from the json files and creates Ad-objects with the parameters from the json-file.
+ * Uses a RequestHandler to store requests in the correct ad.
+ * When the application is closed it writes all Ad-object's parameters to the json-file so that they can be created when the application is opened.
+ * @author Alexander Huang
+ *
+ * Uses: Ad, Request, RequestHandler.
+ * Used by: MainController.
+ */
 public final class AdHandler implements IAdHandler {
 
     private static AdHandler singleton;
@@ -43,6 +53,10 @@ public final class AdHandler implements IAdHandler {
         return "src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "Services" + File.separatorChar + "data" + File.separatorChar + "ads.json";
     }
 
+    /**
+     * Reads ads from ads.json and adds them to a Map of ads
+     * @param ads Map of ads
+     */
     @Override
     public void loadAds(Map<String, Ad> ads) {
         JSONParser parser = new JSONParser();
@@ -66,6 +80,10 @@ public final class AdHandler implements IAdHandler {
         }
     }
 
+    /**
+     * Reads ads from a Map of ads and writes them to ads.json
+     * @param ads Map of ads
+     */
     @Override
     public void saveAds(Map<String, Ad> ads) {
         JSONArray jsonList = new JSONArray();

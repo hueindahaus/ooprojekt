@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This class is responsible for showing error message in ad creator window, send request, register user and sign in.
  * @Author Adam Jawad, Alexander Huang
  *
  * Used by: AdCreatorController, DetailViewController & LoginController
