@@ -165,6 +165,8 @@ public class MainController implements Initializable, SidePanelToggler, ThemeSet
 
     @FXML
     void populateAllAds() {
+        searchInput.setText("");
+        Search.setActiveTag("");
         adsListFlowPane.getChildren().clear();
         populateAds();
     }

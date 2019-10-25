@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-[]
-=======
-[{"adId":"3454","price":120,"tagsList":["klipp","","","",""],"description":"Klipper alla! Billigt!","location":"Skåne","title":"Bästa frisören i malmö","account":"alex98huang"},{"adId":"9266","price":12,"tagsList":["","","","",""],"description":"12","location":"Bergsjön","title":"title2","account":"alex98huang"}]
->>>>>>> Dev
+[{"adId":"6503","price":12,"tagsList":["1","2","3","4","5"],"description":"ojepsgo","location":"Stockholm","title":"test1","account":"g"},{"adId":"5565","price":100,"tagsList":["i","j","k","l","m"],"description":"hejepojg","location":"Skåne","title":"test2","account":"g"},{"adId":"4134","price":10,"tagsList":["i","j","k","l","m"],"description":"gfg","location":"Bergsjön","title":"hej","account":"g"}]
