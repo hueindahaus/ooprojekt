@@ -42,7 +42,10 @@ public final class AccountHandler implements IAccountHandler {
         return "src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "Services" + File.separatorChar + "data" + File.separatorChar + "logins.json";
     }
 
-
+    /**
+     * Reads accounts from accounts.json and adds them to a Map of accounts
+     * @param accounts Map of accounts
+     */
     @Override
     public void loadAccounts(Map<String, Account> accounts) {
         JSONParser parser = new JSONParser();
@@ -66,6 +69,10 @@ public final class AccountHandler implements IAccountHandler {
         }
     }
 
+    /**
+     * Reads accounts a Map of accounts and writes them to accounts.json
+     * @param accounts Map of accounts
+     */
     @Override
     public void saveAccounts(Map<String, Account> accounts) {
         JSONArray jsonList = new JSONArray();

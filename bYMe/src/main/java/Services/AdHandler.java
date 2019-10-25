@@ -49,6 +49,10 @@ public final class AdHandler implements IAdHandler {
         return "src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "Services" + File.separatorChar + "data" + File.separatorChar + "ads.json";
     }
 
+    /**
+     * Reads ads from ads.json and adds them to a Map of ads
+     * @param ads Map of ads
+     */
     @Override
     public void loadAds(Map<String, Ad> ads) {
         JSONParser parser = new JSONParser();
@@ -72,6 +76,10 @@ public final class AdHandler implements IAdHandler {
         }
     }
 
+    /**
+     * Reads ads from a Map of ads and writes them to ads.json
+     * @param ads Map of ads
+     */
     @Override
     public void saveAds(Map<String, Ad> ads) {
         JSONArray jsonList = new JSONArray();
