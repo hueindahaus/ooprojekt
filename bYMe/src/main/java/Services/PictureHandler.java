@@ -40,7 +40,7 @@ public final class PictureHandler {
     }
 
     private String getProfilePictureFilePath(String username) {
-        return "src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "Services" + File.separatorChar + " profile_pics" + File.separatorChar + username + ".jpg";
+        return "src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "Services" + File.separatorChar + "profile_pics" + File.separatorChar + username + ".jpg";
     }
 
     private String getAdPicturePath(int index, String id) {

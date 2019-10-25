@@ -165,10 +165,10 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
     Label errorLabelRequest;
     @FXML
     private
-    Button buttonNextImage;
+    ImageView buttonNextImage;
     @FXML
     private
-    Button buttonPrevImage;
+    ImageView buttonPrevImage;
 
     private Timeline showPrompt;
 
