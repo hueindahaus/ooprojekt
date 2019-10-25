@@ -18,7 +18,12 @@ import java.util.*;
 
 
 /**
- *
+ *This class is the root for application.fxml, the main fxml-file.
+ *Main view controller
+ *Toggles between views
+ *Displays ads in a list and tags in a list
+ *Users can open sidepanel
+ *Users can search for ads
  *@author Alexander Huang, Joel Jönsson, Adam Jawad, Johan Gottlander & Milos Bastajic.
  *
  * Used by: TagItem

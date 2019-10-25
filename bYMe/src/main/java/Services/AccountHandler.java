@@ -13,6 +13,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * Read and writes to logins.json, responsible for storing Accounts
+ * When the application starts it reads from the json files and creates Account-objects with the parameters from the json-file
+ * When the application is closed it writes all Account-object's parameters to the json-file so that they can be created when the application is opened.
+ * @author Alexander Huang
+ *
+ * Uses: Account.
+ * Used by: MainController.
+ */
 public final class AccountHandler implements IAccountHandler {
     private static AccountHandler singleton = null;
 
@@ -31,7 +40,7 @@ public final class AccountHandler implements IAccountHandler {
 
     private String getLoginFilePath() {
         return "src" + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "Services" + File.separatorChar + "data" + File.separatorChar + "logins.json";
-    }   //För att denna path:en ska fungera måste man importa projektet som mappen "Byme"
+    }
 
 
     @Override

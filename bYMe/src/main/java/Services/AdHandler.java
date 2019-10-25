@@ -17,6 +17,16 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * Read and writes to ads.json, responsible for storing Ads
+ * When the application starts it reads from the json files and creates Ad-objects with the parameters from the json-file.
+ * Uses a RequestHandler to store requests in the correct ad.
+ * When the application is closed it writes all Ad-object's parameters to the json-file so that they can be created when the application is opened.
+ * @author Alexander Huang
+ *
+ * Uses: Ad, Request, RequestHandler.
+ * Used by: MainController.
+ */
 public final class AdHandler implements IAdHandler {
 
     private static AdHandler singleton;

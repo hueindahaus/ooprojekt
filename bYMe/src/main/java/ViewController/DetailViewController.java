@@ -28,6 +28,15 @@ import java.util.List;
 import static java.lang.Math.abs;
 
 
+/**
+ * This class is responsible for the FXML-file:detailView containing all of the fxml-elements needed for displaying an ad in detail view.
+ * In detail view a signed in user can send a request to the seller.
+ * The uploader of the ad can change or remove their ad.
+ * @author Joel Jönsson, Alexander Huang, Adam Jawad, Johan Gottlander, Milos Bastajic.
+ *
+ * Uses: Ad, Byme, PictureHandler, DetailViewToggler, PictureChangerController.
+ * Used by: MainController.
+ */
 public class DetailViewController extends AnchorPane implements ImageViewUpdater {
 
 
@@ -326,9 +335,13 @@ public class DetailViewController extends AnchorPane implements ImageViewUpdater
         sendRequestClosePrompt();
     }
 
+    /**
+     * Checks if ad has pictures and displays the the first picture.
+     * if not: sets image to default picture
+     */
     @Override
     public void updateImageView() {
-        if (pictureChanger.getImages().size() > 0) {
+        if (!pictureChanger.getImages().isEmpty()) {
             image1.setImage(pictureHandler.makeSquareImage(SwingFXUtils.toFXImage(pictureChanger.getImages().get(0), null)));
         } else {
             try {
