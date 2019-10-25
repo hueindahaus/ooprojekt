@@ -18,6 +18,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsible for the FXML-file:pictureChanger containing all of the fxml-elements needed to let the user add and change pictures on an ad.
+ * @author Alexander Huang.
+ *
+ * Uses: PictureHandler, ImageViewUpdater.
+ * Used by: AdCreatorController, DetailViewController.
+ */
 class PictureChangeController extends AnchorPane {
 
 

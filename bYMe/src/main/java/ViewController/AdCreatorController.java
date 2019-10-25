@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * This class is responsible for the FXML-file:createAdWindow containing all of the fxml-elements needed for creating a new ad item.
- * @author Joel Jönsson, Alexander Huang.
+ * @author Joel Jönsson, Alexander Huang, Adam Jawad, Johan Gottlander.
  *
  * Uses: AdItemsUpdater, PictureHandler, PictureChangeController, Byme.
  * Used by: MainController.

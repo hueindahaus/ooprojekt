@@ -16,12 +16,13 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * This class is responsible for the FXML-file:requests containing all of the fxml-elements needed to display a request.
  * This class is responsible for displaying and setting ratings on the sender(the buyer in this case) of the request.
  * The requests also have a specific color to match their current state, as an example does the "request item" in the
- * users request list turn green when they "Accept" a request from a buyer.
+ * users request turn green when they "Accept" a request from a buyer, a red request is "Declined" and a yellow one has been "Accepted and Completed".
  * @author Milos Bastajic, Joel Jönsson
  *
- * Uses: DetailViewToggler, Request, Byme.
+ * Uses: Request, Byme.
  * Used by: MenuController.
  */
 public class RequestItem extends AnchorPane {
@@ -77,7 +78,7 @@ public class RequestItem extends AnchorPane {
 
         this.request = request;
         reviewPane.setVisible(false);
-        requestAd.setText(request.getAd());
+        requestAd.setText(byme.getAdTitle(request.getAd()));
         requestMessage.setText(request.getMessage());
         requestSender.setText("From: " + request.getSender() + " (" + byme.getAccountRating(byme.getCurrentUsersUsername()) + ")");
         requestDate.setText(request.getDateString());

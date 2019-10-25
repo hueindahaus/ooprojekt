@@ -258,6 +258,10 @@ public final class Byme {
         return lastAdded.getAdId();
     }
 
+    public String getAdTitle(String adID) {
+        return ads.get(adID).getTitle();
+    }
+
     public double getAccountRatingCount(String username) {
         return accounts.get(username).getRatingCount();
     }
