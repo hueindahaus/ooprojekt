@@ -329,12 +329,15 @@ public final class Byme {
         return lastAdded.getAdId();
     }
 
+    /**
+     * Getter for an ads title.
+     * @param adID  The id of an ad.
+     * @return  Returns the title of an ad.
+     */
+
     public String getAdTitle(String adID) {
         return ads.get(adID).getTitle();
     }
 
-    public double getAccountRatingCount(String username) {
-        return accounts.get(username).getRatingCount();
-    }
 }
 
