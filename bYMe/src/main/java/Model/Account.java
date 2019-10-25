@@ -3,7 +3,10 @@ package Model;
 /**
  *This class is used to create Account objects for users. It has getters for its instance variables such as username, password,
  *rating and ratingCount and does also calculate the rating of an user.
- * @author
+ * @author Milos Bastajic, Alexander Huang
+ *
+ * Uses: -
+ * Used by: AccountHandler, Byme, IAccountHandler.
  */
 
 public class Account {
@@ -13,7 +16,7 @@ public class Account {
     private double ratingCount;
 
     /**
-     *
+     *Is used when logins.json is read to create all the accounts when the program starts.
      * @param username sets the accounts username.
      * @param password sets the accounts password.
      * @param rating sets the rating of an account.

@@ -8,6 +8,10 @@ import java.util.*;
  * (such as adding an ad to a hashmap, editing an ad, deleting an ad, creating an account etc). Is represented as a singleton.
  *
  * @Author Alexander Huang, Joel Jönsson, Johan Gottlander, Milos Bastajic, Adam Jawad
+ *
+ * Uses: IObserver, Account, IAccountHandler, IAdHandler
+ * Used by: AdCreatorController, Byme, DetailViewController, LoginController,
+ *          MainController, MenuController, RequestItem.
  */
 
 public final class Byme {
@@ -30,7 +34,8 @@ public final class Byme {
     }
 
     /**
-     * Singleton pattern offers a getInstance()-method which caps the amount that can be created to 1. Its a static and public method which can be accessed everywhere in the program.
+     * Singleton pattern offers a getInstance()-method which caps the amount that can be created to 1.
+     * Its a static and public method which can be accessed everywhere in the program.
      *
      * @param accountHandler is the one that handles saving/loading of accounts
      * @param adHandler      is the one that handles saving/loading of ads
@@ -103,7 +108,6 @@ public final class Byme {
         adHandler.saveAds(ads);
     }
 
-
     /**
      * This method enables the user to create an account.
      * The method adds the account into a hashmap.
@@ -122,23 +126,25 @@ public final class Byme {
         }
     }
 
-
     /**
-     * This method checks if an account
-     * has already been registered.
+     * Checks if a username is already taken.
      *
-     * @param username The username which either exist or not
-     * @return A boolean that returns true or false based on if an account with the given username exist.
+     * @param username The string value that will be checked if it is a username for an account or not.
+     * @return Returns a boolean that is true or false based on if an account with the given username exist.
      */
 
     public boolean isAlreadyRegistered(String username) {   //metod som kollar om ett användarnamn redan är registrerat eller ej
         return accounts.containsKey(username);
     }
 
+    /**
+     * Getter for the current username.
+     *
+     * @return Returns the username for the current user.
+     */
     public String getCurrentUsersUsername() {
         return currentUser.getUsername();
     }
-
 
     /**
      * Method used for logging in.
@@ -161,32 +167,43 @@ public final class Byme {
         }
     }
 
+    /**
+     * Is used to confirm if a users exist.
+     *
+     * @param username The username of the account.
+     * @param password The password of the account.
+     * @return Returns a boolean which is true or false based on if both the username and password exists or not.
+     */
+
     public boolean userExist(String username, String password) {
         return accounts.containsKey(username) && accounts.get(username).passwordMatches(password);
     }
+
+    /**
+     * Is used when a user signs out.
+     * Sets the current user to null and notifies observers.
+     */
 
     public void signoutUser() {
         currentUser = null;
         notifyObservers();
     }
 
+    /**
+     * Method which can add an observer to the list of observers.
+     *
+     * @param observer The object that will be added to the list of observers.
+     */
 
     public void addObserver(IObserver observer) {
         observers.add(observer);
     }
 
-    /**
-     * Used for notifying everything that is dependent
-     * on the model that something has changed in the model.
-     */
-
-
-    private void notifyObservers() {         //används för att uppdatera allt som är beroende av modellen när något i modellen ändras
+    private void notifyObservers() {
         for (IObserver observer : observers) {
             observer.update();
         }
     }
-
 
     private String generateRandomAdId() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -207,7 +224,6 @@ public final class Byme {
         return value;
     }
 
-
     /**
      * Method that creates an ad and puts it in the HashMap with ads.
      *
@@ -224,15 +240,39 @@ public final class Byme {
         addTagsToAd(adId, tags);
     }
 
+    /**
+     * Method which checks if a user is logged in nor not.
+     *
+     * @return Returns a boolean that is true or false based on if the
+     * user is logged in or not.
+     */
 
     public boolean isLoggedIn() {
         return currentUser != null;
     }
 
-    public void sendRequest(String sender, String receiver, Ad ad, String content, String date) throws ParseException {
-        ad.addRequest(new Request(sender, receiver, ad.getAdId(), content, date, RequestState.PENDING));
+    /**
+     * Method which is used when a user wants to send a request for an ad.
+     * A new request for that specific ad is created.
+     *
+     * @param sender   Username of the user that sends the request.
+     * @param receiver Username of the user that receives the request.
+     * @param ad       That ad that is requested.
+     * @param message  A message from the user that sends the request.
+     * @param date     The date of when the sender wants to use the service of the ad.
+     * @throws ParseException
+     */
+
+    public void sendRequest(String sender, String receiver, Ad ad, String message, String date) throws ParseException {
+        ad.addRequest(new Request(sender, receiver, ad.getAdId(), message, date, RequestState.PENDING));
         notifyObservers();
     }
+
+    /**
+     * Used to remove a request from the lis of requests.
+     *
+     * @param request The request that will be removed.
+     */
 
     public void removeRequest(Request request) {
         Ad currentAd = ads.get(request.getAd());
@@ -242,13 +282,44 @@ public final class Byme {
         notifyObservers();
     }
 
+    /**
+     * Is used when an account should be reviewed/rated.
+     *
+     * @param username The username of the account the will be rated.
+     * @param rating   The rating that will be added to the accounts total rating.
+     */
+
     public void reviewAccount(String username, int rating) {
         accounts.get(username).addRating(rating);
     }
 
+    /**
+     * Getter for the rating of an acount.
+     *
+     * @param username The username of the account.
+     * @return Returns the average rating of the account.
+     */
+
     public double getAccountRating(String username) {
         return accounts.get(username).getAverageRating();
     }
+
+    /**
+     * Getter for the rating count of an account.
+     *
+     * @param username The username of the account.
+     * @return Returns an Integer which represents the total count of ratings for an account.
+     */
+
+    public double getAccountRatingCount(String username) {
+        return accounts.get(username).getRatingCount();
+    }
+
+    /**
+     * Getter which is used to get the last added id for an Ad.
+     *
+     * @return Returns the id of the ad that was last added.
+     */
 
     public String getLastAddedAdId() {
         Ad lastAdded = null;
@@ -257,8 +328,5 @@ public final class Byme {
         }
         return lastAdded.getAdId();
     }
-
-    public double getAccountRatingCount(String username) {
-        return accounts.get(username).getRatingCount();
-    }
 }
+

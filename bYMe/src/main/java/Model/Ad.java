@@ -7,7 +7,11 @@ import java.util.List;
 /**
  * A class that creates and handles Ad objects which the whole application circles around. It has many attributes such as
  * adId, account, title, price etc. It also has two ArrayLists of type String which holds the tags and requests of an ad.
- * @author
+ * @author Johan Gottlander, Milos Bastajic
+ *
+ * Uses: -
+ * Used by: AdHandler, AdItem, Byme, DetailViewController, DetailViewToggler, IAdHandler,
+ *          MainController, MenuController, Search.
  */
 
 
